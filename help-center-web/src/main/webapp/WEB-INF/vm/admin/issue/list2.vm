@@ -1,0 +1,118 @@
+<script type="text/javascript" src="/static/js/DatePicker/WdatePicker.js"></script>
+<div class="container-fluid">
+    <div class="dialog modal fade"
+         style="width: 500px;height: 600px;position: fixed;left: 50%;top: 45%;transform: translate(-50%, -50%);background: #fff;border: 1px solid #ccc;display: none">
+        <!-- 用来查询数据 -->
+        <form id="knowledgeForm" class="form-inline" role="form" method="post"
+              action="knowledge/knowledge_list1.action">
+            <input type="hidden" id="label" name="label">
+            <input type="hidden" id="knowledgeId" name="knowledgeId">
+            <div class="form-group">
+                知识标题：
+                <input type="text" class="form-control" value="$!knowledgeQuery.name" name="knowledgeQuery.name"
+                       placeholder="知识标题">
+                知识id：
+                <input type="text" class="form-control" value="$!knowledgeQuery.id" name="knowledgeQuery.id"
+                       placeholder="知识id">
+                知识类型：
+                <select id="knowledgeQuery.type">
+                    <option value="1" #if($!knowledgeQuery.type == 1) selected #end>常见问题</option>
+                    <option value="2" #if($!knowledgeQuery.type == 2) selected #end>平台规则</option>
+                    <option value="3" #if($!knowledgeQuery.type == 3) selected #end>操作指南</option>
+                    <option value="4" #if($!knowledgeQuery.type == 4) selected #end>官方视频</option>
+                </select>
+            </div>
+        </form>
+
+    ##列表
+        <div class="row table-responsive m_t_10">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>知识ID</th>
+                    <th>知识标题</th>
+                    <th>知识类型</th>
+                    <th>知识标签</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    #if($!knowledgeList && $!knowledgeList.size() > 0)
+                        #set($count = 0)
+                        #foreach($knowledge in $knowledgeList)
+                        <tr>
+                            <td>$!knowledge.id</td>
+                            <td>$!knowledge.name</td>
+                            <td>
+                                #if($!knowledge.contentType == 0) 0
+                                #elseif($!knowledge.contentType == 1) 1
+                                #elseif($!knowledge.contentType == 2) 2
+                                #elseif($!knowledge.contentType == 3) 3
+                                #elseif($!knowledge.contentType == 4) 4
+                                #end
+                            </td>
+                            <td>$!knowledge.label2Names</td>
+                            <td>$!dateFormatUtils.format($!issue.created)</td>
+                            <td>
+                                <input type="button" class="btn-info btn-sm" value="替换">
+                                <input type="button" class="btn-warning btn-sm" value="删除">
+                            </td>
+                        </tr>
+                            #set($count = $count+1)
+                        #end
+                    #else
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <span>没有关联知识</span>
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+## 提示框
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <a href="" role="button" class="btn btn-primary btn-do-update-status"></a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $("#search").click(function () {
+        var siteId = $("#siteId").val();
+        if (siteId == null) {
+            siteId = 8
+        }
+        var checkIdDocument = $("#checkId");
+        var checkId = checkIdDocument.val();
+        if (checkId.trim() != '') {
+            var reg = /^\+?[1-9][0-9]*$/;
+            if (!reg.test(checkId.trim())) {
+                var wrongSpan = document.getElementById("wrongId");
+                wrongSpan.style.cssText = "color: #e15f63; overflow: hidden; *zoom: 1";
+                return;
+            }
+        }
+        $("#issueForm").attr("action", "issue_list.action?siteId=" + siteId);
+        $("#issueForm").submit();
+    });
+
+</script>

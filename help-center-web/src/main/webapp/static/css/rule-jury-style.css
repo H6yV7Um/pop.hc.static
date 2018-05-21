@@ -1,0 +1,245 @@
+body{
+    background-color: #ffffff;
+}
+.rule{
+    width: 1366px;
+    margin: 0 auto;
+}
+.ml40{
+    margin-left: 40px;
+}
+.mt35{
+    margin-top: 35px;
+}
+.mr50{
+    margin-right: 50px;
+}
+.mt40{
+    margin-top: 40px;
+}
+.mr40{
+    margin-right: 40px;
+}
+.fs8{
+    font-size: 8px;
+}
+.fs10{
+    font-size: 10px;
+}
+.fs20{
+    font-size: 20px;
+}
+.fs22{
+    font-size: 22px;
+}
+.wb-gray3{
+    color: #c3c3c3;
+}
+.header{
+    height: 43px;
+    width: 1266px;
+    background-color: #e43b3d;
+    padding-left: 50px;
+    padding-right: 50px;
+    line-height: 43px;
+    font-size: 16px;
+}
+.header a{
+    color: white;
+}
+.content{
+    padding: 0px 80px 50px 80px;
+}
+/*左侧*/
+.ruleReviewDetail{
+    width: 898px;
+    padding: 25px 20px 20px 20px;
+    float: left;
+    border: 1px solid #c9c9c9;
+    background-color: #ffffff;
+}
+.detailTitle{
+    padding-bottom: 22px;
+    border-bottom: 1px solid #dadada;
+}
+.detailWords{
+    font-size: 16px;
+    line-height: 30px;
+    color: #959595;
+}
+.detail{
+    font-size: 16px;
+    color: #959595;
+}
+.suggest{
+    width: 868px;
+    height: 78px;
+    border: 1px solid #e1e1e1;
+    padding: 15px 20px;
+    font-size: 16px;
+}
+.suggest::-webkit-input-placeholder{
+    color: #c9c9c9;
+    font-size: 16px;
+}
+.suggest::-moz-placeholder{
+    color: #c9c9c9;
+    font-size: 16px;
+}
+.submitBtn{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+/*右侧*/
+.ruleReviewStatus{
+    width: 238px;
+    float: right;
+    border: 1px solid #c9c9c9;
+    background-color: #ffffff;
+}
+.reviewImg{
+    height: 180px;
+    background-color: #bfbfbf;
+}
+.status{
+    width: 216px;
+    margin: 13px 10px 0 10px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #dadada;
+}
+.small-font{
+    font-size:12px;
+    -webkit-transform-origin-x: 0;
+    -webkit-transform: scale(0.90);
+}
+.smaller-font{
+    font-size:10px;
+    -webkit-transform-origin-x: 0;
+    -webkit-transform: scale(0.80);
+}
+.reviewTime{
+    color: #d22;
+    margin-top: 5px;
+    width: 240px;
+}
+.agree{
+    height: 26px;
+    color: white;
+    line-height: 26px;
+    text-align: center;
+    float: left;
+}
+.progress{
+    width: 80px;
+    height: 6px;
+    background-color: #c9c9c9;
+    display: inline-block;
+    position: relative;
+}
+.progressing{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 6px;
+    background-color: #f44336;
+    width: 40px;
+}
+.refuseDiv{
+    width: 288px;
+    background-color: #ff7356;
+}
+.decideDiv{
+    width: 144px;
+    background-color: #ffcc4a;
+}
+.passDiv{
+    width: 287px;
+    background-color: #30dfb3;
+}
+.refuseNum{
+    width: 255px;
+    color: #b6b6b6;
+    float: left;
+}
+.decideNum{
+    width: 145px;
+    color: #ff7356;
+    float: left;
+}
+.passHalfNum{
+    width: 235px;
+    color: #ffcc4a;
+    float: left;
+}
+.passNum{
+    color: #30dfb3;
+    float: left;
+}
+/*list*/
+.contentList{
+    padding: 30px 80px;
+    width: 1190px;
+}
+.nav-box {
+    float: left;
+}
+.nav-box .on {
+    border-bottom: 2px solid #f44336;
+    font-weight: 700;
+}
+.nav-box .item-nav {
+    float: left;
+    height: 45px;
+    font: 16px/45px "microsoft yahei";
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.nav-box .item-nav a{
+    color: #313131;
+}
+.nav-whole{
+    border-bottom: 1px solid #e1e1e1;
+}
+.item-rule{
+    width: 285px;
+    height: 318px;
+    border: 1px solid #c9c9c9;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
+}
+.title{
+    width: 257px;
+    height: 44px;
+    line-height: 1.5;
+    border-bottom: 1px solid #dadada;
+    margin: 10px 15px 0 15px;
+    color: #454545;
+}
+.result{
+    height: 45px;
+    line-height: 45px;
+}
+.search{
+    width: 255px;
+    height: 33px;
+    border: 1px solid #e1e1e1;
+    position: relative;
+    line-height: 33px;
+    float: right;
+    background-color: #ffffff;
+}
+.search-icon{
+    position: absolute;
+    right: 10px;
+    top: 9px;
+}
+.searchText{
+    height: 31px;
+    width: 245px;
+    padding-left: 10px;
+}
+.m-t-5{
+    margin-top: 5px;
+}

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="IssueSuggest">
+    <typeAlias alias="IssueSuggest" type="com.jd.help.domain.IssueSuggest"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+    <typeAlias alias="IssueSuggestQuery" type="com.jd.help.domain.IssueSuggestQuery"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="IssueSuggest">
+        <result property="id" column="id"/>
+        <result property="issueId" column="issue_id"/>
+        <result property="rFid" column="rfid"/>
+        <result property="solveStatus" column="solve_status"/>
+        <result property="suggestStatus" column="suggest_status"/>
+        <result property="unSolveReason" column="unsolve_reason"/>
+        <result property="suggestContent" column="suggest_content"/>
+        <result property="status" column="status"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+     <!--所有字段-->
+    <sql id="allColumns">ID, ISSUE_ID, RFID, SOLVE_STATUS, SUGGEST_STATUS, UNSOLVE_REASON, SUGGEST_CONTENT, STATUS, CREATOR, MODIFIER, CREATED, MODIFIED</sql>
+    <!--所有属性字段-->
+    <sql id="allPro"> null,#issueId#, #rFid#, #solveStatus#, #suggestStatus#,#unSolveReason#, #suggestContent#, #status#, #creator#, #modifier#, now(), now()</sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #issueId#
+            </isNotNull>
+            <isNotNull property="rFid" prepend="AND" removeFirstPrepend="true">
+                rfid = #rFid#
+            </isNotNull>
+            <isNotNull property="solveStatus" prepend="AND" removeFirstPrepend="true">
+                solve_status = #solveStatus#
+            </isNotNull>
+            <isNotNull property="suggestStatus" prepend="AND" removeFirstPrepend="true">
+                suggest_status = #suggestStatus#
+            </isNotNull>
+            <isNotNull property="unSolveReason" prepend="AND" removeFirstPrepend="true">
+                unsolve_reason = #unSolveReason#
+            </isNotNull>
+            <isNotNull property="suggestContent" prepend="AND" removeFirstPrepend="true">
+                suggest_content = #suggestContent#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="creator" prepend="AND" removeFirstPrepend="true">
+                creator = #creator#
+            </isNotNull>
+            <isNotNull property="modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #modifier#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #model.issueId#
+            </isNotNull>
+            <isNotNull property="model.rFid" prepend="AND" removeFirstPrepend="true">
+                rfid = #model.rFid#
+            </isNotNull>
+            <isNotNull property="model.solveStatus" prepend="AND" removeFirstPrepend="true">
+                solve_status = #model.solveStatus#
+            </isNotNull>
+            <isNotNull property="model.suggestStatus" prepend="AND" removeFirstPrepend="true">
+                suggest_status = #model.suggestStatus#
+            </isNotNull>
+            <isNotNull property="model.unSolveReason" prepend="AND" removeFirstPrepend="true">
+                unsolve_reason = #model.unSolveReason#
+            </isNotNull>
+            <isNotNull property="model.suggestContent" prepend="AND" removeFirstPrepend="true">
+                suggest_content = #model.suggestContent#
+            </isNotNull>
+            <isNotNull property="model.creator" prepend="AND" removeFirstPrepend="true">
+                creator = #model.creator#
+            </isNotNull>
+            <isNotNull property="model.modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #model.modifier#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <sql id="conditionForCount">
+        <dynamic>
+            <isNotNull property="issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #issueId#
+            </isNotNull>
+            <isNotNull property="solveStatus" prepend="AND" removeFirstPrepend="true">
+                solve_status = #solveStatus#
+            </isNotNull>
+            <isNotNull property="suggestStatus" prepend="AND" removeFirstPrepend="true">
+                suggest_status = #suggestStatus#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="beginTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created >= #beginTime# ]]>
+            </isNotNull>
+            <isNotNull property="endTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created <= #endTime# ]]>
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <insert timeout="5"    id="insert" parameterClass="IssueSuggest">
+        INSERT INTO help_issue_suggest 
+        (<include refid="allColumns"/>)
+        VALUES (<include refid="allPro"/>)
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <update  timeout="5"   id="update" parameterClass="IssueSuggest">
+        UPDATE help_issue_suggest
+        <dynamic prepend="SET">
+            <isNotNull property="solveStatus" prepend="," removeFirstPrepend="true">
+                solve_status = #solveStatus#
+            </isNotNull>
+            <isNotNull property="suggestStatus" prepend="," removeFirstPrepend="true">
+                suggest_status = #suggestStatus#
+            </isNotNull>
+            <isNotNull property="unSolveReason" prepend="," removeFirstPrepend="true">
+                unsolve_reason = #unSolveReason#
+            </isNotNull>
+            <isNotNull property="suggestContent" prepend="," removeFirstPrepend="true">
+                suggest_content = #suggestContent#
+            </isNotNull>
+            ,modifier = #modifier#, modified = now()
+        </dynamic>
+        WHERE id = #id#
+    </update>
+
+    <select  timeout="5"   id="queryObject" parameterClass="int" resultMap="defaultResultMap">
+        SELECT <include refid="allColumns"/>
+        FROM help_issue_suggest
+        WHERE id = #id#
+    </select>
+
+    <select  timeout="5"   id="queryList" parameterClass="Page" resultMap="defaultResultMap">
+        SELECT <include refid="allColumns"/>
+        FROM help_issue_suggest
+        WHERE status = 1
+        <include refid="conditionForPage"/>
+        LIMIT #startRow#,#endRow#
+    </select>
+
+    <select  timeout="5"   id="queryAllNumber" parameterClass="int" resultClass="long">
+        SELECT count(id)
+        FROM help_issue_suggest
+        WHERE status = 1 AND issue_id = #issueId#
+    </select>
+
+    <select  timeout="5"   id="queryOne" parameterClass="IssueSuggest" resultMap="defaultResultMap">
+        SELECT <include refid="allColumns"/>
+        FROM help_issue_suggest
+        WHERE status = 1
+        AND issue_id = #issueId#
+        AND rfid = #rFid#
+    </select>
+    <sql id="conditionForPage2">
+        <dynamic>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.solveStatus" prepend="AND" removeFirstPrepend="true">
+                solve_status = #model.solveStatus#
+            </isNotNull>
+            <isNotNull property="model.suggestStatus" prepend="AND" removeFirstPrepend="true">
+                suggest_status = #model.suggestStatus#
+            </isNotNull>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #model.issueId#
+            </isNotNull>
+            <isNotNull property="model.beginTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created >= #model.beginTime# ]]>
+            </isNotNull>
+            <isNotNull property="model.endTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created <= #model.endTime# ]]>
+            </isNotNull>
+        </dynamic>
+    </sql>
+    <select  timeout="5"   id="queryIssueSolveCount" parameterClass="IssueSuggestQuery" resultClass="java.lang.Integer">
+        SELECT count(id) as amount
+        FROM help_issue_suggest
+        WHERE  1=1 
+        <include refid="conditionForCount"/>
+    </select>
+    
+    <select  timeout="5"   id="queryIssueUnSolveList" parameterClass="Page" resultMap="defaultResultMap">
+        SELECT <include refid="allColumns"/>
+        FROM help_issue_suggest
+        where 1 =1
+        <include refid="conditionForPage2"/>
+        order by created desc 
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+
+
+</sqlMap>

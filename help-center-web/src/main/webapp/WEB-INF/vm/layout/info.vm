@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<script type="text/javascript" src="//misc.360buyimg.com/lib/js/e/jquery-1.2.6.pack.js"></script>
+#if($topicId!=0)
+    #set($title =$!stringEscapeUtils.escapeHtml($helpTopic.getName()))
+#end
+<title>#if($title)$title&#45;帮助中心-京东商城#else 商城前台帮助中心-京东商城#end</title>
+<script type="text/javascript">
+window.pageConfig={
+	compatible:false
+};
+</script>
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+$!mongoVelocityTools.getHead("head_info")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+        #set($tailhtml=".html")
+		<!--[if !ie]>right 开始<![endif]-->
+		<div class="right" id="top">
+				<!--[if !ie]>内容 开始<![endif]-->
+                    #if(!$!questions.empty)
+                        #foreach($question in $!questions)
+                            <div class="help_box">$!question.getAnswer()</div>
+                        #end
+
+                    #end
+				<!--[if !ie]>内容 结束<![endif]-->
+				<!--[if !ie]>help_tips 开始<![endif]-->
+				<!--[if !ie]>help_tips 结束<![endif]-->
+		</div>
+		<!--[if !ie]>right 结束<![endif]-->
+		<div class="clr"></div>
+</div>
+
+<!--[if !ie]>Main 结束<![endif]-->
+</body>
+
+</html>

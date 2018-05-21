@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HotWord">
+    <typeAlias alias="HotWord" type="com.jd.help.domain.HotWord"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="HotWord">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="status" column="status"/>
+        <result property="link" column="link"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , name , sort_order , status , link , created , modified </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                name = #name#
+            </isNotNull>
+            <isNotNull property="sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #sortOrder#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="link" prepend="AND" removeFirstPrepend="true">
+                link = #link#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.name" prepend="AND" removeFirstPrepend="true">
+                name = #model.name#
+            </isNotNull>
+            <isNotNull property="model.sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #model.sortOrder#
+            </isNotNull>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.link" prepend="AND" removeFirstPrepend="true">
+                link = #model.link#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="HotWord">
+        INSERT INTO help_hot_word (<include refid="allColumns"/>)
+        VALUES (null , #name# , #sortOrder# , #status# , #link# , #created# , #modified# )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="HotWord">
+        UPDATE help_hot_word
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="HotWord">
+		UPDATE help_hot_word
+		SET
+            id = #id# , 
+            name = #name# , 
+            sort_order = #sortOrder# , 
+            status = #status# , 
+            link = #link# , 
+            created = #created# , 
+            modified = #modified# 
+        WHERE
+            id = #id#
+	</update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="HotWord" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_hot_word
+        WHERE
+        id = #id#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="HotWord">
+        SELECT count(id)
+        FROM
+        help_hot_word
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_hot_word
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        ORDER BY id DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+</sqlMap>

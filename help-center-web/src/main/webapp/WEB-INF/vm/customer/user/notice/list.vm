@@ -1,0 +1,30 @@
+#set($layout="customer/user/default.vm") 
+#set($navId="noticeList")
+
+<div class="bg-fff">
+  <div class="w main">
+    <div class="gg-box">
+        <h3 class="gg-tit mgt-20">¹«¸æ</h3>
+		<div class="gg-list">
+			#foreach($notice in $!noticeList)
+			<dl>
+                <dt><a target="_blank"
+                       href="$venderHelpCenterModule.getTarget("/$!siteEnName/notice/detail-$!{notice.id}.html")">
+					$!notice.name</a></dt>
+				<dd>$dateFormatUtils.format($!notice.modified,"yyyy-MM-dd HH:mm:ss")</dd>
+			</dl>
+			#end
+				
+		</div>
+    </div>
+        #if($!noticeList.totalItem > 5)
+           <div id="bottom_pager" class="m clearfix">
+           	<div class="pagin fr">
+			  #set($pageModule = $venderHelpCenterModule.getTarget("/$!siteEnName/notice/list.html"))
+		     #showUserPage($pageModule $!noticeList)
+		     </div>
+			</div>
+        #end
+
+  </div>
+</div>

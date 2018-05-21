@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.jd.help</groupId>
+        <artifactId>center</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>com.jd.help.center</groupId>
+    <artifactId>help-center-web</artifactId>
+    <packaging>war</packaging>
+    <name>help-center web</name>
+    <url>http://pop.360buy.com</url>
+    <properties>
+        <cxf.version>2.5.2</cxf.version>
+        <saf.version>1.0.8.1</saf.version>
+    </properties>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>2.3.16.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-fileupload</groupId>
+                    <artifactId>commons-fileupload</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>velocity-tools</groupId>
+            <artifactId>velocity-tools</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.8.0.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
+            <version>2.3.16.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-json-plugin</artifactId>
+            <version>2.3.16.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.jd.common</groupId>
+            <artifactId>jd-common-struts</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jd.help.center</groupId>
+            <artifactId>help-center-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jd.common</groupId>
+            <artifactId>jd-common-hrm</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-rm</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-addr</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-policy</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-common-utilities</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <!-- 头尾系统 -->
+        <dependency>
+            <groupId>com.jd</groupId>
+            <artifactId>header-receiver</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jd.pop.component</groupId>
+            <artifactId>pop-component-public</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.htmlparser</groupId>
+            <artifactId>htmlparser</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jd.pop.vender</groupId>
+            <artifactId>pop-vender-usercenter-service</artifactId>
+            <version>1.9.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsf</artifactId>
+                    <groupId>com.jd</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>quartz</artifactId>
+                    <groupId>org.opensymphony.quartz</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.jd.common</groupId>
+                    <artifactId>jd-common-struts</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.jd.common</groupId>
+                    <artifactId>jd-common-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.jd.ump</groupId>
+                    <artifactId>profiler</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jd.cdsec</groupId>
+            <artifactId>jdcd-security-filter-mini</artifactId>
+            <version>0.1.8</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>net.bull.javamelody</groupId>-->
+            <!--<artifactId>javamelody-core</artifactId>-->
+            <!--<version>1.63.0</version>-->
+        <!--</dependency>-->
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>*.properties</exclude>
+                    <exclude>*/*.properties</exclude>
+                    <exclude>*.xml</exclude>
+                    <exclude>*/*.xml</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>GBK</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archiveClasses>true</archiveClasses>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <encoding>gbk</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>development</id>
+            <properties>
+                <!-- 开始 第一部分: 私密key配置，发布时需要运维配置，在product profile中去掉 -->
+                <!--hrm 认证webservice的验证字-->
+                <help-center.hrm.ws.content></help-center.hrm.ws.content>
+                <!--hrm认证webservice的验证种子-->
+                <help-center.hrm.ws.seed></help-center.hrm.ws.seed>
+                <!--hrm dotnet 登录框架cookie解密密钥-->
+                <help-center.hrm.login.auth.key>8B6697227CBCA902B1A0925D40FAA00B353F2DF4359D2099
+                </help-center.hrm.login.auth.key>
+                <!--加密cookie的密钥-->
+                <help-center.cookie.key>xLyhSVcQGix62o+t2fjZyx+bC+zQZCl2</help-center.cookie.key>
+                <!-- 结束 第一部分: 私密key配置，发布时需要运维配置，在product profile中去掉 -->
+
+
+                <!-- 开始 第二部分: 数据库配置，发布时需运维配置JNDI -->
+                <!--数据库连接的方式-->
+                <help-center.jdbc.datasource.type>dbcp</help-center.jdbc.datasource.type>
+
+                <help-center.mysql.url>jdbc:mysql://192.168.195.161:3306/help_center</help-center.mysql.url>
+                <help-center.mysql.username>admin</help-center.mysql.username>
+                <help-center.mysql.password>admin</help-center.mysql.password>
+
+                <help-center.mongo.host>192.168.147.137</help-center.mongo.host>
+                <help-center.mongo.port>50184</help-center.mongo.port>
+                <help-center.mongo.username>popcommonwriter</help-center.mongo.username>
+                <help-center.mongo.password>123456</help-center.mongo.password>
+
+                <!-- 特色服务根据TypeId获取服务内容 -->
+                <dispatch-service.jdbc.url>jdbc:sqlserver://10.10.224.124:1433;DatabaseName=ordersubmit
+                </dispatch-service.jdbc.url>
+                <dispatch-service.jdbc.username>write</dispatch-service.jdbc.username>
+                <dispatch-service.jdbc.password>1q2w3e4r</dispatch-service.jdbc.password>
+                <dispatch-service.jdbc.maxActive>10</dispatch-service.jdbc.maxActive>
+                <dispatch-service.jdbc.validationQuery>select 1</dispatch-service.jdbc.validationQuery>
+
+                <!-- 自提、京配 -->
+                <dict-service.jdbc.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</dict-service.jdbc.driver>
+                <dict-service.jdbc.url>jdbc:sqlserver://10.10.224.124:1433;DatabaseName=jd2008</dict-service.jdbc.url>
+                <dict-service.jdbc.username>write</dict-service.jdbc.username>
+                <dict-service.jdbc.password>1q2w3e4r</dict-service.jdbc.password>
+                <dict-service.jdbc.maxActive>10</dict-service.jdbc.maxActive>
+                <dict-service.jdbc.validationQuery>select 1</dict-service.jdbc.validationQuery>
+
+                <!-- 结束 第二部分: 数据库配置，发布时需运维配置JNDI -->
+
+
+                <!-- 开始 第三部分: 缓存等服务资源，发布时需找运维确定 -->
+                <!-- 结束 第三部分: 缓存等服务资源，发布时需找运维确定 -->
+
+
+                <!-- 开始 第四部分: 服务器配置，发布时需找运维确定 -->
+                <!--日志记录的级别-->
+                <help-center.log.level>INFO</help-center.log.level>
+                <!--日志记录的地方-->
+                <help-center.log.path>d:/logs</help-center.log.path>
+                <help-center.vmcommon.path>D:\pop\vm-common</help-center.vmcommon.path>
+                <!--上传文件保存的基本位置-->
+                <help-center.upload.prefix>/cdnhome</help-center.upload.prefix>
+                <help-center.upload.path>uploads/help</help-center.upload.path>
+
+                <!-- img30 图片地址 -->
+                <help-center.imgserver30.domain.name>img30.360buyimg.com</help-center.imgserver30.domain.name>
+                <!-- 图片上传业务码 -->
+                <help-center.image.key>d3a313cb0d444049260ab6c0a6535f3c</help-center.image.key>
+                <!-- 特色服务本地XML文件存储路径 -->
+                <dispatch.service.xmlfile.location>/export/data/servicexml/</dispatch.service.xmlfile.location>
+                <!-- 特色服务使用的三级地址数据文件-定时更新 -->
+                <dispatch.service.xmlfile.areaXmlFileName>areainfo.xml</dispatch.service.xmlfile.areaXmlFileName>
+                <!-- 特色服务描述内容数据文件 -->
+                <dispatch.service.xmlfile.noteXmlFileName>servicenote.xml</dispatch.service.xmlfile.noteXmlFileName>
+                <!-- 结束 第四部分: 服务器配置，发布时需找运维确定 -->
+                <!-- 结束 第四部分: 服务器配置，发布时需找运维确定 -->
+
+
+                <!-- 开始 第五部分: 依赖的外部接口，发布时需找接口人确定 -->
+                <!--restful service -->
+                <help-center.restful.server.seed>123</help-center.restful.server.seed>
+                <help-center.restful.server.content>321</help-center.restful.server.content>
+
+                <user.tag.service.url>http://csmstest.jd.com/rest/service/customerinfo/customerQuery
+                </user.tag.service.url>
+                <help-center.order.jsf.group>orderSdkService_jsf</help-center.order.jsf.group>
+                <!-- 结束 第五部分: 依赖的外部接口，发布时需找接口人确定 -->
+
+
+                <!-- 开始 第六部分: 提供给别人的接口，发布时需通知调用人 -->
+
+                <!-- 结束 第六部分: 提供给别人的接口，发布时需通知调用人 -->
+
+
+                <!-- 开始 第七部分: 开发设置 -->
+
+                <!-- 新版登录配置：登录接ssa -->
+                <!--helpcenter man端域名-->
+                <help-center.domain.name>helpcenter.jd.com</help-center.domain.name>
+                <!--erp登录地址-->
+                <help-center.login.address>http://${help-center.login.domain.name}/sso/login</help-center.login.address>
+                <!--erp登录域名-->
+                <help-center.login.domain.name>test.ssa.jd.com</help-center.login.domain.name>
+                <!--erp写的登录cookie的名称-->
+                <help-center.hrm.auth.cookie.name>erp1.jd.com</help-center.hrm.auth.cookie.name>
+                <!--erp cookie的domain-->
+                <help-center.hrm.auth.cookie.domain>.jd.com</help-center.hrm.auth.cookie.domain>
+                <!--帮助中心管理 端域名-->
+                <help.admin.domain.name>helpcenter.jd.com</help.admin.domain.name>
+                <!-- 本地tomcat调试 -->
+                <!--<help.admin.domain.name>helpcenter.jd.com:8080</help.admin.domain.name>-->
+
+                <!-- 老版登录配置 -->
+                <!--helpcenter man端域名-->
+                <!--<help-center.domain.name>hc.man.jd.net</help-center.domain.name>-->
+                <!--erp登录地址-->
+                <!--<help-center.login.address>http://${help-center.login.domain.name}/newHrm/Verify.aspx-->
+                <!--</help-center.login.address>-->
+                <!--erp登录域名-->
+                <!--<help-center.login.domain.name>erp1.jd.net</help-center.login.domain.name>-->
+                <!--erp写的登录cookie的名称-->
+                <!--<help-center.hrm.auth.cookie.name>erp1.jd.net</help-center.hrm.auth.cookie.name>-->
+                <!--erp cookie的domain-->
+                <!--<help-center.hrm.auth.cookie.domain>.jd.net</help-center.hrm.auth.cookie.domain>-->
+                <!--帮助中心管理 端域名-->
+                <!--<help.admin.domain.name>hc.man.jd.net</help.admin.domain.name>-->
+
+
+                <!--记录用户登录信息的cookie名称-->
+                <help-center.login.cookie.name>_admin_</help-center.login.cookie.name>
+                <!--cookie的作用域-->
+                <help-center.cookie.domain>${help-center.domain.name}</help-center.cookie.domain>
+                <!--写入cookie的session过期时间，单位：秒-->
+                <help-center.session.timeout>180000</help-center.session.timeout>
+
+                <!--helpcenter vender端域名-->
+                <help-center.vender.domain.name>helpcenter.jd.com</help-center.vender.domain.name>
+                <!-- 规则平台域名 -->
+                <rule.vender.domain.name>helpcenter.jd.com</rule.vender.domain.name>
+
+                <!--helpcenter 帮助搜索中搜索组请求路径或域名-->
+                <help-center.search.domain.name>http://192.168.200.231:20032/</help-center.search.domain.name>
+
+                <!--样式，js的域名-->
+                <help-center.asset.domain.name>misc.360buyimg.net</help-center.asset.domain.name>
+                <help-center.static.asset.domain.name>static.360buyimg.net</help-center.static.asset.domain.name>
+                <!--需要跳转的-->
+                <help-center.order.domain.name>erp1.jd.com</help-center.order.domain.name>
+
+                <!--hrm权限认证web service地址-->
+                <help-center.hrm.auth.address>
+                    http://${help-center.hrm.auth.domain}/Jd.Hrm.WebServer/DeptWebService.asmx
+                </help-center.hrm.auth.address>
+                <!--erp cookie认证的webservice的域名-->
+                <help-center.hrm.auth.domain>erp1.jd.com</help-center.hrm.auth.domain>
+                <!--可选配置，不需要登录可以访问的路径,以这个路径开头的地址不拦截，多个路径以逗号分割-->
+                <sso.exclude.path>/issue,/help/front,/search,/front</sso.exclude.path>
+                <!--自提页GIS地图访问地址-->
+                <help.gis.url>http://gis.360buy.com/gis/site.shtml</help.gis.url>
+
+                <!--UIM中注册的app_key-->
+                <uim.key>260b8d665e81494e85ff6d79af712291</uim.key>
+                <!--UIM中注册的token-->
+                <uim.token>cbd5559d1a7e4825b123ca5258040a9d</uim.token>
+                <!--测试环境uim的接口地址-->
+                <uim.url>http://test.uim.jd.com/opaauth/router/rest</uim.url>
+                <!-- 开始 第七部分: 开发设置 -->
+
+
+                <!-- 开始 第八部分: 开发框架配置，发布人修改 -->
+                <!--struts的运行模式。生产环境要改为false-->
+                <help-center.struts.devMode>true</help-center.struts.devMode>
+                <!--velocity的宏是否重新载入。生产环境要改为false-->
+                <help-center.velocity.macro.autoreload>true</help-center.velocity.macro.autoreload>
+                <!--velocity是否缓存-->
+                <help-center.velocity.cache>true</help-center.velocity.cache>
+                <!--velocity模板缓存时间-->
+                <help-center.velocity.cache.time>10</help-center.velocity.cache.time>
+
+                <!--jmq-->
+                <jmq.address>192.168.179.67:50088</jmq.address>
+                <jmq.user>helpCenter</jmq.user>
+                <jmq.password>788DA260</jmq.password>
+                <jmq.producer.app>helpCenter</jmq.producer.app>
+                <jmq.epoll>false</jmq.epoll>
+                <jmq.sendTimeout>10000</jmq.sendTimeout>
+                <jmq.connectionTimeout>10000</jmq.connectionTimeout>
+                <jmq.soTimeout>10000</jmq.soTimeout>
+                <message.jmq.distribute.open>true</message.jmq.distribute.open>
+                <message.jmq.send.open>true</message.jmq.send.open>
+
+                <!-- 结束 第八部分: 开发框架配置，发布人修改 -->
+                <solr.url>http://192.168.108.248:8080/help-search</solr.url>
+                <help.customer.home.url>http://help.jd.com/</help.customer.home.url>
+                <help.customer.login.url>http://passport.jd.com/new/login.aspx</help.customer.login.url>
+                <help.vender.logout.url>http://passport.jd.com/uc/login?ltype=logout</help.vender.logout.url>
+                <help.vender.home.url>http://help.jd.com/venderportal/index.html</help.vender.home.url>
+                <passport.checkLogin.authenticationKey>8B6697227CBCA902B1A0925D40FAA00B353F2DF4359D2099
+                </passport.checkLogin.authenticationKey>
+                <passport.checkLogin.cookieName>thor</passport.checkLogin.cookieName>
+                <!--<form.soa.api.jsf.alias>form-soa-api-${user.name}</form.soa.api.jsf.alias>-->
+                <form.soa.api.jsf.alias>form-soa-api-root</form.soa.api.jsf.alias>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+
+
+                <!-- 开始 第一部分: 私密key配置，发布时需要运维配置，在product profile中去掉 -->
+
+                <!-- 结束 第一部分: 私密key配置，发布时需要运维配置，在product profile中去掉 -->
+
+
+                <!-- 开始 第二部分: 数据库配置，发布时需运维配置JNDI -->
+                <help-center.jdbc.datasource.type>dbcp</help-center.jdbc.datasource.type>
+                <!--<help-center.mysql.url>jdbc:mysql://cscenterm.mysql.jddb.com:3358/help_center?autoReconnect=true</help-center.mysql.url>-->
+
+                <help-center.mongo.host>popcommrsa.mongo.jddb.com,popcommrsb.mongo.jddb.com</help-center.mongo.host>
+                <help-center.mongo.port>20011</help-center.mongo.port>
+                <!-- 结束 第二部分: 数据库配置，发布时需运维配置JNDI -->
+
+
+                <!-- 开始 第三部分: 缓存等服务资源，发布时需找运维确定 -->
+                <!-- 结束 第三部分: 缓存等服务资源，发布时需找运维确定 -->
+
+
+                <!-- 开始 第四部分: 服务器配置，发布时需找运维确定 -->
+                <!--日志记录的级别-->
+                <help-center.log.level>INFO</help-center.log.level>
+                <!--日志记录的地方-->
+                <help-center.log.path>/export/Logs/help.360buy.com</help-center.log.path>
+
+                <!--上传文件保存的基本位置-->
+                <help-center.vmcommon.path>/export/data/common/vm-common</help-center.vmcommon.path>
+                <help-center.upload.prefix>/export/data/uploads</help-center.upload.prefix>
+                <help-center.upload.path>/help</help-center.upload.path>
+
+                <!-- img30 图片地址 -->
+                <help-center.imgserver30.domain.name>img30.360buyimg.com</help-center.imgserver30.domain.name>
+
+                <!-- 特色服务本地XML文件存储路径 -->
+                <dispatch.service.xmlfile.location>/export/data/servicexml/</dispatch.service.xmlfile.location>
+                <!-- 特色服务使用的三级地址数据文件-定时更新 -->
+                <dispatch.service.xmlfile.areaXmlFileName>areainfo.xml</dispatch.service.xmlfile.areaXmlFileName>
+                <!-- 特色服务描述内容数据文件 -->
+                <dispatch.service.xmlfile.noteXmlFileName>servicenote.xml</dispatch.service.xmlfile.noteXmlFileName>
+
+                <!-- 结束 第四部分: 服务器配置，发布时需找运维确定 -->
+
+
+                <!-- 开始 第五部分: 依赖的外部接口，发布时需找接口人确定 -->
+                <user.tag.service.url>http://csms.jd.com/rest/service/customerinfo/customerQuery</user.tag.service.url>
+                <!-- 结束 第五部分: 依赖的外部接口，发布时需找接口人确定 -->
+
+
+                <!-- 开始 第六部分: 提供给别人的接口，发布时需通知调用人 -->
+
+                <!-- 结束 第六部分: 提供给别人的接口，发布时需通知调用人 -->
+
+
+                <!-- 开始 第七部分: 开发设置 -->
+                <!--记录用户登录信息的cookie名称-->
+                <help-center.login.cookie.name>_admin_</help-center.login.cookie.name>
+                <!--cookie的作用域-->
+                <help-center.cookie.domain>${help-center.domain.name}</help-center.cookie.domain>
+                <!--写入cookie的session过期时间，单位：秒-->
+                <help-center.session.timeout>180000</help-center.session.timeout>
+
+                <!--erp新登录地址-->
+                <help-center.login.address>http://${help-center.login.domain.name}/sso/login</help-center.login.address>
+                <!--erp新登录域名-->
+                <help-center.login.domain.name>ssa.jd.com</help-center.login.domain.name>
+
+                <!--erp登录地址-->
+                <!--<help-center.login.address>http://${help-center.login.domain.name}/newHrm/Verify.aspx-->
+                <!--</help-center.login.address>-->
+                <!--erp登录域名-->
+                <!--<help-center.login.domain.name>erp1.jd.com</help-center.login.domain.name>-->
+
+                <!--帮助中心管理 端域名-->
+                <help.admin.domain.name>helpcenter.jd.com</help.admin.domain.name>
+                <!-- 本地tomcat调试 -->
+                <!--<help.admin.domain.name>helpcenter.jd.com:8080</help.admin.domain.name>-->
+                <!--helpcenter man端域名-->
+                <help-center.domain.name>helpcenter.jd.com</help-center.domain.name>
+                <!--helpcenter vender端域名-->
+                <help-center.vender.domain.name>helpcenter.jd.com</help-center.vender.domain.name>
+                <!-- 规则平台 域名-->
+                <rule.vender.domain.name>rule.jd.com</rule.vender.domain.name>
+
+                <!--helpcenter 帮助搜索中搜索组请求路径或域名 -->
+                <help-center.search.domain.name>http://172.17.56.135:80</help-center.search.domain.name>
+
+                <!--样式，js的域名-->
+                <help-center.asset.domain.name>misc.360buyimg.com</help-center.asset.domain.name>
+                <help-center.static.asset.domain.name>static.360buyimg.com</help-center.static.asset.domain.name>
+                <!--需要跳转的-->
+                <help-center.order.domain.name>erp1.jd.com</help-center.order.domain.name>
+
+                <!--hrm权限认证web service地址-->
+                <help-center.hrm.auth.address>http://${help-center.hrm.auth.domain}/hrmService/DeptWebService.asmx
+                </help-center.hrm.auth.address>
+                <!--erp cookie认证的webservice的域名-->
+                <help-center.hrm.auth.domain>erp1.360buy.com</help-center.hrm.auth.domain>
+                <!--erp写的登录cookie的名称-->
+                <help-center.hrm.auth.cookie.name>erp1.jd.com</help-center.hrm.auth.cookie.name>
+                <!--erp cookie的domain-->
+                <help-center.hrm.auth.cookie.domain>.jd.com</help-center.hrm.auth.cookie.domain>
+                <!--可选配置，不需要登录可以访问的路径,以这个路径开头的地址不拦截，多个路径以逗号分割-->
+                <sso.exclude.path><!--/issue,/help/front,/search,/front--></sso.exclude.path>
+                <!--自提页GIS地图访问地址-->
+                <help.gis.url>http://mapapp.jd.com/site.shtml</help.gis.url>
+
+                <!--UIM中注册的app_key-->
+                <uim.key>260b8d665e81494e85ff6d79af712291</uim.key>
+                <!--UIM中注册的token-->
+                <uim.token>cbd5559d1a7e4825b123ca5258040a9d</uim.token>
+                <!--uim的接口地址-->
+                <uim.url>http://uim.jd.local/opaauth/router/rest</uim.url>
+
+                <!--jmq-->
+                <jmq.address>jmq-cluster.jd.local:80</jmq.address>
+                <jmq.user>helpCenter</jmq.user>
+                <jmq.password>9F9D1C1E</jmq.password>
+                <jmq.producer.app>helpCenter</jmq.producer.app>
+                <jmq.epoll>false</jmq.epoll>
+                <jmq.sendTimeout>10000</jmq.sendTimeout>
+                <jmq.connectionTimeout>10000</jmq.connectionTimeout>
+                <jmq.soTimeout>10000</jmq.soTimeout>
+                <message.jmq.distribute.open>true</message.jmq.distribute.open>
+                <message.jmq.send.open>true</message.jmq.send.open>
+                <!-- 开始 第七部分: 开发设置 -->
+
+
+                <!-- 开始 第八部分: 开发框架配置，发布人修改 -->
+                <!--struts的运行模式。生产环境要改为false-->
+                <help-center.struts.devMode>false</help-center.struts.devMode>
+                <!--velocity的宏是否重新载入。生产环境要改为false-->
+                <help-center.velocity.macro.autoreload>false</help-center.velocity.macro.autoreload>
+                <!--velocity是否缓存-->
+                <help-center.velocity.cache>true</help-center.velocity.cache>
+                <!--velocity模板缓存时间-->
+                <help-center.velocity.cache.time>10</help-center.velocity.cache.time>
+                <!-- 结束 第八部分: 开发框架配置，发布人修改 -->
+                <solr.url>http://10.181.177.21:1601</solr.url>
+                <help.customer.home.url>http://helpcenter.jd.com/</help.customer.home.url>
+                <help.customer.login.url>https://passport.jd.com/new/login.aspx</help.customer.login.url>
+                <help.vender.logout.url>https://passport.jd.com/uc/login?ltype=logout</help.vender.logout.url>
+                <help.vender.home.url>https://helpcenter.jd.com/venderportal/index.html</help.vender.home.url>
+                <help-center.order.jsf.group>orderSdkService_LF_jsf</help-center.order.jsf.group>
+            </properties>
+        </profile>
+    </profiles>
+</project>

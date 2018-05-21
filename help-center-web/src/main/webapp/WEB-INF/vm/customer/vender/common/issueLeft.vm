@@ -1,0 +1,52 @@
+<div class="l-menu">
+    <h3 class="menu-title"><a href="">常见问题</a></h3>
+    <!-- h-menu-shortcut -->
+
+    #foreach($cata in $!catalogBOList)
+        <dl class="h-menu-box">
+            <dt class="h-menu-hd" data-id="$cata.id" clstag="pageclick|keycount|helpcenter_questionbox_list|$!{cata.id}">
+                $cata.name <i class="icon-menu-drop"></i>
+            </dt>
+            <dd class="h-menu-bd">
+                <ul class="h-menu-list">
+                    #foreach($child_2 in $!cata.children)
+                        <li class="li-item" data-id="$!{child_2.id}" data-name="$!child_2.name" data-parent-id="$!cata.id" data-parent-name="$!cata.name" clstag="pageclick|keycount|helpcenter_questionbox_list|$!{child_2.id}">
+                            <h4 class="h-level02-title">
+                                <i class="icon-menu-sh"></i>$!child_2.name
+                            </h4>
+                            <ul class="h-level03-list">
+                                #foreach($child_3 in $!child_2.children)
+                                    <li style="font-family:'微软雅黑';" class="li-level03-item" data-id="$!{child_3.id}" data-name="$!child_3.name" data-parent-id="$!{child_2.id}" data-parent-name="$!child_2.name">
+                                        <a href="$!venderHelpCenterModule.getTarget("$!siteEnName/issue/list-$!{child_3.pid}-$!{child_3.id}.html")" class="link-dlk" clstag="pageclick|keycount|helpcenter_questionbox_list|$!{child_3.pid}-$!{child_3.id}">$!child_3.name</a>
+                                    </li>
+                                #end
+                            </ul>
+                        </li>
+                    #end
+                </ul>
+            </dd>
+        </dl>
+    #end
+    <!-- h-menu-hd -->
+
+</div>
+<script>
+    $(function(){
+        $(".h-menu-box .h-menu-hd").click(function(){
+            var o_parent=$(this).parent();
+            if(o_parent.hasClass("h-menu-on")){
+                o_parent.removeClass("h-menu-on")
+            }else{
+                o_parent.addClass("h-menu-on").siblings().removeClass("h-menu-on")
+            }
+        })
+        $(".h-level02-title").click(function(){
+            var o_parent=$(this).parent(".li-item");
+            if(o_parent.hasClass("h-item-on")){
+                o_parent.removeClass("h-item-on")
+            }else{
+                o_parent.addClass("h-item-on").siblings().removeClass("h-item-on")
+            }
+        })
+    })
+</script>

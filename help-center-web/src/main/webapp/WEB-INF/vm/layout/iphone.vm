@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>帮助中心</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/iphone.css" media="all" />
+<body>
+#set($tailhtml=".html")
+#if($!topicId>0)
+    #* 显示问题*#
+    <div id="one" class="m">
+        #if(!$!questions.empty)
+            #foreach($question in $!questions)
+                <div class="mt">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</div>
+                <div class="mc">$!question.getAnswer()</div>
+            #end
+        #end
+    </div>
+#else
+    #* 显示类目列表*#
+    <script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("ul li").hover(function(){
+            $(this).addClass("hover");
+            this.style.backgroundColor = "#deffc4";
+        },function(){
+            $(this).removeClass("hover");
+            this.style.backgroundColor = "";
+        }).click(function(){
+            var v=$(this).attr("value");
+            window.location.href=$("#urlHid").attr("value")+v+'.html';
+        });
+    });
+    </script>
+    <input type="hidden" id="urlHid" value="$venderHelpCenterModule.getTarget("")$!stringEscapeUtils.escapeHtml($!sysName)/question-"/>
+    <div id="two" class="m">
+##        #foreach($category in $!categorys)
+##            <div class="mt">$!stringEscapeUtils.escapeHtml($!category.getName())</div>
+##            <div class="mc">
+##                #set($topics = $!category.getTopics())
+##                <ul>
+##                #foreach($topic in $topics)
+##                    <li value="$!topic.getTopicId()"><b></b>
+##                        $!stringEscapeUtils.escapeHtml($!topic.getName())
+##                    </li>
+##                #end
+##                </ul>
+##            </div>
+##        #end
+        #foreach($category in $!leftNavigate.categoryList)
+            <div class="mt">$!stringEscapeUtils.escapeHtml($!category.getName())</div>
+            <div class="mc">
+                #set($topics = $!category.getTopicList())
+                <ul>
+                    #foreach($topic in $topics)
+                        <li>
+                            <a href="$!topic.getUrl()"
+                               target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                        </li>
+                    #end
+                </ul>
+            </div>
+        #end
+    </div>
+#end
+</body>
+</html>
+
+ 

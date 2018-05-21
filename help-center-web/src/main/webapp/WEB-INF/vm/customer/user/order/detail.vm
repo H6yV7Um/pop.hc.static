@@ -1,0 +1,126 @@
+#set($layout="customer/user/default.vm")
+#set($navId="order")
+<div class="w main">
+    <div class="o-help-info-wrap">
+        <div class="o-help-info-box">
+            <div class="mt">
+                <h3 class="title">订单包含商品：</h3>
+            </div>
+            <div class="mc">
+                <div class="img-list">
+                    #foreach($wareInfo in $!orderInfo.orderWareInfos)
+                        <a target="_blank" clstag="click|keycount|orderinfo|order_product" class="img-box">
+                            <img width="80" height="80" title="$!wareInfo.name" src="$!wareInfo.imgPath"
+                                 class="err-product"></a>
+                    #end
+                </div>
+            </div>
+            <ul class="o-info">
+                <li class="list-item">
+                    <span class="txt">订单号：</span>
+                    $!orderInfo.id
+                </li>
+                ##<li class="list-item">
+                ##    <span class="txt">订单类型：</span>
+                 ##   $!orderTypeMap.getName($!orderInfo.orderType)
+               ## </li>
+                <li class="list-item">
+                    <span class="txt">订单状态：</span>
+                ##$!orderStateMap.getName($!orderInfo.OrderStatusInfo.orderState)
+                    $!orderInfo.orderBussinessInfo.stateName
+                </li>
+                <li class="list-item">
+                    <span class="txt">支付方式：</span>
+                ##$!orderPayMap.getName($!orderInfo.idPaymentType)
+                    $!orderInfo.orderBussinessInfo.paymentTypeName
+                </li>
+                <li class="list-item">
+                    <span class="txt">配送方式：</span>
+                ##$!orderShipmentMap.getName($!orderInfo.idShipmentType)
+                    $!orderInfo.orderBussinessInfo.shipmentTypeName
+                </li>
+                <li class="list-item">
+                    <span class="txt">下单时间：</span>
+                    $dateFormatUtils.format($!orderInfo.dateSubmit,"yyyy-MM-dd")
+                </li>
+            </ul>
+            <b class="icon-arr01"></b>
+        </div>
+        <div class="o-help-cnt-box">
+            <div class="link-return"><a
+                    href="$venderHelpCenterModule.getTarget("/$!siteEnName/index.html")">返回帮助中心首页</a>
+            </div>
+            <div class="m guess-quiz">
+                <div class="mt">
+                    <h3 class="title" id="pinTitle">~猜您想要找的问题是：</h3>
+                </div>
+                <div class="mc">
+                    <ul class="help_list">
+                        #foreach($issue in $!issueList)
+                            <li>
+                                <a target="_blank"
+                                   href="$!venderHelpCenterModule.getTarget(
+                                       "/$!siteEnName/issue/$!{issue.cataId}-$!{issue.id}.html")">
+                                    <b>·</b>
+                                    $!issue.name
+                                </a>
+                            </li>
+                        #end
+                        #if($!issueList.size() <= 0)
+                            <li><a target="_blank" href="/user/issue/75-244.html"><b>·</b>下单后可以修改订单吗？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/64-245.html"><b>·</b>订单如何取消？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/109-188.html"><b>·</b>运费如何计算？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/44-248.html"><b>·</b>如何联系商家呢？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/264-249.html"><b>·</b>收到的商品少了/发错货了怎么办？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/102-250.html"><b>·</b>我的包裹几天可以收到？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/56-276.html"><b>·</b>订单怎么一直显示正在出库？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/104-253.html"><b>·</b>我的包裹现在到哪里了？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/100-251.html"><b>·</b>自提点在哪里？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/130-256.html"><b>·</b>取消订单/退货后怎么退款给我？</a>
+                            </li>
+                            <li><a target="_blank"
+                                   href="/user/issue/130-259.html"><b>·</b>退款多久可以到账？</a></li>
+                            <li><a target="_blank" href="/user/issue/200-260.html"><b>·</b>白条怎么使用？怎么还款？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/130-263.html"><b>·</b>退款怎么查询?</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/127-273.html"><b>·</b>什么情况下可以退货/换货/维修？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/118-265.html"><b>·</b>如何申请退货/换货？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/119-272.html"><b>·</b>退货/换货/维修分别需要多长时间？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/131-271.html"><b>·</b>退货/换货运费怎么算？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/239-274.html"><b>·</b>大家电可以上门安装吗？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/124-269.html"><b>·</b>退货/换货地址是哪里？</a>
+                            </li>
+                            <li><a target="_blank" href="/user/issue/123-268.html"><b>·</b>已经提交退货/换货申请，在哪里能查看到进度？</a>
+                            </li>
+                        #end
+                    </ul>
+                </div>
+            </div>
+            #if($!issueList.totalItem > 20)
+                <div id="bottom_pager" class="pagin m clearfix">
+                    #set($pageModule = $venderHelpCenterModule.getTarget(
+                        "/$!siteEnName/order/detail-$!{orderInfo.id}.do"))
+                    #showPage($pageModule $!issueList)
+                </div>
+            #end
+            <div class="o-mb">没有找到答案？去<a href="$venderHelpCenterModule.getTarget("/$!siteEnName/issue.html")"
+                                         class="flk05">常见问题</a>看看吧。
+            </div>
+        </div>
+    </div>
+</div>

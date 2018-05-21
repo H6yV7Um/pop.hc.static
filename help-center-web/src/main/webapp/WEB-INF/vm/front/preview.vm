@@ -1,0 +1,55 @@
+#set($layout="empty.vm")
+#* @vtlvariable name="questions" type="java.util.List<com.jd.help.center.domain.question.HelpQuestion>" *#
+<title>help</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/popbase.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/misc/skin/main.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/misc/skin/faq.css" media="all" />
+<script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="/misc/js/pop.base.js"></script>
+<script type="text/javascript">
+      $(document).ready(function(){
+          var qid=$!questionId;
+          if(qid>0){
+              window.location.hash=qid;
+          }
+          $('a[href*=#]').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+            && location.hostname == this.hostname) {
+              var $target = $(this.hash);
+              $target = $target.length && $target
+              || $('[name=' + this.hash.slice(1) +']');
+              if ($target.length) {
+                var targetOffset = $target.offset().top;
+                $('html,body')
+                .animate({scrollTop: targetOffset}, 1000);
+               return false;
+              }
+            }
+          });
+        });
+</script>
+
+      <div class="faqas_tips">
+             #if(!$!questions.empty)
+                 <ul>
+                 #foreach($question in $!questions)
+                        <li><a href="#$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a></li>
+                    #end
+                 </ul>
+             #end
+        </div>
+
+        #if(!$!questions.empty)
+            <div class="faqas">
+            #foreach($question in $!questions)
+                <a name="$!question.getQuestionId()"></a> <br/>
+                <h2 class="faqash2">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</h2>
+                <h5 class="faqash5">$!question.getAnswer()</h5>
+            #end
+            </div>
+        #end
+
+
+
+
+

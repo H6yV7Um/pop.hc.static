@@ -1,0 +1,169 @@
+#set($title="关键词列表")
+<script type="text/javascript" src="/static/js/DatePicker/WdatePicker.js"></script>
+<div class="container-fluid">
+    #showError()
+
+
+##    表头
+    <div class="row well">
+        <form id="keywordForm" class="form-inline" role="form" method="post" action="keyword_list.action">
+            <input type="hidden" name="site.id" value="$!site.id">
+            <p>
+            <div class="form-group" style="margin-left: 3%;display: inline-block;width: 32%">
+                展示或导出时间段：
+                <input type="text" id="beginTime" name="keywordBO.beginTime" class="form-control" style="height: 24px;width: 20%"
+                       value="$!keywordBO.keywordQuery.queryBeginTime"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\');}',minDate:'#F{$dp.$D(\'endTime\',{M:-3});}'})" readonly="true"
+                       style="width:100px;"/>
+                <label>至</label>
+                <input type="text" id="endTime" name="keywordBO.endTime" class="form-control" style="height: 24px; width: 20%"
+                       value="$!keywordBO.keywordQuery.queryEndTime"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'beginTime\',{M:3});}',minDate:'#F{$dp.$D(\'beginTime\');}'})" readonly="true"
+                       style="width:100px;"/>
+            </div>
+            <div style="margin-top: 10px;display: inline-block;">
+                <input id="search" type="button" class="btn btn-primary btn btn_input btn_primary " style="height: 32px" value="查询"/>
+                <input id="exportExcel" type="button" class="btn btn-primary btn btn_input btn_primary " style="height: 32px" value="数据导出"/>
+            </div>
+            <div><h4 style="color: red;margin-left: 3%">注意：最多支持三个月的数据，无法选择大于三个月的日期</h4></div>
+            </p>
+        </form>
+    </div>
+
+##    列表
+
+    <div class="row table-responsive m_t_10">
+        <table class="table table-bordered table-striped table-hover stable">
+            <thead>
+            <tr>
+                <th style="text-align: center">ID</th>
+                <th style="text-align: center">关键词</th>
+                <th style="text-align: center">出现次数</th>
+            </tr>
+            </thead>
+            <tbody>
+                #if($!keywordList.size()>0)
+                    #set($rowNum = 1)
+                    #foreach($keyword in $keywordList)
+                    <tr>
+                        <td style="text-align: center" title="$!rowNum">$!rowNum</td>
+                        <td style="text-align: center" title="$!keyword.keyword">$!keyword.keyword</td>
+                        <td style="text-align: center" title="$!keyword.total">$!keyword.total</td>
+                    </tr>
+                        #set($rowNum = $rowNum+1)
+                    #end
+                #else
+                    #if($!firstSearch==-1)
+                    <tr >
+                        <td id="firstSearch" colspan="3" align="center"><h4 style="color: red;text-align: center;margin-top: 4px;">请选择小于三个月的时间进行查询</h4></td>
+                    </tr>
+                    #else
+                    <tr >
+                        <td id="noListExplain" colspan="3" align="center"><h4 style="color: red;text-align: center; margin-top: 4px;">对不起，暂时未查到相关数据，请检查您的查询条件！</h4></td>
+                    </tr>
+                    #end
+                #end
+            </tbody>
+            <tfoot>
+##            <tr>
+##                <td colspan="7">
+##                    #set($pageUrl = $!helpAdminModule.getTarget("/help/issue/issue_list.action").addQueryData(
+##                        "site.id", $!site.id).addQueryData(
+##                        "issueBO['issue'].name", $!issueBO.issue.name ).addQueryData(
+##                        "catLevel1", $!catLevel1 ).addQueryData("catLevel2", $!catLevel2 ).addQueryData(
+##                        "catLevel3", $!catLevel3 ).addQueryData( "issueBO['issue'].status", $!issueBO.issue.status).addQueryData(
+##                        "issueBO['issue'].orderType",$!issueBO.issue.orderType).addQueryData(
+##                        "issueBO['issue'].orderStatus",$!issueBO.issue.orderStatus).addQueryData(
+##                        "issueBO['issue'].orderShipment",$!issueBO.issue.orderShipment).addQueryData(
+##                        "issueBO['issue'].orderPay",$!issueBO.issue.orderPay))
+##                    #showPage($!pageUrl $!issueList)
+##                </td>
+##            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+## 提示框
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <a href="" role="button" class="btn btn-primary btn-do-update-status"></a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $(function () {
+##        $(".btn-update-status").click(function () {
+##            var status = $(this).data("status");
+##            var id = $(this).data("id");
+##            if (status == "-1") {
+##                $("#modal").find(".modal-title").html("删除问题").end()
+##                        .find(".modal-body").html("<p>你确定将此问题删除？</p><p>删除后将看不到此问题，不能再进行管理！</p>").end()
+##                        .find(".btn-do-update-status").attr("href", "$!helpAdminModule.getTarget(
+##                            "/help/issue/issue_updateStatus.action")?site.id=$!site.id&issueBO['issue'].status=" + status + "&issueBO['issue'].id=" + id).text("确定").end()
+##                        .modal("show");
+##            } else if (status == "0") {
+##                $("#modal").find(".modal-title").html("下线问题").end()
+##                        .find(".modal-body").html("<p>你确定将此问题下线？</p><p>下线后前台访问此问题将出现404！</p>").end()
+##                        .find(".btn-do-update-status").attr("href", "$!helpAdminModule.getTarget(
+##                            "/help/issue/issue_updateStatus.action")?site.id=$!site.id&issueBO['issue'].status=" + status + "&issueBO['issue'].id=" + id).text("确定").end()
+##                        .modal("show");
+##            }
+##        });
+##
+##        $(".btn-update-status").click(function () {
+##            var issueId = $(this).data("id");
+##
+##        });
+
+        $("#exportExcel").click(function (){
+           /* if($("#beginTime").val()=="" || $("#endTime").val()==""){
+                $("#modal").find(".modal-title").html("时间错误").end()
+                        .find(".modal-body").html("<p>时间段选择错误</p><p>数据导出必须选择时间，请选择正确时间段</p>").end()
+                        .modal("show");
+                $("#modal a:last").remove();
+//                alert("数据导出必须选择时间，请选择正确时间段");
+                return;
+            }*/
+            if($("#beginTime").val()=="" || $("#endTime").val()=="") {
+                alert("数据导出必须选择时间，请选择正确时间段");
+                return;
+            }
+            $("#keywordForm").attr("action","keyword_download.action");
+            $("#keywordForm").submit();
+        });
+
+
+        $("#search").click(function (){
+           /* if($("#beginTime").val()=="" || $("#endTime").val()==""){
+                $("#modal").find(".modal-title").html("时间错误").end()
+                        .find(".modal-body").html("<p>时间段选择错误</p><p>请选择正确的时间段进行查询</p>").end()
+                        .modal("show");
+                $("#modal a:last").remove();
+//                alert("数据导出必须选择时间，请选择正确时间段");
+                return;
+            }*/
+            if($("#beginTime").val()=="" || $("#endTime").val()=="") {
+                alert("数据导出必须选择时间，请选择正确时间段");
+                return;
+            }
+            $("#keywordForm").attr("action","keyword_list.action");
+            $("#keywordForm").submit();
+        });
+
+    });
+</script>

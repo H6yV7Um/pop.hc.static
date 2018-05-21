@@ -1,0 +1,122 @@
+<link rel="stylesheet" type="text/css" href="/static/css/helplable/helpLable.css">
+<link rel="stylesheet" type="text/css" href="/static/css/helplable/newLable.css">
+<script type="text/javascript" src="/static/js/helplable/helpLable.js"></script>
+
+#*页面begin*#
+<div id="main">
+    <div class="lab"><p style="font-size:18px">知识标签管理</p></div>
+    <div class="lab"><p class="message" style="font-size:13px">知识标签管理，您可以对标签进行添加，删除操作</p>
+        <button type="button" class="btn btn_input btn_primary fr newCreate" id="insert">新建标签</button>
+    </div>
+
+    <div class="mod_form">
+        <span class="label">标签名称：</span>
+        <div class="search label_val">
+            <input type="text" name="name" id="name" style="width: 70px">
+        </div>
+        <span class="label">创建人erp：</span>
+        <div class="search label_val">
+            <input type="text" name="createdPin" id="createdPin" style="width: 70px">
+        </div>
+        <span class="label">标签级别：</span>
+        <div class="search label_val">
+            <select id="level">
+                <option name="0">全部</option>
+                <option name="1">一级</option>
+                <option name="2">二级</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn_input btn_primary " style="margin-left: 5%" id="query">查询</button>
+    </div>
+    <div class="main_bd">
+        <table class="stable" id="lableTable"></table>
+    </div>
+</div>
+
+#*begin*#
+<div class="outDiv modal" style="width: 100%;height: 100%;position: fixed;left: 0;top: 0;background: rgba(0,0,0,0.4);display: none">
+    <div class="dialog  fade"
+         style="width: 500px;height: 600px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background: #fff;border: 1px solid #ccc;">
+        <p style="font-size: 16px;margin-left: 25px;display:inline-block;margin-top: 3%">新建标签</p><span id="x"
+                                                                                                       aria-hidden="true"
+                                                                                                       style="margin-right: 3%;cursor:pointer ;float: right;font-size: 21px;color: #3a87ad">×</span>
+        <hr style="height:1px;border:none;border-top:1px solid #555555;"/>
+        <div class="hbox" style="padding-top:15px;padding-left: 15px">
+            <font color="red">*</font>
+            <label class="nc_newLbl">标签名称</label>
+                    <span class="nc_span">
+                        <input type="text" class="nc_input nc_info" id="newName"/>
+                    </span>
+            <span class="frm_msg fail newName">标签名称不能为空</span>
+        </div>
+        <div class="hbox" style="padding-top:15px;padding-left:15px">
+            <font color="red">*</font>
+            <label class="search label_val">标签状态</label>
+        <span class="nc_span">
+            <select id="newStatus">
+                <option name="">请选择</option>
+                <option name="0">必选</option>
+                <option name="1">非必选</option>
+            </select>
+        </span><br>
+            <span class="frm_msg fail newStatus">请选择标签状态</span
+        </div>
+        <div class="hbox" style="padding-top:15px;padding-left:0px">
+            <font color="red">*</font>
+            <label class="search label_val">标签级别</label>
+        <span class="nc_span">
+            <select id="newLevel">
+                <option name="">请选择</option>
+                <option name="1">一级标签</option>
+                <option name="2">二级标签</option>
+            </select>
+        </span><br>
+            <span class="frm_msg fail newLevel">请选择标签级别</span
+        </div>
+        <div class="hbox" style="padding-top:15px;display: none;padding-left:0px" id="newClassifyDiv">
+            <font color="red">*</font>
+            <label class="nc_newLbl">标签分类</label>
+                    <span class="nc_span">
+                        <select id="newClassify">
+                        </select>
+                    </span><br>
+            <span class="frm_msg fail newClassify">请选择标签分类</span>
+        </div>
+        <br>
+        <div class="hbox" style="padding-top:15px;padding-left:15px">
+            <label class="nc_newLbl">备注</label>
+                    <span class="nc_span">
+                        <textarea id="newContent" class="nc_txtArea nc_info"></textarea></br>
+                    </span><br>
+            <span class="frm_msg fail newContent">备注不能超过40字符</span>
+            <span id="textCount" style="float: right;margin-right: 5%">0/40</span>
+
+
+        </div>
+        <div class="hbox " style="padding-top:15px">
+            <button id="confirm" class="btn btn_input btn_primary fr btns">确定</button>
+            <button id="cancle" class="btn btn_input btn_primary fr btns">取消</button>
+
+        </div>
+
+    </div>
+</div>
+#*END*#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#*页面end*#
+

@@ -1,0 +1,264 @@
+#set($layout="search.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/base.css"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/helpcenter2013.css"/>
+    <script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+    <style type="text/css">
+        .skcolor_ljg {color:#FF0000;}
+    </style>
+    #if($topicId!=0)
+        #set($title =$!stringEscapeUtils.escapeHtml($helpTopic.getName()))
+    #end
+    <title>#if($title)$title&#45;消费者帮助中心-京东网上商城#else 消费者帮助中心-京东网上商城#end</title>
+    <script type="text/javascript">
+        window.pageConfig = {
+            compatible: false
+        }
+        ;
+    </script>
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+    $!mongoVelocityTools.getHead("head")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+    #set($tailhtml=".html")
+    <!--[if !ie]>Position 开始<![endif]-->
+    <div class="m breadcrumb">
+        <div style="float: left">
+            <strong><a href="$venderHelpCenterModule.getTarget("")" target="_self">消费者帮助中心</a> </strong>
+            &gt; #if($!viewQuestion) 问题详情 #else  搜索结果 #end
+        </div>
+    </div>
+    <!--[if !ie]>Position 结束<![endif]-->
+    <!--[if !ie]>left 开始<![endif]-->
+    <div class="left">
+        <div class="help_side" id="sortlist">
+##            #foreach($category in $!categorys)
+##                <div class="current">
+##                    <h4><b></b>$!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+##                    #set($topics = $!category.getTopics())
+##                    <ul>
+##                        #foreach($topic in $topics)
+##                            <li #if($velocityCount ==1 && $!topicId != $!topic.getTopicId()) class="li1"
+##                            #elseif($velocityCount ==1 && $!topicId == $!topic.getTopicId())
+##                                                                                             class="li1 helpcurr"
+##                            #elseif($velocityCount !=1 && $!topicId == $!topic.getTopicId())
+##                                                                                             class="helpcurr"
+##                            #end
+##                                    >
+##                                #if($!topic.getUrl())
+##                                    <a href="$!topic.getUrl()"
+##                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #else
+##                                    <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!topic.getTopicId()$tailhtml"
+##                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #end
+##                                #if($!topic.getLogoType()==1)
+##                                    <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+##                                #elseif($!topic.getLogoType()==2)
+##                                    <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+##                                #elseif($!topic.getLogoType()==3)
+##                                    <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+##                                #end
+##                            </li>
+##                        #end
+##                    </ul>
+##                </div>
+##            #end
+            #foreach($category in $!leftNavigate.categoryList)
+                <div class="current">
+                    <h4><b></b>$!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+                    #set($topics = $!category.getTopicList())
+                    <ul>
+                        #foreach($topic in $topics)
+                            <li #if($velocityCount ==1 && $!topicId != $!topic.getTopicId()) class="li1"
+                            #elseif($velocityCount ==1 && $!topicId == $!topic.getTopicId())
+                                                                                             class="li1 helpcurr"
+                            #elseif($velocityCount !=1 && $!topicId == $!topic.getTopicId())
+                                                                                             class="helpcurr"
+                            #end    >
+                                <a href="$!topic.getUrl()"
+                                   target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                                #if($!topic.getLogoType()==1)
+                                    <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+                                #elseif($!topic.getLogoType()==2)
+                                    <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+                                #elseif($!topic.getLogoType()==3)
+                                    <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+                                #end
+                            </li>
+                        #end
+                    </ul>
+                </div>
+            #end
+        </div>
+<iframe scrolling="no" frameborder="0" style="width:165px;height:165px;" marginheight="0" marginwidth="0" src="//x.jd.com/ad?ad_id=50"></iframe>
+    </div>
+    <!--[if !ie]>left 结束<![endif]-->
+    <!--[if !ie]>right 开始<![endif]-->
+    <div class="right" id="top">
+
+        <!--[if !ie]>内容 开始<![endif]-->
+    ##                #if($topicId==0)
+    ##                    #set($tailVm=".vm")
+    ##                    #parse1("/WEB-INF/vm/front/$!sysName$tailVm")
+    ##                #end
+        <form action="/search/help_search.php" onsubmit="javascript:return checkKeywords();" method="get"
+              id="searchFrom">
+            <input type="hidden" name="mainword" id="mainword"/>
+            <input type="hidden" value="$!stringEscapeUtils.escapeHtml($!sysName)" name="sysName" class="text">
+            <input type="hidden" value="$!topicId" name="topicId" class="text">
+        </form>
+        #set($ab = ($!resultCount == 0 || !$!paragraph || !$!searchResultPage))
+        #if($ab)
+            #if(!$!viewQuestion)
+                <div class="search-fail">对不起，没有找到相关内容，请重新输入您的问题！</div>
+            #end
+            <div class="search-line">
+                <input class="itxt sch-txt" type="text" name="mainwordinput" id="mainwordinput"
+                       onkeydown="javascript:if(event.keyCode==13) helpsearch();" class="text" value="我要搜索">
+                <a class="s-btn" href="javascript:helpsearch();">搜索</a>
+
+            </div>
+        #else
+            <div class="search-line">
+                <input class="itxt sch-txt" type="text" name="mainwordinput" id="mainwordinput"
+                       onkeydown="javascript:if(event.keyCode==13) helpsearch();" class="text" value="我要搜索">
+                <a class="s-btn" href="javascript:helpsearch();">搜索</a>
+            </div>
+            <h3 class="help_tit"><strong>
+                京东推荐关于“<span class="Red" title="$!stringEscapeUtils.escapeHtml($!mainwordinput)">$!stringEscapeUtils.escapeHtml($!omitMainWordInput)</span>”的最佳答案</strong>
+            </h3>
+
+            <div class="help_box">
+                #foreach($ph in  $!paragraph)
+                    <div class="result-box">
+                        <h4>
+                            <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/viewQuestion-$!{ph.topic_id}-$!{ph.id}$tailhtml" target="_blank">
+                                $!ph.getContent().getQuestion()
+                            </a>
+                        </h4>
+
+                        <div>$!ph.getContent().getAnswer()</div>
+                    </div>
+                #end
+                <div class="pagin pagin-center">
+                    #set($pageModule = $venderHelpCenterModule.getTarget("/search/help_search.php").addQueryData("mainword",$!mainword).addQueryData("sysName",$!stringEscapeUtils.escapeHtml($!sysName)).addQueryData("topicId",$!topicId).addQueryData("pagesize",$!pagesize))
+                    #showSearchPage($pageModule $!searchResultPage $resultCount)
+                </div>
+            </div>
+        #end
+        ###搜索失败，显示常见类目锚点问题
+        #if($!topicId>0&&$!anchorStatus==0)
+            <div id="h-sort">
+                #foreach($question in $!questions)
+                    #if($!question.getQuestionId()==818)
+                        <a href="#help$!question.getQuestionId()"
+                           clstag="click|keycount|subway|help">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>|
+                    #else
+                        <a href="#help$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>|
+                    #end
+                #end
+            </div>
+        #end
+        ##搜索失败，显示常见问题
+        #if(!$!questions.empty)
+            #foreach($question in $!questions)
+                <a class="h-1px" id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a>
+
+                <h3 class="help_tit"><strong>$!stringEscapeUtils.escapeHtml($!question.getQuestion())</strong></h3>
+
+                <div class="help_box">$!question.getAnswer()</div>
+            #end
+
+        #end
+        ##搜索显示单个详情问题
+        #if($!viewQuestion)
+            <a class="h-1px" id="help$!viewQuestion.getQuestionId()" name="help$!viewQuestion.getQuestionId()"></a>
+
+            <h3 class="help_tit"><strong>$!stringEscapeUtils.escapeHtml($!viewQuestion.getQuestion())</strong></h3>
+
+            <div class="help_box">$!viewQuestion.getAnswer()</div>
+        #end
+
+        <!--[if !ie]>内容 结束<![endif]-->
+        <!--[if !ie]>help_tips 开始<![endif]-->
+        <!--[if !ie]>help_tips 结束<![endif]-->
+<iframe scrolling="no" frameborder="0" style="width:830px;height:150px;" marginheight="0" marginwidth="0" src="//x.jd.com/ad?ad_id=51"></iframe>
+    </div>
+    <!--[if !ie]>right 结束<![endif]-->
+    <div class="clr"></div>
+</div>
+<script type="text/javascript">
+    jQuery("#sortlist h4").bind("click", function () {
+        var element = $(this).parent();
+        if (element.hasClass("current")) {
+            element.removeClass("current");
+        } else {
+            element.addClass("current");
+        }
+    })
+
+    function helpsearch() {
+        if (!checkKeywords())
+            return;
+        jQuery("#searchFrom").submit();
+    }
+
+    function checkKeywords() {   //如果空或等于title则禁止提交表单
+        var mainword = document.getElementById("mainwordinput");
+        var keywords = mainword.value;
+        var illegal_words = ['script', 'alert', 'confirm', 'prompt', 'select', 'from', 'where', 'update', 'delete', 'insert', 'drop', 'alter'];
+        keywords = keywords.toLowerCase();
+        if (keywords == "" || keywords == "我要搜索") {
+            return false;
+        } else {
+            for (var i = 0; i < illegal_words.length; i++) {
+                if (keywords.indexOf(illegal_words[i]) != -1) {
+                    return false;
+                }
+            }
+        }
+       if(keywords.length > 30){
+           keywords = keywords.substr(0,30);
+       }
+        keywords = encodeURI(keywords);
+        document.getElementById("mainword").value = encodeURI(keywords);
+        return true;
+    }
+    var _mvq = _mvq || [];
+    _mvq.push(['$setAccount', 'm-9-1']);
+    _mvq.push(['$logConversion']);
+    (function () {
+        var mvl = document.createElement('script');
+        mvl.type = 'text/javascript';
+        mvl.async = true;
+        mvl.src = '/misc/js/mvl.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(mvl, s);
+    })();
+    jQuery(".sch-txt").focus(function () {
+        if (jQuery(this).val() == "我要搜索") {
+            jQuery(this).val("").css("color", "#333");
+        }
+    })
+    jQuery(".sch-txt").blur(function () {
+        if (jQuery(this).val() == "") {
+            jQuery(this).val("我要搜索").css("color", "#999")
+        }
+    })
+</script>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+    $!mongoVelocityTools.getBottom("bottom")
+<!--[if !ie]>底部内容结束<![endif-->
+
+
+</body>
+</html>

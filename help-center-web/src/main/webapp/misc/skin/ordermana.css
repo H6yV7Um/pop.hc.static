@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+/*m*/
+.m h3{height:47px;line-height:47px;border-bottom:1px dotted #95baef;font-size:14px;margin-bottom:22px;padding-right:10px}
+.m h3 s{float:left;width:13px;height:12px;background:url(i/icon.gif) -13px 0;margin:18px 5px 0 5px}
+.m h3 a{font-size:12px;font-weight:normal}
+.m h3 span{font-size:12px;font-weight:normal}
+.m i{font-style:normal;color:red}
+.border-f4caa2{border:1px solid #f4caa2;background:#fbf6eb;padding:15px;margin-bottom:15px}
+.border-f4caa2 li{height:30px;line-height:30px}
+.border-dotted{border-bottom:1px solid #d6d6d6;}
+#selectpd .tb-x1{margin-top:25px;margin-bottom:5px}
+.border-blue{border:1px solid #95baef;background:#fff;padding:10px;margin-bottom:10px}
+.border-blue table{border-bottom:1px solid #95baef;height:40px}
+.border-blue table td{padding-left:10px}
+.border-blue ul{overflow:hidden;zoom:1;padding:10px 0 0 10px}
+.border-blue ul li{float:left;width:19.9%}
+#orderlist .btn-normal{padding:20px}
+.tbl-n s{position:relative;top:-2px;margin-left:3px;margin-right:3px}
+.tb-x1 div{text-align:left}
+.p-name{width:100%;overflow:hidden}
+/*warn*/
+.warn{border:1px solid #f4caa2;background:#fbf6eb;padding:5px;margin:10px 0}
+.warn s{background:url(i/icon.gif);float:left;width:12px;height:11px;margin-right:4px;margin-top:2px}
+.wait td{background:#f7f2cb}
+#yfh .warn dl{padding:10px}
+#yfh .warn dt{border-bottom:1px dotted #d6d6d6;height:30px;line-height:30px}
+#yfh .warn dd{font-size:14px;padding:10px 0}
+td.ar{text-align:right}
+.l-dotted{border-top:1px dotted #95baef;margin:10px auto;font-size:0;line-height:0;overflow:hidden}
+.mart10{margin-top:10px}
+.f14{font-size:14px} 
+.fb{font-weight:bold}
+.blue-box{border:1px solid #95BAEF;background:#fff;padding:10px}
+.explain{margin:30px auto 10px}

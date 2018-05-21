@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="GB2312"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.jd.help</groupId>
+        <artifactId>center</artifactId>
+        <version>1.0-SNAPSHOT</version>        
+    </parent>
+    <groupId>com.jd.help.center</groupId>
+    <artifactId>help-center-domain</artifactId>
+    <name>help-center domain</name>
+    <packaging>jar</packaging>
+    <url>http://pop.360buy.com</url>
+
+
+    <build>
+        <finalName>jd-help-center-domain-${version}</finalName>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.jd</groupId>
+            <artifactId>mongo-jd-client</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jd.common</groupId>
+            <artifactId>jd-common-ws</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!--AreaService start-->
+		<!--<dependency>-->
+    		<!--<groupId>com.jd.primitive</groupId>-->
+   	 		<!--<artifactId>primitive-client</artifactId>-->
+    		<!--<version>1.0.1-SNAPSHOT</version>-->
+		<!--</dependency>-->
+        <!--promise提供的地址服务-->
+        <dependency>
+            <groupId>com.jd.dos</groupId>
+            <artifactId>dos-area-contract</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+
+        <!--AreaService end-->
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jd.pop</groupId>
+            <artifactId>module</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    
+</project>

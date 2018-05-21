@@ -1,0 +1,9 @@
+#set($layout="customer/user/default.vm")
+#set($navId="guide")
+#set($title="新手指南-帮助中心-京东")
+<div class="bg-color-01">
+    $!guide_guide.content
+</div>
+<div class="bg-color-02">
+    $!guide_imgGuide.content
+</div>

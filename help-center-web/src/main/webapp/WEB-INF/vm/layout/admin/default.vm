@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    #parse("/WEB-INF/vm/admin/common/head.vm")
+<body id="mainframe">
+    $screen_content
+#parse("/WEB-INF/vm/admin/common/bottom.vm")
+</body>
+</html>
+
+ 

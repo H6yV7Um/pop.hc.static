@@ -1,0 +1,32 @@
+#set($layout="customer/vender/default.vm")
+#set($navId="noticeList")
+
+<div class="mod-s01" id="noticeid">
+
+    <!-- [vm] /widget/notice-web/notice-web.vm -->
+	#if($!noticeList && $!noticeList.size()>0)
+    	<ul class="notice-list">
+			#foreach($notice in $!noticeList)
+                <li class="li-item">
+                    <a href="$venderHelpCenterModule.getTarget("/$!siteEnName/notice/detail-$!{notice.id}.html")" class="link-dlk">
+                        <span class="ellipsis">$!notice.name</span>
+                    </a>
+                    <span class="h-timer">$dateFormatUtils.format($!notice.modified,"yyyy-MM-dd HH:mm:ss")</span>
+                </li>
+			#end
+		</ul>
+	#end
+    <!--/ /widget/notice-web/notice-web.vm -->
+
+    <!-- [vm] /widget/pagin/pagin.vm -->
+	#if($!noticeList.totalItem > 2)
+        <div class="b-pagin-wrap">
+            <div class="b-pagin-box">
+				#set($pageModule = $venderHelpCenterModule.getTarget("/$!siteEnName/notice/list.html"))
+				#showVenderPage($pageModule $!noticeList)
+            </div>
+        </div>
+	#end
+    <!--/ /widget/pagin/pagin.vm -->
+</div>
+

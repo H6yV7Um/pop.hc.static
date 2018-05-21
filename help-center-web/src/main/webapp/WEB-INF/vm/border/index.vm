@@ -1,0 +1,32 @@
+#set($layout="default.vm")
+
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1">
+                <div align="center">
+                    <label style="">修改、删除需谨慎</label>
+                </div>
+            <table width="100%"  cellspacing="0" cellpadding="0">
+				<tr>
+                    <td>
+                        <a href=$helpCenterModule.getTarget("/help/border/border_getAll.action").addQueryData("borderInfo.type","1")>头文件列表</a>
+                    </td>
+				</tr>
+                <tr>
+                    <td>
+                        <a href=$helpCenterModule.getTarget("/help/border/border_getAll.action").addQueryData("borderInfo.type","2")>尾文件列表</a>
+                    </td>
+				</tr>
+                <tr>
+                    <td>
+                        <a href=$helpCenterModule.getTarget("/help/border/border_getAll.action").addQueryData("borderInfo.type","3")>主页文件列表</a>
+                    </td>
+				</tr>
+            </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jsf="http://jsf.jd.com/schema/jsf"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://jsf.jd.com/schema/jsf http://jsf.jd.com/schema/jsf/jsf.xsd"
+       default-autowire="byName">
+
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:sqlmap-config.xml"/>
+    </bean>
+
+    <!-- 配送服务之交易组数据访问客户端 created by dblibin-->
+    <!--<bean id="dispatchSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">-->
+    <!--<property name="configLocation" value="classpath:sqlmap-config-dispatch.xml" />-->
+    <!--<property name="dataSource" ref="dispatchServiceDataSource" />-->
+    <!--</bean>-->
+
+    <!-- 获取特色服务数据（自提、京配） created by dblxy-->
+    <!--<bean id="dictSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">-->
+    <!--<property name="configLocation" value="classpath:sqlmap-config-dict.xml" />-->
+    <!--<property name="dataSource" ref="dictDataSource" />-->
+    <!--</bean>-->
+
+    <bean id="helpCategoryDao" class="com.jd.help.center.dao.category.impl.HelpCategoryDaoImpl">
+        <property name="dataSource" ref="helpCenterDataSource"/>
+    </bean>
+
+    <bean id="helpQuestionDao" class="com.jd.help.center.dao.question.impl.HelpQuestionDaoImpl">
+        <property name="dataSource" ref="helpCenterDataSource"/>
+    </bean>
+
+    <bean id="helpTopicDao" class="com.jd.help.center.dao.topic.impl.HelpTopicDaoImpl">
+        <property name="dataSource" ref="helpCenterDataSource"/>
+    </bean>
+
+    <bean id="helpSYSDao" class="com.jd.help.center.dao.helpsys.impl.HelpSYSDaoImpl">
+        <property name="dataSource" ref="helpCenterDataSource"/>
+    </bean>
+
+    <bean id="catalogDao" class="com.jd.help.dao.impl.CatalogDaoImpl">
+        <property name="dataSource" ref="helpCenterDataSource"/>
+    </bean>
+
+    <!--&lt;!&ndash; 取得所有配送服务dao &ndash;&gt;-->
+    <!--<bean id="helpDispatchDao" class="com.jd.help.center.dao.dispatch.impl.HelpDispatchDaoImpl">-->
+    <!--<property name="dispatchSqlMapClient" ref="dispatchSqlMapClient" />-->
+    <!--</bean>-->
+    <!---->
+    <!--&lt;!&ndash; 特色服务数据获取dao（自提、京配） &ndash;&gt;-->
+    <!--<bean id="helpDictDao" class="com.jd.help.center.dao.dispatch.impl.HelpDictDaoImpl">-->
+    <!--<property name="dictSqlMapClient" ref="dictSqlMapClient" />-->
+    <!--</bean>-->
+
+    <bean id="timeHandler" class="com.jd.help.center.domain.aop.TimeHandler"/>
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames">
+            <value>*Dao</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>timeHandler</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="userTagProxy" class="com.jd.help.rpc.UserTagProxy">
+        <property name="url" value="${user.tag.service.url}"/>
+        <property name="passkey" value="13821-8GUEE-T7F0I-HN8I2-06NXG-Q2DJ0"/>
+    </bean>
+
+    <bean id="EsBaseDao" class="com.jd.help.es.dao.EsClientGeter">
+        <property name="clusterName" value="${es.cluster.name}" />
+        <property name="ip" value="${es.cluster.ip}" />
+        <property name="port" value="${es.cluster.port}" />
+    </bean>
+    <bean id="configCenterClient" class="com.jd.pop.configcenter.client.DefaultConfigCenterClient" init-method="init" destroy-method="destroy">
+        <property name="zkServers" value="${helpcenter.config.zkServers}"/>
+        <property name="zNodePath" value="${helpcenter.config.zkNode}"/>
+        <property name="storeFilePath" value="${helpcenter.config.snapshotPath}"/>
+    </bean>
+    <bean id="configCenterUtils" class="com.jd.help.configCenter.ConfigCenterUtils"/>
+
+</beans>

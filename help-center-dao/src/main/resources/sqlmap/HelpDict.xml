@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpDict">
+
+    <!-- 获取支持自提服务的地区ID -->
+    <select  timeout="5"   id="findPicksiteAreaIdList" resultClass="int">
+        SELECT 
+        	idparent as areaid 
+        FROM 
+        	dbo.dict(nolock) 
+        WHERE 
+        	type='picksite' AND yn >0 
+        GROUP BY 
+        	idparent;
+    </select>
+    
+    <!-- 获取支持京东配送服务的地区ID -->
+    <select  timeout="5"   id="findJdDespatchAreaIdList" resultClass="int">
+        SELECT 
+        	ass_id as areaid 
+        FROM 
+        	dbo.DOC_FuKuanAndDq(nolock) 
+        WHERE 
+        	Fk_ID=1 AND yn>0
+    </select>
+
+</sqlMap>

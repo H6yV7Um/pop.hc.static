@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/base.css"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/helpcenter2012.css"/>
+    <script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+    #if($topicId!=0)
+        #set($title =$!stringEscapeUtils.escapeHtml($helpTopic.getName()))
+    #end
+    <title>#if($title)$title&#45;消费者帮助中心-京东网上商城#else 消费者帮助中心-京东网上商城#end</title>
+    <script type="text/javascript">
+        window.pageConfig = {
+            compatible: false
+        };
+    </script>
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+    $!mongoVelocityTools.getHead("head")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+    #set($tailhtml=".html")
+    <!--[if !ie]>Position 开始<![endif]-->
+    <div class="m breadcrumb"><strong><a href="$venderHelpCenterModule.getTarget("")" target="_self">消费者帮助中心</a>
+    </strong>
+        #if($topicId!=0) &gt;
+            <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!helpTopic.getTopicId()$tailhtml"
+               target="_self">$!stringEscapeUtils.escapeHtml($!helpTopic.getName())</a>
+        #end
+        #if($!viewQuestion) &gt; $!stringEscapeUtils.escapeHtml($!viewQuestion.getQuestion())  #end
+    </div>
+    <!--[if !ie]>Position 结束<![endif]-->
+    <!--[if !ie]>left 开始<![endif]-->
+    <div class="left">
+        <div class="help_side" id="sortlist">
+##            #foreach($category in $!categorys)
+##                <div class="current">
+##                    <h4><b></b>$!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+##                    #set($topics = $!category.getTopics())
+##                    <ul>
+##                        #foreach($topic in $topics)
+##                            <li #if($velocityCount ==1 && $!topicId != $!topic.getTopicId()) class="li1"
+##                            #elseif($velocityCount ==1 && $!topicId == $!topic.getTopicId())
+##                                                                                             class="li1 helpcurr"
+##                            #elseif($velocityCount !=1 && $!topicId == $!topic.getTopicId())
+##                                                                                             class="helpcurr"
+##                            #end
+##                                    >
+##                                #if($!topic.getUrl())
+##                                    <a href="$!topic.getUrl()"
+##                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #else
+##                                    <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!topic.getTopicId()$tailhtml"
+##                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #end
+##                                #if($!topic.getLogoType()==1)
+##                                    <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+##                                #elseif($!topic.getLogoType()==2)
+##                                    <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+##                                #elseif($!topic.getLogoType()==3)
+##                                    <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+##                                #end
+##                            </li>
+##                        #end
+##                    </ul>
+##                </div>
+##            #end
+            #foreach($category in $!leftNavigate.categoryList)
+                <div class="current">
+                    <h4><b></b>$!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+                    #set($topics = $!category.getTopicList())
+                    <ul>
+                        #foreach($topic in $topics)
+                            <li #if($velocityCount ==1 && $!topicId != $!topic.getTopicId()) class="li1"
+                            #elseif($velocityCount ==1 && $!topicId == $!topic.getTopicId())
+                                                                                             class="li1 helpcurr"
+                            #elseif($velocityCount !=1 && $!topicId == $!topic.getTopicId())
+                                                                                             class="helpcurr"
+                            #end    >
+                                <a href="$!topic.getUrl()"
+                                   target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                                #if($!topic.getLogoType()==1)
+                                    <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+                                #elseif($!topic.getLogoType()==2)
+                                    <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+                                #elseif($!topic.getLogoType()==3)
+                                    <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+                                #end
+                            </li>
+                        #end
+                    </ul>
+                </div>
+            #end
+        </div>
+        <iframe scrolling="no" frameborder="0" style="width:165px;height:165px;" marginheight="0" marginwidth="0" src="//x.jd.com/ad?ad_id=50"></iframe>
+    </div>
+    <!--[if !ie]>left 结束<![endif]-->
+    <!--[if !ie]>right 开始<![endif]-->
+    <div class="right" id="top">
+        <!--[if !ie]>内容 开始<![endif]-->
+    ##                #if($topicId==0)
+    ##                    #set($tailVm=".vm")
+    ##                    #parse1("/WEB-INF/vm/front/$!sysName$tailVm")
+    ##                #end
+        #if($!topicId>0&&$!anchorStatus==0)
+            <div id="h-sort">
+                #foreach($question in $!questions)
+                    #if($!question.getQuestionId()==818)
+                        <a href="#help$!question.getQuestionId()"
+                           clstag="click|keycount|subway|help">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>|
+                    #else
+                        <a href="#help$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>|
+                    #end
+                #end
+            </div>
+        #end
+        #if(!$!questions.empty)
+            #foreach($question in $!questions)
+                <a class="h-1px" id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a>
+
+                <h3 class="help_tit"><strong>$!stringEscapeUtils.escapeHtml($!question.getQuestion())</strong></h3>
+
+                <div class="help_box">$!question.getAnswer()</div>
+            #end
+
+        #end
+        #if($!viewQuestion)
+            <a class="h-1px" id="help$!viewQuestion.getQuestionId()" name="help$!viewQuestion.getQuestionId()"></a>
+
+            <h3 class="help_tit"><strong>$!stringEscapeUtils.escapeHtml($!viewQuestion.getQuestion())</strong></h3>
+
+            <div class="help_box">$!viewQuestion.getAnswer()</div>
+        #end
+        <!--[if !ie]>内容 结束<![endif]-->
+        <!--[if !ie]>help_tips 开始<![endif]-->
+        <!--[if !ie]>help_tips 结束<![endif]-->
+        <iframe scrolling="no" frameborder="0" style="width:830px;height:150px;" marginheight="0" marginwidth="0" src="//x.jd.com/ad?ad_id=51"></iframe>
+    </div>
+    <!--[if !ie]>right 结束<![endif]-->
+    <div class="clr"></div>
+</div>
+<script type="text/javascript">
+    jQuery("#sortlist h4").bind("click", function () {
+        var element = $(this).parent();
+        if (element.hasClass("current")) {
+            element.removeClass("current");
+        } else {
+            element.addClass("current");
+        }
+    })
+    jQuery(function(){
+        #if($!topicId==64)
+            //为GIS的iframe src属性赋值
+            if(jQuery("#GIS").length){
+                jQuery("#GIS").removeAttr("src").attr("src","$!GISUrl");
+            }
+            //为问题“什么是自提”中查看附近自提点的超级链接赋值
+            #foreach($question in $!questions)
+                #if($!stringEscapeUtils.escapeHtml($!question.getQuestion())=="自提点分布与查询")
+                    if(jQuery("#sel_ziti").length){
+                        jQuery("#sel_ziti").removeAttr("href").attr("href","#help$!question.getQuestionId()");
+                    }
+                #end
+            #end
+        #end
+    });
+</script>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+    $!mongoVelocityTools.getBottom("bottom")
+<!--[if !ie]>底部内容结束<![endif]-->
+</body>
+
+</html>

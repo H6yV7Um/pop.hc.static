@@ -1,0 +1,99 @@
+#set($title="类目修改")
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div>
+            <div class="tb-x1" style="    margin-top: 6%">
+                <form id="catalogForm"  action="catalog_doUpdate.action" method="post" class="form-horizontal" role="form">
+                    <input type="hidden" name="catalog.id" value="$!{catalog.id}">
+                    <div class="form-group">
+                        <label for="catalogName" class="col-sm-2 control-label" style="display: block;width: 25%;padding-top: 7px;margin-bottom: 0;text-align: right;display:inline-block;">类目名称：</label>
+                        <div class="col-sm-5" style="display: inline-block">
+                            <input type="text"  name="catalog.name" data-container="body" data-content="请输入类目名称，最多20个字" class="form-control" id="catalogName" placeholder="请输入类目名称" value="$!{catalog.name}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes" class="col-sm-2 control-label" style="width: 25%;padding-top: 7px;margin-bottom: 0;text-align: right;display:inline-block;">备注：</label>
+                        <div class="col-sm-5" style="width: 58.33333333%;display: inline-block;">
+                            <textarea rows="3" name="catalog.notes" class="form-control" id="notes" style="height: auto;">$!stringEscapeUtils.escapeHtml($!catalog.getNotes())</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 text-center">
+                            <input type="submit" id="btn-save" class="btn btn-primary btn btn_input btn_primary" value="保存" style="margin-left: 30%; margin-top: 1%;"/>
+                            <a role="button" class="btn  btn-default btn btn_input btn_primary" href="$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData("catalog.pid", "$!catalog.pid").addQueryData("catalog.siteId", "$!catalog.siteId")" style="margin-left: 1%;margin-top: 1%;">取消</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery("#catalogForm").validate({
+            rules: {
+                "catalog.name":{ required:true, minlength:2, maxlength:20 },
+                "catalog.notes":{ maxlength:40 }
+            },
+            messages: {
+                "catalog.name":{ required:"请输入类目名称", minlength:"类目名称不能少于2个字符", maxlength:"类目名称不能多于20个字符" },
+                "catalog.notes":{ maxlength:"备注不能超过40个字符" }
+            },
+            submitHandler : function() {
+                ajaxOperate(jQuery("#catalogForm").attr("action"), jQuery("#catalogForm").serialize(), null);
+                return false;
+            }
+        });
+		
+        jQuery("#btn-save").click(function(){
+//            var catalogName = jQuery.trim(jQuery("#catalogName").val());
+//            if (catalogName == "" || catalogName.length > 20) {
+//                jQuery("#catalogName").popover("show");
+//                return;
+//            }
+//            ajaxOperate(jQuery("#catalogForm").attr("action"), jQuery("#catalogForm").serialize(), null);
+        });
+        
+        jQuery('.fade').on('hidden.bs.modal', function (e) {
+        	window.location.href = "$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData("catalog.pid", "$!catalog.pid").addQueryData("catalog.siteId", "$!catalog.siteId")&ram="+Math.random();
+        });
+    });
+    function ajaxOperate(url,params, callback) {
+        jQuery.ajax({type:'post', url: url, data: params, dataType:'json' ,
+            success:function(result){
+            	if(result.result.success == true){
+            		jQuery('.modal-body').html('<p>修改类目成功！</p>');
+            	}else{
+            		jQuery('.modal-body').html('<p>修改类目失败！</p>');
+            	}
+            	jQuery('.fade').modal('show');
+            },
+            error:function(){
+            	jQuery('.modal-body').html('<p>修改类目失败！</p>');
+            	jQuery('.fade').modal('show');
+            }
+        });
+    }
+</script>
+

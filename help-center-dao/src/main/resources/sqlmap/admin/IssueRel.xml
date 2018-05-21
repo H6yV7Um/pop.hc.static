@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="IssueRel">
+    <typeAlias alias="IssueRel" type="com.jd.help.domain.IssueRel"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="IssueRel">
+        <result property="id" column="id"/>
+        <result property="issueId" column="issue_id"/>
+        <result property="relIssueTitle" column="rel_issue_title"/>
+        <result property="relIssueLink" column="rel_issue_link"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , issue_id , rel_issue_title , rel_issue_link , created , modified </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #issueId#
+            </isNotNull>
+            <isNotNull property="relIssueTitle" prepend="AND" removeFirstPrepend="true">
+                rel_issue_title = #relIssueTitle#
+            </isNotNull>
+            <isNotNull property="relIssueLink" prepend="AND" removeFirstPrepend="true">
+                rel_issue_link = #relIssueLink#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #model.issueId#
+            </isNotNull>
+            <isNotNull property="model.relIssueTitle" prepend="AND" removeFirstPrepend="true">
+                rel_issue_title = #model.relIssueTitle#
+            </isNotNull>
+            <isNotNull property="model.relIssueLink" prepend="AND" removeFirstPrepend="true">
+                rel_issue_link = #model.relIssueLink#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="list">
+    	
+        INSERT INTO help_issue_rel (<include refid="allColumns"/>)
+        VALUES 
+         <iterate  conjunction ="," >   
+         (null , #issueRelList[].issueId# , #issueRelList[].relIssueTitle# , #issueRelList[].relIssueLink# 
+         , now(), now() )
+         </iterate>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="int">
+        delete from  help_issue_rel
+        WHERE
+        issue_id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="IssueRel">
+		UPDATE help_issue_rel
+		SET
+            id = #id# , 
+            issue_id = #issueId# , 
+            rel_issue_title = #relIssueTitle# , 
+            rel_issue_link = #relIssueLink# , 
+            created = #created# , 
+            modified = #modified# 
+        WHERE
+            id = #id#
+	</update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="IssueRel" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_rel
+        WHERE
+        id = #id#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="IssueRel">
+        SELECT count(id)
+        FROM
+        help_issue_rel
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_rel
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        ORDER BY id DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+	
+	 <!-- 通过问题ID查列表 -->
+    <select  timeout="5"   id="queryForListByIssueId" resultMap="defaultResultMap" parameterClass="int">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_rel
+        WHERE issue_id=#issueId#
+    </select>
+</sqlMap>

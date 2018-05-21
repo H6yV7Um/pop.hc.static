@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="IssueOldNewMapping">
+    <typeAlias alias="IssueOldNewMapping" type="com.jd.help.domain.IssueOldNewMapping"/>
+	<typeAlias alias="IssueOldNewMappingBO" type="com.jd.help.domain.IssueOldNewMappingBO"/>
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="IssueOldNewMapping">
+        <result property="issueId" column="issue_id"/>
+        <result property="oldUrl" column="old_url"/>
+        <result property="status" column="status"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+	<!-- 所有字段+cata_id的result map -->
+    <resultMap id="resultMapWithCataId" class="IssueOldNewMappingBO" extends="defaultResultMap">
+        <result property="cataId" column="cata_id"/>
+        <result property="siteId" column="site_id"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> issue_id , old_url ,status, created , modified  </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert"  parameterClass="list">
+        INSERT INTO help_issue_old_new_mapping (<include refid="allColumns"/>)
+        VALUES 
+         <iterate  conjunction ="," >   
+        (#issueONMapingList[].issueId# , #issueONMapingList[].oldUrl# ,1,now(),now())
+        </iterate>
+    </insert>
+
+    <!--删除-->
+    <update  timeout="5"   id="delete"  parameterClass="int">
+        delete from help_issue_old_new_mapping
+        WHERE
+        issue_id = #issueId#
+    </update>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="IssueOldNewMapping">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_old_new_mapping
+        WHERE issue_id = #issueId#
+    </select>
+
+	<!-- 通过issueID查列表 -->
+    <select  timeout="5"   id="queryForListByIssueId" resultMap="defaultResultMap" parameterClass="int">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_old_new_mapping
+        WHERE issue_id = #issueId#
+    </select>
+    
+    <!-- 查所有列表 -->
+    <select  timeout="5"   id="queryAllForList" resultMap="resultMapWithCataId">
+        SELECT
+        i.site_id,i.cata_id,m.issue_id , m.old_url ,m.status, m.created , m.modified 
+        FROM
+        help_issue_old_new_mapping  m inner join help_issue i
+        on m.issue_id = i.id
+        WHERE m.status > 0 and i.status > 0
+    </select>
+</sqlMap>

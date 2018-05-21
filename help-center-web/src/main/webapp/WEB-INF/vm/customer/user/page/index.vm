@@ -1,0 +1,121 @@
+#set($layout="customer/user/default.vm")
+#set($navId="home")
+
+##页面内容
+#parse("/WEB-INF/vm/customer/user/page/banner.vm")
+<div class="bgcolor01">
+    <div class="w">
+        <div class="notice-box">
+            <div class="text">公告：</div>
+            <ul class="list-float" id="notice">
+            </ul>
+            <div class="more-link" id="moreNotice"><a
+                    href="$venderHelpCenterModule.getTarget("/$!siteEnName/notice/list.html")" clstag="pageclick|keycount|index_201502102|5">更多公告 &gt;&gt;</a></div>
+        </div>
+        <div class="search-order-box">
+            <form action="$venderHelpCenterModule.getTarget("/issue/search")">
+                <input type="hidden" name="siteId" value="$!siteId">
+
+                <div class="search-box"><input type="text" name="keyword" class="f-text" style="width: 850px;"
+                                               placeholder="请输入完整的问题，如“如何查找订单”"><input
+                        type="submit" class="btn-sch" value="提问" clstag="pageclick|keycount|index_201502102|4"></div>
+            </form>
+##            <div class="order-box">
+##                <p class="text"><span id="pin">您好</span>！<br/>想了解您订单的相关帮助吗？</p>
+##                <a href="#none" class="btn-s01" id="checkLogin" clstag="pageclick|keycount|index_201502102|6">请选择订单</a>
+##            </div>
+        </div>
+    </div>
+</div>
+<div class="bgcolor02">
+    <div class="w">
+    ## 常用自助服务
+        $!index_hotService.content
+    </div>
+</div>
+<div class="bgcolor03">
+    <div class="w">
+    ## 热点问题
+        $!index_hotIssue.content
+
+    ## 类目
+        $!index_catalogList.content
+    </div>
+</div>
+
+#parse("/WEB-INF/vm/customer/user/page/contactUs.vm")
+
+## 广告位
+<div class="bgcolor04">
+    <div class="w">
+        <script type="text/javascript">
+            jd_ad_client = 582;// 广告位Id
+            jd_ad_width = 990; //广告位宽度
+            jd_ad_height = 70; //广告位高度
+            jd_ad_type = 8;
+            jd_ad_spread = 1;
+            jd_ad_num = 1;
+        </script>
+        <script type="text/javascript" src="//static.360buyimg.com/jzt/temp/ssp.js"></script>
+    </div>
+    <div class="w">
+        <script type="text/javascript">
+            jd_ad_client = 583;// 广告位Id
+            jd_ad_width = 990; //广告位宽度
+            jd_ad_height = 70; //广告位高度
+            jd_ad_type = 8;
+            jd_ad_spread = 1;
+            jd_ad_num = 1;
+        </script>
+        <script type="text/javascript" src="//static.360buyimg.com/jzt/temp/ssp.js"></script>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var orderListUrl = '$!venderHelpCenterModule.getTarget("/$!siteEnName/order/list.do")';
+</script>
+<script type="text/javascript">
+    jQuery.ajax({
+        type: "GET",
+        url: '$!venderHelpCenterModule.getTarget("/$!siteEnName/notice/listTop3.html")',
+        dataType: "json",
+        success: function (data) {
+            var domainUrl = '$!venderHelpCenterModule.getTarget("")';
+            var siteEnName = '$!siteEnName';
+            if (!data || data.noticeList == undefined || data.noticeList.length < 1) {
+                $('#notice').append('<li class="list-item">暂无公告</li>');
+                return;
+            }
+
+            jQuery.each(data.noticeList, function (i, o) {
+                $('#notice').append('<li class="list-item"><b>&middot;</b><a href="' + domainUrl + siteEnName + '/notice/detail-' + o.id + '.html" clstag="pageclick|keycount|index_201502102|'+(i+1)+'">' + o.name + '</a></li>');
+            });
+        },
+        error: function () {
+            $('#notice').append('<li class="list-item">暂无公告</li>');
+        },
+        timeout: 10000
+    });
+
+    var getCookie = function (c_name) {
+        try {
+        	var str = jQuery.cookie(c_name);
+        	if(str){
+        		return decodeURIComponent(str);
+        	}
+        	return null;
+        } catch (e) {
+        	return null;
+        }
+    };
+
+    var fillPin = function () {
+//         var pin = getCookie("pin");
+//         if (pin != null) {
+//             $("#pin").html(pin);
+//         }
+    };
+    (function ($) {
+        fillPin();
+    })(jQuery)
+</script>

@@ -1,0 +1,5 @@
+#* @implicitly included *#
+#* @vtlvariable name="site" type="com.jd.help.domain.Site" *#
+#* @vtlvariable name="categorys" type="java.util.List<com.jd.help.center.domain.category.HelpCategory>" *#
+#* @vtlvariable name="category" type="com.jd.help.center.domain.category.HelpCategory" *#
+#* @vtlvariable name="helpCategoryQuery" type="com.jd.help.center.domain.category.query.HelpCategoryQuery" *#

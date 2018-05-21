@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HtmlModule">
+    <typeAlias alias="HtmlModule" type="com.jd.help.domain.HtmlModule"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 没有内容字段的result map -->
+    <resultMap id="noContentResultMap" class="HtmlModule">
+        <result property="id" column="id"/>
+        <result property="siteId" column="site_id"/>
+        <result property="key" column="key"/>
+        <result property="name" column="name"/>
+        <result property="notes" column="notes"/>
+        <result property="status" column="status"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" extends="noContentResultMap" class="HtmlModule">
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns">id ,site_id, `key`,name , notes, content ,status , creator , modifier , created , modified
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="id" prepend="AND" removeFirstPrepend="true">
+                id = #id#
+            </isNotNull>
+            <isNotNull property="key" prepend="AND" removeFirstPrepend="true">
+                `key` = #key#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotEmpty property="model.name" prepend="AND">
+                (`key` like CONCAT('%',#model.name#,'%') or name like CONCAT('%',#model.name#,'%'))
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+	<!-- 用于分页的查询数量条件 -->
+    <sql id="conditionForPageCount">
+        <dynamic>
+            <isNotEmpty property="name" prepend="AND">
+                (`key` like concat('%',#name#,'%') or name like concat('%',#name#,'%'))
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="HtmlModule">
+        INSERT INTO help_html_module (<include refid="allColumns"/>)
+        VALUES (null ,#siteId#, #key# ,#name#, #notes#, #content#, 0 , #creator#, #modifier# ,now() ,
+        now() )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="HtmlModule">
+        UPDATE help_html_module
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="HtmlModule">
+		UPDATE help_html_module
+		set 
+		notes = #notes#,
+        name = #name#,
+		content = #content#,
+		modifier = #modifier#,
+		modified = now()
+        WHERE id = #id#
+	</update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="HtmlModule" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_html_module
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="HtmlModule">
+        SELECT count(id)
+        FROM
+        help_html_module
+        WHERE status > -1
+        and site_id = #siteId#
+        <include refid="conditionForPageCount"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="noContentResultMap" parameterClass="Page">
+        SELECT
+        id ,site_id, `key`,name, notes,status , creator , modifier , created , modified
+        FROM
+        help_html_module
+        WHERE status > -1
+        and site_id = #model.siteId#
+        <include refid="conditionForPage"/>
+        ORDER BY id DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+    <select  timeout="5"   id="findByKeies" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_html_module
+        WHERE status > -1
+        <iterate prepend="AND" open="(" close=")" conjunction="OR">
+            `key`=#[]#
+        </iterate>
+    </select>
+
+</sqlMap>

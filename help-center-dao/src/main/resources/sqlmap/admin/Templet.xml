@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Templet">
+    <typeAlias alias="Templet" type="com.jd.help.domain.Templet"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="Templet">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="fileName" column="file_name"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , name , file_name , created , modified </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                name = #name#
+            </isNotNull>
+            <isNotNull property="fileName" prepend="AND" removeFirstPrepend="true">
+                file_name = #fileName#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.name" prepend="AND" removeFirstPrepend="true">
+                name = #model.name#
+            </isNotNull>
+            <isNotNull property="model.fileName" prepend="AND" removeFirstPrepend="true">
+                file_name = #model.fileName#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="Templet">
+        INSERT INTO help_templet (<include refid="allColumns"/>)
+        VALUES (null , #name# , #fileName# , #created# , #modified# )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="Templet">
+        UPDATE help_templet
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="Templet">
+		UPDATE help_templet
+		SET
+            id = #id# , 
+            name = #name# , 
+            file_name = #fileName# , 
+            created = #created# , 
+            modified = #modified# 
+        WHERE
+            id = #id#
+	</update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="Templet" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_templet
+        WHERE
+        id = #id#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="Templet">
+        SELECT count(id)
+        FROM
+        help_templet
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_templet
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        ORDER BY id DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+</sqlMap>

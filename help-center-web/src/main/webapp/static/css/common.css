@@ -1,0 +1,319 @@
+.tab_nav .arrow_analyze{
+    left:42px;
+}
+.tab_nav .arrow_key{
+    left:49px;
+}
+.title{
+    min-height: 40px;
+    border-color: #e7e7eb;
+    border-bottom: 1px solid #e7e7eb;
+    background: #f4f5f9;
+    position: relative;
+    line-height: 0;
+    font-size: 12px;
+}
+.title h3{
+    display: inline-block;
+    min-height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    padding-left: 20px;
+    vertical-align: middle;
+    font-weight: normal;
+}
+.content{
+    position: relative;
+    clear: both;
+    padding: 20px;
+}
+.mod_basic{
+    position:relative;
+    background: #FFF;
+    border: 1px solid #e7e7eb;
+}
+.mod_form{
+    background: #f4f5f9;
+    padding: 10px 20px;
+    min-height: 31px;
+    line-height: 1em;
+    border-top: 1px solid #e7e7eb;
+}
+.mod_form .label{
+    font-size: 14px;
+    min-height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.mod_form .label_val{
+    margin-right: 10px;
+}
+
+.mod_form .search {
+    position: relative;
+    display: inline-block;
+}
+.mod_form .dropdown_menu{
+    margin-right: 10px;
+}
+.search input[type='text']{
+    width: 120px;
+    background: #fff;
+    padding: 4px 30px 4px 10px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+    border: 1px solid #e7e7eb;
+    display: inline-block;
+    vertical-align: middle;
+}
+.search button{
+    position: absolute;
+    left: auto;
+    right: 1px;
+    top: 1px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border:none;
+    border-left: 1px solid #e7e7eb;
+    text-indent: -999em;
+    overflow: hidden;
+    cursor: pointer;
+    background: url("/misc/common/css/i/search.png") center center no-repeat;
+}
+.mod_item{
+    margin-bottom: 20px;
+}
+.mod_title {
+    height: 40px;
+    padding: 0 15px;
+    line-height: 40px;
+    font-size: 14px;
+    border: 1px solid #e7e7eb;
+    border-bottom: 1px solid #e7e7eb;
+    background: #f4f5f9;
+    background-image: -ms-linear-gradient(top, #f4f5f9, #f4f5f9);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f5f9), to(#f4f5f9));
+    background-image: -moz-linear-gradient(top, #f4f5f9, #f4f5f9);
+    background-image: -o-linear-gradient(top, #f4f5f9, #f4f5f9);
+    background-image: linear-gradient(top, #f4f5f9, #f4f5f9);
+}
+.mod_extra {
+    float: right;
+}
+.mod_title h5 {
+    max-width: 500px;
+    float: left;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.mod_title .time {
+    float: left;
+    font-size: 14px;
+    color: #8D8D8D;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.mod_content {
+    min-height: 80px;
+    padding: 15px;
+    border: 1px solid #e7e7eb;
+    border-top: 0 none;
+}
+.ta_date{
+    background: #fff;
+    line-height: 29px;
+    border: 1px solid #e6e7ec;
+}
+.ta_date:hover{
+    background: #e6e7ec;
+    border-color: #dadbe0;
+}
+.ta_date .date_title {
+    font-size: 14px;
+    padding: 6px 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-right: none;
+    font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","???ии??иж?бниж?бо","иж?бо??б░",Arial,sans-serif;
+    line-height: 28px;
+    color: #222;
+}
+.ta_date .opt_sel {
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: -4px;
+    width: 20px;
+    text-align: left;
+}
+.ta_date .i_orderd {
+    position: relative;
+    top: -2px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    border-top: 5px solid #727272;
+    border-right: 5px dashed transparent;
+    border-left: 5px dashed transparent;
+    font-size: 0;
+    content: "";
+    overflow: hidden;
+}
+.tool_date {
+    margin-right: 10px;
+}
+.nav-tabs{
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: middle;
+    background: none;
+    border: 0;
+}
+.nav-tabs a{
+    min-height: 40px;
+    line-height: 40px;
+    padding:0 15px;
+    margin: 0;
+    min-width: 76px;
+    text-align: center;
+    border: none;
+    color: #222222;
+    font-size: 14px;
+}
+.date-section {
+    float: left;
+    font-size: 14px;
+}
+.date-section li{
+    margin-right: -1px;
+}
+.date-section a {
+    display: block;
+    padding: 0 22px;
+    min-width: 60px;
+    height: 30px;
+    border: 1px solid #e6e7ec;
+    background: #fff;
+    line-height: 30px;
+    color: #222;
+    text-align: center;
+}
+.select li {
+    float: left;
+}
+.time_label{
+    float: left;
+    width: 60px;
+    line-height: 32px;
+}
+.date-section li.active a {
+    color: #459ae9;
+}
+.date-section a:hover{
+    background: #e6e7ec;
+    border-color: #dadbe0;
+    text-decoration: none;
+}
+.date-section li.active a{
+    color: #D9524C;
+}
+.pagination{
+    padding:0;
+}
+.pagination span.response_tip{
+    display: block;
+    padding-right:0;
+    margin-right:0;
+}
+.sub_title {
+    clear: both;
+    position: relative;
+    z-index: 7;
+    padding-left: 5px;
+    margin: 20px 20px 0 20px;
+    border-left: 4px solid #DA4A42;
+    font-size: 14px;
+    height: 14px;
+    line-height: 14px;
+    font-weight: normal;
+}
+.sub_content{
+    position: relative;
+    clear: both;
+    padding: 20px;
+}
+.split {
+    clear: both;
+    display: block;
+    height: 1px;
+    margin: 0 0 20px 0;
+    border: 0 none;
+    border-bottom: 1px solid #e7e7eb;
+}
+.stable{
+    border: 0 none;
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    table-layout: fixed;
+}
+.stable td {
+    font-size: 14px;
+    line-height: 19px;
+    padding: 10px;
+    color: #666;
+    text-align: left;
+    white-space: nowrap;
+    border: 1px solid #e8e8e8;
+    border-left: 0;
+    border-right: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.stable th{
+    background: #f4f5f9;
+    box-shadow: none;
+    border:1px solid #e7e7eb;
+    font-size: 14px;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-left: 0;
+    border-right: 0;
+    text-align: left;
+    font-weight: bold;
+}
+.table_content{
+    padding-left: 0;
+    padding-right: 0;
+}
+.table_content .pagination{
+    padding-left:20px;
+    padding-right: 20px;
+}
+.table_content th,.table_content td{
+    border-left: 0;
+    border-right: 0;
+}
+.gri_wrapper table{
+    border-width:0;
+}
+.gri_wrapper th:first-child{
+    border-left-width: 0;
+}
+.gri_wrapper th:last-child{
+    border-right-width: 0;
+}
+.lab{
+    margin-left: 40px;
+}

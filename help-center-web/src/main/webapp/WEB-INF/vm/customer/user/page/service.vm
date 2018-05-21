@@ -1,0 +1,15 @@
+#set($layout="customer/user/default.vm")
+#set($navId="service")
+#set($title="自助服务-帮助中心-京东")
+
+##页面内容
+<div class="bg-white pd-box-b20">
+    <div class="w">
+## 常用自助服务
+    $!service_hotService.content
+    </div>
+</div>
+<div class="w">
+## 全部自助服务
+    $!service_allService.content
+</div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body class="zh_CN">
+    #parse("/WEB-INF/vm/layout/admin/index/header.vm")
+
+<!--澶撮儴-->
+<div id="body" class="body" style="width: 100%;height: 100%">
+
+    <div id="js_container_box" class="container_box">
+        <!--left-->
+        #parse("/WEB-INF/vm/layout/admin/index/left.vm")
+        <!-- right -->
+        <div class="lab" style="display:inline-block"><a id="crumbs_index"style="font-size:13px;margin-left: -2%;display:inline-block" href="/welcome/welcome.action">首页</a> <p style="display:inline-block"> ->&nbsp;&nbsp; </p><a id="crumbs_something"style="font-size:13px;margin-left: -2%;display:inline-block"  href="/lable/helpLable.action">知识标签管理</a></div>
+        <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+        $screen_content
+
+    </div>
+</div>
+<!--椤佃剼-->
+</body>
+</html>

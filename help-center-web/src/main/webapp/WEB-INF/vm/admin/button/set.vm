@@ -1,0 +1,123 @@
+#set($layout="admin/default.vm")
+#set($title="场景化按钮配置")
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <form id="scenesButtonForm" name="scenesButtonForm" role="form" method="post" class="form-horizontal">
+            <input type="hidden" name="scensbuttonRelBO.siteId" value="$!{siteId}"/>
+            <input type="hidden" id="relId" name="scensbuttonRelBO.cataId" value="$!{cataId}">
+            <div id="extInput">
+            </div>
+        </form>
+        <div class="form-horizontal">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">场景化按钮配置</h3>
+                </div>
+                <div class="panel-body" id="scenesButtonRel">
+                    #foreach($rel in $!scensbuttonRelBO.getScenesButtonRelList())
+                        <div class="form-group" id="button-rel-form-group-${velocityCount}">
+                            <label class="col-sm-1 control-label">按钮标题</label>
+
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="title" placeholder="请输入标题"
+                                       value="$rel.getButtonTitle()">
+                            </div>
+
+                            <label class="col-sm-1 control-label">按钮链接</label>
+
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="link" placeholder="请输入链接"
+                                       value="$rel.getButtonLink()">
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="btn btn-sm btn-warning"
+                                        onclick="cleanInput('button-rel-form-group-${velocityCount}');">清空
+                                </button>
+                            </div>
+                        </div>
+                    #end
+                    #if($scensbuttonRelBO.getScenesButtonRelList().size() < 5)
+                        #foreach($relIndex in [$!scensbuttonRelBO.getScenesButtonRelList().size()..4])
+                            <div class="form-group" id="button-rel-form-group-${relIndex}">
+                                <label class="col-sm-1 control-label">按钮标题</label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="title" placeholder="请输入标题">
+                                </div>
+
+                                <label class="col-sm-1 control-label">按钮链接</label>
+
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" name="link" placeholder="请输入链接">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-sm btn-warning"
+                                            onclick="cleanInput('button-rel-form-group-${relIndex}');">清空
+                                    </button>
+                                </div>
+                            </div>
+                        #end
+                    #end
+                </div>
+            </div>
+        </div>
+
+        <div class="well text-center affix">
+            <button type="button" class="btn btn-primary" onclick="save()">保 存</button>
+            <a role="button" class="btn  btn-default" href="$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData("catalog.pid", "$!{cataPid}").addQueryData("catalog.siteId", "$!{siteId}")">返回</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function cleanInput (blockId) {
+        jQuery('#' + blockId + ' input').each(function () {
+            this.value = "";
+        });
+    }
+
+    function save(){
+        fillForm();
+        var actionUrl = 'doInsert.action';
+        jQuery('#scenesButtonForm').attr('action',actionUrl);
+        jQuery('#scenesButtonForm').submit();
+    }
+
+    var fillForm = function () {
+        jQuery('#extInput').empty();
+        var relId = jQuery("#relId").val();
+        var relIndex = 0;
+        jQuery('#scenesButtonRel .form-group').each(function (outIndex) {
+            var titleValue;
+            var linkValue;
+            jQuery(this).find('input').each(function () {
+                if (this.value != null && jQuery.trim(this.value) != "") {
+                    if (this.name == 'title') {
+                        titleValue = jQuery.trim(this.value);
+                    } else if (this.name == 'link') {
+                        linkValue = jQuery.trim(this.value);
+                    }
+                }
+            });
+            if (titleValue != null && linkValue != null) {
+                var titleCon = '<input type="hidden"  name="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].buttonTitle" '
+                        + ' id="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].buttonTitle" value="' + titleValue + '" />  ';
+
+                var linkCon = '<input type="hidden" name="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].buttonLink" '
+                        + ' id="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].buttonLink" value="' + linkValue + '"  />';
+
+                var typeCon = '<input type="hidden" name="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].type" '
+                        + ' id="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].type" value="1"  />';
+
+                var relIdCon = '<input type="hidden" name="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].relId" '
+                        + ' id="scensbuttonRelBO[\'scenesButtonRelList\'][' + relIndex + '].relId" value="'+ relId +'"  />';
+
+                jQuery('#extInput').append(titleCon).append(linkCon).append(typeCon).append(relIdCon);
+                relIndex++;
+            }
+        });
+    };
+
+</script>

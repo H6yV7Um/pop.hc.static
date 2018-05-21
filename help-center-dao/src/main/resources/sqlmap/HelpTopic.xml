@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpTopic">
+
+    <typeAlias alias="HelpTopic" type="com.jd.help.center.domain.topic.HelpTopic"/>
+
+    <resultMap id="HelpTopicMap" class="HelpTopic">
+        <result property="topicId" column="id" nullValue="0"/>
+        <result property="categoryId" column="category_id" nullValue="0"/>
+        <result property="name" column="name"/>
+        <result property="sortOrder" column="sort_order" nullValue="0"/>
+        <result property="status" column="status" nullValue="0"/>
+        <result property="notes" column="notes"/>
+        <result property="features" column="features"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <insert timeout="5"    id="insertTopic" parameterClass="HelpTopic">
+        insert into help_topic  (category_id, name, sort_order,status,notes ,features,created, modified)
+        values  (#categoryId#, #name#, #sortOrder#,#status#,#notes#,#features#, now(), now())
+        <selectKey resultClass="int" keyProperty="topicId">
+           SELECT LAST_INSERT_ID() as value
+        </selectKey>
+    </insert>
+
+    <select  timeout="5"   id="findTopicByCategoryId" parameterClass="int" resultMap="HelpTopic.HelpTopicMap">
+        select id,category_id,name,sort_order,status,notes,features,created, modified from help_topic
+        where category_id=#value# and status!=-1 order by sort_order
+    </select>
+
+    <select  timeout="5"   id="findTopicByCategoryFront" parameterClass="int" resultMap="HelpTopic.HelpTopicMap">
+        select id,category_id,name,sort_order,status,notes,features,created, modified from help_topic
+        where category_id=#value# and status=1 order by sort_order
+    </select>
+
+    <select  timeout="5"   id="getTopicById" parameterClass="int" resultMap="HelpTopic.HelpTopicMap">
+        select id,category_id,name,sort_order,status,notes,features,created, modified from help_topic where id=#value#
+    </select>
+
+    <update  timeout="5"   id="updateTopic" parameterClass="HelpTopic">
+        update help_topic set name=#name#,sort_order=#sortOrder#,status=#status#,notes=#notes#,features=#features#,modified=now() where id=#topicId#
+    </update>
+
+    <update  timeout="5"   id="updateTopicStatus" parameterClass="HelpTopic">
+        update help_topic set status=#status#,modified=now() where id=#topicId#
+    </update>
+
+</sqlMap>

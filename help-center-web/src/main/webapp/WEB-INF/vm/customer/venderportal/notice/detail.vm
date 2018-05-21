@@ -1,0 +1,40 @@
+#set($layout="customer/vender/default.vm")
+#set($navId="noticeDetail")
+<div class="curr_position">
+    商家帮助中心
+    <span class="split">&gt;</span>
+    <a href="$venderHelpCenterModule.getTarget("/$!siteEnName/notice/list.html")">公告</a>
+    <span class="split">&gt;</span>
+    <span class="txt-grey">$!notice.name</span>
+</div>
+<div class="mod-s01" id="noticedetail">
+    <h3 class="gg-title">$!notice.name</h3>
+    <p class="gg-time">$!dateFormatUtils.format($!notice.modified,"yyyy-MM-dd HH:mm:ss")</p>
+    <p class="gg-cont">
+        $!notice.content
+    </p>
+</div>
+
+<!--  /widget/gotop/gotop.vm -->
+<div class="gotop">
+    <ul class="gotop-list">
+        <li class="li-item item01"><a href="javascript:;" class="link-dlk"><i class="icon-gotop1"></i></a></li>
+        <li class="li-item item02"><a href="javascript:;" class="link-dlk"><i class="icon-gotop2"></i></a></li>
+        <li class="li-item item03"><a href="javascript:;" class="link-dlk"><i class="icon-gotop3"></i></a></li>
+        <li class="li-item item04" id="gotop"><a href="#" class="link-dlk link-top"><i class="icon-gotop4"></i></a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        seajs.use('jdf/2.0.0/ui/gotop/1.0.0/gotop',function(gotop){
+            var gotopBtn = $('.gotop');
+            gotopBtn.gotop({
+                btnEl: '#gotop',
+                isSyncShow: false,
+                easing: 'swing'
+            });
+        });
+
+    });
+</script>
+<!--/ /widget/gotop/gotop.vm -->

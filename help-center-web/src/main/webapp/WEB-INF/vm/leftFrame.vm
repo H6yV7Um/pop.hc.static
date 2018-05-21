@@ -1,0 +1,210 @@
+#set($layout="empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>pop</title>
+<link rel="stylesheet" type="text/css" href="$!assetModule.getTarget("/pop-ven/skin/popbase.css")" media="all" />
+<script type="text/javascript" src="$!assetModule.getTarget("/pop-ven/js/jquery-1.4.2.min.js")"></script>
+</head>
+
+<body id="leftframe">
+	<div id="popmenu">
+	
+	</div>
+	<div id="control" class="control"></div>
+		<script type="text/javascript">
+		(function(){
+			var jdMenu={
+				_m1:[{
+					href:"/home.action",
+					text:"商家首页",
+					child:[]
+				},{
+					href:"/help/category/category_findAll.action",
+					text:"类目管理",
+					child:[]
+				},{
+					href:"#4",
+					text:"#",
+					child:[]
+				}],
+				_m2:[{
+					href:"/seller/sellerinfo/seller_info.action",
+					text:"店铺管理",
+					child:[]
+				},{
+					href:"/vendershop/vendershop_modify.action",
+					text:"店铺装修设置",
+					child:[]
+				},{
+					href:"/venderillegalorder/venderillegalorder_findbyvenderid.action",
+					text:"评价体系",
+					child:[]
+				},{
+					href:"/service/serviceOrder_doMyService.action",
+					text:"服务订购",
+					child:[]
+				},{
+					href:"/Announcement/Announcement.action",
+					text:"店内公告海报",
+					child:[]
+				}],
+				_m3:[{
+					href:"/rest/shop/ware/navigation",
+					text:"添加新商品",
+					child:[]
+				},{
+					href:"/onSaleWare/onSaleWare_manage.action",
+					text:"在售商品管理",
+					child:[]
+				},{
+					href:"/forSaleWare/forSaleWare_manage.action",
+					text:"待售商品管理",
+					child:[]
+				},{
+					href:"#3",
+					text:"商品评论",
+					child:[]
+				}],
+				_m4:[{
+					href:"/event/event_addEvent.action",
+					text:"我要促销",
+					child:[]
+				},{
+					href:"/event/event_venderEvtQueryInit.action",
+					text:"我的促销",
+					child:[]
+				}],	
+				_m5:[{
+					href:"/order/orderSop_waitPaymentList.action",
+					text:"订单查询与跟踪SOP",
+					child:[]
+				},{
+					href:"/order/orderFbp_waitPaymentList.action",
+					text:"订单查询与跟踪FBP",
+					child:[]
+				},{
+					href:"/order/orderLbp_waitPaymentList.action",
+					text:"订单查询与跟踪LBP",
+					child:[]
+				},{
+					href:"/order/orderPrint_list.action",
+					text:"订单打印",
+					child:[]
+				},{
+					href:"/order/orderPrintLbp_list.action",
+					text:"订单打印LBP",
+					child:[]
+				},{
+					href:"/order/orderOutBatch_list.action",
+					text:"快速出库",
+					child:[]
+				}],	
+				_m6:[{
+					href:"/vender/warehouseRent/warehouseRentAction_list.action",
+					text:"租仓管理",
+					child:[]
+				},{
+					href:"/vender/storehouseBill/storehouseBillAction_list.action?status=1",
+					text:"入库管理",
+					child:[]
+				},{
+					href:"/vender/stock/stockAction_list.action",
+					text:"库存管理",
+					child:[]
+				}],
+				_m7:[{
+					href:"/delivery/company/companyCustom_list.action",
+					text:"物流公司管理",
+					child:[]
+				},{
+					href:"/delivery/listCustomArea.action",
+					text:"运费模板",
+					child:[]
+				}],
+				_m8:[{
+					href:"/after/afterAction_sendList.action",
+					text:"退货收货",
+					child:[]
+				},{
+					href:"/after/afterAction_returnList.action",
+					text:"退货查询",
+					child:[]
+				},{
+					href:"/after/afterAction_refundmentList.action",
+					text:"退款审核",
+					child:[]
+				}]
+			};
+			
+			var initMenu=function(obj){
+				parent.document.getElementsByTagName('frameset')[1].cols='169,*'
+				document.getElementById('popmenu').style.display="";
+				document.getElementById('control').className="control";
+				var html="";
+				for (var i=0;i<obj.length;i++){
+					var css=(i==0)?"curr":"";
+					html+="<dl class='"+ css +"'>";
+					html+="<dt><a href='"+ obj[i].href +"' target='mainFrame'>"+ obj[i].text +"</a></dt>";
+					/*html+="<dd>";
+					for (var j=0;j<obj[i].child.length;j++){
+												
+					}
+					html+="</dd>";*/
+					html+="</dl>";
+				}				
+				document.getElementById("popmenu").innerHTML=html;
+				parent.mainFrame.location=obj[0].href;
+			}
+			var url=window.location.toString().match(/module=(\d+)/)[1];
+			switch (url){
+				case "1":
+					initMenu(jdMenu._m1);
+					break;
+				case "2":
+					initMenu(jdMenu._m2);
+					break;
+				case "3":
+					initMenu(jdMenu._m3);
+					break;
+				case "4":
+					initMenu(jdMenu._m4);
+					break;
+				case "5":
+					initMenu(jdMenu._m5);
+					break;
+				case "6":
+					initMenu(jdMenu._m6);
+					break;
+				case "7":
+					initMenu(jdMenu._m7);
+					break;	
+				case "8":
+					initMenu(jdMenu._m8);
+					break;	
+				default:
+					initMenu(jdMenu._m1);
+					break;
+			}		
+		})()
+	</script>
+	<script type="text/javascript">
+		(function(){
+			$("#popmenu a").bind("click",function(){
+				$("#popmenu .curr").removeClass("curr");
+				var index=$("#popmenu a").index(this);
+				$("#popmenu dl").eq(index).addClass("curr");
+			});
+			$("#control").bind("click",function(){
+				parent.document.getElementsByTagName('frameset')[1].cols=(parent.document.getElementsByTagName('frameset')[1].cols=='10,*')?'169,*':'10,*';
+				document.getElementById('popmenu').style.display=(document.getElementById('popmenu').style.display=='none')?'':'none';
+				document.getElementById('control').className=(document.getElementById('control').className=='control')?'control switch':'control';
+			});
+		})()
+		
+		
+		
+	</script>
+</body>
+</html>

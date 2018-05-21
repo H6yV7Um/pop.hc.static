@@ -1,0 +1,71 @@
+#set($layout="customer/vender/default.vm")
+#set($navId="home")
+#set($contactUs="WEB-INF/vm/customer/vender/common/contactUs.vm")
+#set($index_js="//static.360buyimg.com/shop/pop_help/css/index.css")
+<style>
+    .module,.cl,.xl,.xl1 li{
+        line-height: 1.5;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 14px;
+        vertical-align: baseline;
+        margin: 5px auto 0px 15px;
+        text-align: left;
+    }
+</style>
+<body>
+<div class="mod-s01 p20" id="partid01">
+#*轮播图*#
+    $!index_banner.content
+    <!-- slide -->
+    <div class="mod-s02" id="notice">
+        <div class="mod-hd">
+            <h3 class="title"><i class="icon-i icon-i1"></i>重要公告</h3>
+            <div class="h-more"><a href="//mjbbs.jd.com/forum-2-1.html" clstag="pageclick|keycount|helpcenter_home|9">更多 &gt;</a></div>
+        </div>
+
+        <!-- [vm] /widget/notice/notice.vm -->
+##        <script type="text/javascript" src="//mjbbs.jd.com/api.php?mod=js&bid=743"></script>
+        <!--/ /widget/notice/notice.vm -->
+
+            <div id="noticeId"></div>
+    </div>
+    <!--notice  -->
+</div>
+<!-- partid01 商家服务导航-->
+    $!index_venderServerNavigation.content
+<!-- partid02 热点问题-->
+    $!index_hotIssue.content
+<!-- partid03 商家专题-->
+    $!index_venderSpecial.content
+#*学习专区*#
+    $!index_studyArea.content
+<!-- partid04 -->
+
+<script type="text/javascript">
+
+    $(function(){
+        jQuery.ajax({
+            url:"/import/notice/queryImportNotice.action",
+            data:null,
+            dataType:"json",
+            type:"post",
+            success:function(result){
+                $("#noticeId").html(result.content);
+            }
+        });
+    });
+    var jaq = jaq || [];
+    jaq.push(['account', 'JA2017_113662']); //站点编号
+    jaq.push(['domain', 'jd.com']);  //站点域名
+    (function () {
+
+        var ja = document.createElement('script');
+        ja.type = 'text/javascript';
+        ja.async = true;
+        ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ja, s);
+    })();
+</script>

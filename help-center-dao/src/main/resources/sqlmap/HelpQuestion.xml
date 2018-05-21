@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpQuestion">
+
+    <typeAlias alias="HelpQuestion" type="com.jd.help.center.domain.question.HelpQuestion"/>
+
+    <resultMap id="HelpQuestionMap" class="HelpQuestion">
+        <result property="questionId" column="id" nullValue="0"/>
+        <result property="topicId" column="topic_id" nullValue="0"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="answer"/>
+        <result property="sortOrder" column="sort_order" nullValue="0"/>
+        <result property="status" column="status" nullValue="0"/>
+        <result property="notes" column="notes"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="postTime" column="post_time"/>
+        <result property="features" column="features"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <sql id="allFields">
+        id,topic_id,question,answer,sort_order,status,notes,creator,modifier,post_time,features,created, modified
+    </sql>
+
+    <sql id="instrtFields">
+        topic_id,question,answer,sort_order,status,notes,creator,modifier,post_time,features,created, modified
+    </sql>
+
+    <insert timeout="5"    id="insertQuestion" parameterClass="HelpQuestion">
+        insert into help_question  (<include refid="HelpQuestion.instrtFields" />)
+        values  (#topicId#, #question#,#answer#, #sortOrder#,#status#,#notes#,#creator#,#modifier#,#postTime#,#features#,now(), now())
+        <selectKey resultClass="int" keyProperty="questionId">
+           SELECT LAST_INSERT_ID() as value 
+        </selectKey>
+    </insert>
+
+
+    <select  timeout="5"   id="findQuestionByTopicId" parameterClass="int" resultMap="HelpQuestion.HelpQuestionMap">
+        select <include refid="HelpQuestion.allFields" /> from help_question where topic_id=#value# order by sort_order
+    </select>
+
+    <select  timeout="5"   id="findQuestionByTopicFront" parameterClass="int" resultMap="HelpQuestion.HelpQuestionMap">
+        select <include refid="HelpQuestion.allFields" /> from help_question where topic_id=#value# and status=1 order by sort_order
+    </select>
+
+    <select  timeout="5"   id="getQuestionById" parameterClass="int"  resultMap="HelpQuestion.HelpQuestionMap">
+        select <include refid="HelpQuestion.allFields" /> from help_question where id=#value#
+    </select>
+
+    <update  timeout="5"   id="updateQuestion" parameterClass="HelpQuestion">
+        update help_question set question=#question#,answer=#answer#,sort_order=#sortOrder#,status=#status#,notes=#notes#,modifier=#modifier#,post_time=#postTime#,features=#features#,modified=now() where id=#questionId#
+    </update>
+
+    <update  timeout="5"   id="updateQuestionStatus" parameterClass="HelpQuestion">
+        update help_question set status=#status# , modifier = #modifier# ,modified=now() where id=#questionId#
+    </update>
+
+    <delete   timeout="5"   id="deleteQuestion" parameterClass="int">
+        delete from help_question where id=#value#
+    </delete>
+    
+</sqlMap>

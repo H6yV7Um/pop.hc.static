@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>技术文档</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/base.css"/>
+<link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/help/misc/jos/misc/skin/index.css" />
+<style type="text/css">
+.jnav li a {
+        font-family: Arial,Verdana,"微软雅黑";
+        font-size: 15.5px;
+        color: #FFFFFF;
+        font-weight: bold;
+        padding: 0 24px;
+    }
+</style>
+</head>
+
+<body>
+
+<!--shortcut end-->
+<div class="logobg">
+   <div class="w">
+        <div class="logo">
+            <div class="logoc">
+                <a class="lo1" href="//www.jd.com"></a>
+                <a class="lo2" href="//jos.jd.com"></a>
+            </div>
+        </div>
+   </div>
+</div>
+$!mongoVelocityTools.getHead("head_jos")
+#set($tailhtml=".html")
+<div class="w">
+  <div class="left">
+      <div class="list m">
+         <div class="mt">
+            <h2><b></b>服务目录</h2>
+         </div>
+##             #foreach($category in $!categorys)
+##                    <div class="mc">
+##                        <h3>$!stringEscapeUtils.escapeHtml($!category.getName())</h3>
+##                        #set($topics = $!category.getTopics())
+##                        <ul>
+##                        #foreach($topic in $topics)
+##                            <li>
+##                                #if($!topic.getUrl())
+##                                    <a href="$!topic.getUrl()" target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #else
+##                                    <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!topic.getTopicId()$tailhtml"
+##                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #end
+##                            </li>
+##                        #end
+##                        </ul>
+##                    </div>
+##             #end
+              #foreach($category in $!leftNavigate.categoryList)
+                  <div class="mc">
+                      <h3>$!stringEscapeUtils.escapeHtml($!category.getName())</h3>
+                      #set($topics = $!category.getTopicList())
+                      <ul>
+                          #foreach($topic in $topics)
+                              <li >
+                                  <a href="$!topic.getUrl()"
+                                     target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                              </li>
+                          #end
+                      </ul>
+                  </div>
+              #end
+      </div>
+  </div>
+  <div class="right-extra">
+      <div class="com m">
+      #if($topicId==0)
+            #set($tailIndex="mainPage")
+            $!mongoVelocityTools.getBorder("$!sysName$!tailIndex")
+        #end
+        #if(!$!questions.empty)
+            #foreach($question in $!questions)
+            <div class="mc">
+                <a class="h-1px" id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a>
+                <div class="title">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</div>
+                <div class="tips">$!question.getAnswer()</div>
+            </div>
+            #end
+        #end
+      </div>
+  </div>
+  <span class="clr"></span>
+</div>
+
+$!mongoVelocityTools.getBottom("bottom_jos")
+
+
+</body>
+</html>

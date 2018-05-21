@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <!-- 图片上传地址 -->
+    <bean name="imgUploadPath" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="UPLOAD_BASE_PATH" value="${help-center.upload.prefix}"/>
+                <entry key="UPLOAD_IMAGE" value="${help-center.upload.path}/center"/>
+
+                <!-- 店铺图片业务码-->
+                <entry key="HELP_CENTER_IMAGE_KEY" value="${help-center.image.key}"/>
+                <!-- 店铺上传图片host-->
+                <entry key="HELP_CENTER_IMAGE_HOST" value="http://${help-center.imgserver30.domain.name}/pophelp/"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="SYSTimeTaskService" class="com.jd.help.center.service.timetask.impl.SYSTimeTaskServiceImpl"/>
+    <bean id="helpCategoryService" class="com.jd.help.center.service.category.impl.HelpCategoryServiceImpl"/>
+    <bean id="helpQuestionService" class="com.jd.help.center.service.question.impl.HelpQuestionServiceImpl">
+        <property name="urlHead" value="http://${help-center.vender.domain.name}"/>
+    </bean>
+    <bean id="helpTopicService" class="com.jd.help.center.service.topic.impl.HelpTopicServiceImpl"/>
+    <bean id="frontQuestionService" class="com.jd.help.center.service.category.impl.FrontQuestionServiceImpl">
+        <property name="initTime" value="60*60"/>
+    </bean>
+    <bean id="leftNavigateService" class="com.jd.help.center.service.navigate.impl.LeftNavigateServiceImpl"/>
+    <bean id="helpSYSService" class="com.jd.help.center.service.helpsys.impl.HelpSYSServiceImpl"/>
+
+    <!-- 自提页面GIS地图访问地址 -->
+    <bean id="GISUrl" class="java.lang.String">
+        <constructor-arg>
+            <value>${help.gis.url}</value>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="solrServer" class="com.jd.help.dao.issue.search.SolrServerFactoryBean">
+        <property name="url" value="${solr.url}"></property>
+    </bean>
+</beans>

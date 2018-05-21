@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="helpMenuKnowledgeMapper">
+    <typeAlias alias="helpMenuKnowledge" type="com.jd.help.domain.publicportal.HelpMenuKnowledge"></typeAlias>
+    <resultMap id="BaseResultMap" class="com.jd.help.domain.publicportal.HelpMenuKnowledge">
+        <result column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="change_knowledge_id" property="changeKnowledgeId" jdbcType="VARCHAR"/>
+        <result column="new_knowledge_id" property="newKnowledgeId" jdbcType="VARCHAR"/>
+        <result column="last_update_pin" property="lastUpdatePin" jdbcType="VARCHAR"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update_desc" property="lastUpdateDesc" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    menu_id, change_knowledge_id, new_knowledge_id, last_update_pin, last_update_time,
+    last_update_desc
+  </sql>
+    <select id="selectByMenuId" resultMap="BaseResultMap" parameterClass="helpMenuKnowledge" timeout="5">
+        select
+        <include refid="Base_Column_List"/>
+        from help_menu_knowledge
+        where menu_id = #menuId#
+    </select>
+    <delete id="deleteByMenuId" parameterClass="helpMenuKnowledge" timeout="5">
+    delete from help_menu_knowledge
+    where menu_id = #menuId#
+  </delete>
+    <insert id="insert" parameterClass="helpMenuKnowledge" timeout="5">
+        insert into help_menu_knowledge (menu_id, change_knowledge_id, new_knowledge_id,
+        last_update_pin, last_update_time, last_update_desc
+        )
+        values (#menuId#, #changeKnowledgeId#, #newKnowledgeId#,
+        #lastUpdatePin#, #lastUpdateTime#, #lastUpdateDesc#
+        )
+        <selectKey resultClass="int">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+    <update id="updateByMenuId" parameterClass="helpMenuKnowledge" timeout="5">
+        update help_menu_knowledge
+        set
+        <!--  <isNotEmpty property="changeKnowledgeId">
+              change_knowledge_id = concat(IFNULL(change_knowledge_id,''),concat(' ',#changeKnowledgeId#))  ,
+          </isNotEmpty>
+          <isNotEmpty property="newKnowledgeId">
+              new_knowledge_id = concat(IFNULL(new_knowledge_id,''),concat(' ',#newKnowledgeId#)),
+          </isNotEmpty>-->
+        change_knowledge_id = #changeKnowledgeId#,
+        new_knowledge_id = #newKnowledgeId#,
+        new_knowledge_id = #newKnowledgeId#,
+        last_update_pin = #lastUpdatePin#,
+        last_update_time = #lastUpdateTime#,
+        last_update_desc = #lastUpdateDesc#
+        where menu_id = #menuId#
+    </update>
+</sqlMap>

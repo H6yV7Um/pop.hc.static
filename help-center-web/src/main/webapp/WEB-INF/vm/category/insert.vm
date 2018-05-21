@@ -1,0 +1,93 @@
+#set($layout="default.vm")
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js""></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery.validator.addMethod("isInt", function(value, element) {
+            return this.optional(element) || /^-?[1-9]\d*|0$/.test(value);
+        }, "请输入有效整数");
+     jQuery("#categoryFrame").validate({
+         rules: {
+                "helpCategory.name":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "helpCategory.sortOrder":{
+                    required:true,
+                    isInt:true,
+                    min:-2147483648,
+                    max:2147483648
+                },
+                "helpCategory.notes":{
+                    maxlength:100
+                }
+         },
+          messages: {
+                "helpCategory.name":{
+                    required:"请输入类目名称",
+                    minlength:"类目名称不能少于2个字符",
+                    maxlength:"类目名称不能多于20个字符"
+                },
+                "helpCategory.sortOrder":{
+                    required:"请输入类目顺序",
+                    isInt:"请输入整数",
+                    min:"请输入大于-2147483648的顺序",
+                    max:"请输入小于2147483648的顺序"
+                },
+                "helpCategory.notes":{
+                    maxlength:"不能输入超过100个字符"
+                }
+          }
+     })
+    })
+</script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+                <form id="categoryFrame"  action="category_doInsert.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="50%">
+                    <input type="hidden" name="sysId" value="$!sysId">
+                    <input type="hidden" name="helpCategory.status" value="1">
+                    #if(!$!actionMessages.empty)
+                    <tr>
+                        <td colspan="2">#showSimpleMessage() </td>
+                    </tr>
+                    #end
+
+                        <tr>
+                            <td>
+                                类目名称：
+                            </td>
+                            <td>
+                                <input type="text" name="helpCategory.name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                排列顺序：
+                            </td>
+                            <td>
+                                <input type="text" name="helpCategory.sortOrder">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpCategory.notes" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                                <textarea id="helpCategory.notes" name="helpCategory.notes" value="" rows="6" cols="80" style="width:80%"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>

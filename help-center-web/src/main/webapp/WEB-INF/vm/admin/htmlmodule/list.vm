@@ -1,0 +1,95 @@
+#set($layout="admin/default.vm")
+#set($title="内容列表")
+<div class="container-fluid">
+##    表头
+    <div class="row well">
+        <form class="form-inline" role="form" method="get" action="/help/htmlmodule/htmlmodule_list.action">
+            <input type="hidden" name="site.id" value="$!site.id">
+            <div class="form-group">
+                <input type="text" class="form-control" value="$!htmlModule.name" name="htmlModule.name"
+                       placeholder="请输入关键字">
+            </div>
+            <button type="submit" class="btn btn-primary">搜 索</button>
+        </form>
+    </div>
+
+##    列表
+
+    <div class="row table-responsive m_t_10">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+            	<th>系统引用key</th>
+                <th>名称</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                #if($!htmlModuleList && $!htmlModuleList.size() > 0)
+                    #foreach($htmlModule in $htmlModuleList)
+                    <tr>
+                    	<td>$!htmlModule.key</td>
+                        <td>$!htmlModule.name</td>
+                        <td>$!htmlModule.notes</td>
+                        <td>
+                        	<a href="$!helpAdminModule.getTarget("/help/htmlmodule/htmlmodule_update.action").addQueryData("htmlModule.id",$!htmlModule.id).addQueryData("site.id",$!site.id)"
+                               class="btn btn-sm btn-default" role="button">修改内容</a>
+                        ##							页面模块不给删除按钮给运营
+                        ##							<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-update-status" role="button" data-id="$!htmlModule.id">删除</a>
+                        </td>
+                    </tr>
+                    #end
+                #else
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <span>没有找到相关内容</span>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="7">
+                    #set($pageUrl = $!helpAdminModule.getTarget("/help/htmlmodule/htmlmodule_list.action").addQueryData("site.id",$!site.id).addQueryData("htmlModule.name",$!htmlModule.name))
+                    #showPage($!pageUrl $!htmlModuleList)
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+## 提示框
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a href="" role="button" class="btn btn-danger btn-do-update-status"></a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+##<script>
+##    $(function () {
+##        $(".btn-update-status").click(function () {
+##            var id = $(this).data("id");
+##            $("#modal").find(".modal-title").html("删除内容").end()
+##             .find(".modal-body").html("<p>你确定将此内容删除？</p><p>删除后将看不到此内容，不能再进行管理！</p>").end()
+##             .find(".btn-do-update-status")
+##             .attr("href", '$!helpAdminModule.getTarget("/help/htmlmodule/htmlmodule_delete.action")?site.id=$!site.id&htmlModule.id=' + id).text("删除").end()
+##             .modal("show");
+##        });
+##    });
+##</script>

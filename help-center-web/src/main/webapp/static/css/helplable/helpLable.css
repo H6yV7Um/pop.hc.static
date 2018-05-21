@@ -1,0 +1,88 @@
+/**
+ * Created by zhaojianhong on 2017/10/23.
+ */
+.bizcoll_dataStatistics_main .content{
+    padding: 20px 0;
+}
+.bizcoll_dataStatistics_main .search button{
+    right:-35px;
+    border: none;
+}
+.bizcoll_dataStatistics_main .mod_form{
+    border-top: none;
+}
+.bizcoll_dataStatistics_main .search input[type='text']{
+    padding: 4px 10px;
+}
+.bizcoll_dataStatistics_main .pagination{
+    margin-right: 10px;
+}
+#courseName{
+    width: 140px;
+}
+.data_count{
+    padding: 10px 0 0 20px;
+}
+.shop_info_logo{
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+.shop_info{
+    line-height: 30px;
+}
+.erpLogo{
+    background-color: #DA4A42;
+    color: #fff;
+    text-align: center;
+    line-height: 60px;
+    font-size: 18px;
+}
+/*.bizcoll_dataStatistics_main .stable th{*/
+/*text-align: center;*/
+/*}*/
+#exportData{
+    margin-right: 20px;
+    min-width: 90px;
+}
+.bizcoll_dataStatistics_main .search_box{
+    margin-top: 10px;
+}
+#courseName{
+    width: 198px;
+}
+.td_userInfo .userName,
+.td_userClassify,
+.td_courseName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.td_userInfo .userName{
+    max-width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.td_userClassify{
+    max-width: 150px;
+}
+.td_courseName{
+    max-width: 100px;
+}
+.bizcoll_dataStatistics_main .stable td{
+    padding:10px;
+}
+.message{
+    display:inline-block;
+ }
+.newCreate{
+    margin-right: 30px;
+    margin-top: -20px;
+}
+.btns{
+    margin-left: 80px;
+    float: left;
+}
+.lab{
+    margin-left: 40px;
+}

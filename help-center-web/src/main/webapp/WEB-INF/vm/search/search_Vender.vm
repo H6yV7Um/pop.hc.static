@@ -1,0 +1,207 @@
+#set($layout="search.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/base.css"/>
+    <link rel="stylesheet" href="/misc/skin/forseller.css"/>
+    <link rel="stylesheet" href="/misc/skin/helpcenter2012.css"/>
+    <style type="text/css">
+        .skcolor_ljg {color:#FF0000;}
+    </style>
+    <title>$!title -商家帮助中心 -京东商城</title>
+    <meta name="keywords" content="$!title,商家常见问题,商家帮助中心,京东商城">
+    <meta name="description" content="京东(JD.COM)商家常见问题页面，提供$!title 的相关解答。商家在这里可以找到相关热点问题的解答和详细操作说明。网购上京东，放心又轻松！">
+    <script type="text/javascript">
+        window.pageConfig = {
+            compatible: false
+        } ;
+    </script>
+
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+    $!mongoVelocityTools.getHead("head")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w" id="page-search">
+    #set($tailhtml=".html")
+<!--[if !ie]>Position 开始<![endif]-->
+<div class="m breadcrumb">
+    <div style="float: left">
+        <strong><a href="$venderHelpCenterModule.getTarget("/vender.html")" target="_self">商家帮助中心</a> </strong>
+        &gt; 搜索结果
+    </div>
+</div>
+<!--[if !ie]>Position 结束<![endif]-->
+<!--[if !ie]>left 开始<![endif]-->
+
+    <div class="left">
+        <div class="m" id="nav-menu">
+            #foreach($category in $!leftNavigate.categoryList)
+                <div class="current">
+                    <h4><b></b>$!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+                    #set($topics = $!category.getTopicList())
+                    #foreach($topic in $topics)
+                        <dl>
+
+                            <dt  #if( $!topicId == $!topic.getTopicId()) class="helpcurr"#end >
+                                    <a href="$!topic.getUrl()"
+                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                                <span class="cover"></span>
+                            </dt>
+                            #set($questionList = $!topic.getQuestionList())
+                            #if($!questionList && $!questionList.size() > 0)
+                                <dd>
+                                    <ul>
+                                        #foreach($question in $questionList)
+                                            <li><a href="$!question.getUrl()">$!question.question</a></li>
+                                        #end
+
+                                    </ul>
+                                </dd>
+                            #end
+                        </dl>
+                    #end
+                </div>
+            #end
+        </div>
+    </div>
+
+
+<!--[if !ie]>left 结束<![endif]-->
+<!--[if !ie]>right 开始<![endif]-->
+<div class="right" id="top">
+
+
+    <!--[if !ie]>搜索栏内容 开始<![endif]-->
+    <div class="m" id="searchbox">
+        <span class="logo"></span>
+        <label>
+            <span>卖家帮助</span>
+            <input class="searchinput sch-txt" type="text" id="mainwordinput" name="mainwordinput" value="我要搜索" onkeydown="javascript:if(event.keyCode==13) helpsearch();"/>
+
+        </label>
+        <input class="btn" type="button" value="搜索" onclick="helpsearch()" />
+        <span class="hotline">京东服务热线：<span>400 606 5500</span></span>
+        <form action="/search/help_search.php" target="_blank" onsubmit="javascript:return checkKeywords();"  method="get" id="searchFrom">
+            <input type="hidden" name="mainword" id="mainword" />
+            <input type="hidden" value="$!stringEscapeUtils.escapeHtml($!sysName)" name="sysName" class="text">
+            <input type="hidden" value="$!topicId" name="topicId" class="text">
+        </form>
+    </div>
+    <!--[if !ie]>搜索栏内容 开始<![endif]-->
+
+    #set($ab = ($!resultCount == 0 || !$!paragraph || !$!searchResultPage))
+
+    #if($ab )
+        ##无搜索内容，且没有内容详细信息
+        <!--[if !ie]>搜索失败内容 开始<![endif]-->
+        <div class="m" id="search-fail">
+            <div class="mt">
+                <h4>抱歉，没有找到与“<em>$!stringEscapeUtils.escapeHtml($!mainwordinput)</em>”相关的商品。要不您换个关键词试试！</h4>
+            </div>
+            <div class="mc">
+                <p>建议您：</p>
+                <p>1、请查看输入的文字是否有误；</p>
+                <p>2、调整关键词，如去掉可能不必要的“的”、“吗”等；</p>
+                <p>3、通过问题分类进行查找；</p>
+            </div>
+        </div>
+        <!--[if !ie]>搜索失败内容 结束<![endif]-->
+    #else
+
+        <!--[if !ie]>搜索成功内容 开始<![endif]-->
+        <div class="m" id="help-content">
+            <h3>京东推荐关于"<em>$!stringEscapeUtils.escapeHtml($!mainwordinput)</em>"的最佳答案</h3>
+            #foreach($ph in  $!paragraph)
+                <h4>
+                    <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/viewQuestion-$!{ph.topic_id}-$!{ph.id}$tailhtml" target="_blank">
+                        $!ph.getContent().getQuestion()
+                    </a>
+                </h4>
+                <div class="help_box"><p>$!ph.getContent().getAnswer()</p></div>
+            #end
+            <div class="pagin pagin-center">
+                #set($pageModule = $venderHelpCenterModule.getTarget("/search/help_search.php").addQueryData("mainword",$!mainword).addQueryData("sysName",$!stringEscapeUtils.escapeHtml($!sysName)).addQueryData("topicId",$!topicId).addQueryData("pagesize",$!pagesize))
+                    #showSearchPage($pageModule $!searchResultPage $resultCount)
+            </div>
+
+        </div>
+        <!--[if !ie]>搜索成功内容 结束<![endif]-->
+
+    #end
+
+
+
+</div>
+<!--[if !ie]>right 结束<![endif]-->
+<div class="clr"></div>
+</div>
+
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+    $!mongoVelocityTools.getBottom("bottom")
+<!--[if !ie]>底部内容结束<![endif]-->
+
+</body>
+<script type="text/javascript">
+    jQuery(".sch-txt").focus(function(){if(jQuery(this).val()=="我要搜索"){jQuery(this).val("").css("color","#333");}});
+    jQuery(".sch-txt").blur(function(){if(jQuery(this).val()==""){jQuery(this).val("我要搜索").css("color","#999")}});
+
+    jQuery("#nav-menu h4").bind("click",function() {
+        var element = $(this).parent();
+        if (element.hasClass("current")) {
+            element.removeClass("current");
+        } else {
+            element.addClass("current");
+        }
+    });
+    jQuery("#nav-menu dl").hover(function(){
+        $(this).addClass("hover");
+        var $elem = $(this).find("dd");
+        if($("#service-2013").offset().top<$elem.offset().top+$elem.height()){
+                $elem.css({top:"auto",bottom:0});
+        }
+    },function(){
+        $(this).removeClass("hover");
+    });
+
+    function helpsearch() {
+        if (!checkKeywords())
+            return;
+        jQuery("#searchFrom").submit();
+    }
+
+    function checkKeywords() {   //如果空或等于title则禁止提交表单
+        var mainword = document.getElementById("mainwordinput");
+        var keywords = mainword.value;
+        var illegal_words = ['script', 'alert', 'confirm', 'prompt', 'select', 'from', 'where', 'update', 'delete', 'insert', 'drop', 'alter'];
+        keywords = keywords.toLowerCase();
+        if (keywords == "" || keywords == "我要搜索") {
+            return false;
+        } else {
+            for (var i = 0; i < illegal_words.length; i++) {
+                if (keywords.indexOf(illegal_words[i]) != -1) {
+                    return false;
+                }
+            }
+        }
+        if(keywords.length > 30){
+            keywords = keywords.substr(0,30);
+        }
+        keywords = encodeURI(keywords);
+        document.getElementById("mainword").value = encodeURI(keywords);
+        return true;
+    }
+
+</script>
+<style type="text/css">
+    #nav-menu dt.helpcurr{ background:url(//static.360buyimg.com/help/seller/skin/images/helpcenter_icon2.gif) no-repeat 20px 10px;color:#cc0000;}
+    #nav-menu dt.helpcurr a:link,#nav-menu dt.helpcurr a:visited {color:#cc0000;text-decoration:none;}
+    .sch-txt {
+        color: #999999;
+    }
+</style>
+</html>

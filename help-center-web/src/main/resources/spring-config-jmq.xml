@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jmq="http://code.jd.com/schema/jmq"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.jd.com/schema/jmq
+	    http://code.jd.com/schema/jmq/jmq-1.0.xsd">
+
+
+
+    <jmq:transport id="helpCenterTransport" address="${jmq.address}" user="${jmq.user}"
+                   password="${jmq.password}" app="${jmq.producer.app}"
+                   epoll="${jmq.epoll}" sendTimeout="${jmq.sendTimeout}" connectionTimeout="${jmq.connectionTimeout}" soTimeout="${jmq.soTimeout}"/>
+    <jmq:producer id="saveKeyword" retryTimes="3" transport="helpCenterTransport"/>
+
+    <bean id="saveKeywordListener" class="com.jd.help.jmq.listener.saveKeywordListener"/>
+    <bean id="updateCoursesMessageListener" class="com.jd.help.jmq.listener.UpdateCoursesMessageListener"/>
+    <bean id="updateIssueMessageListener" class="com.jd.help.jmq.listener.UpdateIssueMessageListener"/>
+    <bean id="updateSceneMessageListener" class="com.jd.help.jmq.listener.UpdateSceneMessageListener"/>
+
+    <jmq:consumer id="keywordConsumer" transport="helpCenterTransport" >
+        <jmq:listener topic="${jmq.saveKeyword.topic}" listener="saveKeywordListener"/>
+        <jmq:listener topic="${jmq.ondemandcourse.topic}" listener="updateCoursesMessageListener"/>
+        <jmq:listener topic="${jmq.updateIssue.topic}" listener="updateIssueMessageListener"/>
+        <jmq:listener topic="${jmq.updateScene.topic}" listener="updateSceneMessageListener"/>
+    </jmq:consumer>
+
+    <!--<jmq:consumer id="saveDetailConsumer" transport="raceTransport" pullTimeout="5000">-->
+        <!--<jmq:listener topic="${jmq.saveDetail.topic}" listener="saveDetailListener" />-->
+    <!--</jmq:consumer>-->
+
+
+</beans>

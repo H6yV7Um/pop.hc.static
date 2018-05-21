@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<input type="text" id="message" value="默认值">
+<input type="button"
+       id="send" onclick="send();" value="传值给父窗口">
+<br>
+<a href="javascript:show();"> <font>弹出框</font>
+</a>
+<div id="myDiv2" onclick="cancle(this);"
+     style="position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2); z-index: 998">
+    <div id="popupDiv"
+         style="position: absolute; width: 80%; height: 80%; background-color: white; position: absolute; left: 50%; top: 50%; margin-left: -40%; margin-top: -20%;">
+        <iframe id="myFrame2" frameborder="0" src="child2.html"
+                style="position: absolute; width: 100%; height: 100%; border-radius: 3px;"></iframe>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var myDiv2 = document.getElementById("myDiv2");
+    function myfun() {
+        // 隐藏myDiv
+        myDiv2.style.display = "none";
+    }
+    function cancle(obj) {
+        obj.style.display = "none";
+    }
+    function show() {
+        myDiv2.style.display = "block";
+    }
+    function get(data) {
+        var message = document.getElementById("message");
+        message.value = data;
+        myDiv2.style.display = "none";
+    }
+    function send() {
+        var data = document.getElementById("message").value;
+        window.parent.get(data);
+    }
+    window.onload = myfun;
+</script>
+</html>

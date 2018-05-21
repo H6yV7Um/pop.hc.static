@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="velocityTools" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="stringUtils">
+                    <bean class="org.apache.commons.lang.StringUtils"/>
+                </entry>
+                <entry key="venderStringUtils">
+                    <bean class="com.jd.help.customer.web.utils.VenderStringUtils"/>
+                </entry>
+                <entry key="stringEscapeUtils">
+                    <bean class="com.jd.common.util.StringEscapeUtils"/>
+                </entry>
+                <entry key="dateFormatUtils">
+                    <bean class="com.jd.common.util.DateFormatUtils"/>
+                </entry>
+                <entry key="dateUtils">
+                    <bean class="org.apache.commons.lang.time.DateUtils"/>
+                </entry>
+                <entry key="dateUtil">
+                    <bean class="com.jd.mongodbclient.util.DateUtil" />
+                </entry>
+                <entry key="localHost">
+                    <bean class="com.jd.common.network.LocalHost"/>
+                </entry>
+                <entry key="dateTool">
+                    <bean class="org.apache.velocity.tools.generic.DateTool"/>
+                </entry>
+                <!--<entry key="hrmPrivilegeHelper" value-ref="hrmPrivilegeHelper"/>-->
+                <entry key="mongoVelocityTools" value-ref="mongoVelocityTools"/>
+                <entry key="sysLoginContext">
+                    <bean class="com.jd.help.SysLoginContext"/>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="jdSecurity" class="com.jd.common.web.security.FilePathSecurity">
+        <property name="unProtectedFile">
+            <list>
+                <value>/login.action</value>
+                <value>/leftFrame.action</value>
+                <value>/topFrame.action</value>
+                <value>/logout.action</value>
+            </list>
+        </property>
+        <!--<property name="unProtectedPath">-->
+        <!--<list>-->
+        <!--<value>/help/</value>-->
+        <!--</list>-->
+        <!--</property>-->
+    </bean>
+    <bean id="cookieCipherTools" class="com.jd.common.web.cookie.CookieCipherTools">
+        <property name="charsetName" value="gbk"/>
+    </bean>
+
+    <bean id="cookieUtils" class="com.jd.common.web.cookie.CookieUtils"/>
+
+
+    <bean class="com.jd.common.web.cookie.JdCookie" abstract="true" id="jdEncryptCookie">
+        <property name="encrypt" value="true"/>
+        <property name="key" value="${help-center.cookie.key}"/>
+        <!--<property name="domain" value="${help-center.cookie.domain}"/>-->
+    </bean>
+
+    <bean abstract="true" parent="jdEncryptCookie" id="jdLoginCookie">
+        <property name="path" value="/"/>
+        <!--<property name="domain" value="${help-center.cookie.domain}"/>-->
+    </bean>
+
+
+    <bean id="jdCookie" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <bean parent="jdLoginCookie">
+                    <property name="name" value="_admin_"/>
+                </bean>
+                <bean parent="jdLoginCookie">
+                    <property name="name" value="_latn_"/>
+                </bean>
+                <bean class="com.jd.common.web.cookie.JdCookie">
+                    <property name="name" value="${help-center.hrm.auth.cookie.name}"/>
+                    <property name="domain" value="${help-center.hrm.auth.cookie.domain}"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="deptWebService" class="com.jd.common.struts.interceptor.ws.DeptWebService" factory-bean="jcClientFactory"
+          factory-method="create"/>
+
+    <bean id="soapHeaderIntercepter" class="com.jd.common.ws.SOAPHeaderIntercepter">
+        <property name="authHeader">
+            <bean class="com.jd.common.ws.AuthHeader">
+                <property name="content" value="${help-center.hrm.ws.content}"/>
+                <property name="seed" value="${help-center.hrm.ws.seed}"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="jcClientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="com.jd.common.struts.interceptor.ws.DeptWebService"/>
+        <property name="address" value="${help-center.hrm.auth.address}"/>
+        <property name="outInterceptors">
+            <list>
+                <ref local="soapHeaderIntercepter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="com.jd.common.struts.velocity.VelocityLayoutResult"/>
+
+    <bean class="com.jd.common.struts.interceptor.LoginContextInterceptor">
+        <property name="loginCookieKey" value="_admin_"/>
+        <property name="sessionTimeout" value="${help-center.session.timeout}"/>
+    </bean>
+    <bean id="jdUrlUtils" class="com.jd.common.web.url.JdUrlUtils"/>
+
+    <bean id="mongoVelocityTools" class="com.jd.help.center.admin.velocity.MongoVelocityTools"/>
+    <!--新版登录开始-->
+    <bean id="_adminHrmPrivilegeInterceptor" class="com.jd.help.center.admin.interceptor.HelpCenterInterceptor">
+        <property name="hrmPrivilegeHelper" ref="hrmPrivilegeHelper"/>
+        <property name="specialUsers">
+            <list>
+                <value>yuanzhibang</value>
+                <value>lipengfei24</value>
+                <value>yuanxibin</value>
+                <value>wuxiaoyan7</value>
+                <value>weixing13</value>
+                <value>lining26</value>
+                <value>bjchenyoucun</value>
+                <value>huangkui7</value>
+                <value>zhanghao141</value>
+                <value>zhangmanliang3</value>
+                <value>tangqingfei</value>
+                <value>ningputai</value>
+                <value>bjwangxinwu</value>
+                <value>bjwmen</value>
+                <value>kangshengsu</value>
+                <value>chenqianqian9</value>
+                <value>zhujun90</value>
+                <value>lushan19</value>
+                <value>wangyu1099</value>
+                <!--<value>zhaojianhong7</value>-->
+                <!--<value>bjqtxialiang</value>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="strutsSSOInterceptor" class="com.jd.common.struts.interceptor.StrutsSSOInterceptor"
+          >
+        <property name="ssoDomainName" value="${help-center.hrm.auth.cookie.domain}"/>
+        <property name="appDomainName" value="${help.admin.domain.name}"/>
+        <property name="appHomeUrl" value="http://${help.admin.domain.name}/"/>
+        <property name="loginUrl" value="${help-center.login.address}"/>
+        <property name="excludePath" value="${sso.exclude.path}"/>
+        <property name="ssoService" ref="ssoService"/>
+    </bean>
+
+    <bean id="hrmPrivilegeHelper" class="com.jd.common.hrm.HrmPrivilegeHelper">
+        <property name="uimKey" value="${uim.key}"/>
+        <property name="uimToken" value="${uim.token}"/>
+        <property name="uimUrl" value="${uim.url}"/>
+    </bean>
+    <!--新版登录结束-->
+    <bean id="velocityUrl" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <!--样式、js、图片地址-->
+                <entry key="assetModule">
+                    <bean class="com.jd.pop.component.url.PopJdUrl">
+                        <property name="url" value="http://${help-center.asset.domain.name}/"/>
+                    </bean>
+                </entry>
+
+                <entry key="homeModule">
+                    <bean class="com.jd.pop.component.url.PopJdUrl">
+                        <property name="url" value="http://${help-center.domain.name}/"/>
+                    </bean>
+                </entry>
+
+                <entry key="helpCenterModule">
+                    <bean class="com.jd.pop.component.url.PopJdUrl">
+                        <property name="url" value="http://${help-center.domain.name}/"/>
+                    </bean>
+                </entry>
+                <!-- 帮助中心前台url -->
+                <entry key="venderHelpCenterModule" value-ref="venderHelpCenterModule">
+                </entry>
+
+                <entry key="ruleHelpCenterModule" value-ref="ruleHelpCenterModule"></entry>
+
+                <!-- 新样式、js、图片地址 -->
+                <entry key="staticAssetModule">
+                    <bean class="com.jd.pop.component.url.PopJdUrl">
+                        <property name="url" value="http://${help-center.static.asset.domain.name}/"/>
+                    </bean>
+                </entry>
+                <!--pop vender的-->
+                <entry key="loginUrl">
+                    <bean class="com.jd.pop.component.url.PopJdUrl">
+                        <property name="url" value="${help-center.login.address}"/>
+                    </bean>
+                </entry>
+
+                <!-- 新帮助中心管理端 -->
+                <entry key="helpAdminModule">
+                    <bean class="com.jd.pop.component.url.PopJdUrl">
+                        <property name="url" value="http://${help.admin.domain.name}/"/>
+                    </bean>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="venderHelpCenterModule" class="com.jd.pop.component.url.PopJdUrl">
+        <property name="url" value="http://${help-center.vender.domain.name}/"/>
+    </bean>
+
+    <bean id="ruleHelpCenterModule" class="com.jd.pop.component.url.PopJdUrl">
+        <property name="url" value="http://${rule.vender.domain.name}"/>
+    </bean>
+
+
+    <!-- =======================前台登录相关start=========================== -->
+    <bean class="com.jd.common.struts.interceptor.DotnetTicketContextInterceptor">
+        <property name="dotnetAuthenticationKey" value="${passport.checkLogin.authenticationKey}"></property>
+        <property name="dotnetAuthCookieName" value="${passport.checkLogin.cookieName}"></property>
+        <property name="cookieUtils" ref="helpCustomerCookieUtils"/>
+    </bean>
+    <bean class="com.jd.common.struts.interceptor.NewDotnetSecurityInterceptor">
+        <property name="jdSecurity">
+            <bean class="com.jd.common.web.security.FilePathSecurity">
+                <property name="unProtectedFile">
+                    <list>
+                        <value>/page.action</value>
+                        <value>/pagePreview.action</value>
+                        <value>/refreshCtu.action</value>
+                    </list>
+                </property>
+                <property name="unProtectedPath">
+                    <list>
+                        <value>/issue/</value>
+                        <value>/notice/</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="jdUrlUtils">
+            <bean class="com.jd.common.web.url.JdUrlUtils">
+                <property name="velocityUrl">
+                    <map>
+                        <entry key="homeModule">
+                            <bean class="com.jd.pop.component.url.PopJdUrl">
+                                <property name="url" value="${help.customer.home.url}"/>
+                            </bean>
+                        </entry>
+
+                        <entry key="loginUrl">
+                            <bean class="com.jd.pop.component.url.PopJdUrl">
+                                <property name="url" value="${help.customer.login.url}"/>
+                            </bean>
+                        </entry>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+	 <bean class="com.jd.help.customer.web.DotnetTicketLoginContextInterceptor2">
+        <property name="cookieUtils" ref="helpCustomerCookieUtils"/>
+        <property name="loginCookieKey" value="_lc_"/>
+        <property name="ssoCookieName" value="${passport.checkLogin.cookieName}"/>
+         <property name="dotnetAuthenticationKey" value="${passport.checkLogin.authenticationKey}"/>
+    </bean>
+    <bean id="helpCustomerCookieUtils" class="com.jd.common.web.cookie.CookieUtils">
+        <property name="jdCookie">
+            <list>
+                <bean class="com.jd.common.web.cookie.JdCookie">
+                    <property name="path" value="/"/>
+                    <property name="name" value="${passport.checkLogin.cookieName}"/>
+                    <!--<property name="encrypt" value="true"/>-->
+                    <!--<property name="key" value="${help-center.cookie.key}"/>-->
+                </bean>
+                <bean class="com.jd.common.web.cookie.JdCookie">
+                    <property name="path" value="/"/>
+                    <property name="name" value="_lc_"/>
+                    <!--<property name="encrypt" value="true"/>-->
+                    <!--<property name="key" value="${help-center.cookie.key}"/>-->
+                </bean>
+                <bean class="com.jd.common.web.cookie.JdCookie">
+                    <property name="path" value="/"/>
+                    <property name="name" value="_ctu_"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <!-- =======================前台登录相关end=========================== -->
+
+    <!-- 联系我们 过滤器 -->
+    <bean class="com.jd.help.customer.web.ContactUsInterceptor">
+        <property name="cookieUtils" ref="helpCustomerCookieUtils"/>
+    </bean>
+
+
+
+</beans>

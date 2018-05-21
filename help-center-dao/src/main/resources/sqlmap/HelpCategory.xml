@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpCategory">
+
+    <typeAlias alias="HelpCategory" type="com.jd.help.center.domain.category.HelpCategory"/>
+    <typeAlias alias="HelpCategoryQuery" type="com.jd.help.center.domain.category.query.HelpCategoryQuery"/>
+
+    <resultMap id="HelpCategoryMap" class="HelpCategory">
+        <result property="categoryId" column="id" nullValue="0"/>
+        <result property="fid" column="fid" nullValue="0"/>
+        <result property="name" column="name"/>
+        <result property="sortOrder" column="sort_order" nullValue="0"/>
+        <result property="status" column="status" nullValue="0"/>
+        <result property="notes" column="notes"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <insert timeout="5"    id="createHelpCategory" parameterClass="HelpCategory">
+        insert into help_category  (fid, name, sort_order,status,notes ,created, modified)
+        values  (#fid#, #name#, #sortOrder#,#status#,#notes#, now(), now())
+        <selectKey resultClass="int" keyProperty="categoryId">
+           SELECT LAST_INSERT_ID() as value
+        </selectKey>
+    </insert>
+
+
+    <select  timeout="5"   id="findCategoryAllById" parameterClass="int" resultMap="HelpCategory.HelpCategoryMap">
+        select id,fid,name,sort_order,status,notes,created, modified from help_category where fid=#value# and status!=-1 order by sort_order
+    </select>
+
+    <select  timeout="5"   id="findCategoryByQuery" parameterClass="HelpCategoryQuery" resultMap="HelpCategory.HelpCategoryMap">
+        select id,fid,name,sort_order,status,notes,created, modified from help_category where fid=#sysId# and status!=-1
+        <isNotEqual property="status" compareValue="-2" prepend="and">
+            status = #status#
+        </isNotEqual>
+        order by sort_order
+    </select>
+
+    <select  timeout="5"   id="findCategoryFront" parameterClass="int" resultMap="HelpCategory.HelpCategoryMap">
+        select id,fid,name,sort_order,status,notes,created, modified from help_category where fid=#value# and status=1 order by sort_order
+    </select>
+
+    <select  timeout="5"   id="getCategoryById" parameterClass="int" resultMap="HelpCategory.HelpCategoryMap">
+        select id,fid,name,sort_order,status,notes,created, modified from help_category where id=#value#
+    </select>
+
+    <update  timeout="5"   id="updateCategory" parameterClass="HelpCategory">
+        update help_category set fid=#fid#,name=#name#,sort_order=#sortOrder#,status=#status#,modified=now() where id=#categoryId#
+    </update>
+
+    <update  timeout="5"   id="updateCategoryStatus" parameterClass="HelpCategory">
+        update help_category set status=#status#,modified=now() where id=#categoryId#
+    </update>
+
+</sqlMap>

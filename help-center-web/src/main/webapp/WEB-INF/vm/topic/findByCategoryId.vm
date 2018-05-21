@@ -1,0 +1,41 @@
+#set($layout="default.vm")
+#*@vtlvariable name="topics" type="java.util.List<com.jd.help.center.domain.topic.HelpTopicVO>" *#
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1">
+                 <div align="right"><a href=$helpCenterModule.getTarget("/help/topic/topic_insert.action").addQueryData("categoryId",$!categoryId).addQueryData("sysId",$!sysId)>新增Topic</a>  <a href=$helpCenterModule.getTarget("/help/category/category_findAll.action").addQueryData("sysId",$!sysId)>返回上级目录</a></div>
+            <table width="100%"  cellspacing="0" cellpadding="0">
+				<thead>
+                    <tr>
+                        <th>Topic名称</th>
+                        <th>Topic顺序</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                #if(!$!topics.empty)
+                    #foreach($topic in $!topics)
+                    <tr>
+                        <td><a href=$helpCenterModule.getTarget("/help/question/question_findByTopicId.action").addQueryData("topicId",$!topic.getTopicId()).addQueryData("categoryId",$!topic.getCategoryId()).addQueryData("sysId",$!sysId)>$!stringEscapeUtils.escapeHtml($!topic.getName())</a></td>
+                        <td>$!topic.getSortOrder()</td>
+                        <td>#if($!topic.getStatus()==1)已启用#elseif($!topic.getStatus()==0)已停用#end</td>
+                        <td><a href=$helpCenterModule.getTarget("/help/topic/topic_updateTopicStatus.action").addQueryData("helpTopic.topicId",$!topic.getTopicId()).addQueryData("helpTopic.status",$!topic.getStatus()).addQueryData("categoryId",$!topic.getCategoryId()).addQueryData("sysId",$!sysId)>#if($!topic.getStatus()==1)停用#elseif($!topic.getStatus()==0)启用#end</a>
+                            <a href=$!topic.getUrl() target="_blank">查看</a>
+                            <a href=$helpCenterModule.getTarget("/help/topic/topic_update.action").addQueryData("helpTopic.topicId",$!topic.getTopicId()).addQueryData("categoryId",$!topic.getCategoryId()).addQueryData("sysId",$!sysId)>修改</a>
+                            <a href=$helpCenterModule.getTarget("/help/topic/topic_delete.action").addQueryData("helpTopic.topicId",$!topic.getTopicId()).addQueryData("helpTopic.status",$!topic.getStatus()).addQueryData("categoryId",$!topic.getCategoryId()).addQueryData("sysId",$!sysId)>删除</a>
+                        </td>
+                    </tr>
+                    #end
+                #end
+                #if(!$!actionMessages.empty)
+                <tr>
+                    <td colspan="3">#showSimpleMessage() </td>
+                </tr>
+                #end
+            </table>
+                </div>
+        </div>
+    </div>
+</div>
+

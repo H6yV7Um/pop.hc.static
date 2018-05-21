@@ -1,0 +1,16 @@
+<div class="head" id="header">
+    <div class="head_box">
+        <div class="inner wrp">
+            <h1 class="logo"><a href="/index.action" title="京东商学院"></a></h1>
+            <div class="account">
+                <div class="account_meta account_info">
+                    <span><img src="/misc/common/css/i/getheadimg.png" class="avatar"></span>
+                    <span class="nickname">京东商学院</span>
+                </div>
+                <div class="account_meta account_logout">
+                    <a id="logout" href="/index/logout.action">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

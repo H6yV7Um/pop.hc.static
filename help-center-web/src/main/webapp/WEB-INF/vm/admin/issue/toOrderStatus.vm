@@ -1,0 +1,20 @@
+#set($layout="admin/default.vm")
+#set($title="问题跳转页面")
+
+<div class="jumbotron">
+    <div class="container">
+        <h3>
+             	#if($!issueBO.issue.status == 1)
+             		文章保存并发布成功！
+             	#else
+             		文章保存成功！
+             	#end
+             	
+        </h3>
+
+        <p>
+		继续<a href="$!helpAdminModule.getTarget("/help/issue/issue_orderStatus.action?issueBO['issue'].siteId=$!issueBO.getIssue().getSiteId()&issueBO['issue'].id=$!issueBO.getIssue().getId()")">设置文章的订单状态</a>，或
+<a href="$!helpAdminModule.getTarget("/help/issue/issue_list.action?site.id=$!issueBO.getIssue().getSiteId()")">返回文章列表页面</a>。
+		</p>
+    </div>
+</div>

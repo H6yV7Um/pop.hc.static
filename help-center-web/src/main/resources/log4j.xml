@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='GBK' ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOG4J//DTD LOG4J//EN"
+        "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd" >
+
+<log4j:configuration>
+
+
+    <!--日志输出到标准控制台 -->
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] [%d{HH\:mm\:ss:SSS}] %c:%L - %m%n "/>
+        </layout>
+    </appender>
+    <!--info输出到文件，只是过滤info级别的信息 -->
+    <appender name="infofile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${help-center.log.path}/help-center.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] [%d{HH\:mm\:ss:SSS}] %c:%L - %m%n "/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="info"/>
+            <param name="LevelMax" value="info"/>
+        </filter>
+    </appender>
+
+    <!--error输出到文件，只是过滤error级别的信息 -->
+    <appender name="errorfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${help-center.log.path}/help-center.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] [%d{HH\:mm\:ss}] %c:%L - %m%n "/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="error"/>
+            <param name="LevelMax" value="error"/>
+        </filter>
+    </appender>
+    <!--warn输出到文件，只是过滤warn级别的信息 -->
+    <appender name="warnfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${help-center.log.path}/help-center.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] [%d{HH\:mm\:ss:SSS}] %c:%L - %m%n "/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="warn"/>
+            <param name="LevelMax" value="warn"/>
+        </filter>
+    </appender>
+    <!--info输出到文件，只是过滤info级别的信息 -->
+    <appender name="debugfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${help-center.log.path}/help-center.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] [%d{HH\:mm\:ss:SSS}] %c:%L - %m%n "/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug"/>
+            <param name="LevelMax" value="debug"/>
+        </filter>
+    </appender>
+    <!--业务日志 -->
+    <appender name="workinfofile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${help-center.log.path}/help-center.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] [%d{HH\:mm\:ss:SSS}] %c - %m%n "/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="info"/>
+            <param name="LevelMax" value="error"/>
+        </filter>
+    </appender>
+
+    <!-- sql输出，开发环境使用，正式环境需要注掉 -->
+    <!--<appender name="IBatis" class="org.apache.log4j.ConsoleAppender">-->
+        <!--<layout class="org.apache.log4j.PatternLayout">-->
+            <!--<param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n" />-->
+        <!--</layout>-->
+        <!--<filter class="org.apache.log4j.varia.LevelRangeFilter">-->
+            <!--<param name="LevelMin" value="DEBUG" />-->
+            <!--<param name="LevelMax" value="DEBUG" />-->
+        <!--</filter>-->
+    <!--</appender>-->
+    <!--<logger name="com.ibatis" additivity="true">-->
+        <!--<level value="DEBUG" />-->
+    <!--</logger>-->
+    <!--<logger name="java.sql.Connection" additivity="true">-->
+        <!--<level value="DEBUG" />-->
+    <!--</logger>-->
+    <!--<logger name="java.sql.Statement" additivity="true">-->
+        <!--<level value="DEBUG" />-->
+    <!--</logger>-->
+    <!--<logger name="java.sql.PreparedStatement" additivity="true">-->
+        <!--<level value="DEBUG" />-->
+        <!--<appender-ref ref="IBatis" />-->
+    <!--</logger>-->
+    <!--<logger name="java.sql.ResultSet" additivity="true">-->
+        <!--<level value="DEBUG" />-->
+        <!--<appender-ref ref="IBatis" />-->
+    <!--</logger>-->
+
+    <logger name="com.jd.help" additivity="false">
+        <level class="org.apache.log4j.Level" value="INFO"/>
+        <!--<appender-ref ref="stdout"/>-->
+        <appender-ref ref="infofile"/>
+        <appender-ref ref="errorfile"/>
+        <!--<appender-ref ref="debugfile"/>-->
+    </logger>
+
+    <logger name="org.apache.velocity" additivity="false">
+        <level class="org.apache.log4j.Level" value="ERROR"/>
+        <!--<appender-ref ref="stdout"/>-->
+        <!--<appender-ref ref="infofile"/>-->
+        <appender-ref ref="errorfile"/>
+        <!--<appender-ref ref="debugfile"/>-->
+        <!--<appender-ref ref="warnfile" />-->
+    </logger>
+
+    <logger name="org.apache.struts2" additivity="false">
+        <level class="org.apache.log4j.Level" value="ERROR"/>
+        <!--<appender-ref ref="stdout"/>-->
+        <!--<appender-ref ref="infofile"/>-->
+        <appender-ref ref="errorfile"/>
+        <!--<appender-ref ref="debugfile"/>-->
+        <!--<appender-ref ref="warnfile" />-->
+    </logger>
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="stdout"/>
+        <!-- <appender-ref ref="workinfodb"/> -->
+        <!-- <appender-ref ref="infofile" /> <appender-ref ref="errorfile" /> <appender-ref
+            ref="debugfile" /> <appender-ref ref="warnfile" /> -->
+    </root>
+
+</log4j:configuration>

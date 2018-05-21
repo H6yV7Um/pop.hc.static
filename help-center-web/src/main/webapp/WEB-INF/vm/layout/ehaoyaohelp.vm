@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/ehaoyao/lib/skin/2011/base.css"/>
+<script type="text/javascript" src="//misc.360buyimg.com/ehaoyao/lib/js/jquery-1.2.6.pack.js"></script>
+    <link type="text/css" rel="stylesheet" href="//misc.360buyimg.com/help/misc/skin/helpcenter.css" />
+<script type="text/javascript" src="//misc.360buyimg.com/ehaoyao/lib/js/g.base.js"></script>
+#if($topicId!=0)
+    #set($title =$helpTopic.getName())
+#end
+<title>#if($title)$title&#45;帮助中心-京东好药师#else 帮助中心-京东好药师#end</title>
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+$!mongoVelocityTools.getHead("head_jdyao")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+        #set($tailhtml=".html")
+		<!--[if !ie]>Position 开始<![endif]-->
+		<div class="m"><a href="//www.ehaoyao.com" target="_self">首页</a> &gt; <a href="/ehaoyaohelp/question-408.html" target="_self">帮助中心</a> #if($topicId!=0) &gt;  $!stringEscapeUtils.escapeHtml($!helpTopic.getName()) #end</div>
+		<!--[if !ie]>Position 结束<![endif]-->
+		<!--[if !ie]>left 开始<![endif]-->
+		<div class="left">
+				<h2>帮助中心</h2>
+				<div class="help_side">
+##                        #foreach($category in $!categorys)
+##                                <h4> $!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+##                                #set($topics = $!category.getTopics())
+##                                <ul>
+##                                #foreach($topic in $topics)
+##                                    <li>
+##                                    #if($!topic.getUrl())
+##                                        <a href="$!topic.getUrl()" target="_self"> $!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                    #else
+##                                        <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!topic.getTopicId()$tailhtml" target="_self"> $!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                    #end
+##                                    #if($!topic.getLogoType()==1)
+##                                        <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+##                                    #elseif($!topic.getLogoType()==2)
+##                                        <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+##                                    #elseif($!topic.getLogoType()==3)
+##                                        <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+##                                    #end
+##                                    </li>
+##                                #end
+##                                </ul>
+##                        #end
+                        #foreach($category in $!leftNavigate.categoryList)
+                            <h4> $!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+                                #set($topics = $!category.getTopicList())
+                                <ul>
+                                    #foreach($topic in $topics)
+                                        <li>
+                                            <a href="$!topic.getUrl()"
+                                               target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                                            #if($!topic.getLogoType()==1)
+                                                <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+                                            #elseif($!topic.getLogoType()==2)
+                                                <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+                                            #elseif($!topic.getLogoType()==3)
+                                                <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+                                            #end
+                                        </li>
+                                    #end
+                                </ul>
+                        #end
+				</div>
+		</div>
+		<!--[if !ie]>left 结束<![endif]-->
+		<!--[if !ie]>right 开始<![endif]-->
+		<div class="right" id="top">
+				<!--[if !ie]>内容 开始<![endif]-->
+##                #if($topicId==0)
+##                    #set($tailVm=".vm")
+##                    #parse1("/WEB-INF/vm/front/$!sysName$tailVm")
+##                #end
+                     #if($!topicId>0&&$!anchorStatus==0)
+                         <div id="h-sort">
+                         #foreach($question in $!questions)
+                                <a href="#help$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>
+                         #end
+                         </div>
+                     #end
+                    #if(!$!questions.empty)
+                        #foreach($question in $!questions)
+                            <a class="h-1px" id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a>
+                            <h3 class="help_tit"><a href="#">↑Top</a>$!stringEscapeUtils.escapeHtml($!question.getQuestion())</h3>
+                            <div class="help_box">$!question.getAnswer()</div>
+                        #end
+
+                    #end
+				<div class="align_Right"><a href="#">返回顶部</a></div>
+				<!--[if !ie]>内容 结束<![endif]-->
+				<!--[if !ie]>help_tips 开始<![endif]-->
+				<!--[if !ie]>help_tips 结束<![endif]-->
+		</div>
+		<!--[if !ie]>right 结束<![endif]-->
+		<div class="clr"></div>
+</div>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+$!mongoVelocityTools.getBottom("bottom_jdyao")
+<!--[if !ie]>底部内容结束<![endif]-->
+
+</body>
+
+</html>

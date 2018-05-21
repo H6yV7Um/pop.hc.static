@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    #if($topicId!=0)
+        #set($title =$!stringEscapeUtils.escapeHtml($helpTopic.getName()))
+    #end
+    <title>帮助中心-迷你挑</title>
+    <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/mini/lib/skin/base-new.css" />
+    <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/mini/help/skin/2012/help.base.css"/>
+</head>
+
+
+<body id='360top'>
+    $!mongoVelocityTools.getHead("head_minihelp")
+    #set($tailhtml=".html")
+<div class="w">
+    <div class="w">
+        <div class="crumb">
+            <a href="#" target="_blank">首页</a>#if($topicId!=0) &gt; $!helpTopic.getName() #end
+        </div>
+    </div>
+    <div class="left">
+        <div class="m" id="guide">
+            <div class="mt">
+                <h2>帮助中心</h2>
+            </div>
+            <div class="mc">
+##                #foreach($category in $!categorys)
+##                    <dl>
+##                        <dt>$!stringEscapeUtils.escapeHtml($!category.getName())</dt>
+##                        #set($topics = $!category.getTopics())
+##                        #foreach($topic in $topics)
+##                            <dd><s></s>
+##                                #if($!topic.getUrl())
+##                                    <a href="$!topic.getUrl()" target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #else
+##                                    <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!topic.getTopicId()$tailhtml"
+##                                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                                #end
+##                            </dd>
+##                        #end
+##                    </dl>
+##                #end
+                #foreach($category in $!leftNavigate.categoryList)
+                    <dl>
+                        <dt>$!stringEscapeUtils.escapeHtml($!category.getName())</dt>
+                        #set($topics = $!category.getTopicList())
+                        <ul>
+                            #foreach($topic in $topics)
+                            <dd><s></s>
+                                <a href="$!topic.getUrl()"
+                                   target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                            </dd>
+                            #end
+                   </dl>
+                #end
+            </div>
+        </div>
+    </div>
+
+        <div class="right">
+                #if($topicId==0)
+                     #set($tailIndex="mainPage")
+                     $!mongoVelocityTools.getBorder("$!sysName$!tailIndex")
+                #end
+                #if(!$!questions.empty)
+                    #foreach($question in $!questions)
+                    <div class="mc">
+                        <a class="h-1px" id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a>
+                        <div class="title">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</div>
+                        <div class="tips">$!question.getAnswer()</div>
+                    </div>
+                    #end
+                #end
+            </div>
+        </div>
+    <Span class="clr"></Span>
+</div>
+        $!mongoVelocityTools.getBottom("bottom_minihelp")
+</body>
+
+</html>

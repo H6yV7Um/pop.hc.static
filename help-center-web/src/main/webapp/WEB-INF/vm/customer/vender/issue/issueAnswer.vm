@@ -1,0 +1,282 @@
+#set($layout="customer/vender/hasLeftNew.vm")
+#set($navId="question")
+#set($left="WEB-INF/vm/customer/vender/common/issueLeft.vm")
+#set($thick="WEB-INF/vm/customer/vender/issue/thick.vm")
+<style>
+    .otherways-box{
+        margin-top: 0px;
+    }
+    .wt-detail{
+        font-size: 14px;
+    }
+    .wt-footer {
+        margin-bottom: 0px;
+    }
+    .aaa{
+        display: inline-block;
+        width: 280px;
+        float: left;
+        padding-bottom: 20px;
+    }
+</style>
+###set($allNm = $!allNum + 1)
+<div class="curr_position" id="curr_right">
+    <a href="/vender/index.html">常见问题</a>
+    <span class="split">&gt;</span>
+    $!catalog1.name
+    <span class="split">&gt;</span>
+    <a href="$!venderHelpCenterModule.getTarget("$!siteEnName/issue/list-$!{catalog.pid}-$!{catalog.id}.html")">$!catalog2.name</a>
+    <span class="split">&gt;</span>
+    <a href="$!venderHelpCenterModule.getTarget("$!siteEnName/issue/list-$!{catalog.pid}-$!{catalog.id}.html")">$!catalog.name</a>
+    <span class="split">&gt;</span>
+    <span class="txt-grey">$!issueBO.issue.name</span>
+    #if($!issueList && $!issueList.totalItem > 0)
+        <span class="more-all">共找到<a href="#" class="txt-red">$!keyword</a>信息$!{issueList.totalItem}条</span>
+##        <span class="more-go">结果不满意，我要去 <a href="#" class="txt-red">论坛</a> 提问</span>
+    #end
+</div>
+#parse("/WEB-INF/vm/customer/vender/common/issueSearchBoxNew.vm")
+<div class="l-content">
+    <div class="wt-detailbox">
+        <div class="wt-detail">
+            <h3 style="text-align: left;font-family:'微软雅黑';font-weight:bold; font-size: 14px;margin-bottom: 10px;">$!issueBO.issue.name</h3>
+            $!issueBO.issueAnswer.answer
+            <div style="margin-top: 20px;">
+                #if($!{issueBO.scenesButtonRelList} && $!issueBO.scenesButtonRelList.size() > 0)
+                    #foreach($button in $!issueBO.scenesButtonRelList)
+                        <a class="wb-btn-s wb-btn-red" href="$button.buttonLink" target="_blank">$button.buttonTitle</a>
+                    #end
+                #end
+            </div>
+        </div>
+
+        <div id="wt_menu" class="wt-menu">
+            <ul class="wt-list">
+            </ul>
+        </div>
+    </div>
+    <div class="wt-footer" style="margin-top: 50px;">
+        <p class="wtf-tit">这条帮助是否解决了您的问题？</p>
+        <p class="wtf-num">已有 <span id="sg_allNum">$!allNum</span> 人参与投票</p>
+        <input type="hidden" id="issue_id" value="$!issueBO.issue.id">
+        <input type="hidden" id="issue_suggest_id" value="$!issueSuggestVO.id">
+        <input type="hidden" id="userPin" value="$!userPin">
+        <div id="wt_div_solved" class="wt-txt" style="display: none;"><i class="wbi-ok wbi-s wbi-green"></i>已解决<span class="thanks">谢谢您的参与！</span></div>
+        <div id="wt_div_unsolve" class="wt-txt noresult" style="display: none;height: 200px;margin-top: 5px;">
+            #parse("/WEB-INF/vm/customer/vender/common/otherWays.vm")
+            <div id="suggestDiv" style="margin-top: 10px;">
+                <a href="javascript:;" class="a-blue" id="wt-unsolve" style="margin-top: 10px;">我要说说意见&gt;</a>
+            </div>
+        </div>
+    </div>
+
+    #if($!{issueBO.issueRelList} && $!issueBO.issueRelList.size() > 0)
+        <div class="wt-detailbox">
+            <div class="wt-detail" style="width: 840px;margin-bottom: 50px;">
+                <p>您可能对以下内容感兴趣：</p>
+                <div style="padding-top:10px;">
+                #foreach($issueRel in $!issueBO.issueRelList)
+                    <a class="a-blue aaa" style="text-decoration:underline;" href="$issueRel.relIssueLink" target="_blank">
+                        #if($issueRel.relIssueTitle.length() > 18)
+                            #set($relIssueTitle=$issueRel.relIssueTitle.substring(0,18))
+                            $relIssueTitle ...
+                        #else
+                            $issueRel.relIssueTitle
+                        #end
+                    </a>
+                #end
+                </div>
+            </div>
+        </div>
+    #end
+
+
+    <!--  /widget/gotop/gotop.vm -->
+    <div class="gotop">
+        <ul class="gotop-list">
+            <li class="li-item item01"><a href="javascript:;" class="link-dlk"><i class="icon-gotop1"></i></a></li>
+            <li class="li-item item02"><a href="javascript:;" class="link-dlk"><i class="icon-gotop2"></i></a></li>
+            <li class="li-item item03"><a href="javascript:;" class="link-dlk"><i class="icon-gotop3"></i></a></li>
+            <li class="li-item item04" id="gotop"><a href="#" class="link-dlk link-top"><i class="icon-gotop4"></i></a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(function(){
+        seajs.use('jdf/2.0.0/ui/gotop/1.0.0/gotop',function(gotop){
+            var gotopBtn = $('.gotop');
+            gotopBtn.gotop({
+                btnEl: '#gotop',
+                isSyncShow: false,
+                easing: 'swing'
+            });
+        });
+
+        seajs.use('jdf/2.0.0/ui/dialog/1.0.0/dialog', function(dialog){
+            jQuery('#wt-unsolve').live('click',function(){
+                jQuery.ui.dialog({
+                    title:null,
+                    width:430,
+                    height: 350,
+                    type:'iframe',
+                    iframeScroll:'auto',
+                    source:'$!{issueBO.issue.cataId}-thick-$!{issueBO.issue.Id}.html',
+                    isAutoIframe: false
+                });
+            });
+        });
+
+        seajs.use(['jdf/2.0.0/ui/fixable/1.0.0/fixable','jdf/2.0.0/ui/elevator/1.0.0/elevator'], function (fixable, elevator) {
+            var elevatorBox = $('#wt_menu');
+            elevatorBox.fixable({//定位
+                x:'right',
+                y:'bottom',
+                xValue:-elevatorBox.width(),//减去自身宽度，定位于楼层的最右侧
+                yValue:0,
+                contextEl:$('.wt-detailbox')//相对floorContent容器定位
+            });
+
+            $('.wt-detailbox').elevator({
+                floorEl:'.floor',//楼层className
+                elevatorEl:elevatorBox,//电梯主体className
+                handlerSelector:'.wt-item',//电梯按钮className
+                curCls:'selected',//电梯按钮被选中的className
+                delay:500,
+                floorScrollMargin: -45,
+                onReady:function(obj){
+                },
+                onStart:function(obj){
+                },
+                onEnd:function(obj){
+                }
+            });
+        });
+
+    });
+</script>
+<!--/ /widget/gotop/gotop.vm -->
+
+<script type="text/javascript">
+    jQuery(function(){
+
+        var issue_id = jQuery("#issue_id").val();
+        var allNum = 0;
+        jQuery.ajax({
+            url:"/issue/findSuggestDetail.action",
+            data:{
+                "issue.id":issue_id
+            },
+            sync:false,
+            cache:false,
+            dataType:"json",
+            type:"post",
+            success:function(result){
+                var html = "";
+                allNum = result.allNum;
+                jQuery("#sg_allNum").text(allNum);
+                var flag = 0;
+                if(result.issueSuggest && result.issueSuggest.id>0){
+                    if (result.issueSuggest.solveStatus == 1) {
+                        html = '<div class="wt-txt"><i class="wbi-ok wbi-s wbi-green" style="font-size: 13px"></i><span class="thanks">已解决，谢谢您的参与！</span></div>';
+                    } else if (result.issueSuggest.solveStatus==0 && result.issueSuggest.suggestStatus==1) {
+                        html = '<div class="wt-txt"><i class="wbi-shibai wbi-s wbi-red" style="font-size: 13px"></i><span class="thanks">未解决，谢谢您的参与！</span></div>';
+                        flag = 1;
+                    } else {
+                        flag = 2;
+                    }
+                }else{
+                    html = '<div id="wt_suggest" class="wt-btns">'+
+                            '<a id="sg_solved" href="javascript:void(0);" class="wb-btn-s wb-btn-gray-bd" data-value="1" style="margin-right: 15px;padding-left: 20px;">已解决</a>'+
+                            '<a id="sg_unsolve" href="javascript:;" class="wb-btn-s wb-btn-gray-bd" data-value="0">未解决</a>'+
+                            '</div>';
+                }
+                jQuery("#userPin").after(html);
+                if(!jQuery("#userPin").val()){
+                    jQuery("#userPin").val(result.userPin)
+                }
+                jQuery("#wt-footer").show();
+                if(flag == 1){
+                    jQuery("#wt_div_unsolve").show();
+                    jQuery("#suggestDiv").hide();
+                } else if(flag == 2){
+                    jQuery("#wt_div_unsolve").show();
+                }
+            },
+            error:function(){
+                jQuery("#wt-footer").hide();
+            }
+        });
+
+         /*初始化左侧类目选中状态*/
+        jQuery(".li-level03-item[data-id="+$!catalog.id+"]").addClass("level03-on");
+        var catItem = $(".li-item[data-id="+$!catalog.pid+"]");
+        catItem.addClass("h-item-on");
+        var level_id = catItem.attr("data-parent-id")
+        jQuery(".h-menu-hd[data-id="+level_id+"]").parent().addClass("h-menu-on");
+
+        /*投票*/
+        jQuery("#sg_solved,#sg_unsolve").live("click",function(){
+            if(!jQuery("#userPin").val()){
+                alert("请登录后在进行操作");
+                return;
+            }
+            var div_id = '';
+            var issue_suggest_id = jQuery("#issue_suggest_id").val();
+            var dataValue = $(this).attr("data-value");
+            if(dataValue == 1){
+                div_id = 'wt_div_solved';
+            }else{
+                div_id = 'wt_div_unsolve';
+            }
+            jQuery.ajax({
+                url:"/issueSuggest/doInsert.action",
+                data:{
+                    "issueSuggest.issueId":issue_id,
+                    "issueSuggest.solveStatus":dataValue
+                },
+                sync:false,
+                cache:false,
+                dataType:"json",
+                type:"post",
+                success:function(result){
+                    if(result.isSuccess){
+                        jQuery("#"+div_id).show();
+                        jQuery("#wt_suggest").remove();
+                        jQuery(".wtf-num #sg_allNum").text(allNum+1)
+                    }else{
+                        alert("投票失败")
+                    }
+                },
+                error:function(){
+                    alert("网络异常，请稍后重试")
+                }
+            });
+        });
+        if($(".floor").length>0){
+            $("#wt_menu").show();
+        }else{
+            $("#wt_menu").hide();
+        }
+        /*初始化锚点*/
+        $(".floor").each(function(index,obj){
+            $(this).attr("id",$(this).attr("class")+index);
+            jQuery("#wt_menu ul").append('<li id_data="'+obj.id+'" class="wt-item"><a href="javascript:;"><strong class="num">'+parseInt(index+1)+'</strong>'+getAbbreviation(obj.innerHTML,8,"...")+'</a></li>');
+        });
+    });
+
+    /**
+     * 截取字符串
+     * @param oriString 目标字符串
+     * @param length   目标长度
+     * @param abbreviation 追加“...”或“>>”等
+     * @returns {*}
+     */
+
+    function getAbbreviation(oriString,length, abbreviation) {
+        if (oriString == null || oriString.length == 0) {return "";}
+        if (oriString.length <= length) {
+            return oriString;
+        }
+        return oriString.substring(0,length - 1) + abbreviation;
+    }
+</script>

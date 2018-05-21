@@ -1,0 +1,134 @@
+#set($layout="default.vm")
+#*@vtlvariable name="helpTopicVO" type="com.jd.help.center.domain.topic.HelpTopicVO" *#
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js""></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery.validator.addMethod("isInt", function(value, element) {
+            return this.optional(element) || /^-?[1-9]\d*|0$/.test(value);
+        }, "请输入有效整数");
+     jQuery("#topicFrame").validate({
+        rules: {
+                "helpTopicVO.name":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "helpTopicVO.sortOrder":{
+                    required:true,
+                    isInt:true,
+                    min:-2147483648,
+                    max:2147483648
+                },
+                "helpTopicVO.notes":{
+                    maxlength:100
+                }
+         },
+          messages: {
+                "helpTopicVO.name":{
+                    required:"请输入Topic名称",
+                    minlength:"输入Topic不能少于2个字符",
+                    maxlength:"输入Topic不能多于20个字符"
+                },
+                "helpTopicVO.sortOrder":{
+                    required:"请输入Topic顺序",
+                    isInt:"请输入整数",
+                    min:"请输入大于-2147483648的顺序",
+                    max:"请输入小于2147483648的顺序"
+                },
+                "helpTopicVO.notes":{
+                    maxlength:"输入备注不能多于100个字符"
+                }
+          }
+     })
+    })
+</script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+                 <form id="topicFrame" action="topic_doUpdate.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="50%">
+                        <input type="hidden" name="sysId" value="$!sysId">
+                        <input type="hidden" name="categoryId" value="$!helpTopicVO.getCategoryId()">
+                        <input type="hidden" name="helpTopicVO.topicId" value="$!helpTopicVO.getTopicId()">
+                         #if(!$!actionMessages.empty)
+                        <tr>
+                            <td colspan="2">#showSimpleMessage() </td>
+                        </tr>
+                        #end
+                        <tr>
+                            <td>
+                                Topic名称：
+                            </td>
+                            <td>
+                                <input type="text" name="helpTopicVO.name" value="$!stringEscapeUtils.escapeHtml($!helpTopicVO.getName())">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                排列顺序：
+                            </td>
+                            <td>
+                                <input type="text" name="helpTopicVO.sortOrder" value="$!helpTopicVO.getSortOrder()">
+                            </td>
+                        </tr>
+                        <tr>
+                             <td>
+                                标签状态：
+                            </td>
+                            <td>
+                                <select name="helpTopicVO.logoType">
+                                    #showTagOption($!helpTopicVO.getLogoType())
+                                </select>
+                            </td>
+                        </tr>
+                    <tr>
+                             <td>
+                                是否显示锚点：
+                            </td>
+                            <td>
+                                <select name="helpTopicVO.anchorStatus">
+                                    <option value="0" #if($!helpTopicVO.getAnchorStatus()==0) selected="selected" #end>显示</option>
+                                    <option value="1" #if($!helpTopicVO.getAnchorStatus()==1) selected="selected" #end>不显示</option>
+                                </select>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                状态:
+                            </td>
+                            <td>
+                                <select name="helpTopicVO.status">
+                                    <option value="1" #if($!helpTopicVO.getStatus()==1) selected="selected" #end >启用</option>
+                                    <option value="0" #if($!helpTopicVO.getStatus()==0) selected="selected" #end>停用</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                非帮助系统链接:
+                            </td>
+                            <td>
+                                <input type="text" name="helpTopicVO.url" value="$!helpTopicVO.getUrl()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpTopicVO.notes" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                                <textarea id="helpTopicVO.notes" name="helpTopicVO.notes" value="" rows="6" cols="80" style="width:80%">$!stringEscapeUtils.escapeHtml($!helpTopicVO.getNotes())</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>

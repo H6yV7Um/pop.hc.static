@@ -1,0 +1,84 @@
+#set($layout="default.vm")
+#* @vtlvariable name="borderInfo" type="com.jd.help.center.domain.border.BorderInfo" *#
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js""></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+     jQuery("#borderFrame").validate({
+         rules: {
+                "borderInfo.key":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "borderInfo.content":{
+                    required:true
+                },
+                "borderInfo.remark":{
+                    maxlength:30
+                }
+         },
+          messages: {
+                "borderInfo.key":{
+                    required:"请输入头尾的名称",
+                    minlength:"输入字段不能少于2个字符",
+                    maxlength:"输入字段不能大于20个字符"
+                },
+                "borderInfo.content":{
+                    required:"头尾内容必须输入"
+                },
+                "borderInfo.remark":{
+                    maxlength:"备注字段不能大于30字符"
+                }
+          }
+     })
+    })
+</script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+                <form id="borderFrame"  action="border_doUpdate.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    #if(!$!actionMessages.empty)
+                    <tr>
+                        <td colspan="2">#showSimpleMessage() </td>
+                    </tr>
+                    #end
+
+                        <tr>
+                            <input type="hidden" name="borderInfo.type" value="$!borderInfo.type">
+                            <td>
+                                头尾名称：
+                            </td>
+                            <td>
+                                <input type="text" name="borderInfo.key" value="$!borderInfo.key">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="borderInfo.content" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                         <tr>
+                            <td>
+                                内容:
+                            </td>
+                            <td>
+                                <textarea id="borderInfo.content" name="borderInfo.content" rows="10" cols="120" style="width:80%">$!borderInfo.content</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                               <input type="text" name="borderInfo.remark" value="$!borderInfo.remark">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>

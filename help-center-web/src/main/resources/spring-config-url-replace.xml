@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean name="urlReplaceMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="//misc.360buyimg.com/lib/skin/2013/base.css" value="/misc/skin/base.css"/>
+                <entry key="//misc.360buyimg.com/lib/skin/2012/base.css" value="/misc/skin/base.css"/>
+                <entry key="//misc.360buyimg.com/lib/js/2012/base-v1.js" value="/misc/js/base-v1.js"/>
+                <entry key="//static.360buyimg.com/dsp/ssp.js" value="/misc/js/ssp.js"/>
+                <entry key="//misc.360buyimg.com/lib/js/2012/lib-v1.js" value="/misc/js/lib-v1.js"/>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

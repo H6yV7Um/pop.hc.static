@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <script>var pageConfig = {jdfVersion:'2.0.0',navId:"$!navId"};</script>
+    #if($!title)
+        <title>$!title</title>
+    #else
+        <title>帮助中心-京东</title>
+    #end
+    #*<link type="text/css" rel="stylesheet"  href="//static.360buyimg.com/shop/pop_shop_help/css/help.css" source="widget"/>*#
+    <link type="text/css" rel="stylesheet"  href="//static.360buyimg.com/shop/pop_help/css/help.css" source="widget"/>
+    <link type="text/css" rel="stylesheet"  href="//static.360buyimg.com/shop/pop_help/css/index.css"/>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/??lib/jquery-1.6.4.js,1.0.0/unit/base/1.0.0/base.js"></script>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/vender/common/head.vm")
+
+<div class="l-wrap">
+    <div class="l-main">
+        <!--  /widget/h-menu/h-menu.vm -->
+        #parse($left)
+        <!--/ /widget/h-menu/h-menu.vm -->
+        $screen_content
+        #parse($contactUs)
+    </div>
+</div>
+    #parse("/WEB-INF/vm/customer/vender/common/bottom.vm")
+</body>
+</html>

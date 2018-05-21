@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>center</artifactId>
+        <groupId>com.jd.help</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <packaging>jar</packaging>
+    <artifactId>help-center-public</artifactId>
+    <groupId>com.jd.help.center</groupId>
+    <name>help-center-public</name>
+    <version>1.0-SNAPSHOT</version>
+    <url>http://pop.360buy.com</url>
+
+    <build>
+        <finalName>jd-help-center-public-${version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <encoding>gbk</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

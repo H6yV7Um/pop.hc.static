@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+
+.m h3{height:47px;line-height:47px;border-bottom:1px dotted #95baef;font-size:14px;margin-bottom:22px;padding-right:10px}
+.m h3 s{float:left;width:13px;height:12px;background:url(i/icon.gif) -13px 0;margin:18px 5px 0 5px}
+.m h3 a{font-size:12px;font-weight:normal}
+.m h3 span{font-size:12px;font-weight:normal}
+.border-blue{border:1px solid #95baef;background:#fff;padding:10px;margin-bottom:10px}
+.border-blue table{border-bottom:1px solid #95baef;height:40px}
+.border-blue table td{padding-left:10px}
+.border-blue ul{overflow:hidden;zoom:1;padding:10px 0 0 10px}
+.border-blue ul li{float:left;width:19.9%}
+#overage h3 .fr{margin-top:10px}
+.this-acc{padding:10px 15px}
+.pool td{background:#fffce5;height:30px}
+.warn{background:#FBF6EB;border:1px solid #F4CAA2;margin:10px 9px;padding:5px;}

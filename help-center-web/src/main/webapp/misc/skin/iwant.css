@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+#iwant ul{overflow:hidden;zoom:1}
+#iwant li{float:left;width:19.9%;text-align:center;position:relative;text-align:left}
+#iwant li .btn-normal{margin-top:10px;padding-left:40px}
+#iwant li img{border:1px solid #d4dae1;}
+.tbl-n{margin-bottom:10px}
+.tbl-n s{position:relative;top:-2px;margin-left:3px;margin-right:3px}
+.fromlist{padding:30px 0}
+.blue-line{border-top:1px dotted #95baef}
+#tooltip{border:1px solid #f03333;background:#fff7b6;position:absolute;top:0;width:134px;color:#000;left:0;text-align:center}
+/*m*/
+.m h3{height:47px;line-height:47px;border-bottom:1px dotted #95baef;font-size:14px;margin-bottom:22px;padding-right:10px}
+.m h3 s{float:left;width:13px;height:12px;background:url(i/icon.gif) -13px 0;margin:18px 5px 0 5px}
+.m h3 a{font-size:12px;font-weight:normal}
+.m h3 span{font-size:12px;font-weight:normal}
+.i-m{fontsize:12px;font-weight:normal;color:#626262;font-size:12px}
+.i-m i{font-style:normal;color:red}
+.m h4{font-size:12px;line-height:50px}
+/*warn*/
+.warn{border:1px solid #f4caa2;background:#fbf6eb;padding:5px;margin:10px 0}
+.warn s{background:url(i/icon.gif);float:left;width:12px;height:11px;margin-right:4px;margin-top:2px}
+.active-title{color:#545454;line-height:50px;padding-left:10px;overflow:hidden;zoom:1}
+.active-title span{font-size:14px;font-weight:bold;}
+#myPromotion .tb-x1 a{margin-right:5px}

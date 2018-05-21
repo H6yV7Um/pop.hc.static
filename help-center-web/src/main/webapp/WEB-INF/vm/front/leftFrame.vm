@@ -1,0 +1,42 @@
+#set($layout="empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>pop</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/popbase.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/misc/skin/faq.css" media="all" />
+<script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="/misc/js/pop.base.js"></script>
+</head>
+<body id="leftframe">
+	<div id="popmenu">
+    	<h2>帮助中心</h2>
+         #foreach($category in $!categorys)
+                    <h3>$!category.getName()</h3>
+                    #set($topics = $!category.getTopics())
+                    <ul>
+                    #foreach($topic in $topics)
+                        <li><a href="/help/front/getQuestion.action?topicId=$!topic.getTopicId()" target="mainFrame">$!topic.getName()</a></li>
+                    #end
+                    </ul>
+                #end
+	</div>
+	<div id="control" class="control"></div>
+	<script type="text/javascript">
+		(function(){
+			$("#popmenu a").bind("click",function(){
+				$("#popmenu .curr").removeClass("curr");
+				var index=$("#popmenu a").index(this);
+				$("#popmenu dl").eq(index).addClass("curr");
+			});
+			$("#control").bind("click",function(){
+				parent.document.getElementsByTagName('frameset')[1].cols=(parent.document.getElementsByTagName('frameset')[1].cols=='10,*')?'169,*':'10,*';
+				document.getElementById('popmenu').style.display=(document.getElementById('popmenu').style.display=='none')?'':'none';
+				document.getElementById('control').className=(document.getElementById('control').className=='control')?'control switch':'control';
+			});
+		})()
+		
+	</script>
+</body>
+</html>

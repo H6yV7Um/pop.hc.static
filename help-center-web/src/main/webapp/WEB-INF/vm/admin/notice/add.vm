@@ -1,0 +1,116 @@
+#set($layout="admin/default.vm")
+#set($title="新增公告")
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+<div class="container-fluid">
+    <div class="row">
+        <form id="htmlForm" name="htmlForm" role="form" method="post"
+              class="form-horizontal">
+            <input type="hidden" name="notice.siteId" value="$!site.id"/>
+            <input type="hidden" name="site.id" value="$!site.id"/>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="notice.name" class="col-sm-1 control-label">公告名称</label>
+
+                        <div class="col-sm-11">
+                            <input type="text" name="notice.name" class="form-control" >
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-11 col-sm-offset-1">
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" name="notice.content"  type="text/plain"></script>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+						<button type="button" class="btn btn-primary btn-lg" onclick="preview()">预 览</button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="save()">保 存</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <!-- 配置文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.all.min.js"></script>
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function (action) {
+            if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+                return '$!helpAdminModule.getTarget("/help/issue/uploadimg.action")';
+            } else if (action == 'uploadvideo') {
+                return '';
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        };
+        var editor = UE.getEditor(
+           'container',
+           {
+               toolbars :[
+                          ['fullscreen','source','bold','italic','underline','strikethrough','fontborder','subscript','superscript','formatmatch','removeformat','blockquote','|'
+                           ,'forecolor','backcolor','insertorderedlist','insertunorderedlist',,'selectall','cleardoc','|'
+                           ,'rowspacingtop','rowspacingbottom','lineheight','customstyle','fontfamily','fontsize','paragraph','|'
+                           ,'directionalityltr', 'directionalityrtl','indent'],
+                           ['justifyleft','justifyright','justifycenter','justifyjustify','|'
+                           ,'touppercase','tolowercase','|'
+                           ,'link','simpleupload','imagenone','imageleft','imageright','imagecenter','|'
+                           ,'horizontal','time','date', 'spechars','|'
+                           ,'inserttable','insertrow','insertcol','mergeright','mergedown','deleterow','deletecol','splittorows','splittocols','splittocells','deletecaption','inserttitle','mergecells','deletetable']
+               				],
+               autoHeightEnabled: true,
+               initialFrameHeight: 400,
+               allowDivTransToP: false,
+               maximumWords:20000,
+               wordOverFlowMsg:'<span style="color:red;">你输入的字符个数已经超出最大允许值（20000个字符），请删除部分字符！</span>'
+           });
+        </script>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#htmlForm").validate({
+            rules: {
+                "notice.name": {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 30
+                },
+                "notice.content":{
+                	ueditorContentMaxLength:20000
+                }
+            },
+            messages: {
+                "notice.name": {
+                    required: "请输入公告名称",
+                    minlength: "公告名称不能少于2个字符",
+                    maxlength: "公告名称不能多于30个字符"
+                }
+            }
+        });
+        
+        jQuery.validator.addMethod("ueditorContentMaxLength", function(value, element, param) {
+            var length = editor.getContentLength(false);
+            return this.optional(element) || (length <= param);
+           }, "&nbsp;");
+    });
+</script>
+<script type="text/javascript">
+    var save = function () {
+        var actionUrl = 'notice_doAdd.action';
+        jQuery('#htmlForm').attr('action', actionUrl).attr('target','_self');
+        jQuery('#htmlForm').submit();
+
+    };
+
+    var preview = function () {
+    	var actionUrl = 'notice_preview.action';
+    	jQuery('#htmlForm').attr('action', actionUrl).attr("target", "_blank");
+        jQuery('#htmlForm').submit();
+    };
+</script>

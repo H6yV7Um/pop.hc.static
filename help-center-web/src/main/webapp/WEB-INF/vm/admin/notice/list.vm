@@ -1,0 +1,138 @@
+#set($layout="admin/default.vm")
+#set($title="公告列表")
+<div class="container-fluid">
+    <div class="row">
+        <p class="pull-right">
+            <a href="notice_add.action?site.id=$!site.id" role="button" class="btn btn-success">新增公告</a>
+        </p>
+    </div>
+
+##    表头
+    <div class="row well">
+        <form class="form-inline" role="form" method="get" action="/help/notice/notice_list.action">
+            <input type="hidden" name="site.id" value="$!site.id">
+            <div class="form-group">
+                <input type="text" class="form-control" value="$!notice.name" name="notice.name"
+                       placeholder="请输入关键字">
+            </div>
+            <button type="submit" class="btn btn-primary">搜 索</button>
+        </form>
+    </div>
+
+##    列表
+
+    <div class="row table-responsive m_t_10">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>修改时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                #if($!noticeList && $!noticeList.size() > 0)
+                    #foreach($notice in $noticeList)
+                    <tr>
+                        <td>$!notice.name</td>
+                        <td>$dateFormatUtils.format($!notice.modified,"yyyy-MM-dd HH:mm:ss")</td>
+                        <td>
+                            #if($!notice.status > 0)
+                                <label class="label label-success">上线</label>
+                            #else
+                                <label class="label label-default">下线</label>
+                            #end
+                        </td>
+                        <td>
+                        	<a href="$!helpAdminModule.getTarget("/help/notice/notice_update.action").addQueryData("notice.id",$!notice.id).addQueryData("site.id",$!site.id)"
+                                 class="btn btn-sm btn-default" role="button">修改</a>
+                            #if($!notice.status > 0)
+                                <a href="javascript:void(0)" class="btn btn-sm btn-warning btn-update-offline"
+                                   data-id="$!notice.id" role="button" data-page="$!page">下线</a>
+                            #else
+                                <a href="$!helpAdminModule.getTarget("/help/notice/notice_online.action").addQueryData("notice.id",
+                                    $!notice.id).addQueryData("site.id",$!site.id).addQueryData("page",$!page)"
+                                   class="btn btn-sm btn-success" data-id="$!notice.id" role="button">上线</a>
+                            #end
+
+							<a href="javascript:void(0)" class="btn btn-sm btn-danger btn-delete"
+                                  role="button" data-id="$!notice.id">删除</a>
+                            #if($!notice.preId)
+                                <a href="$!helpAdminModule.getTarget("/help/notice/notice_move.action").addQueryData("notice.id",
+                                    $!notice.id).addQueryData("noticeRef.id",$!notice.preId).addQueryData("site.id",
+                                    $!site.id).addQueryData("page",$!page)"
+                                   class="btn btn-sm btn-default" role="button"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                            #end
+                            #if($!notice.nextId)
+                                <a href="$!helpAdminModule.getTarget("/help/notice/notice_move.action").addQueryData("notice.id",
+                                    $!notice.id).addQueryData("noticeRef.id",$!notice.nextId).addQueryData("site.id",
+                                    $!site.id).addQueryData("page",$!page)"
+                                   class="btn btn-sm btn-default" role="button"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                            #end
+                        </td>
+                    </tr>
+                    #end
+                #else
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <span>没有找到相关内容</span>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="7">
+                    #set($pageUrl = $!helpAdminModule.getTarget("/help/notice/notice_list.action").addQueryData("site.id",$!site.id).addQueryData("notice.name",$!notice.name))
+                    #showPage($!pageUrl $!noticeList)
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+## 提示框
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            	<a href="" role="button" class="btn btn-danger btn-do-update-status"></a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $(function () {
+        $(".btn-delete").click(function () {
+            var id = $(this).data("id");
+            $("#modal").find(".modal-title").html("删除公告").end()
+             .find(".modal-body").html("<p>你确定将此公告删除？</p><p>删除后将看不到此公告，不能再进行管理！</p>").end()
+             .find(".btn-do-update-status")
+             .attr("href", '$!helpAdminModule.getTarget("/help/notice/notice_delete.action")?site.id=$!site.id&notice.id=' + id).text("删除").end()
+             .modal("show");
+        });
+
+        $(".btn-update-offline").click(function () {
+            var id = $(this).data("id");
+            var pageNum = $(this).data("page");
+            $("#modal").find(".modal-title").html("下线公告").end()
+                    .find(".modal-body").html("<p>你确定将此公告下线？</p><p>下线后前台将看不到此公告！</p>").end()
+                    .find(".btn-do-update-status")
+                    .attr("href", '$!helpAdminModule.getTarget("/help/notice/notice_offline.action")?notice.id='+id+'&site.id=$!{site.id}&'+'page='+pageNum).text("下线").end()
+                    .modal("show");
+        });
+    });
+</script>

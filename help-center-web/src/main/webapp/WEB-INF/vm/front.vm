@@ -1,0 +1,20 @@
+#* @vtlvariable name="categorys" type="java.util.List<com.jd.help.center.domain.category.HelpCategory>" *#
+#* @vtlvariable name="category" type="com.jd.help.center.domain.category.HelpCategory" *#
+#* @vtlvariable name="topics" type="java.util.List<com.jd.help.center.domain.topic.HelpTopic>" *#
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1">
+            <table width="100%"  cellspacing="0" cellpadding="0">
+                #foreach($category in $!categorys)
+                    <tr><td>ÀàÄ¿ $!category.getName()</td></tr>
+                    #set($topics = $!category.getTopics())
+                    #foreach($topic in $topics)
+                        <tr><td>Topic $!topic.getName()</td></tr>
+                    #end
+                #end
+            </table>
+                </div>
+        </div>
+    </div>
+</div>

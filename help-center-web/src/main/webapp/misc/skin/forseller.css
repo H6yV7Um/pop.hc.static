@@ -1,0 +1,177 @@
+#page-index .left{float:left;width:210px;}
+#page-index .right{float:right;width:770px;}
+.m{
+    border:1px solid #b9e8f9;
+}
+.mt{
+    background:url("images/newhelp_cen.gif") repeat-x scroll 0 -400px;
+    border-bottom:1px solid #e2f6fd;
+}
+.mt h3{
+    font:bold 18px/35px "Microsoft Yahei";
+    color:#2398d1;
+    padding-left:20px;
+    height:35px;
+    background:none;
+}
+.breadcrumb{
+    border:0;
+}
+#main-menu ul{
+    margin:20px 10px;
+}
+#main-menu li{
+    width:97px;
+    height:73px;
+    border:1px solid #e0f4fb;
+    margin:10px;
+    position:relative;
+    padding-left:70px;
+    font:bold 14px/75px "Microsoft Yahei";
+}
+#main-menu li span{
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:50px;
+    height:50px;
+    background:url(images/icon-mainmenu.png);
+
+}
+#main-menu li span.help-seller{background-position:0 0;}
+#main-menu li span.help-customer{background-position:0 -50px;}
+#main-menu li span.jd-college{background-position:0 -100px;}
+#main-menu li span.jd-pop{background-position:0 -150px;}
+#main-menu li span.jd-club{background-position:0 -200px;}
+#main-menu li span.im{background-position:0 -250px;}
+#main-menu li span.hotline{background-position:0 -300px;}
+#main-menu li span.email{background-position:0 -350px;}
+#main-menu #m-service li{
+    border:0;
+    margin-top:-10px;
+    margin-bottom:0;
+    font-weight:normal;
+}
+
+#searchbox{
+    height:51px;
+    padding-left:140px;
+    background:url(images/vi.png) no-repeat #effdff;
+    padding-top:25px;
+}
+/* #hotnav,#basic,#faq的公共样式*/
+#page-index .m-main{
+    border:3px solid #40ccf5;
+}
+#page-index .m-main .mc{
+    padding:15px 20px;
+    line-height:200%;
+}
+
+#hotnav{}
+#page-index #hotnav .mc{
+    padding:0;
+}
+#hotnav .sm{
+    float:left;
+    width:170px;
+    padding:15px 0 10px 20px;
+    border-right:1px solid #e2f6fd;
+    margin-bottom:0;
+    position:relative;
+}
+#hotnav .sm .icon{
+    position:absolute;
+    z-index:-1;
+    top:0;right:10px;
+    width:68px;height:52px;
+    background:url(images/icon-hotnav.png);
+}
+#hotnav .sm1 .icon{background-position:0 0;}
+#hotnav .sm2 .icon{background-position:0 -52px;}
+#hotnav .sm3 .icon{background-position:0 -104px;}
+#hotnav .sm4 .icon{background-position:0 -156px;}
+#basic{width:374px;float:left;}
+#faq{width:374px;float:right;}
+
+#page-index #basic .mc,#page-index #faq .mc{
+    padding-right:0;
+}
+#basic li,
+#faq li{
+    width:170px;
+    float:left;
+}
+#faq li{
+    width:100%;
+}
+#basic li.clear,
+#faq li.clear{
+    clear:both;
+}
+
+#page-search .left{overflow:visible;}
+#nav-menu{overflow:visible;}
+#nav-menu h4{background:#eff9fe;height:32px;line-height:32px;padding-left:25px;color:#4a4a4a;font-size:14px;font-family:"microsoft yahei";cursor:pointer;border-bottom:1px solid #B9E8F9;}
+#nav-menu .current h4{border-bottom:0;}
+#nav-menu ul.level1 li{background:url(images/helpcenter_icon1.gif) no-repeat 20px 10px;}
+#nav-menu dl{position:relative;display:none;}
+#nav-menu dt{border-bottom:1px dotted #b9e8f9;height:32px;line-height:32px;padding-left:32px;background:url(images/helpcenter_icon1.gif) no-repeat 20px 10px;}
+#nav-menu dt a{position:relative;z-index:3;}
+#nav-menu dt .cover{position:absolute;display:none;z-index:2;border:1px solid #b9e8f9;border-right-color:#fff;border-left:0;left:0;top:2px;height:27px;width:200px;}
+#nav-menu dl.hover .cover{display:block;}
+#nav-menu dd{display:none;position:absolute;z-index:1;left:200px;width:250px;top:2px;border:1px solid #b9e8f9;background:#fff;}
+#nav-menu dl.hover dd{display:block;}
+#nav-menu .current dl{display:block;}
+
+#nav-menu b{float:right;width:14px;height:14px;margin-top:1px;background:url(images/help_leftsz.gif) no-repeat right -14px;overflow:hidden;cursor:pointer;margin:7px 10px 0 0;}
+#nav-menu ul{display:none;}
+#nav-menu .current b{background:url(images/help_leftsz.gif) right 0;}
+#nav-menu .current ul{display:block;}
+#nav-menu ul{margin:10px 0 10px 20px;line-height:200%;}
+#nav-menu li{overflow:hidden;zoom:1;}
+#nav-menu a{float:left}
+#nav-menu a:link,#nav-menu a:visited {color:#2398d1;text-decoration:none;}
+#nav-menu a:hover,#nav-menu a:active{color:#cc0000;text-decoration:underline;}
+
+#help-content{border:0;}
+#help-content em{color:#f00;}
+#help-content h3 em{color:#c00;}
+#help-content h3{background:url(images/newpp.png) repeat-x;height:36px;line-height:36px;padding-left:9px;font-size:16px;color:#138bc5;font-family: "microsoft yahei";}
+#help-content h4{margin:10px 0 0 20px;}
+#help-content h4 a:link,#help-content h4 a:visited{color:#005ea6;}
+
+#searchbox label{
+    font-family:"Microsoft Yahei";
+    font-size:16px;
+}
+#searchbox .searchinput{
+    margin-left:10px;
+    height:24px;
+    border-radius:2px;
+    border:1px solid #e2e2ea;
+    border-top-color:#acacb4;
+    width:230px;
+    padding-left:5px;
+}
+#searchbox .btn{
+    background:url(images/btn.png) repeat-x #eaf6e1;
+    cursor:pointer;
+    height:28px;
+    padding:0 14px;
+    border:1px solid #c0d6af;
+    border-radius:2px;
+    font-weight:bold;
+}
+#searchbox .hotline{
+    margin-left:20px;
+}
+/*搜索页面*/
+#page-search{}
+#page-search .left{width:210px;}
+/*搜索失败*/
+#search-fail{border-color:#edd28b;padding:30px 20px;}
+#search-fail .mt{background:#fffdee;border-bottom:0;}
+#search-fail .mt h4{font-size:14px;margin-bottom:10px;}
+#search-fail .mt h4 em{color:#c00;}
+#search-fail .mc{background:#fffdee;line-height:200%;}

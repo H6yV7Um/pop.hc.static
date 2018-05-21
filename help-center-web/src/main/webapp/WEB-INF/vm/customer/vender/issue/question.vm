@@ -1,0 +1,9 @@
+#set($layout="customer/user/default.vm")
+#set($navId="question")
+
+<div class="bg-fff">
+    <div class="w">
+        <iframe src="$!jimiUrl" id="jimi-embed" width="100%" height="auto" scrolling="no" frameborder="0"
+                style="visibility: hidden;" onload="this.style.visibility='visible'"></iframe>
+    </div>
+</div>

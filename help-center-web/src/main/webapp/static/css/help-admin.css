@@ -1,0 +1,56 @@
+body {
+    padding: 5px 20px;
+}
+
+.m_t_10 {
+    margin-top: 10px;
+}
+
+.m_b_10 {
+    margin-bottom: 10px;
+}
+
+.m_b_100 {
+    margin-bottom: 100px;
+}
+
+/* paging */
+.paging {
+    color: #666;
+    padding: 5px;
+}
+
+.paging a, .paging .prev-disabled, .paging .next-disabled {
+    border: 1px solid #ddd;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin: 1px;
+}
+
+.paging a:hover {
+    text-decoration: none;
+    background: #ddd;
+}
+
+.paging a.current, .paging a.current:hover {
+    border: none;
+    color: #666;
+    background: none;
+}
+
+.paging .prev-disabled, .paging .next-disabled {
+    color: #999;
+}
+
+label.error {
+    color: red;
+}
+
+.affix {
+    position: fixed;
+    bottom: 0px;
+    left: 20px;
+    right: 20px;
+    margin: 0;
+    z-index: 999;
+}

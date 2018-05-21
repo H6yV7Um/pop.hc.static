@@ -1,0 +1,7 @@
+#set($tailVm=".vm")
+#if($!isStatic=="1")
+    #set($layout="preZiti$tailVm")
+#else
+    #set($layout="$!stringEscapeUtils.escapeHtml($!sysName)$tailVm")
+#end
+    

@@ -1,0 +1,101 @@
+#set($layout="default.vm")
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js""></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery.validator.addMethod("isInt", function(value, element) {
+            return this.optional(element) || /^-?[1-9]\d*|0$/.test(value);
+        }, "请输入有效整数");
+     jQuery("#sysFrame").validate({
+         rules: {
+                "helpSYS.name":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "helpSYS.sortOrder":{
+                    required:true,
+                    isInt:true,
+                    min:-2147483648,
+                    max:2147483648
+                },
+                "helpSYS.notes":{
+                    maxlength:100
+                }
+         },
+          messages: {
+                "helpSYS.name":{
+                    required:"请输入系统名称",
+                    minlength:"系统名称不能少于2个字符",
+                    maxlength:"系统名称不能多于20个字符"
+                },
+                "helpSYS.sortOrder":{
+                    required:"请输入系统顺序",
+                    isInt:"请输入整数",
+                    min:"请输入大于-2147483648的顺序",
+                    max:"请输入小于2147483648的顺序"
+                },
+                "helpSYS.notes":{
+                    maxlength:"不能输入超过100个字符"
+                }
+          }
+     })
+    })
+</script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+                <form id="sysFrame"  action="sys_doInsert.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="50%">
+                    #if(!$!actionMessages.empty)
+                    <tr>
+                        <td colspan="2">#showSimpleMessage() </td>
+                    </tr>
+                    #end
+                        <tr>
+                            <td>
+                                系统名称：
+                            </td>
+                            <td>
+                                <input type="text" name="helpSYS.name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                排列顺序：
+                            </td>
+                            <td>
+                                <input type="text" name="helpSYS.sortOrder">
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                状态:
+                            </td>
+                            <td>
+                                <select name="helpSYS.status">
+                                    <option value="1">启用</option>
+                                    <option value="0">停用</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpSYS.notes" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                                <textarea id="helpSYS.notes" name="helpSYS.notes" value="" rows="6" cols="80" style="width:80%"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>

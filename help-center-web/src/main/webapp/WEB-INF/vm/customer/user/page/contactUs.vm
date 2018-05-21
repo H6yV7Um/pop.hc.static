@@ -1,0 +1,56 @@
+    <div class="bgcolor04 pd-box-b80 pb-box-t9">
+    <div class="w">
+        <div class="m mod-h01 contact-us-box">
+            <div class="mt">
+                <h3 class="title">联系我们</h3>
+            </div>
+            <div class="mod-h02">
+                <div class="jimi-box">        
+                    <a href="//jimi.jd.com" target="_blank" class="btn-s03" clstag="pageclick|keycount|index_201502103|1">立即咨询</a>
+                </div>
+                <div class="contact-us-in">
+                    <dl class="dl-list fore01">
+                    <dt class="title">电话客服</dt>
+                        <dd class="cnt hot-line-box">
+                            <p class="text">预约客服，主动回电<em class="yline">|</em><a href="//helpcenter.jd.com/user/issue/270-314.html">更多热线&gt;</a></p>
+                            <a target="_blank" href="//myjd-crm.jd.com/appoint/telebooking.action" clstag="pageclick|keycount|index_201502103|3" class="btn-s02">点此预约</a>
+                        </dd>
+                        
+                    </dl>
+                    <dl class="dl-list fore02">
+                        <dt class="title">在线客服</dt>
+                        <dd class="cnt">
+                            <p class="text">在线解答您的咨询，高效、便捷</p>
+                            <a target="_blank" href="//chat.jd.com/jdchat/custom.action" class="btn-s04" clstag="pageclick|keycount|index_201502103|5">点此咨询</a>
+                        </dd> 
+                    </dl>
+                    <dl class="dl-list fore03">
+                        <dt class="title">提建议</dt>
+                        <dd class="cnt">
+                            <p class="text">对帮助中心提建议<em class="yline">|</em>邮件留言<a href="mailto:service@jd.com" clstag="pageclick|keycount|index_201502103|6">service@jd.com</a></p>
+                            <a href="//surveys.jd.com/index.php?r=survey/index/sid/162389/newtest/Y/lang/zh-Hans" target="_blank" class="btn-s02" clstag="pageclick|keycount|index_201502103|7">我要留言</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+    <script type="text/javascript">
+        var jaq = jaq || [];
+        jaq.push(['account', 'JA2017_113662']); //站点编号
+        jaq.push(['domain', 'jd.com']);  //站点域名
+
+        (function () {
+            var ja = document.createElement('script');
+            ja.type = 'text/javascript';
+            ja.async = true;
+            ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ja, s);
+        })();
+    </script>

@@ -1,0 +1,156 @@
+/* CSS Document */
+.main{ overflow:hidden;zoom:1;margin-bottom:10px}
+.main a:link,.main a:visited{color:#005CCE}
+.Red{color:red}
+.f_bold{font-weight:700}
+.margin_l10{margin-left:10px}
+.margin_l28{margin-left:28px}
+.margin_t5{margin-top:5px}
+.margin_t20{margin-top:20px}
+.margin_b20{margin-bottom:20px}
+.p_indent{text-indent:28px;padding-left:12px;margin-bottom:20px}
+.padding_l68{padding-left:68px}
+.padding_l10{padding-left:10px}
+.font_13{font-size:13px}
+.float_right{float:right}
+.Main a{color:#005cce}
+.right{width:auto;overflow:hidden;_float:right}
+.align_center{ text-align:center}
+.margin_b6{margin-bottom:6px}
+/*------------------------------------------------left-------------------------------------------------------*/
+.left{width:165px;overflow:hidden;margin-right:10px;float:left; background:url(/misc/skin/images/helpcenter_01.gif) no-repeat 0 100%;padding-bottom:5px}
+.left h2{ background:#f60 url(/misc/skin/images/helpcenter.jpg) no-repeat;height:29px;line-height:300px;overflow:hidden}
+.help_side{border-left:1px solid #959595;border-right:1px solid #959595}
+.help_side h4{ background:#faf4d1;border-bottom:1px solid #d6d0b1;height:26px;line-height:26px;padding-left:25px;color:#4a4a4a}
+.help_side ul{padding-top:15px;padding-bottom:15px}
+.help_side ul li{ background:url(/misc/skin/images/helpcenter_icon.gif) no-repeat 20px 5px;padding-left:32px;height:20px;line-height:20px;overflow:hidden}
+/*------------------------------------------------right-------------------------------------------------------*/
+.right{font-size:14px;line-height:150%;float:none;_float:right}
+.right img{margin:10px}
+.right h3{ background:#deedf9;height:24px;line-height:24px;padding-left:13px;margin-bottom:20px}
+.right h3 a{font-weight:400;font-size:12px;float:right;color:#fff;margin-right:10px}
+.help_box{padding-left:12px}
+.dt_bold dt{font-weight:700;margin-top:5px;color:#333}
+.dt_bold dd{padding-left:1.8em;margin-bottom:20px}
+.dl_box dt{margin-top:5px;margin-bottom:5px}
+/*大家电*/
+.household_appliances dt{margin-bottom:8px;margin-top:5px}
+.household_appliances dd{margin-bottom:5px}
+/*#top*/
+#top{padding-left:10px;height:30px}
+#top a{margin-right:10px}
+/*------------------------------------------------help_tips-------------------------------------------------------*/
+.help_tips{border:1px solid #ebebeb;padding:8px;font-size:12px; background:#faf9f9;margin:10px 0;clear:both}
+.help_tips h4{border-bottom:1px solid #ebebeb;height:32px;line-height:30px}
+.help_form_yn{padding:12px 6px 3px 6px}
+.help_tips_display{height:45px}
+.help_tips_artlist{overflow:hidden;padding:24px 47px;zoom:1}
+.help_tips_artlist li{width:49.9%;float:left;line-height:180%}
+
+/*------------------------------------------------常见问题-------------------------------------------------------*/
+.faq dd{margin-bottom:15px;margin-left:24px}
+/*------------------------------------------------ul li-------------------------------------------------------*/
+.List_Number li{ list-style-type:decimal; margin-left:25px;margin-bottom:3px}
+.List_Number_inside{padding:3px 0 3px 12px}
+.List_Number_inside li{list-style:inside decimal;margin-bottom:18px}
+.List_Letter li{ list-style-type:upper-alpha; margin-left:25px}
+.List_Letter_inside li{ list-style:inside upper-alpha}
+
+.img_box img{margin-bottom:20px}
+/*---------------------------------------------table--------------------------------------------------------*/
+.tablecss,.tablecss_a{margin-top:5px;margin-left:2px}
+.tablecss,.tablecss th,.tablecss td,.tablecss_a,.tablecss_a th,.tablecss_a td{border-collapse:collapse;border-spacing:0;font-size:14px;border:1px solid #aacded; line-height:150%}
+.tablecss th,.tablecss_a th{ background:#deedf9}
+.tablecss td{padding:4px}
+.tablecss_a td{padding:5px}
+/*提货/邮局汇款*/
+.pick_goods dt{font-weight:700;margin-top:5px}
+.pstyle p{ text-indent:28px;margin-bottom:20px}
+.pstyle dt{font-weight:700}
+.pstyle dd{margin-bottom:10px;margin-top:3px}
+/*维修站点*/
+.Search {background-color: #E8F3F9;border: 1px dotted #578DC4;overflow:hidden;padding:10px 15px }
+.Search h1 {font-size: 14px;color: #005aa0;width: 95%;margin: 18px 0px 18px 25px;}
+.Search dl {font-size: 12px;margin: 5px 0px 0px 80px;display: inline;float: left;}
+.Search dt {float: left;width: 120px;text-align: right;height: 35px;line-height: 30px;margin-right: 15px;letter-spacing: 2px;}
+.Search dd {height: 35px;margin: 0px;float: left;}
+.Search_button {letter-spacing: 20px;position: relative;left:100px;top:3px}
+.Search_explain {clear:both;border-top: 1px solid #cedfe6;font-size: 12px;padding:12px 10px;zoom:1}
+.Search_explain span {color: red}
+.Search_explain ol {width: 740px;float: left}
+.Search_explain li {list-style:decimal inside;line-height: 20px;margin: 3px 0px;padding: 0px;}
+.Search_input {font-size: 12px;height: 18px;border: 1px solid #5c9ebf;}
+/*icebox*/
+.icebox{padding-left:5px;padding-right:5px}
+.icebox dt{font-size:14px;font-weight:700;padding-left:2em}
+.icebox dd{ text-indent:2em;margin-top:5px;margin-bottom:5px}
+/*分期付款*/
+.blankimg{padding-bottom:15px}
+/*newhelp*/
+.newhelp{ /*background:url(/misc/skin/images/new.gif) no-repeat;*/width:25px;height:11px; position:relative;top:-16px;left:50px}
+/*在线支付*/
+.onlinepay_safe{width:500px;margin:0 auto}
+.onlinepay_safe li{float:left;width:33%; text-align:center}
+.onlinepay_safe li img{ display:inline}
+.clears{clear:both;height:1px;line-height:0px;font-size:0; overflow:hidden}
+
+.cod_img{overflow:hidden;zoom:1;border-bottom:1px solid #eee;padding-bottom:10px;padding-top:5px}
+.cod_img dd{line-height:25px}
+.cod_img dt{margin-top:10px;font-weight:bold}
+.cod_img .float_right{ line-height:100%}
+.cod_sm{margin-top:20px}
+/*退换货*/
+.return_list{ clear:both; overflow:hidden;padding:5px;zoom:1}
+.return_list li{list-style:none;float:left;border:1px solid #aacded;padding:5px 10px;height:42px;line-height:42px;background:#deedf9;margin:0;width:76px; text-align:center}
+li.icon_r{border:none;width:45px; background:url(/misc/skin/images/iconr.jpg) no-repeat center;}
+.kd_box{border:1px solid #E5DDB0;background:#FFFCEC;color:#663300;height:37px;line-height:37px;text-align:center;margin-bottom:10px;margin-top:5px}
+/*索引*/
+.sort_left{width:165px;overflow:hidden;margin-right:10px;float:left; }
+.sort_title{ background-position:-293px -44px;height:30px;line-height:100px;overflow:hidden}
+.sort_l_box{margin-top:6px}
+.sort_l_box h3{ background-position:-128px -44px;height:28px;padding-left:10px;padding-top:8px;}
+.sort_l_bottom{background-position:-128px -80px;height:5px;overflow:hidden;}
+.sort_l_body{border-left:1px solid #bdbcbd;border-right:1px solid #bdbcbd; background:#fefeff;line-height:22px;padding-bottom:3px}
+.cn_list{ overflow:hidden;width:100%}
+.sort_l_list{ width:100%}
+.sort_l_list li{margin-left:20px}
+.cn_list li{border:1px solid #e5d4a2; background:#fffbef;color:#cb5b00;font-weight:bold;height:20px;line-height:20px;float:left;width:70px;margin-left:6px; display:inline; text-align:center;margin-bottom:5px}
+.q_sort{background-position:right 0;height:44px;overflow:hidden}
+.q_sort h4{background-position:0 -44px;width:128px;height:44px; line-height:150px; overflow:hidden;float:left}
+.q_sort_nav{padding-top:7px}
+.q_sort_nav li{background:url(/misc/skin/images/helpsort_15.gif) no-repeat right 0;float:left;line-height:29px;padding-right:12px;margin-right:20px; white-space:nowrap}
+.q_sort_nav li a:link,.q_sort_nav li a:visited{color:#000;font-weight:bold}
+.nav_icon{float:left;width:16px;height:29px; background:url(/misc/skin/images/helpsort_15.gif) no-repeat 0 0;}
+.sort_r_box{ background:url(/misc/skin/images/helpsort_bg.gif) repeat-x 0 bottom;padding-top:25px}
+.s_shopping{background-position:-876px -60px}
+.s_delivery{background-position:-876px -95px}
+.s_pay{background-position:-876px -126px;}
+.s_after{background-position:-876px -160px}
+.s_serve{background-position:-876px -192px}
+.sort_r_list{ overflow:hidden;zoom:1;margin-left:25px}
+.sort_r_list li{float:left;margin-right:25px;line-height:36px;height:36px; overflow:hidden}.sort_r_list li img{ display:inline;margin-left:0}
+.sort_flex{padding:10px 0 12px 2px}
+.sort_title,.sort_l_box h3,.sort_l_bottom,.q_sort,.q_sort h4,.sort_r_box h5{ background-image:url(/misc/skin/images/helpsort.gif); background-repeat:no-repeat}
+.sort_r_box h5{padding-left:26px}
+.img_inline{ display:inline}
+/*callcenter*/
+.zzsev{overflow:hidden;zoom:1}
+.zzsev li{float:left;width:115px;}
+.zzsev li img{margin:0}
+.zzsev h5{font-size:12px;font-weight:normal}
+.callnum{color:#3681d3;font-weight:bold;font-size:22px;font-family:"微软雅黑"}
+.qg-tel{margin-top:34px}
+/*kd-211*/
+.kd-211{background:url(/misc/skin/images/211.jpg) no-repeat;height:150px;padding-top:30px;padding-left:145px;margin-top:10px;overflow:hidden;zoom:1}
+.fc-999{color:#999}
+/*aftersale*/
+.aftersale {background:url(/misc/skin/images/100.gif) no-repeat 12px 0;padding-top:38px;padding-left:163px;margin-bottom:15px}
+
+/*free*/
+.free-freight{background:url(/misc/skin/images/free-freight.jpg) no-repeat;width:100%;height:67px;padding:0}
+.zt_list {padding:0}
+.zt_list dt {width:130px;float:left}
+.zt_list dd {margin-left:130px}
+.zt_list dd ul {overflow:hidden}
+.zt_list dd li {float:left;white-space:nowrap}
+.float_right{float:right;}

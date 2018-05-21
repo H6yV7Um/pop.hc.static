@@ -1,0 +1,28 @@
+<div class="col_side">
+    <div class="menu_box" id="menuBar">
+        <dl class="menu" id="modal">
+            <dt class="menu_title">
+                <i class="icon_menu" style="background:url('/misc/common/css/i/ico_left.png') 0 0 no-repeat;"></i>功能
+            </dt>
+            <dd class="menu_item" data-index="0"hrefmore="/welcome/welcome.action"><a href="/welcome/welcome.action" >欢迎<i class="arrow"></i></a></dd>
+            <dd class="menu_item" data-index="1"hrefmore="/lable/helpLable.action"><a href="/lable/helpLable.action">知识标签管理<i class="arrow"></i></a></dd>
+        </dl>
+        <dl class="menu" id="modal">
+            <dt class="menu_title">
+                <i class="icon_menu" style="background:url('/misc/common/css/i/ico_left.png') 0 0 no-repeat;"></i>公共窗口知识维护
+            </dt>
+            <dd class="menu_item" data-index="3"hrefmore="/publicportal/l_getHelpMenuLableList.action"><a href="/publicportal/l_getHelpMenuLableList.action">页面与标签关系维护<i
+                    class="arrow"></i></a></dd>
+            <dd class="menu_item" data-index="4"hrefmore="/publicportal/k_select.action"><a href="/publicportal/k_select.action">页面与知识关系维护<i
+                    class="arrow"></i></a></dd>
+        </dl>
+        <dl class="menu" id="modal">
+            <dt class="menu_title">
+                <i class="icon_menu" style="background:url('/misc/common/css/i/ico_left.png') 0 0 no-repeat;"></i>问题百宝箱
+            </dt>
+            <dd class="menu_item" data-index="5"hrefmore="/help/catalog/catalog_findAll.action?catalog.siteId=8,/help/catalog/catalog_update.action"><a href="/help/catalog/catalog_findAll.action?catalog.siteId=8">管理类目<i class="arrow"></i></a></dd>
+            <dd class="menu_item" data-index="6"hrefmore="/help/keyword/keyword_list.action?site.id=8"><a href="/help/keyword/keyword_list.action?site.id=8">关键词数据管理<i class="arrow"></i></a></dd>
+
+        </dl>
+    </div>
+</div>

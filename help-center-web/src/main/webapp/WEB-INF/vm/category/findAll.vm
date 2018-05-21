@@ -1,0 +1,57 @@
+#set($layout="default.vm")
+#* @vtlvariable name="categorys" type="java.util.List<com.jd.help.center.domain.category.HelpCategory>" *#
+#* @vtlvariable name="category" type="com.jd.help.center.domain.category.HelpCategory" *#
+#* @vtlvariable name="helpCategoryQuery" type="com.jd.help.center.domain.category.query.HelpCategoryQuery" *#
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1">
+                <div align="right"><a href=$helpCenterModule.getTarget("/help/category/category_insert.action").addQueryData("sysId",$sysId)>新增类目</a>  <a href=$helpCenterModule.getTarget("/help/sys/sys_findAll.action")>返回上级目录</a></div>
+                <div align="left">
+                   <form action="/help/category/category_findHelpCategoryList.action" method="get">
+
+                   <input type="hidden" name="helpCategoryQuery.sysId" value="$sysId">
+
+
+                    <select name="helpCategoryQuery.status">
+                        <option #if($helpCategoryQuery && $helpCategoryQuery.status == -2) selected #end value="-2">全部</option>
+                        <option #if($helpCategoryQuery && $helpCategoryQuery.status == 1) selected #end value="1">已启用</option>
+                        <option #if($helpCategoryQuery && $helpCategoryQuery.status == 0) selected #end value="0">已停用</option>
+                    </select>
+                    <button type="submit" >查询</button>
+                   </form>
+                </div>
+            <table width="100%"  cellspacing="0" cellpadding="0">
+				<thead>
+                    <tr>
+                        <th>类目名称</th>
+                        <th>类目顺序</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                #if(!$!categorys.empty)
+                    #foreach($category in $!categorys)
+                    <tr>
+                        <td><a href=$helpCenterModule.getTarget("/help/topic/topic_findByCategoryId.action").addQueryData("categoryId",$category.getCategoryId()).addQueryData("sysId",$!sysId)>$!stringEscapeUtils.escapeHtml($!category.getName())</a></td>
+                        <td>$!category.getSortOrder()</td>
+                        <td>#if($!category.getStatus()==1)已启用#elseif($!category.getStatus()==0)已停用#end</td>
+                        <td><a href=$helpCenterModule.getTarget("/help/category/category_updateCategoryStatus.action").addQueryData("helpCategory.categoryId",$!category.getCategoryId()).addQueryData("helpCategory.status",$!category.getStatus()).addQueryData("sysId",$!sysId)>#if($!category.getStatus()==1)停用#elseif($!category.getStatus()==0)启用#end</a>
+                            <a href=$helpCenterModule.getTarget("/help/category/category_update.action").addQueryData("helpCategory.categoryId",$!category.getCategoryId()).addQueryData("sysId",$!sysId)>修改</a>
+                            <a href=$helpCenterModule.getTarget("/help/category/category_delete.action").addQueryData("helpCategory.categoryId",$!category.getCategoryId()).addQueryData("helpCategory.status",$!category.getStatus()).addQueryData("sysId",$!sysId)>删除</a>
+                        </td>
+                    </tr>
+                    #end
+                #end
+                #if(!$!actionMessages.empty)
+                <tr>
+                    <td colspan="3">#showSimpleMessage() </td>
+                </tr>
+                #end
+            </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+

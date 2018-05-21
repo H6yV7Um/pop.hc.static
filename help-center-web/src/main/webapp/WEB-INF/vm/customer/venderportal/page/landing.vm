@@ -1,0 +1,140 @@
+#set($layout="customer/vender/default.vm")
+<link type="text/css" rel="stylesheet"  href="//static.360buyimg.com/shop/pop_help/css/landing.css" source="combo"/>
+<div class="l-wrap">
+    <div class="l-main">
+        <div class="floor-b1">
+            <ul class="f1-ul">
+                <li class="f1-item">
+                    <span class="t-bold">1.品牌：</span>京东枚举的重点招募品牌、您也可以推荐优质品牌给京东，部分类目不限定品牌招商
+                </li>
+                <li class="f1-item item2">
+                    <span class="t-bold">2.企业：</span>合法登记的企业用户，并且能够提供京东入驻要求的所有相关文件，不接受个体工商户、非中国大陆企业
+                </li>
+                <li class="f1-item">
+                    <span class="t-bold">3.资质要求详见：</span><a target="_blank" href="//helpcenter.jd.com/Vender/viewQuestion-1004-2597.html">《京东开放平台招商基础资质标准》</a>及各类目资质标准
+                </li>
+            </ul>
+        </div>
+        <div class="floor-b2">
+            <div class="f2-box">
+                <p class="f2-note">
+                    <span class="t-blue">1.</span><a href="//mjbbs.jd.com/thread-71326-1-1.html" target="_blank">点击下载</a>材料包，请关注选择经营的类目、店铺类型，品牌来源品牌授权书、旗舰店授权模板
+                </p>
+                <p class="f2-note">
+                    <span class="t-blue">2.</span>准备的资料请加盖开店公司公章（鲜章）
+                </p>
+                <p class="f2-note">
+                    <span class="t-blue">3.</span>如申请材料缺少，会退回给您重新提交，建议您事先准备齐全资料，一次性通过审核
+                </p>
+            </div>
+        </div>
+        <div class="floor-b3">
+            <div class="f3-box">
+                <p class="f3-note">
+                    1.申请入口：<a href="//sale.jd.com/act/wQTpIm7GnXE.html" class="t-red" target="_blank">https://sale.jd.com/act/wQTpIm7GnXE.html</a>
+                </p>
+                <p class="f3-note">
+                    2.注册/登录个人账户，完善联系方式、公司信息、结算信息、调研信息
+                </p>
+                <p class="f3-note">3.填写类目、资质</p>
+                <p class="f3-note">4.填写品牌、资质、新增品牌注意事项</p>
+                <p class="f3-note">5.店铺命名京东店铺命名规则</p>
+                <p class="f3-note">6.确认在线服务协议，提交入驻申请</p>
+            </div>
+        </div>
+        <div class="floor-b4">
+            <div class="f4-box">
+                <p class="f4-note">
+                    <span class="t-bold">1.资质评审：</span><br>
+                    a.资质真实有效<br>
+                    b.规模达到入驻要求<br>
+                    c.授权有效，链路完整<br>
+                    d.生产、经营范围、产品安全性&nbsp;资质完整&nbsp;符合国家行政法&nbsp;规许可要求<br>
+                    e.审核周期：7个工作日<br>
+                </p>
+                <p class="f4-note">
+                    <span class="t-bold">2.招商复审：</span><br>
+                    a.招商复审，审核周期：15个工作日<br>
+                    b.店铺授权，大概3个工作日<br>
+                    c.入驻进度查询：<a href="//sale.jd.com/act/wQTpIm7GnXE.html" class="t-red" target="_blank">https://sale.-<br>jd.com/act/wQTpIm7GnXE.html</a>
+                </p>
+            </div>
+        </div>
+        <div class="floor-b5">
+            <div class="f5-box">
+                <p class="f5-note">
+                    <span class="t-bold"><span class="t-ab">1.</span>常用联系人信息维护：</span>
+                    方便京东各业务部门能够与卖家及时取得联系
+                </p>
+                <p class="f5-note">
+                    <span class="t-bold"><span class="t-ab">2.</span>常用地址维护：</span>
+                    常用退换货地址信息
+                </p>
+                <p class="f5-note">
+                    <span class="t-bold"><span class="t-ab">3.</span>账号安全验证：</span>
+                    验证主账号，提升店铺安全性
+                </p>
+                <p class="f5-note">
+                    <span class="t-bold"><span class="t-ab">4.</span>在线缴费：</span>
+                    <a href="//helpcenter.jd.com/Vender/viewQuestion-905-2273.html" class="f-line" target="_blank">京东开放平台资费一览</a>
+                </p>
+                <div class="f5-note">
+                    <span class="t-bold"><span class="t-ab">5.</span>规则学习、考试：</span>
+                    <div class="f5-denote pl15">
+                        <span class="t-deab">a.</span>
+                        <a href="//mjbbs.jd.com/thread-62077-1-1.html" target="_blank">考试学习资料下载</a>
+                    </div>
+                    <div class="f5-denote pl15">
+                        <span class="t-deab">b.</span>
+                        入驻考试：考试通过后方能发布商品
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor-b6">
+            <ul class="f6-ul">
+                <li class="f6-item">
+                    <p class="t-bold">1.商品发布：</p>
+                    a.<a href="//helpcenter.jd.com/Vender/viewQuestion-852-2291.html" target="_blank">商品信息发布规范</a><br>
+                    b.发布商品指导手册<br>
+                </li>
+                <li class="f6-item">
+                    <p class="t-bold">2.店铺装修：</p>
+                    a.<a href="//helpcenter.jd.com/Vender/viewQuestion-852-2935.html" target="_blank">店铺装修管理规范</a><br>
+                    b.店铺装修操作手册<br>
+                </li>
+            </ul>
+        </div>
+        <div class="floor-b7">
+            <div class="f7-btn">
+                <a href="//apply.shop.jd.com/apply/flow_selection_view.action?state=selection" class="t-white" target="_blank">一键申请入驻</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  /widget/gotop/gotop.vm -->
+<div class="gotop">
+    <ul class="gotop-list">
+        <li class="li-item item01"><a href="javascript:;" class="link-dlk"><i class="icon-gotop1"></i></a></li>
+        <li class="li-item item02"><a href="javascript:;" class="link-dlk"><i class="icon-gotop2"></i></a></li>
+        <li class="li-item item03"><a href="javascript:;" class="link-dlk"><i class="icon-gotop3"></i></a></li>
+        <li class="li-item item04" id="gotop"><a href="#" class="link-dlk link-top"><i class="icon-gotop4"></i></a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        seajs.use('jdf/2.0.0/ui/gotop/1.0.0/gotop',function(gotop){
+            var gotopBtn = $('.gotop');
+            gotopBtn.gotop({
+                btnEl: '#gotop',
+                isSyncShow: false,
+                easing: 'swing'
+            });
+        });
+
+    });
+</script>
+<!--/ /widget/gotop/gotop.vm -->
+<script type="text/javascript" src="//static.360buyimg.com/shop/pop_help/js/helpcenter.js" source="widget"></script>
+

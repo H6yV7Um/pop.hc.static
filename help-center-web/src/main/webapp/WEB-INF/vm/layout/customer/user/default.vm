@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="gbk"/>
+    #if($!title)
+        <title>$!title</title>
+    #else
+        <title>帮助中心-京东</title>
+    #end
+    <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,global-header/1.0.0/global-header.css,myjd/2.0.0/myjd.css,nav/2.0.0/nav.css,shoppingcart/2.0.0/shoppingcart.css,global-footer/1.0.0/global-footer.css,service/1.0.0/service.css?v=$!dateTool.get('yyyyMMdd')" media="all"/>
+    <link type="text/css" rel="stylesheet" href="//misc.360buyimg.com/help/misc/skin/2014/helpcenter.css?v=$!dateTool.get('yyyyMMdd')"/>
+    <script type="text/javascript">
+        window.pageConfig = {
+            jdfVersion:'2.0.0',
+            navId: "$!navId"
+        };
+    </script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js?v=$!dateTool.get('yyyyMMdd')"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+</head>
+<body>
+
+    #parse("/WEB-INF/vm/customer/user/common/head.vm")
+    $screen_content
+    #parse("/WEB-INF/vm/customer/user/common/bottom.vm")
+    <script src="/misc/js/sea.js"></script>
+    <script src="//misc.360buyimg.com/help/misc/js/index2014.js?v=$!dateTool.get('yyyyMMdd')"></script>
+    <script type="text/javascript">
+        seajs.use(['//misc.360buyimg.com/jdf/1.0.0/unit/globalInit/2.0.0/globalInit.js'],function(globalInit){
+            globalInit();
+        });
+    </script>
+</body>
+</html>

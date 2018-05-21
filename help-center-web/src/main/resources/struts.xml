@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.multipart.maxSize" value="8388608"/>
+    <!--整体最大8M-->
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.objectFactory.spring.autoWire " value="type"/>
+    <constant name="struts.i18n.encoding" value="GBK"/>
+    <constant name="struts.custom.i18n.resources" value="message/help"/>
+    <!--GBK编码-->
+    <constant name="struts.i18n.encoding" value="GBK"/>
+
+    <package name="helpBase" extends="struts-default">
+        <result-types>
+            <!--<result-type name="velocityHelp" class="com.jd.common.struts.velocity.VelocityLayoutResult" default="true">-->
+            <result-type name="velocityHelp" class="com.jd.common.struts.velocity.VelocityLayoutResult" default="true">
+                <param name="toolsBeanId">velocityTools</param>
+            </result-type>
+            <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+        </result-types>
+        <interceptors>
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+            <!-- 拦截器栈的定义 -->
+            <interceptor-stack name="strutsDefaultStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload">
+                    <param name="maximumSize">4194304</param>
+                    <!--单个文件最大4M-->
+                    <param name="allowedTypes">image/x-png,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg</param>
+                    <param name="allowedExtensions">jpg,jpeg,png,gif</param>
+                </interceptor-ref>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*,.*\\u0023.*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+
+            <interceptor-stack name="helpInterceptor">
+                <interceptor-ref name="strutsDefaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="helpInterceptor"/>
+        <global-results>
+            <result name="exception" type="redirect">http://www.jd.com/error2.aspx?aspxerrorpath=/1.aspx</result>
+            <result name="error" type="redirect">http://www.jd.com/error2.aspx?aspxerrorpath=/1.aspx</result>
+<!--             <result name="illegal" type="redirect">http://help.jd.com/index.html</result> -->
+            <result name="login_error" type="redirect">http://www.jd.com/error2.aspx?aspxerrorpath=/1.aspx</result>
+            <result name="login" type="redirect">${loginUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege.vm</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="com.jd.help.admin.web.common.NoHrmPrivilegeException" result="illegal"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+    </package>
+
+    <package name="help" extends="helpBase">
+        <interceptors>
+            <interceptor name="strutsSSOInterceptor" class="strutsSSOInterceptor"/>
+            <interceptor name="authorizationInterceptor" class="_adminHrmPrivilegeInterceptor" />
+            <interceptor-stack name="helpSSOInterceptor">
+                <interceptor-ref name="helpInterceptor"/>
+                <interceptor-ref name="strutsSSOInterceptor"/>
+                <interceptor-ref name="authorizationInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 本地tomcat调试注释掉 -->
+        <default-interceptor-ref name="helpSSOInterceptor"/>
+
+    </package>
+
+    <package name="index" extends="help" namespace="/">
+        <action name="index" class="com.jd.help.center.admin.category.HelpCategoryAction">
+            <result>/WEB-INF/vm/index.vm</result>
+        </action>
+        <action name="leftFrame" method="frame" class="com.jd.help.center.admin.category.HelpCategoryAction">
+            <result>/WEB-INF/vm/leftFrame.vm</result>
+        </action>
+        <action name="topFrame" method="frame" class="com.jd.help.center.admin.category.HelpCategoryAction">
+            <result>/WEB-INF/vm/topFrame.vm</result>
+        </action>
+    </package>
+    <package name="front" extends="helpBase" namespace="/front">
+        <action name="index" class="com.jd.help.center.admin.question.FrontQuestionAction">
+            <result>/WEB-INF/vm/front/index.vm</result>
+            <result name="error" type="redirect">/home.html</result>
+        </action>
+        <action name="main_*" class="com.jd.help.center.admin.question.FrontQuestionAction">
+            <result>/WEB-INF/vm/front/${sysName}.vm</result>
+            <result name="input">/WEB-INF/vm/front/input.vm</result>
+        </action>
+    </package>
+    <include file="struts-help.xml"/>
+    <include file="struts-sysinfo.xml"/>
+    <include file="struts-search.xml"/>
+    <!-- 新功能添加 -->
+    <include file="struts-admin.xml"/>
+    <include file="struts-customer.xml"/>
+
+</struts>

@@ -1,0 +1,24 @@
+#set($title="常见问题-帮助中心-京东")
+#set($layout="customer/user/hasLeft.vm")
+#set($navId="question")
+#set($left="WEB-INF/vm/customer/user/common/issueLeft.vm")
+
+##页面内容
+$!issue_hotIssue.content
+$!issue_quickNav.content
+
+<script type="text/javascript">
+    var jaq = jaq || [];
+    jaq.push(['account', 'JA2017_113662']); //站点编号
+    jaq.push(['domain', 'jd.com']);  //站点域名
+
+    (function () {
+        var ja = document.createElement('script');
+        ja.type = 'text/javascript';
+        ja.async = true;
+        ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ja, s);
+    })();
+</script>
+

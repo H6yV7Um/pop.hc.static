@@ -1,0 +1,56 @@
+/*warn*/
+.warn{border:1px solid #f4caa2;background:#fbf6eb;padding:5px;color:red; zoom:1; overflow:hidden; clear:both}
+.warn s{background:url(i/icon.gif) 0 -49px;float:left;width:11px;height:11px;margin-right:4px;margin-top:3px}
+.warn strong{ float:left;}
+.warn ul{ float:left}
+.warn ul li{ clear:both}
+.main_border{ border:1px solid #3694E0; padding:20px 15px; margin:15px 0; background:#fff; zoom:1; overflow:hidden; clear:both}
+.maintop{ zoom:1; overflow:hidden; padding-left:50px; background:url(i/icon_mainuser.gif) no-repeat left top}
+.maintop2 {
+background:none repeat scroll 0 0 #E8F3FF;
+border:1px solid #D3DBE5;
+margin-bottom:15px;
+overflow:hidden;
+padding:10px;
+}
+.userul{ zoom:1; overflow:hidden; border-bottom:1px solid #d0e1f5; padding-bottom:5px; margin-bottom:10px; clear:both}
+.userul li{ float:left; display:inline; padding:3px 0; margin-right:20px}
+.userh3{ font-size:14px; font-weight:bold}
+.userh3 span{font-size:12px; font-weight:normal; color:#aaa; padding-left:10px}
+.main_userbtn{ border:1px solid #ffc650; background:#ffdd50; padding:4px 8px; *padding:3px 8px 0px 8px; color:#612b03; font-size:14px; font-weight:bold; cursor:pointer; overflow:visible; height:auto}
+.main_userh2{ clear:both; background:url(i/main_newsbg.gif); height:28px; border:1px solid #aed4f5; line-height:28px; padding-left:15px;}
+.main_userh2 span{ float:right; text-align:right; width:50px; padding-right:15px; font-weight:normal; text-indent:0; font-size:12px}
+.main_btmb{ border:1px solid #aed4f5; border-top:0; background:#fff; zoom:1; overflow:hidden; clear:both; padding:10px;}
+.main_btnbg{padding:10px;border:1px solid #d3dbe5; background:#e8f3ff; margin:15px auto 0 auto; zoom:1; overflow:hidden}
+.main_btnbg li{ float:left; margin-right:5px; display:inline; line-height:27px; font-size:14px;}
+.btn-b-m{background:url(i/btn.gif) -106px -31px;border:none;width:81px;height:27px;color:#053ea6;font-weight:bold; }
+.main_left{ float:left; width:49.5%; margin:15px 0}
+.main_right{ float:right; width:49.5%; margin:15px 0;}
+.main_ad{ width:710px; margin:0 auto; height:110px; font-size:0; display:block; text-align:center; background:#ccc; clear:both}
+.main_jdnotice li{ clear:both; line-height:25px; border-bottom:1px solid #ededed; color:#ccc;}
+.main_jdnotice li span{ float:right; width:80px; text-align:right; color:#aaa}
+.main_jdhd li{ clear:both; line-height:25px; border-bottom:1px solid #ededed; color:#ccc;}
+.main_jdhd li span{ float:right; width:150px; text-align:right; color:#aaa; }
+.main_t2h3 {
+background:none repeat scroll 0 0 #54A6E8;
+border:1px solid #1A84EE;
+color:#FFFFFF;
+font-size:14px;
+padding:4px 0;
+text-align:center;
+width:200px;
+}
+.test11 {
+background:none repeat scroll 0 0 #FFFFFF;
+border-color:#3694E0;
+border-right:1px solid #3694E0;
+border-style:solid;
+border-width:3px 1px 1px;
+margin-bottom:15px;
+margin-left:0;
+overflow:hidden;
+padding:15px 15px 10px;
+}
+/*font*/
+.money_12{ font-family:Arial, Helvetica, sans-serif; font-size:13px;}
+.money_red{ color:red; font-weight:bold;}

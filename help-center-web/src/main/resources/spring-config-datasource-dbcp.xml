@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="helpCenterDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!-- 本地tomcat -->
+        <!--<property name="url" value="jdbc:mysql://192.168.195.161:3306/help_center"/>-->
+        <property name="url" value="${help-center.mysql.url}"/>
+        <property name="username" value="${help-center.mysql.username}"/>
+        <property name="password" value="${help-center.mysql.password}"/>
+        <property name="maxActive" value="20"/>
+        <property name="maxIdle" value="5"/>
+        <property name="minIdle" value="3"/>
+        <property name="maxWait" value="-1"/>
+    </bean>
+
+</beans>

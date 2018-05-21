@@ -1,0 +1,18 @@
+#set($layout="customer/user/empty.vm")
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="gbk"/>
+    <title>模块预览-帮助中心-京东</title>
+    <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,global-header/1.0.0/global-header.css,myjd/2.0.0/myjd.css,nav/2.0.0/nav.css,shoppingcart/2.0.0/shoppingcart.css,global-footer/1.0.0/global-footer.css,service/1.0.0/service.css" media="all"/>
+    <link type="text/css" rel="stylesheet" href="//misc.360buyimg.com/help/misc/skin/2014/helpcenter.css"/>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+</head>
+<body>
+<div class="w main">
+    $!htmlModule.content
+</div>
+</body>
+</html>

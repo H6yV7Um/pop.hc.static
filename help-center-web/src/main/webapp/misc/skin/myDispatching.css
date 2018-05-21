@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+#reveal .tb-x1 a{margin-right:5px}
+#reveal .btn-normal,#reveal .ftx04{padding:10px 0}
+/*warn*/
+.warn{border:1px solid #f4caa2;background:#fbf6eb;padding:5px;margin:10px 0}
+.warn s{background:url(i/icon.gif);float:left;width:12px;height:11px;margin-right:4px;margin-top:2px}
+.blue-box{border:1px solid #95baef;background:#fff}
+.blue-box h4{height:28px;background:#dbe9fa;line-height:28px;padding-left:10px}
+.blue-box h5{height:35px;line-height:35px;padding-left:10px;font-size:14px}
+.blue-box .tbl-n td{padding-left:10px}
+#addFare1 .blue-box .shuoming{padding:15px;font-size:14px;font-weight:bold}
+#addFare1 .blue-box h4{font-weight:normal}
+#addFare1 .blue-box h4 ul{float:right;padding-right:15px}
+#addFare1 .blue-box h4 ul li{float:left}
+#addFare1 .blue-box h4 ul li s{background:url(i/icon100513.gif);width:13px;height:13px;float:left;margin-top:5px;margin-right:5px;margin-left:25px}
+.part-c{}
+#addFare1 .blue-box h4 ul .checked s{background-position:-13px 0}
+#addFare1 .blue-box h4 ul .no-c s{background-position:-26px 0}
+.area-list{padding:10px}
+.jfgz{padding:10px}
+.area-list h6{font-weight:normal;height:30px;line-height:30px}
+.area-list ul{ overflow:hidden;zoom:1;width:570px}
+.area-list li{float:left;width:24.9%;position:relative;width:140px}
+.area-list li s{background:url(i/icon100513.gif) -43px -3px;width:4px;height:7px;position:absolute;top:7px;left:87px}
+#p{width:528px;padding:8px;zoom:1;}
+#p .item{float:left;width:130px;margin:2px 2px 2px 0;zoom:1;}
+#p .item-allselected{background:#DCE9FA;}
+#p .item-partselected{background:#f5f5f5;}
+#p .item-noselected{background:#fff;}
+#p .prov{float:left;height:20px;padding:2px 5px;line-height:20px;}
+#p .o-citys{float:left;width:10px;position:relative;}
+#p .citys{display:none;position:absolute;z-index:1;top:0;width:310px;background:#DCE9FA;border:1px solid #CECECE;padding:5px;overflow:hidden;}
+#p .citys li{float:left;width:150px;padding:2px;}
+#p .item:hover,#p .hover{z-index:2;background:#DCE9FA;}
+#p .item:hover ul,#p .hover ul{display:block;}
+*html #p{overflow:hidden;}
+*+html #p{overflow:hidden;}

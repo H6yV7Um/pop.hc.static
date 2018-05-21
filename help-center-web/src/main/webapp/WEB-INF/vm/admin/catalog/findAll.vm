@@ -1,0 +1,316 @@
+#*#set($layout="admin/default.vm")*#
+#set($title="类目列表")
+<div class="container-fluid">
+#* 问题百宝箱先注掉
+<div class="row">
+        <div class="form-group">
+            #if($!site)
+                <ul class="breadcrumb">
+                    <li><a href="$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData(
+                        "catalog.siteId","$!{site.id}")">$!{site.name}</a></li>
+                    #if($!cascadeCatalogList.size() > 0)
+                        #foreach($!catalog in $cascadeCatalogList)
+                            <li><a href="$!helpAdminModule.getTarget(
+                                "/help/catalog/catalog_findAll.action").addQueryData(
+                                "catalog.siteId","$!{site.id}").addQueryData(
+                                "catalog.pid","$!{catalog.id}")">$!{catalog.name}</a></li>
+                        #end
+                    #end
+                </ul>
+            #end
+        </div>
+
+    </div>*#
+    <div class="row">
+        #if($!parentCatalog && $!parentCatalog.id > 0)
+            <a class="btn btn-default pull-left"
+               href="$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData(
+                   "catalog.pid",$!{parentCatalog.pid}).addQueryData("catalog.siteId","$!{site.id}")"><span
+                    class="glyphicon glyphicon-arrow-left"></span> 返回上一级</a>
+        #end
+        #if($!site)
+        ##    功能按钮
+            <p class="pull-right">
+                #* 文章管理链接暂时注掉
+                <a href="/help/issue/issue_list.action?site.id=$!site.id" class="btn btn-success catalog-add" role="button">文章管理</a>*#
+                <a class="btn btn-success catalog-add btn_primary" ata-toggle="modal" role="button" style="margin-left: 88%;">新增类目</a>
+            </p>
+        #end
+    </div>
+    <div class="row">
+        <div class="span12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                ##                    <th>ID</th>
+                    <th style="width: 15%">类目名称</th>
+                    <th style="width: 15%">状态</th>
+                    <th style="width: 60%; padding-right: 27%;" >操作</th>
+                </tr>
+                </thead>
+                <tbody class="datalist">
+                    #if($!catalogList.size() > 0)
+                        #foreach($catalog in $catalogList)
+                        <tr id="catalog-$!{catalog.id}" data-id="$!{catalog.id}">
+                        ##                            <td>$!{catalog.id}</td>
+                            <td>
+                                #if($!cascadeCatalogList.size() > 0)
+                                    #foreach($!catalog in $cascadeCatalogList)
+                                        $!{catalog.name}
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    #end
+                                #end
+                                #if($!cascadeCatalogList.size() == 2)
+                                ##                                    叶子类目节点
+                                    <a href="$helpAdminModule.getTarget("/help/issue/issue_list.action").addQueryData(
+                                        "catLevel3",$!{catalog.id}).addQueryData(
+                                        "site.id","$!{site.id}")">$!{catalog.name}</a>
+                                #else
+                                    <a id="catalog-name-$!{catalog.id}" href="$!helpAdminModule.getTarget(
+                                        "/help/catalog/catalog_findAll.action").addQueryData(
+                                        "catalog.pid",$!{catalog.id})" class="btn-show-children-catalog"
+                                       data-id="$!{catalog.id}" data-toggle="popover" data-trigger="hover"
+                                       data-placement="right">$!{catalog.name}</a>
+                                #end
+                            </td>
+                            <td>#if($!catalog.status == 0)
+                                <label class="label label-default" id="catalog-status-$!{catalog.id}">停用</label>
+                            #else
+                                <label class="label label-success" id="catalog-status-$!{catalog.id}">启用</label>
+                            #end
+                            </td>
+                            <td style="text-align: left">
+                                <a class="btn btn-default btn-sm hoverHref" #*style="background-color: LightSalmon  "*# href="$!helpAdminModule.getTarget(
+                                    "/help/catalog/catalog_update.action").addQueryData(
+                                    "catalog.id",$!{catalog.id})">修改</a>
+                                #if($!catalog.status == 1)
+                                    <a class="catalog-switch btn btn-warning btn-sm hoverHref" #*style="background-color: LightGreen" *#id="catalog-switch-$!{catalog.id}"
+                                       href="javascript:void(0);"
+                                       data-url="$!helpAdminModule.getTarget(
+                                           "/help/catalog/catalog_updateCatalogStatus.action").addQueryData(
+                                           "catalog.id",$!{catalog.id}).addQueryData(
+                                           "catalog.status","$!{catalog.status}")">停用</a>
+                                #else
+                                    <a class="catalog-switch btn btn-success btn-sm hoverHref" #*style="background-color: LightGreen"*# id="catalog-switch-$!{catalog.id}"
+                                       href="javascript:void(0);"
+                                       data-url="$!helpAdminModule.getTarget(
+                                           "/help/catalog/catalog_updateCatalogStatus.action").addQueryData(
+                                           "catalog.id",$!{catalog.id}).addQueryData(
+                                           "catalog.status","$!{catalog.status}")">启用</a>
+                                #end
+                                <a class="btn btn-danger btn-sm catalog-delete hoverHref" #*style="background-color: LemonChiffon "*# data-toggle="modal"
+                                   href="" data-url="$!helpAdminModule.getTarget(
+                                    "/help/catalog/catalog_delete.action").addQueryData(
+                                    "catalog.id",$!{catalog.id})">删除</a>
+       							#if($!cascadeCatalogList.size() == 2)
+       								<a class="btn btn-success btn-sm btn_primary"  href="$!helpAdminModule.getTarget(
+                                	"/help/issue/issue_insert.action").addQueryData("site.id","$!catalog.siteId").addQueryData("catLevel3","$!catalog.id")">新增文章</a>
+                                    <a class="btn btn-success btn-sm btn_primary"  href="$!helpAdminModule.getTarget(
+                                        "/help/button/set.action").addQueryData("site.id","$!catalog.siteId").addQueryData("cataId","$!catalog.id").addQueryData("cataPid","$!catalog.pid")">设置场景化按钮</a>
+       							#end                             
+                                <a class="catalog-move moveUp btn btn-default btn-sm hoverHref" #*style="background-color: SkyBlue"*#href="javascript:void(0);"
+                                   data-url="$!helpAdminModule.getTarget(
+                                       "/help/catalog/catalog_moveUp.action").addQueryData(
+                                       "catalog.id",$!{catalog.id})"><span class="">上移</span></a>
+                                <a class="catalog-move moveDown btn btn-default btn-sm hoverHref"#*style="background-color: LightPink "*# href="javascript:void(0);"
+                                   data-url="$!helpAdminModule.getTarget(
+                                       "/help/catalog/catalog_moveDown.action").addQueryData(
+                                       "catalog.id",$!{catalog.id})"><span
+                                        class=""> 下移</span></a>
+                            </td>
+                        </tr>
+                        #end
+                    #else
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <span>这个类目下还没有子类目，你可以
+                                <button class="btn btn-success btn-sm catalog-add" data-toggle="modal">新增类目</button>
+                            </span>
+                        </td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
+        ##            #set($pageUrl = $!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData("catalog.pid", $!parentCatalog.id ))
+        ##            #showPage($!pageUrl $!catalogList)
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="top: 150px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"style="margin: 0;line-height: 1.42857143;">提示</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" id="btn-confirm" class="btn btn-primary btn btn_input btn_primary ">确定</button>
+                <button type="button" class="btn btn-default btn btn_input btn_primary " data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="tipsModal" tabindex="-1" role="dialog" aria-labelledby="tipsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="tipsModalLabel">提示</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>
+<div id="addForm" class="hide">
+    <form id="catalogForm" action="catalog_doInsert.action" method="post" class="form-horizontal" role="form">
+        <input type="hidden" name="catalog.pid" value="$!{parentCatalog.id}">
+        <input type="hidden" name="catalog.level" #if(!$parentCatalog.id)
+               value="1"  #else  #set($curLevel=$parentCatalog.level + 1)  value="$curLevel"  #end >
+        <input type="hidden" name="catalog.siteId" value="$!{site.id}">
+
+        <div class="form-group">
+            <label for="catalogName" class="col-sm-3 control-label" style="display: block;width: 25%;padding-top: 7px;margin-bottom: 0;text-align: right;display:inline-block;">类目名称：</label>
+
+            <div class="col-sm-7" style="display: inline-block">
+                <input type="text" class="form-control" name="catalog.name" id="catalogName"
+                       data-content="请输入类目名称,不能超过20个字符"
+                       data-placement="top" placeholder="请输入类目名称" value="$!{catalog.name}">
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 20px">
+            <label for="notes" class="col-sm-3 control-label" style="width: 25%;padding-top: 7px;margin-bottom: 0;text-align: right;display:inline-block;">备注：</label>
+
+            <div class="col-sm-7" style="width: 58.33333333%;display: inline-block;">
+                <textarea rows="3" name="catalog.notes" class="form-control" style="height: auto;"
+                          id="notes">$!stringEscapeUtils.escapeHtml($!catalog.getNotes())</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    var Catalog = function () {
+    };
+    jQuery(document).ready(function () {
+        jQuery(".datalist tr:first .moveUp").hide();
+        jQuery(".datalist tr:last .moveDown").hide();
+
+        jQuery("a.catalog-delete").click(function () {
+            var _this = jQuery(this);
+            jQuery("#myModal").modal("show");
+            jQuery("#myModal .modal-body").html("您确定要删除该类目吗？");
+            jQuery("#btn-confirm").bind("click", function () {
+                ajaxOperateDelete(_this.attr("data-url"), {});
+            });
+        });
+
+        jQuery("a.catalog-switch").click(function () {
+            var _this = jQuery(this);
+            jQuery("#myModal").modal("show");
+            jQuery("#myModal .modal-body").html("您确定要" + _this.html() + "该类目吗？");
+            jQuery("#btn-confirm").bind("click", function () {
+                ajaxOperate(_this.attr("data-url"), {}, null);
+            });
+        });
+
+        jQuery("a.catalog-move").click(function () {
+            var _this = jQuery(this);
+            var refCatalog = {};
+            var trIndex = jQuery(this).parent().parent().index();
+            if (_this.hasClass("moveUp")) {
+                trIndex = trIndex - 1;
+            } else {            //move down
+                trIndex = trIndex + 1;
+            }
+            refCatalog["refCatalog.id"] = jQuery("tbody.datalist tr").eq(trIndex).attr("data-id");
+            ajaxOperate(_this.attr("data-url"), refCatalog, null);
+        });
+
+        jQuery(".catalog-add").click(function () {
+            jQuery("#myModal").modal("show");
+            jQuery("#myModal #myModalLabel").html("新增类目");
+            jQuery("#myModal .modal-body").html(jQuery("#addForm").html());
+            jQuery("#btn-confirm").bind("click", submitForm);
+            jQuery(".modal-body #catalogForm").validate({
+                rules: {
+                    "catalog.name": {required: true, minlength: 2, maxlength: 20},
+                    "catalog.notes": {maxlength: 40}
+                },
+                messages: {
+                    "catalog.name": {required: "请输入类目名称", minlength: "类目名称不能少于2个字符", maxlength: "类目名称不能多于20个字符"},
+                    "catalog.notes": {maxlength: "备注不能超过40个字符"}
+                },
+                submitHandler: function () {
+                    ajaxOperate(jQuery(".modal-body #catalogForm").attr("action"), jQuery(".modal-body #catalogForm").serialize(), null);
+                    return false;
+                },
+                invalidHandler: function () {
+                    jQuery("#btn-confirm").bind("click", submitForm);
+                }
+            });
+        });
+    });
+
+    function submitForm() {
+        jQuery("#btn-confirm").unbind("click");
+        jQuery(".modal-body #catalogForm").submit();
+    }
+    $('#myModal').on('hidden.bs.modal', function (e) {
+        jQuery("#btn-confirm").unbind("click");
+    })
+
+    function reload() {
+        window.location.reload();
+    }
+    function ajaxOperate(url, params, callback) {
+        jQuery.ajax({
+            type: 'post', url: url, data: params, dataType: 'json',
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }
+
+    function ajaxOperateDelete(url, params) {
+        jQuery.ajax({
+            type: 'post', url: url, data: params, dataType: 'json',
+            success: function (data) {
+                if (data.result.success) {
+                    window.location.reload();
+                } else {
+                    jQuery("#myModal").modal("hide");
+                    jQuery("#tipsModal .modal-body").html("删除失败：该类目下有子类目或文章！");
+                    jQuery("#tipsModal").modal("show");
+                }
+            }
+        });
+    }
+
+    $(function () {
+        $(".btn-show-children-catalog").each(function (i, o) {
+            jQuery.getJSON("/help/catalog/catalog_loadChildrenCatalog.action", {
+                "catalog.pid": $(o).data("id"),
+                "catalog.siteId": ${site.id}
+            }, function (data) {
+                $(o).attr("data-content", data["catalogs"]);
+            });
+        }).popover();
+    });
+
+</script>
+<style>
+    .hoverHref:hover{
+        background-color: #F4AAA7;
+        color: #fff;
+    }
+</style>

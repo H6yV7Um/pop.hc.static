@@ -1,0 +1,46 @@
+/*m*/
+.m h3{height:47px;line-height:47px;border-bottom:1px dotted #95baef;font-size:14px;margin-bottom:22px;padding-right:10px}
+.m h3 s{float:left;width:13px;height:12px;background:url(i/icon.gif) -13px 0;margin:18px 5px 0 5px}
+.m h3 a{font-size:12px;font-weight:normal}
+.m h3 span{font-size:12px;font-weight:normal}
+.i-m{fontsize:12px;font-weight:normal;color:#626262;font-size:12px}
+.i-m i{font-style:normal;color:red}
+/*tb-x1*/
+.odd{background:#f7f7f7}
+/*cont-dash*/
+.cont-dash{padding:0 45px}
+.cont-dash td{overflow:hidden;zoom:1;border-bottom:1px dotted #d6d6d6;padding:25px 0}
+/*purchase*/
+.purchase{border:1px solid #f4caa2;background:#fbf6eb;padding:20px 10px 0;width:80%;overflow:hidden}
+.purchase dt{float:left}
+.purchase dl{border-bottom:1px dotted #d6d6d6;padding:5px 5px 10px;margin-bottom:-1px}
+.red{color:red}
+.btn-area-a{ text-align:center;padding:15px 0}
+/*buy-serv*/
+#buy-serv td{padding-left:27px;padding-right:27px;border-right:1px solid #d6d6d6}
+/*playbillinfo*/
+#playbillinfo ul li{line-height:35px}
+li.view{margin-left:30px;border:none;padding-top:5px}
+.next-sort{background:url(i/sort_13.gif) no-repeat 0 center;text-align:left;padding-left:23px}
+.btn-add{border-bottom:1px dotted #95baef;padding:5px 0 15px}
+.btn-normal{text-align:center;padding-top:45px}
+.add-new{background:#f7f7f7}
+#sortmana .up,#sortmana .down,#sortmana .remove{display:block;width:9px;height:10px;margin:0 auto;}
+#sortmana .up{background:url(i/sort_03.gif) no-repeat 0 0;}
+#sortmana .down{background:url(i/sort_05.gif) no-repeat 0 0;}
+#sortmana .remove{background:url(i/sort_07.gif) no-repeat 0 0;}
+#sortmana .light td{background:#FFFFCC;}
+#sortmana .text1{width:16px;padding:2px;text-align:center;margin-right:2px;}
+#sortmana .text2{width:210px;padding:2px;}
+/*basicSetup*/
+#basicSetup dl{border-bottom:1px dotted #d6d6d6;padding:15px 0;zoom:1;overflow:hidden;margin:0 10px}
+#basicSetup dl dt{float:left;font-weight:bold}
+#basicSetup dl dd{margin-left:76px}
+.showhide{float:right}
+#templetMana ul{overflow:hidden;zoom:1}
+#templetMana li{float:left;width:24.9%;text-align:center}
+#templetMana li h5{font-weight:normal}
+.succeed {background:url(i/icon100510.gif) no-repeat;margin-bottom:70px;padding-left:55px;font-size:14px}
+.succeed h6 {font-size:24px;margin-bottom:10px;}
+#ordersucceed .btn-normal{font-size:14px}
+#modifplaybill .ftx22{line-height:30px}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+    <!--  -->
+    <bean id="initLocalHelpCategoryQuartz"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="SYSTimeTaskService"/>
+        <property name="targetMethod" value="initLocalSYS"/>
+    </bean>
+    <bean id="initLocalHelpCategoryTirgger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="initLocalHelpCategoryQuartz"/>
+        <property name="cronExpression" value="0 0/30 * * * ?"/>
+    </bean>
+
+    <!-- 初始化类目 -->
+    <bean id="initLocalHelpCategoryScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="initLocalHelpCategoryTirgger"/>
+            </list>
+        </property>
+        <property name="autoStartup">
+            <value>true</value>
+        </property>
+    </bean>
+
+
+    <!-- 建立全量issue索引 -->
+    <!--<bean id="compareAttributesInMongoAndOracleScheduler"-->
+          <!--class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                <!--<bean class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+                    <!--<property name="jobDetail">-->
+                        <!--<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+                            <!--<property name="targetObject" ref="issueIndexer"/>-->
+                            <!--<property name="targetMethod" value="indexAll"/>-->
+                            <!--<property name="concurrent" value="false"/>-->
+                        <!--</bean>-->
+                    <!--</property>-->
+                    <!--<property name="cronExpression" value="0 0 0/1 * * ?"/>-->
+                <!--</bean>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>

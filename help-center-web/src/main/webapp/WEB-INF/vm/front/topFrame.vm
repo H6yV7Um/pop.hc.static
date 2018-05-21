@@ -1,0 +1,54 @@
+#* @vtlvariable name="loginContext" type="com.jd.pop.vender.web.context.VenderLoginContext" *#
+#set($layout="empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>pop</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/popbase.css" media="all" />
+<script type="text/javascript" src="$!assetModule.getTarget("/pop-ven/js/jquery-1.4.2.min.js")"></script>
+<script type="text/javascript" src="/misc/js/pop.base.js"></script>
+</head>
+
+<body id="topframe">
+<div id="header">
+	<div class="logo"><img src="$!assetModule.getTarget("/pop-ven/skin/i/logo.gif")" alt="京东商城-商家后台" /></div>
+	<div class="fl">
+		
+		<div class="mininav">
+			<ul>
+				<li class="fore"><a href="#" target="_blank">我的京东</a></li>
+				<li><a href="#" target="_blank">排行榜</a></li>
+				<li><a href="#" target="_blank">装机大师</a></li>
+				<li><a href="#" target="_blank">礼品卡</a></li>
+				<li><a href="$helpCenterModule.getTarget("/front/index.action")" target="_blank">帮助</a></li>
+			</ul>
+		</div>
+		<span class="clr"></span>
+
+	</div>
+</div>
+<script type="text/javascript">
+(function(){
+	$("#nav a").bind("click",function(){
+		$("#nav .curr").removeClass("curr");
+		var index=$("#nav a").index(this);
+		$("#nav li").eq(index).addClass("curr");
+	})
+})();
+//设置登录信息的回调接口
+function _SetLoginContext(pin,name){
+    function get(id) {return document.getElementById(id);}
+    if (get("J_LoginContextPin").innerText != pin) {
+        get("J_LoginContextPin").innerText = pin;
+    }
+    if (get("J_LoginContextCompanyName").innerText != name) {
+        get("J_LoginContextCompanyName").innerText = name;
+    }
+}
+</script>
+<!--[if gte IE 6]>
+ <script type="text/javascript">JQuery.widthForIE6({min:1003,padding:0});</script>
+<![endif]-->
+</body>
+</html>

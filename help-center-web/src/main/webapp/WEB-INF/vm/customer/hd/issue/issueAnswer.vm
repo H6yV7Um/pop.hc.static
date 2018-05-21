@@ -1,0 +1,5 @@
+#set($layout="customer/hd/empty.vm")
+
+$!issueBO.issueAnswer.answer
+
+

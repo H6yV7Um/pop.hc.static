@@ -1,0 +1,35 @@
+@charset "gb2312";
+/* CSS Document */
+.tbl-n{margin-bottom:10px}
+.tbl-n s{position:relative;top:-2px;margin-left:3px;margin-right:3px}
+#goodStock  label{position:relative;margin-right:3px}
+.sign{overflow:hidden;width:100%;padding:15px 0 30px}
+.sign li{float:left;background:#8b8b8b;height:17px;overflow:hidden;position:relative;padding-right:11px;line-height:17px;color:#fff;margin-right:5px}
+.sign li s{float:left;width:19px;height:17px;text-decoration:none;background:url(i/sign.gif) 0 -17px;text-align:center;color:#fff;line-height:17px;margin-right:4px}
+.sign li b{background:url(i/sign.gif) -21px -17px;width:8px;position:absolute;top:0;right:0;height:17px}
+.sign li.s-cur{background:#ee7105}
+.sign li.s-cur s{background:url(i/sign.gif);width:20px}
+.sign li.s-cur b{background:url(i/sign.gif) -20px 0;}
+#rentmana{padding:0 30px}
+.agreement{height:275px;overflow:auto;border:1px solid #cecece;background:#fff;padding:5px}
+.agree-ch{height:60px;line-height:60px}
+#choosedepot table{border-bottom:1px dotted #d1d1d1;height:35px;margin-bottom:10px}
+#choosedepot dl{margin-bottom:30px}
+#choosedepot dl dt{font-weight:bold;margin-bottom:10px}
+/*m*/
+.m h3{height:47px;line-height:47px;border-bottom:1px dotted #95baef;font-size:14px;margin-bottom:10px;padding-right:10px}
+.m h3 s{float:left;width:13px;height:12px;background:url(i/icon.gif) -13px 0;margin:18px 5px 0 5px}
+.m h3 a{font-size:12px;font-weight:normal}
+.m h3 span{font-size:12px;font-weight:normal}
+.i-m{fontsize:12px;font-weight:normal;color:#626262;font-size:12px}
+.i-m i{font-style:normal;color:red}
+/*warn*/
+.warn{border:1px solid #f4caa2;background:#fbf6eb;padding:5px;margin:10px 0}
+.warn s{background:url(i/icon.gif);float:left;width:12px;height:11px;margin-right:4px;margin-top:2px}
+.wait td{background:#f7f2cb}
+.tb-wb{border:1px solid #95baef;background:#f7fbff;margin-top:10px;padding:10px}
+.border-blue{border:1px solid #95baef;background:#fff;padding:10px;margin-bottom:10px;margin-top:10px}
+.mart10{margin-top:10px}
+#waitcheck .fr{padding-top:10px}
+
+.btn-b-m{background:url(i/btn.gif) -106px -31px;border:none;width:81px;height:27px;color:#053ea6;font-weight:bold; }

@@ -1,0 +1,37 @@
+#set($layout="admin/default.vm")
+#set($title="状态修改完毕")
+
+#if($!result.success)
+<div class="jumbotron">
+    <div class="container">
+        <h3>
+            #if($!issueBO.issue.status==-1) <b>删除</b>
+            #elseif($!issueBO.issue.status==0) <b>下线</b>
+            #elseif($!issueBO.issue.status==1)
+            #end
+            已完成！
+        </h3>
+
+        <p><b id="t"></b>秒后自动返回或<a href="$!referer">点这里</a>立即返回。</p>
+    </div>
+</div>
+
+#end
+<script>
+    var t = 3;
+    var href = "$!referer";
+    $(function () {
+        $("#t").text(t);
+        var interval = setInterval("countDown()", 1000);
+    });
+
+    function countDown() {
+        t--;
+        if (t == 0) {
+            window.location.href = href;
+        } else {
+            $("#t").text(t);
+        }
+
+    }
+</script>

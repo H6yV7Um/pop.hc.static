@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+/*help-left*/
+.help-left{width:690px;float:left;}
+/*help-right*/
+.help-right{width:290px;float:right;}
+/*self-service*/
+#self-service,#man-service,#novice{border:3px solid #40CCF5;}
+#self-service .mt,#novice .mt,#man-service .mt{background:url("images/newhelp_cen.gif") repeat-x scroll 0 -400px;height:35px;border-bottom:1px solid #E1F6FD;}
+#self-service .mt h3,#novice .mt h3,#man-service .mt h3{font:bold 18px/35px "Microsoft Yahei";color:#2398D1;padding-left:20px;}
+#self-service .mc{padding-top:20px;}
+#self-service li{float:left;padding:0 25px 10px;width:121px;height:99px;}
+#self-service li a{background:url('images/newhelp_cen20140224.png') no-repeat;width:121px;height:99px;display:block;line-height:1000px;overflow:hidden;}
+#self-service .fore1 a{background-position:0 0;}
+#self-service .fore2 a{background-position:0 -100px;}
+#self-service .fore3 a{background-position:0 -200px;}
+#self-service .fore4 a{background-position:0 -300px;}
+#self-service .fore5 a{background-position:0 -700px;}
+#self-service .fore6 a{background-position:0 -800px;}
+#self-service .fore7 a{background:url(images/iconjdcard.png?t=20140527) no-repeat;}
+#self-service .fore8 a{background-position:0 -1000px;}
+#self-service .fore9 a{background-position:0 -1100px;}
+#self-service .fore10 a{background-position:0 -1200px;}
+#self-service .fore11 a{background-position:0 -1300px;}
+#self-service .fore12 a{background-position:0 -1400px;}
+#self-service .fore13 a{background:url(i/icon-wycd.gif) no-repeat;}
+#self-service .fore14 a{background-position:0 -1921px;}
+/*novice*/
+#novice li{background: url("images/newhelp_cen20140224.png") no-repeat -24px -1500px;float:left;height:80px;padding:10px 0 22px 34px;width:102px;}
+#novice li span{width:56px;height:56px;display:block;background:url('images/newhelp_cen20140224.png') no-repeat;margin-bottom:6px;vertical-align:middle;font-size:0;}
+#novice li a{font:14px "Microsoft Yahei";}
+#novice .fore1 span{background-position:0 -1623px;}
+#novice .fore2 span{background-position:-56px -1623px;}
+#novice .fore3 span{background-position:0 -1679px;}
+#novice .fore4 span{background-position:-56px -1679px;}
+#novice .fore5 span{background-position:0 -1735px;}
+#novice .fore5{background:0 none;}
+/*man-service*/
+#man-service{overflow:hidden;}
+#man-service ul{width:685px;}
+#man-service li{padding:24px 11px 0 25px;width:100px;height:159px;float:left;border-right:1px solid #DFF4FC;cursor:pointer;}
+#man-service .curr{background:#edf9fd;}
+#man-service li a:hover{text-decoration:none;}
+#man-service li s,#man-service li b{display:inline-block;width:100px;background:url('images/newhelp_cen20140224.png') no-repeat;}
+#man-service li span{color:#9E9E9C;font-size:12px;height:40px;line-height:18px;display:block;margin-bottom:6px}
+#man-service s{height:36px;margin-bottom:2px}
+#man-service .fore1 s{background-position:0 -435px;}
+#man-service .fore2 s{background-position:0 -475px;}
+#man-service .fore3 s{background-position:0 -511px;height:33px;margin-bottom:3px;}
+#man-service .fore4 s{background-position:0 -545px;}
+#man-service .fore5 s{background-position:0 -581px;}
+/*#man-service .fore1 s{background-position:0 -435px;height:36px;}
+#man-service .fore2 s{background-position:0 -475px;height:35px;margin-bottom:1px;}
+#man-service .fore3 s{background-position:0 -511px;height:33px;margin-bottom:3px;}
+#man-service .fore4 s{background-position:0 -545px;height:34px;margin-bottom:2px;}
+#man-service .fore5 s{background-position:0 -581px;height:32px;}*/
+#man-service li b{background: url("images/newhelp_cen20140224.png") no-repeat 0 -617px;width:64px;height:22px;}
+/*account-safe*/
+#account-safe{padding:15px 10px 0;border:1px solid #B9E8F9;height:133px;}
+#account-safe .mt,#faq .mt{border-bottom:2px solid #E6E6E6;height:23px;position:relative;overflow:visible;margin-bottom:10px;}
+#account-safe .mt h3,#faq .mt h3{position:absolute;top:2px;height:21px;border-bottom:2px solid #44CDF5;font:bold 16px/20px "microsoft yahei";}
+#account-safe .mc{padding-top:10px;}
+/*svc-list*/
+#svc-list{border:1px solid #B9E8F9;height:78px;padding:20px;}
+#svc-list li{width:120px;float:left;margin-bottom:8px;height:24px;}
+#svc-list li a{display:inline-block;padding-left:30px;background:url("images/newhelp_cen20140224.png") no-repeat;line-height:20px;}
+#svc-list .fore1 a{background-position:0 -1500px;height:18px;}
+#svc-list .fore2 a{background-position:0 -1518px;height:20px;}
+#svc-list .fore3 a{background-position:0 -1538px;height:23px;}
+#svc-list .fore4 a{background-position:0 -1561px;height:20px;}
+#svc-list .fore5 a{background-position:0 -1581px;height:22px;}
+#svc-list .fore6 a{background-position:0 -1603px;height:20px;}
+
+/*faq*/
+#faq{height:610px;border:1px solid #B9E8F9;padding:15px 10px 0;}
+#faq li{float:left;width:266px;height:24px;line-height:24px;}
+#faq li a{display:inline-block;width:246px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle;}
+#faq li span {background:url("images/newhelp_cen20140224.png") no-repeat 0 -670px;color:#000;width:14px;height:14px;line-height:14px;margin-right:6px;text-align:center;font-size:12px;font-family:"Arial";display:inline-block;vertical-align:middle;}
+#faq .fore1 span,#faq .fore2 span,#faq .fore3 span {background-position:0 -646px;color:#FFF;}
+.itxt{width:215px;height:23px;line-height:23px;border:1px solid #e3e9ef;border-top:1px solid #abadb3;margin:0 5px 0 0;vertical-align:middle;}
+.s-btn{background:url("i/btn.png") repeat-x;height:23px;border:1px solid #bfd6af;border-radius:3px;display:inline-block;padding:0 8px;line-height:23px;vertical-align:middle;}
+.sch-txt{color:#999;font-size:12px;}
+/*thickbox*/
+.thickbox{background:url("") no-repeat #fff;padding:none;margin:none;border:0 none;overflow:visible;border:2px solid #3fccf5;border-radius:0;}
+.thickwrap{border:0 none;}
+.thickwrap .thicktitle{background:#effcff;height:19px;padding:0;margin:0;padding:0 10px;border:0 none;}
+.thickwrap .thickclose:link,.thickclose:visited{left:302px;top:-2px;width:21px;height:21px;background:url("images/newhelp_cen20140224.png") no-repeat -14px -679px;}
+.thickwrap .thickcon{padding:10px;border:0 none;}

@@ -1,0 +1,16 @@
+#set($layout="customer/user/default.vm") 
+#set($navId="noticeDetail")
+
+<div class="bg-fff">
+  <div class="w main">
+    <div class="ggxq-box">
+        <div class="flk05 fhlink"><a href="$venderHelpCenterModule.getTarget("/$!siteEnName/notice/list.html")">返回至公告</a>
+        </div>
+      <div class="ggxq-text">
+        <h3 class="ggxq-tit tc mgt-20">$!notice.name</h3>
+		<div class="flk04 tc">$!dateFormatUtils.format($!notice.modified,"yyyy-MM-dd HH:mm:ss")</div>
+			$!notice.content
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+#set($layout="admin/default.vm")
+#set($title="问题修改完毕")
+
+#if($!result.success)
+<div class="jumbotron">
+    <div class="container">
+        <h3>
+             	修改已完成！
+        </h3>
+
+        <p><b id="t"></b>秒后自动返回或<a href="$!helpAdminModule.getTarget("/help/issue/issue_list.action").addQueryData("site.id",$!site.id)">点这里</a>立即返回。</p>
+    </div>
+</div>
+
+#end
+<script>
+    var t = 3;
+    var href = '$!helpAdminModule.getTarget("/help/issue/issue_list.action").addQueryData("site.id",$!site.id)';
+    $(function () {
+        $("#t").text(t);
+        var interval = setInterval("countDown()", 1000);
+    });
+
+    function countDown() {
+        t--;
+        if (t == 0) {
+            window.location.href = href;
+        } else {
+            $("#t").text(t);
+        }
+
+    }
+</script>

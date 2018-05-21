@@ -1,0 +1,34 @@
+.content{
+    padding-left: 0;
+    padding-right: 0;
+}
+.mod_form{
+    border-top-width: 0;
+}
+.mod_form .label{
+    margin-right: 5px;
+}
+.schedule_status li{
+    display: inline-block;
+    padding:20px 0 5px 20px;
+    font-size: 14px;
+}
+.schedule_status li input{
+    vertical-align: middle;
+    margin-bottom:2px;
+}
+.pagination{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.schedule_classify li,
+.schedule_teacher,
+.schedule_name{
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.stable td.schedule_name{
+    color: #4699E9;
+}

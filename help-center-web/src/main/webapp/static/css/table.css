@@ -1,0 +1,99 @@
+.stable{
+    border-color:#e7e7eb;
+    border-style: solid;
+    border-width: 1px;
+    margin-top:15px;
+}
+.stable tbody td{
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:200px;
+}
+/*.stable tbody td a{*/
+/*margin-bottom: 2px;*/
+/*margin-top: 2px;*/
+/*padding: 8px;*/
+/*}*/
+.stable th{
+    cursor: default;
+}
+.hbox{
+    padding-bottom: 15px;
+}
+.nc_newLbl{
+    padding-right:10px ;
+    font-size: 14px;
+}
+.nc_txtArea{
+    width: 390px;
+    height:200px ;
+}
+.nc_input{
+    width: 150px;
+}
+.nc_txtArea,
+.nc_input{
+    border: none;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+.nc_span{
+    /*border-color: #e7e7eb;*/
+    /*display: block;*/
+    height: auto;
+    min-height: 30px;
+    width: auto;
+    background-color: #fff;
+    border: 1px solid #e7e7eb;
+    border-radius: 0;
+    box-shadow: none;
+    display: inline-block;
+    font-size: 14px;
+    /*height: 30px;*/
+    line-height: 30px;
+    padding: 0px;
+    position: relative;
+    /*vertical-align: middle;*/
+    /*width: 278px;*/
+}
+
+.opTd{
+    cursor: pointer;
+    padding-right: 5px;
+    /*color: #4699e9;*/
+}
+.opbox .a_disable{
+    display: none;
+    margin: 10px;
+    /*cursor: default;*/
+    /*color: #aaa;*/
+}
+.opbox a{
+    padding-right: 10px;
+}
+#newCategoryModel .fail  {
+    vertical-align: middle;
+    font-size: 12px;
+    margin-left: 80px;
+}
+.opbtn{
+    float: right;
+}
+.opbox{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    margin-right: 10px;
+    padding-top:8px;
+}
+.opbar:after{
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both
+}
+#nameErr{
+    width: 400px;
+}

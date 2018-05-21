@@ -1,0 +1,45 @@
+<!-- [vm] /widget/i-contact/i-contact.vm -->
+<div class="clr h20"></div>
+<div class="mod-s01" id="contactid">
+    <ul class="contact-list">
+        <li class="li-item">
+            <a href="//dd1-web.jd.com/jd/chat?entry=jd_srv_vd" clstag="pageclick|keycount|helpcenter_home|69" style="text-decoration:none;" target="_blank">
+                <div class="cact-bd"> <i class="icon-cact icon-cact1"></i>
+                    <h3 class="title">在线客服</h3>
+                    <p class="describe-text">9:00-21:00周一至周日在线</p>
+                </div>
+            </a>
+            #*<a href="//chat.jd.com/jdchat/custom.action" class="link-dlk">点击咨询</a>*#
+        </li>
+        <li class="li-item">
+            <a href="//openjimi.jd.com/index.action?source=zyMrYb" clstag="pageclick|keycount|helpcenter_home|70" style="text-decoration:none;" target="_blank">
+                <div class="cact-bd">
+                    <i class="icon-cact icon-cact5"></i>
+##                    <img src="/img/bitbug_favicon.ico" style="height: 44px; position: absolute; top: 10px; left: 40px;">
+                    <h3 class="title">京灵智能商家助手</h3>
+                    <p class="describe-text">智能客服助手答你所问</p>
+                </div>
+            </a>
+            #*<a href="//jimi.jd.com" class="link-dlk">点击咨询</a>*#
+        </li>
+        <li class="li-item">
+            <a href="//mjbbs.jd.com" style="text-decoration:none;" clstag="pageclick|keycount|helpcenter_home|72" target="_blank">
+                <div class="cact-bd">
+                    <i class="icon-cact icon-cact3"></i>
+                    <h3 class="title">商家论坛</h3>
+                    <p class="describe-text">商家间彼此交流的空间</p>
+                </div>
+            </a>
+            #*<a href="" class="link-dlk">点击咨询</a>*#
+        </li>
+        <li class="li-item">
+            <div class="cact-bd">
+                <i class="icon-cact icon-cact4"></i>
+                <h3 class="title">400 服务热线</h3>
+                <p class="describe-text">4006229068</p>
+            </div>
+            #*<a href="" class="link-dlk">点击咨询</a>*#
+        </li>
+    </ul>
+</div>
+<!--/ /widget/i-contact/i-contact.vm -->

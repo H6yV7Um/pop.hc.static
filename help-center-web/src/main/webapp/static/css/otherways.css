@@ -1,0 +1,70 @@
+.otherways-box{
+    width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    color: #666;
+    width: 75%;
+    margin-top: 75px;
+}
+.otherways-list .li-item {
+    float: left;
+    width: 33%;
+    border-left: 1px solid #EFEFEF;
+    position: relative;
+    margin-left: -1px;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+}
+.otherways-list .title {
+    margin-bottom: 10px;
+    font: 18px "microsoft yahei";
+    padding-top: 8px;
+}
+
+.otherways-list .describe-text {
+    color: #999;
+    margin-top: 10px;
+}
+
+.otherways-list .icon-cact {
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 10px;
+    left: 40px;
+}
+
+.des-tip{
+    margin-top: 120px;
+}
+
+.other-way{
+    width: 75%;
+    margin-top: 220px;
+}
+.des-search{
+    margin-top: 120px;
+}
+
+.item-cont {
+    margin-left: 87px;
+    text-align: left;   
+}
+
+.noresult {
+    height: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.noresult .p-title{
+    font: 400 14px/20px "microsoft yahei";
+    padding-bottom: 10px;
+    color: #999;
+}
+
+.search-box {
+    position: relative;
+    padding-top: 17px;
+    padding-bottom: 17px;
+}

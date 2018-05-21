@@ -1,0 +1,15 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/help-admin.css">
+    <script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <title>$!title</title>
+    #*<link rel="stylesheet" type="text/css" href="$assetModule.getTarget("/pop-man/201007/skin/erpbase.css")" media="all"/>
+    <script type="text/javascript" src="$assetModule.getTarget("/js/jquery-1.4.2.min.js")"></script>
+    <script type="text/javascript" src="$assetModule.getTarget("/pop-man/201007/js/pop.base.js")"></script>*#
+
+</head>
+

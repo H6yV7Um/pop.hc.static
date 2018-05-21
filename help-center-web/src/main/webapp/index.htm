@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+<title>商城前台帮助中心-京东商城</title>
+<link type="text/css" rel="stylesheet" href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,global-header/1.0.0/global-header.css,myjd/2.0.0/myjd.css,nav/2.0.0/nav.css,shoppingcart/2.0.0/shoppingcart.css,global-footer/1.0.0/global-footer.css,service/1.0.0/service.css" />
+<link type="text/css" rel="stylesheet" href="//misc.360buyimg.com/help/misc/skin/helpcenter2012.css?t=20120906" />
+<script type="text/javascript" src="//misc.360buyimg.com/lib/js/e/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript">window.pageConfig = { compatible: false}; </script>
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+<script type="text/javascript" src="//misc.360buyimg.com/lib/js/2012/base-2011.js" charset="gb2312"></script>
+<div id="shortcut">
+	<div class="w">
+		<ul class="fl lh">
+			<li class="fore1 ld"><b></b><a href="javascript:addToFavorite()">收藏京东<span>商城</span></a></li>
+			<li class="fore2"><a href="//www.360top.com/" target="_blank">360TOP<span>奢侈品</span></a></li>
+			<li class="fore3"><a href="//www.minitiao.com/" target="_blank">迷你挑</a></li>
+			<li class="fore4"><a href="//www.ehaoyao.com/" target="_blank"><span>京东</span>好药师</a></li>
+		</ul>
+		<ul class="fr lh">
+			<li class="fore1 ld" id="loginbar">您好！欢迎来到京东商城！<a href="javascript:login()">[登录]</a>&nbsp;<a href="javascript:regist()">[免费注册]</a></li>
+			<li class="fore2"><a href="//jd2008.360buy.com/JdHome/OrderList.aspx">我的订单</a></li>
+			<li class="fore3 menu" data-widget="dropdown">
+				<dl>
+					<dt class="ld">特色栏目<b></b></dt>
+					<dd>
+						<div><a href="//xiaoyuan.360buy.com/" target="_blank">校园频道</a></div>
+						<div><a href="//read.360buy.com/" target="_blank">在线读书</a></div>
+						<div><a href="//diy.360buy.com/" target="_blank">装机大师</a></div>
+						<div><a href="//market.360buy.com/giftcard/" target="_blank">礼品卡</a></div>
+					</dd>
+				</dl>
+			</li>
+			<li class="fore4"><a href="//app.360buy.com/" target="_blank">手机京东</a></li>
+			<li class="fore5 menu" data-widget="dropdown">
+				<dl>
+					<dt class="ld">企业服务<b></b></dt>
+					<dd>
+						<div><a href="//market.360buy.com/giftcard/company/default.aspx" target="_blank">企业客户</a></div>
+						<div><a href="//sale.360buy.com/p10997.html" target="_blank">办公直通车</a></div>
+					</dd>
+				</dl>
+			</li>
+			<li class="fore6 menu" data-widget="dropdown">
+				<dl>
+					<dt class="ld"><a href="//help.360buy.com/" target="_blank">客户服务<b></b></a></dt>
+					<dd>
+						<div><a href="//help.360buy.com/help/question-61.html" target="_blank">常见问题</a></div>
+						<div><a href="//myjd.360buy.com/repair/orderlist.action" target="_blank">售后服务</a></div>
+						<div><a href="//chat.360buy.com/jdchat/custom.action" target="_blank">在线客服</a></div>
+						<div><a href="//myjd.360buy.com/opinion/list.action" target="_blank">投诉中心</a></div>
+						<div><a href="//www.360buy.com/contact/service.html" target="_blank">客服邮箱</a></div>
+					</dd>
+				</dl>
+			</li>
+		</ul>
+		<span class="clr"></span>
+	</div>
+</div><!--shortcut end-->
+<div id="o-header">
+	<div class="w" id="header">
+		<div id="logo" class="ld"><a href="//www.360buy.com/"><b></b><img src="//misc.360buyimg.com/lib/img/e/logo.png" width="259" height="50" alt="京东商城"></a></div><!--logo end-->
+		<div id="search">
+			<div class="i-search ld">
+				<b></b><s></s>
+				<ul id="shelper" class="hide"></ul>
+				<div class="form">
+				<input type="text" class="text" accesskey="s" id="key" autocomplete="off" onkeydown="javascript:if(event.keyCode==13) search('key');" />
+				<input type="button" value="搜索" class="button" onclick="search('key');return false;" />
+				</div>
+			</div>
+			<div id="hotwords"></div>
+		</div><!--search end-->
+		<div id="my360buy">
+			<dl>
+				<dt class="ld"><s></s><img src="//misc.360buyimg.com/lib/img/e/blank.gif" width="24" height="24" alt="头像"><a href="//home.360buy.com/">我的京东</a><b></b></dt>
+				<dd><div class="loading-style1"><b></b>加载中，请稍候...</div></dd>
+			</dl>
+		</div><!--my360buy end-->
+		<div id="settleup">		
+			<dl>
+				<dt class="ld">
+					<s><span id="shopping-amount"></span></s>
+					<a href="//jd2008.360buy.com/purchase/ShoppingCart.aspx">去购物车结算</a>
+					<b></b>
+				</dt>
+				<dd>
+				<div class="prompt">				
+					<div class="loading-style1"><b></b>加载中，请稍候...</div>
+				</div>
+				</dd>
+			</dl>
+		</div><!--settleup end-->
+	</div><!--header end-->
+	<div class="w">
+		<div id="nav">
+			<div id="categorys">
+				<div class="mt ld">
+					<h2><a href="//www.360buy.com/allSort.aspx">全部商品分类<b></b></a></h2>
+				</div>
+				<div id="_JD_ALLSORT" class="mc"></div>
+			</div>
+			<div id="treasure"></div>
+			<ul id="navitems">
+				<li class="fore1" id="nav-home"><a href="//www.360buy.com/">首页</a></li>
+				<li class="fore2" id="nav-mall"><a href="//fashion.360buy.com/">服装城</a></li>
+				<li class="fore3" id="nav-minitiao"><a href="//www.minitiao.com/" target="_blank">迷你挑</a></li>
+				<li class="fore4" id="nav-tuan"><a href="//tuan.360buy.com/">团购</a></li>
+				<li class="fore5" id="nav-auction"><a href="//auction.360buy.com/">夺宝岛</a></li>
+				<li class="fore6" id="nav-club"><a href="//club.360buy.com/">京东社区</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+(function(){if(pageConfig.navId){var object=document.getElementById("nav-"+pageConfig.navId);if(object)object.className+=" curr";}})();
+</script><!-- header end -->
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+    <!--[if !ie]>Position 开始<![endif]-->
+    <div id="Position" class="margin_b6 breadcrumb"><strong><a href="//help.360buy.com">帮助中心</a></strong></div>
+    <!--[if !ie]>Position 结束<![endif]-->
+    <!--[if !ie]>left 开始<![endif]-->
+    <div class="sort_left margin_t10">
+        <div class="sort_l_box">
+            <h3>热门问题</h3>
+            <div class="sort_l_body">
+                <ul class="sort_l_list">
+                    <li><a href="/help/question-67.html" target="_blank"><b>·</b>哪些地区支持货到付款？</a></li>
+                    <li><a href="/help/question-65.html" target="_blank"><b>·</b>快递运输免运费吗？</a></li>
+                    <li><a href="/help/question-60.html" target="_blank"><b>·</b>优惠券怎样使用？</a></li>
+                    <li><a href="/help/question-64.html" target="_blank"><b>·</b>上门自提的流程是什么？</a></li>
+                    <li><a href="/help/question-68.html" target="_blank"><b>·</b>怎样在线支付？</a></li>
+                    <li><a href="/help/question-57.html" target="_blank"><b>·</b>京东会员都有什么待遇？</a></li>
+                    <li><a href="/help/question-56.html" target="_blank"><b>·</b>购物流程是怎样的？</a></li>
+                    <li><a href="/help/question-93.html" target="_blank"><b>·</b>北京总部自提点在哪？</a></li>
+                    <li><a href="/help/question-71.html" target="_blank"><b>·</b>怎样申请分期付款？</a></li>
+                    <li><a href="/help/question-97.html" target="_blank"><b>·</b>怎样申请返修/退换货？</a></li>
+                </ul>
+            </div>
+            <div class="sort_l_bottom"></div>
+        </div>
+        <div class="sort_l_box">
+            <h3>自助服务工具</h3>
+ 
+            <div class="sort_l_body">
+                <ul class="sort_l_list">
+                    <li><a href="//jd2008.360buy.com/JdHome/OrderList.aspx" target="_blank"><b>·</b>查看订单</a></li>
+                    <li><a href="//bankws.360buy.com/refund/processapply.aspx" target="_blank"><b>·</b>申请退款</a></li>
+                    <li><a href="//myjd.360buy.com/repair/repairs.action" target="_blank"><b>·</b>申请返修/退换货</a></li>
+                    <li><a href="//buy.360buy.com/priceprotect/JiaBao.aspx" target="_blank"><b>·</b>申请价格保护</a></li>
+                    <li><a href="//myjd.360buy.com/opinion/orderList.action" target="_blank"><b>·</b>问题投诉</a></li>
+                    <li><a href="//bankws.360buy.com/consume/usergrade.aspx" target="_blank"><b>·</b>查看我的级别</a></li>
+                    <li><a href="//bankws.360buy.com/score/Integral/ScoreExhibit.aspx" target="_blank"><b>·</b>查看我的积分</a></li>
+                    <li><a href="//coupon.360buy.com/user_quan.aspx" target="_blank"><b>·</b>查看优惠券/礼品卡</a></li>
+                    <li><a href="//edm.360buy.com/front/subscribe/index.aspx" target="_blank"><b>·</b>促销邮件订阅</a></li>
+                </ul>
+            </div>
+            <div class="sort_l_bottom"></div>
+        </div>
+        <div class="sort_l_box">
+            <h3>京东承诺</h3>
+            <div class="sort_l_body">
+                <ul class="cn_list">
+                    <li><b>·</b>货到付款</li>
+                    <li><b>·</b>满39元免运费</li>
+                    <li><b>·</b>售后上门</li>
+                </ul>
+            </div>
+            <div class="sort_l_bottom"></div>
+        </div>
+    </div>
+    <!--[if !ie]>left 结束<![endif]-->
+    <!--[if !ie]>right 开始<![endif]-->
+    <div class="right">
+		<h3 class="margin_t10 help_tit"><strong>自助服务</strong></h3>
+		<div class="zzbox clearfix">
+			<dl>
+			   <dt class="dt1"><a href="//jd2008.360buy.com/jdhome/orderlist.aspx"></a></dt>
+			   <dd><a href="//jd2008.360buy.com/jdhome/orderlist.aspx">1.订单查询</a></dd>
+			</dl>
+			<dl>
+			   <dt class="dt2"><a href="//myjd.360buy.com/repair/orderlist.action"></a></dt>
+			   <dd><a href="//myjd.360buy.com/repair/orderlist.action">2.返修／退换货</a></dd>
+			</dl>
+			<dl>
+			   <dt class="dt3"><a href="//order.360buy.com/normal/list.action"></a></dt>
+			   <dd><a href="//order.360buy.com/normal/list.action">3.取消订单</a></dd>
+			</dl>
+			<dl>
+			   <dt class="dt4"><a href="//buy.360buy.com/priceprotect/JiaBao.aspx"></a></dt>
+			   <dd><a href="//buy.360buy.com/priceprotect/JiaBao.aspx">4.价保申请</a></dd>
+			</dl>
+			<dl>
+			   <dt class="dt5"><a href="//myjd.360buy.com/opinion/list.action"></a></dt>
+			   <dd><a href="//myjd.360buy.com/opinion/list.action">5.我要投诉</a></dd>
+			</dl>
+			<dl>
+			   <dt class="dt6"><a href="//club.360buy.com/jdvote/vote2.aspx?voteId=82"></a></dt>
+			   <dd><a href="//club.360buy.com/jdvote/vote2.aspx?voteId=82">6.建议留言</a></dd>
+			</dl>
+			<dl>
+			   <dt class="dt7"><a href="//help.360buy.com/help/question-62.html#help202"></a></dt>
+			   <dd><a href="//help.360buy.com/help/question-62.html#help202">7.客服邮箱</a></dd>
+			</dl>
+		</div>
+        <h3 class="margin_t10 help_tit"><strong>购物流程</strong></h3>
+        <div class="sort_flex"><img src="//misc.360buyimg.com/help/misc/skin/images/helpsort_lc.gif" alt="购物流程图"/></div>
+        <div class="sort_r_box bd_t1">
+            <h5>购物指南</h5>
+            <ul class="sort_r_list">
+                <li><a href="/help/question-55.html" target="_blank">交易条款</a></li>
+                <li><a href="/help/question-56.html" target="_blank">购物入门</a></li>
+                <li><a href="/help/question-147.html" target="_blank">轻 松 购</a></li>
+                <li><a href="/help/question-63.html" target="_blank">大 家 电</a></li>
+				<li><a href="/help/question-667.html" target="_blank">合约计划</a></li>
+                <li><a href="/help/question-58.html" target="_blank">积分说明</a></li>
+                <li><a href="/help/question-59.html" target="_blank">订单状态</a></li>
+                <li><a href="/help/question-181.html" target="_blank">团购/机票</a></li>
+                <li><a href="/help/question-60.html" target="_blank">优惠券使用</a></li>
+                <li><a href="/help/question-61.html" target="_blank">常见问题</a></li>
+                <li><a href="/help/question-62.html" target="_blank">联系客服</a></li>
+                <li><a href="/help/question-57.html" target="_blank">会员制度</a></li>
+				<li><a href="/help/question-563.html" target="_blank">促销说明</a></li>
+                <li style="height:0;line-height:0;overflow:hidden">&nbsp;</li>
+            </ul>
+        </div>
+        <div class="sort_r_box">
+            <h5 class="s_delivery">配送方式</h5>
+            <ul class="sort_r_list">
+                <li><a href="/help/question-64.html" target="_blank">上门自提</a></li>
+				<li><a href="/help/question-360.html" target="_blank">211限时达</a></li>
+                <li><a href="/help/question-65.html" target="_blank">快递运输</a></li>
+            </ul>
+        </div>
+        <div class="sort_r_box">
+            <h5 class="s_pay">支付方式</h5>
+            <ul class="sort_r_list">
+                <li><a href="/help/question-67.html" target="_blank">货到付款</a></li>
+                <li><a href="/help/question-68.html" target="_blank">在线支付</a></li>
+                <li><a href="/help/question-69.html" target="_blank">邮局汇款</a></li>
+                <li><a href="/help/question-70.html" target="_blank">公司转账</a></li>
+                <li><a href="/help/question-71.html" target="_blank">分期付款</a></li>
+                <li><a href="/help/question-72.html" target="_blank">发票制度</a></li>
+            </ul>
+        </div>
+        <div class="sort_r_box">
+            <h5 class="s_after">售后服务</h5>
+            <ul class="sort_r_list">
+                <li><a href="/help/question-97.html" target="_blank">售后服务政策</a></li>
+                <li><a href="/help/question-98.html" target="_blank">售后服务流程</a></li>
+                <li><a href="/help/question-99.html" target="_blank">价格保护</a></li>
+                <li><a href="/help/question-100.html" target="_blank">退款说明</a></li>
+            </ul>
+        </div>
+        <div class="sort_r_box">
+            <h5 class="s_serve">特色服务</h5>
+            <ul class="sort_r_list">
+                <li><a href="/help/question-79.html" target="_blank">夺宝岛(拍卖)</a></li>
+                <li><a href="/help/question-86.html" target="_blank">DIY装机</a></li>
+                <li><a href="/help/question-87.html" target="_blank">延保服务</a></li>
+                <li><a href="/help/question-88.html" target="_blank">上门服务</a></li>
+                <li><a href="//search.360buy.com/Search?keyword=diy%C9%CF%C3%C5" target="_blank">上门装机</a></li>
+                <li><a href="//market.360buy.com/giftcard/index.html" target="_blank">京东礼品卡</a></li>
+                <li><a href="/help/question-91.html" target="_blank">节能补贴</a></li>
+                <li><a href="/help/question-92.html" target="_blank">家电下乡</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--[if !ie]>right 结束<![endif]-->
+</div>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+<div class="w">
+	<div id="service">
+		<dl class="fore1">
+			<dt><b></b><strong>购物指南</strong></dt>
+			<dd>
+				<div><a href="//help.360buy.com/help/question-56.html" target="_blank">购物流程</a></div>
+				<div><a href="//help.360buy.com/help/question-57.html" target="_blank">会员介绍</a></div>
+				<div><a href="//help.360buy.com/help/question-181.html" target="_blank">团购/机票</a></div>
+				<div><a href="//help.360buy.com/help/question-61.html" target="_blank">常见问题</a></div>
+				<div><a href="//help.360buy.com/help/question-63.html" target="_blank">大家电</a></div>
+				<div><a href="//help.360buy.com/help/question-667.html" target="_blank">合约计划</a></div>
+				<div><a href="//help.360buy.com/help/question-62.html" target="_blank">联系客服</a></div>
+			</dd>
+		</dl>
+		<dl class="fore2">		
+			<dt><b></b><strong>配送方式</strong></dt>
+			<dd>
+				<div><a href="//help.360buy.com/help/question-64.html" target="_blank">上门自提</a></div>
+                <div><a href="//help.360buy.com/help/question-360.html" target="_blank">211限时达</a></div>
+				<div><a href="//help.360buy.com/help/question-65.html" target="_blank">快递运输</a></div>
+				<div><a href="//market.360buy.com/giftcard/index.html#one5" target="_blank">如何送礼</a></div>
+			</dd>
+		</dl>
+		<dl class="fore3">
+			<dt><b></b><strong>支付方式</strong></dt>
+			<dd>
+				<div><a href="//help.360buy.com/help/question-67.html" target="_blank">货到付款</a></div>
+				<div><a href="//help.360buy.com/help/question-68.html" target="_blank">在线支付</a></div>
+				<div><a href="//help.360buy.com/help/question-71.html" target="_blank">分期付款</a></div>
+				<div><a href="//help.360buy.com/help/question-69.html" target="_blank">邮局汇款</a></div>
+				<div><a href="//help.360buy.com/help/question-70.html" target="_blank">公司转账</a></div>
+			</dd>
+		</dl>
+		<dl class="fore4">		
+			<dt><b></b><strong>售后服务</strong></dt>
+			<dd>
+				<div><a href="//help.360buy.com/help/question-97.html" target="_blank">售后服务政策</a></div>
+				<div><a href="//help.360buy.com/help/question-98.html" target="_blank">售后服务流程</a></div>
+				<div><a href="//help.360buy.com/help/question-99.html" target="_blank">价格保护</a></div>
+				<div><a href="//help.360buy.com/help/question-100.html" target="_blank">退款说明</a></div>
+				<div><a href="//myjd.360buy.com/repair/repairs.action" target="_blank">返修/退换货</a></div>
+				<div><a href="//order.360buy.com/normal/list.action" target="_blank">取消订单</a></div>
+			</dd>
+		</dl>
+		<dl class="fore5">
+			<dt><b></b><strong>特色服务</strong></dt>
+			<dd>			
+				<div><a href="//help.360buy.com/help/question-79.html" target="_blank">夺宝岛</a></div>
+				<div><a href="//help.360buy.com/help/question-86.html" target="_blank">DIY装机</a></div>
+				<div><a href="//market.360buy.com/hd/yanbao090702/ind.html" target="_blank">延保服务</a></div>
+				<div><a href="//help.360buy.com/help/question-92.html" target="_blank">家电下乡</a></div>
+				<div><a href="//market.360buy.com/giftcard/index.html" target="_blank">京东礼品卡</a></div>
+				<div><a href="//help.360buy.com/help/question-91.html" target="_blank">节能补贴</a></div>
+			</dd>
+		</dl>
+		<span class="clr"></span>
+	</div>
+</div><!-- service end -->
+<div class="w">
+	<div id="footer-2014">
+		<div class="links"><a href="//www.360buy.com/intro/about.aspx" target="_blank">关于我们</a>|<a href="//www.360buy.com/contact/" target="_blank">联系我们</a>|<a href="//zhaopin.360buy.com/" target="_blank">人才招聘</a>|<a href="//www.360buy.com/contact/joinin.aspx" target="_blank">商家入驻</a>|<a href="//www.minitiao.com/" target="_blank">迷你挑</a>|<a href="//www.360top.com/" target="_blank">奢侈品网</a>|<a href="//www.360buy.com/intro/service.aspx" target="_blank">广告服务</a>|<a href="//app.360buy.com/" target="_blank">手机京东</a>|<a href="//club.360buy.com/links.aspx" target="_blank">友情链接</a>|<a href="//cps.360buy.com/" target="_blank">销售联盟</a>|<a target="_blank" href="//bbs.360buy.com/">京东论坛</a></div>
+		<div class="copyright">北京市公安局朝阳分局备案编号110105014669&nbsp;&nbsp;|&nbsp;&nbsp;京ICP证070359号&nbsp;&nbsp;|&nbsp;&nbsp;互联网药品信息服务资格证编号(京)-非经营性-2011-0034<br><a target="_blank" href="//misc.360buyimg.com/skin/df/i/com/f_music.jpg">音像制品经营许可证苏宿批005号</a>&nbsp;&nbsp;|&nbsp;&nbsp;出版物经营许可证编号新出发(苏)批字第N-012号&nbsp;&nbsp;|&nbsp;&nbsp;互联网出版许可证编号新出网证(京)字150号<br>Copyright&copy;2004-2012&nbsp;&nbsp;360buy京东商城&nbsp;版权所有</div>
+		<div class="authentication"><a href="//www.hd315.gov.cn/beian/view.asp?bianhao=010202007080200026" target="_blank"><img data-lazyload="//img10.360buyimg.com/da/20110329/108_40_zZOKnl.gif" width="108" height="40" alt="经营性网站备案中心"></a><script type="text/JavaScript">function CNNIC_change(eleId){var str= document.getElementById(eleId).href;var str1 =str.substring(0,(str.length-6));str1+=CNNIC_RndNum(6); document.getElementById(eleId).href=str1;}function CNNIC_RndNum(k){var rnd=""; for (var i=0;i < k;i++) rnd+=Math.floor(Math.random()*10); return rnd;}</script> <a href="https://ss.cnnic.cn/verifyseal.dll?sn=2008070300100000031&ct=df&pa=294005" tabindex="-1" id="urlknet" target="_blank"> <img alt="&#x53EF;&#x4FE1;&#x7F51;&#x7AD9;" name="CNNIC_seal" border="true" data-lazyload="//img12.360buyimg.com/da/20110329/112_40_EAWZul.jpg" oncontextmenu="return false;" onclick="CNNIC_change('urlknet')" /></a><a href="//about.58.com/fqz/index.html" target="_blank"><img data-lazyload="//img12.360buyimg.com/da/g5/M02/0D/17/rBEIDE_nzcIIAAAAAAB30mYXo5QAACrhACj22IAAHfq378.png" width="108" height="40" alt="朝阳网络警察"></a><a href="https://search.szfw.org/cert/l/CX20120111001803001836" target="_blank"><img data-lazyload="//img13.360buyimg.com/da/20120221/112_40_WvArIl.png" width="112" height="40"></a></div>
+	</div>
+</div><!-- footer end -->
+<script type="text/javascript" src="/misc/js/lib-v1.js"></script>
+<script type="text/javascript" src="//www.360buy.com/hotwords.aspx?Position=A-index-036"></script>
+<!--<script type="text/javascript" src="//wl.360buy.com/wl.js"></script>-->
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-2176661-1");
+pageTracker._setDomainName("360buy.com");
+pageTracker._addOrganic("soso", "w");
+pageTracker._addOrganic("sogou", "query");
+pageTracker._addOrganic("youdao","q");
+pageTracker._addOrganic("baidu","word");
+pageTracker._addOrganic("baidu", "q1");
+pageTracker._addOrganic("m.baidu", "word");
+pageTracker._addOrganic("image.baidu","word");
+pageTracker._addOrganic("ucweb","keyword");
+pageTracker._addOrganic("ucweb", "word");
+pageTracker._addOrganic("114so", "kw");
+pageTracker._trackPageview();
+pageTracker._trackPageLoadTime();
+
+</script>
+</body>
+</html>

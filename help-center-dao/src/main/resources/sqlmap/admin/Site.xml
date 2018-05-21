@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Site">
+    <typeAlias alias="Site" type="com.jd.help.domain.Site"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="Site">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="status" column="status"/>
+        <result property="notes" column="notes"/>
+        <result property="defaultSite" column="default_site"/>
+        <result property="enName" column="en_name"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns">id , name , sort_order , status , notes , default_site, en_name, creator , modifier , created ,
+        modified
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                name = #name#
+            </isNotNull>
+            <isNotNull property="sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #sortOrder#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="notes" prepend="AND" removeFirstPrepend="true">
+                notes = #notes#
+            </isNotNull>
+            <isNotNull property="default_site" prepend="AND" removeFirstPrepend="true">
+                default_site = #defaultSite#
+            </isNotNull>
+            <isNotNull property="en_name" prepend="AND" removeFirstPrepend="true">
+                en_name = #enName#
+            </isNotNull>
+            <isNotNull property="creator" prepend="AND" removeFirstPrepend="true">
+                creator = #creator#
+            </isNotNull>
+            <isNotNull property="modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #modifier#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.name" prepend="AND" removeFirstPrepend="true">
+                name = #model.name#
+            </isNotNull>
+            <isNotNull property="model.sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #model.sortOrder#
+            </isNotNull>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.notes" prepend="AND" removeFirstPrepend="true">
+                notes = #model.notes#
+            </isNotNull>
+            <isNotNull property="model.defaultSite" prepend="AND" removeFirstPrepend="true">
+                default_site = #model.defaultSite#
+            </isNotNull>
+            <isNotNull property="model.enName" prepend="AND" removeFirstPrepend="true">
+                en_name = #model.enName#
+            </isNotNull>
+            <isNotNull property="model.creator" prepend="AND" removeFirstPrepend="true">
+                creator = #model.creator#
+            </isNotNull>
+            <isNotNull property="model.modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #model.modifier#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="Site">
+        INSERT INTO help_site (<include refid="allColumns"/>)
+        VALUES (null , #name# , #sortOrder# , #status# , #notes# ,#defaultSite#, #enName#, #creator# , #modifier# ,
+        now() , now() )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="Site">
+        UPDATE help_site
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="Site">
+		UPDATE help_site
+		SET
+            name = #name# , 
+            sort_order = #sortOrder# , 
+            status = #status# , 
+            notes = #notes# ,
+        default_site = #defaultSite# ,
+        modifier = #modifier# ,
+            modified = now() 
+        WHERE
+            id = #id#
+	</update>
+
+    <update  timeout="5"   id="updateEnName" parameterClass="Site">
+        UPDATE help_site
+        set en_name = #enName#
+        where id = #id#
+    </update>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="Site">
+        SELECT count(id)
+        FROM
+        help_site
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_site
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        ORDER BY sort_order
+        LIMIT #startRow# , #pageSize#
+    </select>
+	
+	<!-- 查所有 -->
+    <select  timeout="5"   id="queryAllForList" resultMap="defaultResultMap" >
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_site
+        where status > -1
+    </select>
+    
+    <!-- 查单条 -->
+    <select  timeout="5"   id="findOne" parameterClass="Site" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_site
+        where 1=1
+        <dynamic>
+            <isNotNull property="id" prepend="AND" removeFirstPrepend="true">
+                id = #id#
+            </isNotNull>
+            <isNotNull property="enName" prepend="AND" removeFirstPrepend="true">
+                en_name = #enName#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+        </dynamic>
+
+    </select>
+    <!-- 查单条 -->
+    <select  timeout="5"   id="findDefaultSite" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_site
+        where default_site=1
+        limit 1
+
+    </select>
+</sqlMap>

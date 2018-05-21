@@ -1,0 +1,961 @@
+#set($layout="admin/default.vm")
+#set($title="新增问题")
+<div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+    <!-- 主页面 begin -->
+    <div class="row">
+        <form id="issueForm" name="issueForm" role="form" method="post"
+              class="form-horizontal">
+            <input type="hidden" name="issueBO['issue'].siteId" value="$!site.id"/>
+            <!-- 是否操作了关联知识，默认页面显示后未操作 -->
+            <input type="hidden" id="relationKnowLedgeStatus" value="0"/>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueType" class="col-sm-1 control-label">知识类型</label>
+                        <div class="col-sm-11">
+                            <select name="issueBO['issue'].issueType" class="form-control" style="width: 180px;">
+                                <option value="0">-请选择-</option>
+                                #foreach( $issueType in $issueTypeList)
+                                    <option value="$!{issueType.id}">$!{issueType.name}</option>
+                                #end
+                            </select>
+                        </div>
+                    </div>
+                #*lableBegin*#
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueLabel" class="col-sm-1 control-label">知识标签</label>
+
+                        <div >
+                            <input id="getAllLabel" class="btn btn_primary btn-success"  style="margin-left: 1%" value="添加标签" type="button">
+                            <font color="red">注意! 如果修改了标签，一定要重新设置关联知识，否则将不匹配</font>
+                        </div></br>
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control frm_input js_title lableNames left93"
+                                   name="issueBO['issue'].issueLabelContent" id="issueBO['issue'].issueLabelContent"
+                                    readonly="true" data-length="100">
+                            <input type="hidden" class="form-control lableIds"
+                                   name="issueBO['issue'].issueLabelId" id="issueBO['issue'].issueLabelId">
+                            <input type="hidden" class="form-control label1Ids"
+                                   name="issueBO['issue'].label1Ids" id="issueBO['issue'].label1Ids">
+                            <input type="hidden" class="form-control label1Names"
+                                   name="issueBO['issue'].label1Names" id="issueBO['issue'].label1Names">
+                        </div>
+                    </div>
+                #*lableEnd*#
+                    <div class="form-group">
+                        <label for="site.name" class="col-sm-1 control-label">文章标题</label>
+
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control"
+                                   name="issueBO['issue'].name" id="issueBO['issue'].name"
+                                   placeholder="请输入文章标题">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="site.status" class="col-sm-1 control-label">选择目录</label>
+                        <div class="col-sm-11">
+                            #catalogSelector($!site.id $!catalog.id)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueBO['issueAnswer'].answer" class="col-sm-1 control-label">正文</label>
+                        <div class="col-sm-11 col-sm-offset-1">
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" name="issueBO['issueAnswer'].answer" type="text/plain">
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueBO['issue'].summary" class="col-sm-1 control-label">摘要</label>
+
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" id="issueBO['issue'].summary"
+                                      name="issueBO['issue'].summary" placeholder="请输入摘要，摘要会在常见问题搜索结果列表展示哦~"></textarea>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-success btn-genarate-summary">生成摘要</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueKeyWord" class="col-sm-1 control-label">知识关键字</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   name="issueBO['issue'].issueKeyWord" id="issueBO['issue'].issueKeyWord"
+                                   placeholder="请输入关键字">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueSolveDept" class="col-sm-1 control-label">业务对接部门</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   name="issueBO['issue'].issueSolveDept" id="issueBO['issue'].issueSolveDept"
+                                   placeholder="请输入业务对接部门">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueSolvePin" class="col-sm-1 control-label">业务对接人</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   name="issueBO['issue'].issueSolvePin" id="issueBO['issue'].issueSolvePin"
+                                   placeholder="请输入业务对接人">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueExpireTime" class="col-sm-1 control-label">知识到期时间</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" id="issueBO['issue'].issueExpireTime" name="issueBO['issue'].issueExpireTime" class="form-control Wdate"
+                                   value="$!dateUtil.formatDate($!issueBO.issue.issueExpireTime)"
+                                   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss '})"
+                                   style="width:200px;"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueBO['issue'].issueExpireTime" class="col-sm-1 control-label">关联知识选择</label>
+
+                        <div class="col-sm-10">
+                            <input type="button" id="chooseRelation" class="btn btn-info btn-sm" value="关联知识选择">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span id="wrongId" class="frm_msg fail newName col-sm-3" style="display: none; overflow: hidden; *zoom: 1">请先选择知识标签</span>
+                    </div>
+                </div>
+            </div>
+            <div id="extInput">
+            </div>
+        </form>
+        <div class="form-horizontal">
+
+            <!-- 场景按钮 -->
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">场景化按钮配置</h3>
+                </div>
+                <div class="panel-body" id="scenesButtonRel">
+                    <div class="form-group" id="button-rel-form-group-0">
+                        <label class="col-sm-1 control-label">按钮标题</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="title" placeholder="请输入标题">
+                        </div>
+
+                        <label class="col-sm-1 control-label">按钮链接</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="link" placeholder="请输入链接">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="cleanOldNewMappingInput('button-rel-form-group-0');">清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="button-rel-form-group-1">
+                        <label class="col-sm-1 control-label">按钮标题</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="title" placeholder="请输入标题">
+                        </div>
+
+                        <label class="col-sm-1 control-label">按钮链接</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="link" placeholder="请输入链接">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="cleanOldNewMappingInput('button-rel-form-group-1');">清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="button-rel-form-group-2">
+                        <label class="col-sm-1 control-label">按钮标题</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="title" placeholder="请输入标题">
+                        </div>
+
+                        <label class="col-sm-1 control-label">按钮链接</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="link" placeholder="请输入链接">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="cleanOldNewMappingInput('button-rel-form-group-2');">清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="button-rel-form-group-3">
+                        <label class="col-sm-1 control-label">按钮标题</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="title" placeholder="请输入标题">
+                        </div>
+
+                        <label class="col-sm-1 control-label">按钮链接</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="link" placeholder="请输入链接">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="cleanOldNewMappingInput('button-rel-form-group-3');">清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="button-rel-form-group-4">
+                        <label class="col-sm-1 control-label">按钮标题</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="title" placeholder="请输入标题">
+                        </div>
+
+                        <label class="col-sm-1 control-label">按钮链接</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" name="link" placeholder="请输入链接">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="cleanOldNewMappingInput('button-rel-form-group-4');">清空
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- 场景按钮 end -->
+            </div>
+
+
+            <div class="form-horizontal">
+                <!-- 关联知识 start -->
+                <div class="panel panel-success"
+##                     style="display: none"
+                >
+                    <div class="panel-heading">
+                        <h3 class="panel-title">关联知识</h3>
+                    </div>
+                    <div class="panel-body" id="relIssuePanel">
+                        <!-- 		  			<div class="row m_b_10"> -->
+                        <!-- 		  				<div class="col-sm-1"> -->
+                        <!-- 							<button type="button" class="btn btn-success btn-lg" onclick="addRelIssueBlock();">添加</button> -->
+                        <!-- 						</div> -->
+                        <!-- 					</div>	 -->
+                        <!-- 关联知识，最多12个，不用js动态创建，直接写 start-->
+                        <div class="form-group" id="rel-form-group-0">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group" id="rel-form-group-1">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group" id="rel-form-group-2">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group" id="rel-form-group-3">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="form-group" id="rel-form-group-4">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-5">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-6">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-7">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-8">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-9">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-10">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rel-form-group-11">
+                            <label class="col-sm-1 control-label">关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="relationKnowledgeId" placeholder="关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">被替换的关联知识id</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="replaceKnowledgeId" placeholder="被替换的关联知识id"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">是否强关联</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="isStrong" placeholder="是否强关联"
+                                       value="">
+                            </div>
+
+                            <label class="col-sm-1 control-label">状态</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="status" placeholder="状态"
+                                       value="">
+                            </div>
+                        </div>
+                        <!-- 关联知识，最多12个，不用js动态创建，直接写 end -->
+                    </div>
+                </div>
+            <!-- 关联知识 end -->
+
+            <!-- 新老问题映射 -->
+            <div class="panel panel-info m_b_100">
+                <div class="panel-heading">
+                    <h3 class="panel-title">旧版链接</h3>
+                </div>
+                <div class="panel-body" id="oldNewMapping">
+                    <div class="form-group" id="on-form-group-0">
+                        <label class="col-sm-1 control-label">链接</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="请输入链接">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                    onclick="delOldNewMappingBlock('on-form-group-0');">删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1 col-sm-offset-11">
+                            <button type="button" class="btn btn-success" onclick="addOldNewMappingBlock();">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 新老问题映射 end -->
+            <div class="well text-center affix">
+                <button type="button" class="btn btn-primary btn-lg" onclick="preview()">预 览</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick="save()">保 存</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick="saveAndPost()">保存并发布</button>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+        #*helpLable Begin*#
+        <script type="text/javascript" src="/static/js/helplable/getAllLable.js"></script>
+                #parse("/WEB-INF/vm/admin/issue/getAllLable.vm")
+        #*helpLable End*#
+        ## 关联知识js
+        <script type="text/javascript" src="/static/js/knowledge/knowledge.js"></script>
+            #parse("/WEB-INF/vm/admin/issue/relationKnowledge.vm")
+        <!-- 配置文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.all.min.js"></script>
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+            // 正文编辑器相关 start
+            UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+            UE.Editor.prototype.getActionUrl = function (action) {
+                if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+                    return '$!helpAdminModule.getTarget("/help/issue/uploadimg.action")';
+                } else if (action == 'uploadvideo') {
+                    return '';
+                } else {
+                    return this._bkGetActionUrl.call(this, action);
+                }
+            };
+            var editor = UE.getEditor(
+                    'container',
+                    {
+                    	toolbars :[
+                                   ['fullscreen','source','bold','italic','underline','strikethrough','fontborder','subscript','superscript','formatmatch','removeformat','blockquote','|'
+                                    ,'forecolor','backcolor','insertorderedlist','insertunorderedlist',,'selectall','cleardoc','|'
+                                    ,'rowspacingtop','rowspacingbottom','lineheight','customstyle','fontfamily','fontsize','paragraph','|'
+                                    ,'directionalityltr', 'directionalityrtl','indent'],
+                                    ['justifyleft','justifyright','justifycenter','justifyjustify','|'
+                                    ,'touppercase','tolowercase','|'
+                                    ,'insertframe','link','simpleupload','imagenone','imageleft','imageright','imagecenter','|'
+                                    ,'horizontal','time','date', 'spechars','|'
+                                    ,'inserttable','insertrow','insertcol','mergeright','mergedown','deleterow','deletecol','splittorows','splittocols','splittocells','deletecaption','inserttitle','mergecells','deletetable']
+                        				],
+                        autoHeightEnabled: true,
+                        initialFrameHeight: 400,
+                        allowDivTransToP:false,
+                        maximumWords:50000,
+                        wordOverFlowMsg:'<span style="color:red;">你输入的字符个数已经超出最大允许值（50000个字符），请删除部分字符！</span>'
+                    });
+            // 正文编辑器相关 end
+
+            var oldNewMappingBlockIndex = 0;
+            var addOldNewMappingBlock = function () {
+                oldNewMappingBlockIndex++;
+
+                var content = ' <div class="form-group" id="on-form-group-' + oldNewMappingBlockIndex + '"> '
+                        + ' <label  class="col-sm-1 control-label">链接</label> '
+                        + ' <div class="col-sm-10"> '
+                        + ' 	<input type="text" class="form-control"  placeholder="请输入链接"> '
+                        + ' </div> '
+                        + '<div class="col-sm-1">'
+                        + '	<button type="button" class="btn btn-warning btn-sm" onclick="delOldNewMappingBlock(\'on-form-group-' + oldNewMappingBlockIndex + '\');">删除</button>'
+                        + '</div>'
+                        + ' </div> ';
+
+                jQuery('#oldNewMapping').prepend(content);
+            };
+
+            var delOldNewMappingBlock = function (groupId) {
+                jQuery('#' + groupId).remove();
+            };
+
+            var relIssueBlockIndex = 0;
+
+            // 手动添加关联知识
+            var addRelIssueBlock = function () {
+                relIssueBlockIndex++;
+                var content = ' <div class="form-group" id="rel-form-group-' + relIssueBlockIndex + '"> '
+                        + ' <label  class="col-sm-1 control-label">标题</label> '
+                        + '<div class="col-sm-4"> '
+                        + '	<input type="text" class="form-control" name="title" placeholder="请输入标题"> '
+                        + '</div> '
+                        + '<label  class="col-sm-1 control-label">链接</label> '
+                        + '<div class="col-sm-5"> '
+                        + '	<input type="text" class="form-control" name="link"  placeholder="请输入链接"> '
+                        + '</div> '
+                        + '<div class="col-sm-1"> '
+                        + '	<button type="button" class="btn btn-success" onclick="delOldNewMappingBlock(\'rel-form-group-' + relIssueBlockIndex + '\');">删除</button> '
+                        + '</div> '
+                        + '</div> ';
+
+
+                jQuery('#relIssuePanel').append(content);
+            };
+
+            // 删除已经关联的知识
+            var delOldNewMappingBlock = function (groupId) {
+                jQuery('#' + groupId).remove();
+            };
+
+            // 数据填充
+            var fillForm = function () {
+                // 旧版链接
+                jQuery('#extInput').empty();
+                jQuery('#oldNewMapping input').each(function (index) {
+                    if (this.value != null && jQuery.trim(this.value) != "") {
+                        var inputCon = '<input type="hidden" name="issueBO[\'oldNewMappingList\'][' + index + '].oldUrl" '
+                                + ' 		id="issueBO[\'oldNewMappingList\'][' + index + '].oldUrl" value="' + this.value + '" /> ';
+                        jQuery('#extInput').append(inputCon);
+                    }
+
+                });
+
+                // 关联知识数据的填充
+                var relIndex = 0;
+                jQuery('#relIssuePanel .form-group').each(function (outIndex) {
+                    var relationKnowledgeIdValue;
+                    var replaceKnowledgeIdValue;
+                    var statusValue;
+                    var isStrongValue;
+                    jQuery(this).find('input').each(function () {
+                        if (this.value != null && jQuery.trim(this.value) != "") {
+                            if (this.name == 'relationKnowledgeId') {
+                                relationKnowledgeIdValue = jQuery.trim(this.value);
+                            } else if (this.name == 'replaceKnowledgeId') {
+                                replaceKnowledgeIdValue = jQuery.trim(this.value);
+                            } else if (this.name == 'status') {
+                                statusValue = jQuery.trim(this.value);
+                            } else if (this.name == 'isStrong') {
+                                isStrongValue = jQuery.trim(this.value);
+                            }
+                        }
+                    });
+                    if (relationKnowledgeIdValue != null && replaceKnowledgeIdValue != null
+                    && statusValue != null && isStrongValue != null) {
+                        var relationKnowledgeCon = '<input type="hidden"  name="issueBO[\'relationKnowledgeList\'][' + relIndex + '].id" '
+                        + ' id="issueBO[\'relationKnowledgeList\'][' + relIndex + '].id" value="' + relationKnowledgeIdValue + '" >  ';
+
+                        var replaceKnowledgeIdCon = '<input type="hidden" name="issueBO[\'relationKnowledgeList\'][' + relIndex + '].replaceKnowledgeId" '
+                        + ' id="issueBO[\'relationKnowledgeList\'][' + relIndex + '].replaceKnowledgeId" value="' + replaceKnowledgeIdValue + '"  >';
+
+                        var statusValue = '<input type="hidden" name="issueBO[\'relationKnowledgeList\'][' + relIndex + '].status" '
+                                + ' id="issueBO[\'relationKnowledgeList\'][' + relIndex + '].status" value="' + statusValue + '"  >';
+
+                        var isStrongValue = '<input type="hidden" name="issueBO[\'relationKnowledgeList\'][' + relIndex + '].isStrong" '
+                                + ' id="issueBO[\'relationKnowledgeList\'][' + relIndex + '].isStrong" value="' + isStrongValue + '"  >';
+                        jQuery('#extInput').append(relationKnowledgeCon).append(replaceKnowledgeIdCon).append(statusValue).append(isStrongValue);
+                        relIndex++;
+                    }
+                });
+
+                // 场景化
+                relIndex = 0;
+                jQuery('#scenesButtonRel .form-group').each(function (outIndex) {
+                    var titleValue;
+                    var linkValue;
+                    jQuery(this).find('input').each(function () {
+                        if (this.value != null && jQuery.trim(this.value) != "") {
+                            if (this.name == 'title') {
+                                titleValue = jQuery.trim(this.value);
+                            } else if (this.name == 'link') {
+                                linkValue = jQuery.trim(this.value);
+                            }
+                        }
+                    });
+                    if (titleValue != null && linkValue != null) {
+                        var titleCon = '<input type="hidden"  name="issueBO[\'scenesButtonRelList\'][' + relIndex + '].buttonTitle" '
+                                + ' id="issueBO[\'issueRelList\'][' + relIndex + '].buttonTitle" value="' + titleValue + '" >  ';
+
+                        var linkCon = '<input type="hidden" name="issueBO[\'scenesButtonRelList\'][' + relIndex + '].buttonLink" '
+                                + ' id="issueBO[\'scenesButtonRelList\'][' + relIndex + '].buttonLink" value="' + linkValue + '"  >';
+
+                        var typeCon = '<input type="hidden" name="issueBO[\'scenesButtonRelList\'][' + relIndex + '].type" '
+                                + ' id="issueBO[\'scenesButtonRelList\'][' + relIndex + '].type" value="2"  >';
+                        
+                        jQuery('#extInput').append(titleCon).append(linkCon).append(typeCon);
+                        relIndex++;
+                    }
+                });
+            };
+
+            // 保 存
+            var save = function () {
+            	jQuery('#issueForm').attr('target','_self');
+                fillForm();
+                if (editor.queryCommandState('source') == 1) {
+                    editor.execCommand('source');
+                }
+                jQuery('#extInput').append('<input type="hidden" name="issueBO[\'issue\'].status" id="issueBO[\'issue\'].status" value=\'0\'/>');
+                var actionUrl = 'issue_doInsert.action';
+                jQuery('#issueForm').attr('action',actionUrl);
+                jQuery('#issueForm').submit();
+
+            };
+
+            // 预 览
+            var preview = function () {
+            	jQuery('#issueForm').attr('target','_blank');
+                fillForm();
+                if (editor.queryCommandState('source') == 1) {
+                    editor.execCommand('source');
+                }
+                var catalogId = $("#catLevel3 option:selected").val();
+                var previewUrl = '$!venderHelpCenterModule.getTarget(
+                            "/issue/issuePreview.action?siteId=$!{site.id}&catalog.id='+ catalogId+'&issue.id=0")';
+                jQuery('#issueForm').attr('action',previewUrl);
+                jQuery('#issueForm').submit();
+
+            };
+
+            // 保存并发布
+            var saveAndPost = function () {
+            	jQuery('#issueForm').attr('target','_self');
+                fillForm();
+                if (editor.queryCommandState('source') == 1) {
+                    editor.execCommand('source');
+                }
+                jQuery('#extInput').append('<input type="hidden" name="issueBO[\'issue\'].status" id="issueBO[\'issue\'].status" value=\'1\'/>');
+                var actionUrl = 'issue_doInsert.action';
+                jQuery('#issueForm').attr('action',actionUrl);
+                jQuery('#issueForm').submit();
+
+            };
+
+            var cleanOldNewMappingInput = function (blockId) {
+                jQuery('#' + blockId + ' input').each(function () {
+                    this.value = "";
+                });
+            };
+
+            // 页面渲染完毕后给一些按钮动态添加触发事件
+            $(function () {
+                // 自动生成摘要
+                $(".btn-genarate-summary").click(function () {
+                    var text = editor.getContentTxt();
+                    text = text.replace(/\s+/, " ");
+                    if (text.length > 185) {
+                        text = text.substr(0, 185) + "……";
+                    }
+                    $("#issueBO\\[\\'issue\\'\\]\\.summary").val(text);
+                });
+
+                // 匹配相关问题
+                $(".btn-complte-rel").click(function () {
+                    var catLevel3 = $("#catLevel3").val();
+                    var issueId = $("input[name=issueBO\\[\\'issue\\'\\]\\.id]").val();
+                    var siteId = $("input[name=issueBO\\[\\'issue\\'\\]\\.siteId]").val();
+                    if (!catLevel3) {
+                        return;
+                    }
+                    var links = [];
+                    $("#relIssuePanel input[name=link]").each(function (i, o) {
+                        if ($(this).val()) {
+                            links.push($(this).val());
+                        }
+                    });
+                    jQuery.getJSON("/help/issue/issue_complteRel.action", {
+                        "catLevel3": catLevel3,
+                        "issueBO['issue'].id": issueId,
+                        "links": links.join(),
+                        "issueBO['issue'].siteId": siteId
+                    }, function (json) {
+                        if (json && json.issueList) {
+                            var j = 0;
+                            $("#relIssuePanel input[name=title]").each(function (i, o) {
+                                if (json.issueList[j]) {
+                                    $(this).val(json.issueList[j].name);
+                                    var link = "$venderHelpCenterModule.getTarget(
+                                                "/")$!site.enName/issue/" + json.issueList[j].cataId + "-" + json.issueList[j].id + ".html";
+                                    $(this).parents(".form-group").find("input[name=link]").val(link);
+                                    j++;
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+    <!-- 主页面 end -->
+
+</div>
+
+<script type="text/javascript" src="/static/js/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    // 页面哪些属性值的填写规则
+    jQuery(document).ready(function () {
+       jQuery("#issueForm").validate({
+           rules: {
+               "issueBO['issue'].name": {
+                   required: true,
+                   minlength: 2,
+                   maxlength: 80
+               },
+               "catLevel3": {
+                   required: true,
+                   min: 0
+               },
+               "issueBO['issue'].summary": {
+                   required: true,
+                   minlength: 2,
+                   maxlength: 2000
+               },
+               "container":{
+                   required: true,
+               	ueditorContentMaxLength:50000
+               },
+               "issueBO['issue'].issueKeyWord": {
+                   required: true,
+                   minlength: 2,
+                   maxlength: 60
+               },
+               "issueBO['issue'].issueExpireTime": {
+                   required: true
+               },
+               "issueBO['issue'].issueLabelContent":{
+                   required: true
+               },
+               "issueBO['issue'].issueType":{
+                   min: 1
+               }
+           },
+           messages: {
+               "issueBO['issue'].name": {
+                   required: "请输入标题",
+                   minlength: "标题不能少于2个字符",
+                   maxlength: "标题不能多于80个字符"
+               },
+               "catLevel3": {
+                   required: "请选择三级类目",
+                   min: "请选择三级类目"
+               },
+               "issueBO['issue'].summary": {
+                   required: "请输入摘要",
+                   minlength: "摘要不能少于2个字符",
+                   maxlength: "摘要不能多于2000个字符"
+               },
+               "container": {
+                   required: "请输出正文",
+                   minlength: "正文不能少于10个字符"
+               },
+               "issueBO['issue'].issueKeyWord": {
+                   required: "请输出知识关键字",
+                   minlength: "知识关键字不能少于2个字符",
+                   maxlength: "知识关键字不能多于60个字符"
+               },
+               "issueBO['issue'].issueExpireTime": {
+                   required: "请选择知识过期时间"
+               },
+               "issueBO['issue'].issueLabelContent":{
+                   required: "请选择知识标签"
+               },
+               "issueBO['issue'].issueType":{
+                   min: "请选择知识类型"
+               }
+           }
+       });
+
+        jQuery.validator.addMethod("ueditorContentMaxLength", function(value, element, param) {
+        	var length = editor.getContentLength(false);
+            return this.optional(element) || (length <= param);
+           }, "");
+
+    });
+</script>

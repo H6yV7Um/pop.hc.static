@@ -1,0 +1,60 @@
+<div style="background: rgb(223, 224, 228) url('//img10.360buyimg.com/uba/jfs/t2908/111/3662208773/323542/61fb7ede/5796c454N0440586b.png') no-repeat scroll center center;" class="help-banner hide"></div>
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    ## 一个月展示一次banner
+##    try {
+##        jQuery.cookie.raw = true;
+##        if (!jQuery.cookie("_banner_")) {
+##            $(".help-banner").show();
+##            setTimeout(function () {
+##                $(".help-banner").slideUp(1000)
+##            }, 5000)
+##            jQuery.cookie("_banner_", 1, {
+##                expires: 30,
+##                path: "/",
+##                domain: "$venderHelpCenterModule.host"
+##            })
+##        }
+##    } catch (e) {
+##    ## jquery cookie 插件在某些浏览器下读取cookie有问题 需要捕获异常
+##    }
+
+    if(getCookie("_banner_") == ""){
+        $(".help-banner").show();
+        setTimeout(function () {
+            $(".help-banner").slideUp(1000)
+        }, 5000)
+        setCookie("_banner_",1,30,"/","$venderHelpCenterModule.host");
+    }
+
+    function setCookie(name,value,expires,path,domain){
+        var strsec = expires * 24 * 60 *60 * 1000;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + strsec*1)
+        var cookieStr = name + "=" + value + ";" + "expires" + "=" + exp.toUTCString() + ";" + "path" + "=" + path + ";" + "domain" + "=" + domain ;
+        document.cookie = cookieStr;
+    }
+
+    function getCookie(name){
+        var result = "";
+        var cookies = document.cookie;
+        var cookieList = cookies.split(";");
+        for(var index in cookieList){
+            var cookie = cookieList[index];
+            var temps = cookie.split("=");
+            var t_name = temps[0];
+            var t_value = temps[1];
+            var trimT_Name = trim(t_name);
+            var trimName = trim(name);
+            if(trimT_Name == trimName){
+                result = t_value;
+            }
+        }
+        return result;
+    }
+
+    function trim(str){ //删除左右两端的空格
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
+</script>

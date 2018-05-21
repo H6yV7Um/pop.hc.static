@@ -1,0 +1,329 @@
+#set($layout="admin/default.vm")
+#set($title="问题列表")
+<script type="text/javascript" src="/static/js/DatePicker/WdatePicker.js"></script>
+<div class="container-fluid">
+    #showError()
+##    功能按钮
+    <div class="row">
+        <p class="pull-right">
+            <a href="/help/catalog/catalog_findAll.action?catalog.siteId=$!site.id" role="button" class="btn btn-success">类目管理</a>
+            <a href="issue_insert.action?site.id=$!site.id" role="button" target="_blank" class="btn btn-success">新增文章</a>
+        </p>
+    </div>
+
+##    表头
+    <div class="row well">
+        <form id="issueForm" class="form-inline" role="form" method="post" action="issue_list.action">
+            <input id="siteId" type="hidden" name="site.id" value="$!site.id">
+			<p>
+                ID：
+                <input type="text" class="form-control" id="checkId" value="$!issueBO.issue.id" name="issueBO['issue'].id"
+                       placeholder="请输入知识id">
+                <span id="wrongId" class="frm_msg fail newName" style="display: none; overflow: hidden; *zoom: 1">请输入正确的id</span>
+				<div class="form-group">
+	                <label class="sr-only" for="">选择目录</label>
+	                #set($cataId = $!catLevel3)
+	                #if(!$!cataId || $cataId ==  -1)
+	                    #set($cataId = $!catLevel2)
+	                #end
+	                #if(!$!cataId || $cataId ==  -1)
+	                    #set($cataId = $!catLevel1)
+	                #end
+	                #if(!$!cataId || $cataId ==  -1)
+	                    #set($cataId = $null)
+	                #end
+	                #catalogSelector($!site.id $cataId)
+	            </div>
+	            <div class="form-group">
+	                <input type="text" class="form-control" value="$!issueBO.issue.name" name="issueBO['issue'].name"
+	                       placeholder="文章标题">
+	            </div>
+	            <div class="form-group">
+                    文章状态：<select name="issueBO['issue'].status" class="form-control">
+	                    <option value="1" #if($!issueBO.issue.status == 1) selected #end>已发布</option>
+                        <option value="0" #if($!issueBO.issue.status == 0) selected #end>已保存</option>
+	                </select>
+	            </div>
+			</p>
+##			<p>
+##            	<div class="form-group">
+##            		<select class="form-control" name="issueBO['issue'].orderType">
+##					  <option value="-100">--订单类型--</option>
+##					  #foreach($ot in $!orderTypes)
+##					  		<option value="$ot.getCode()" #if($ot.getCode() == $!issueBO.issue.orderType) selected #end>$ot.getName()</option>
+##						#end
+##					</select>
+##
+##					<select class="form-control"  name="issueBO['issue'].orderStatus">
+##					  <option value="-100">--订单状态--</option>
+##					  #foreach($ors in $!orderStatuses)
+##					  		<option value="$ors.getCode()" #if($ors.getCode() == $!issueBO.issue.orderStatus) selected #end>$ors.getName()</option>
+##						#end
+##					</select>
+##
+##					<select class="form-control"  name="issueBO['issue'].orderShipment">
+##					  <option value="-100">--配送方式--</option>
+##					  #foreach($os in $!orderShipments)
+##					  		<option value="$os.getCode()" #if($os.getCode() == $!issueBO.issue.orderShipment) selected #end>$os.getName()</option>
+##						#end
+##					</select>
+##
+##					<select class="form-control"  name="issueBO['issue'].orderPay">
+##					  <option value="-100">--支付方式--</option>
+##					  #foreach($op in $!orderPays)
+##					  		<option value="$op.getCode()" #if($op.getCode() == $!issueBO.issue.orderPay) selected #end>$op.getName()</option>
+##						#end
+##					</select>
+##            	</div>
+##            </p>
+
+            <p>
+            <div class="form-group">
+                业务对接人：
+                <input type="text" class="form-control" value="$!issueBO.issue.issueSolvePin" name="issueBO['issue'].issueSolvePin"
+                   placeholder="请输入业务对接人">
+                知识类型：
+                <select name="issueBO['issue'].issueType" class="form-control" style="width: 180px;">
+                    <option value="-1">-全部-</option>
+                    #foreach( $issueType in $issueTypeList)
+                        <option value="$!{issueType.id}" #if($!issueBO.issue.issueType == $!{issueType.id}) selected="selected" #end>$!{issueType.name}</option>
+                    #end
+                </select>
+                作者：
+                <input type="text" class="form-control" value="$!issueBO.issue.creator" name="issueBO['issue'].creator"
+                       placeholder="请输入作者">
+            </div>
+            </p>
+            <p>
+            <div class="form-group">
+                文章创建时间：
+                <input type="text" id="issueBeginTime" name="issueBO['issueDateQuery'].issueBeginTime" class="form-control Wdate"
+                       value="$!dateUtil.formatDate($!issueBO.issueDateQuery.issueBeginTime)"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                       style="width:100px;"/>
+                <label>至</label>
+                <input type="text" id="issueEndTime" name="issueBO['issueDateQuery'].issueEndTime" class="form-control Wdate"
+                       value="$!dateUtil.formatDate($!issueBO.issueDateQuery.issueEndTime)"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                       style="width:100px;"/>
+
+                解决按钮触发时间：
+                <input type="text" id="suggestBeginTime" name="issueBO['issueDateQuery'].suggestBeginTime" class="form-control Wdate"
+                       value="$!dateUtil.formatDate($!issueBO.issueDateQuery.suggestBeginTime)"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                       style="width:100px;"/>
+                <label>至</label>
+                <input type="text" id="suggestEndTime" name="issueBO['issueDateQuery'].suggestEndTime" class="form-control Wdate"
+                       value="$!dateUtil.formatDate($!issueBO.issueDateQuery.suggestEndTime)"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+                       style="width:100px;"/>
+            </div>
+            <div style="margin-top: 10px;">
+                <button id="search" type="button" class="btn btn-primary">搜 索</button>
+                <input id="exportExcel" type="button" class="btn btn-primary" value="解决情况数据导出"/>
+                <input id="exportExcel2" type="button" class="btn btn-primary" value="未解决原因明细导出"/>
+            </div>
+            <div><h4 style="color: red">注意：导出尽量选择时间段</h4></div>
+            </p>
+        </form>
+    </div>
+
+##    列表
+
+    <div class="row table-responsive m_t_10">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>文章标题</th>
+                <th>状态</th>
+                <th>知识类型</th>
+                <th>作者</th>
+                <th>业务对接人</th>
+                <th>创建时间</th>
+                <th>最后修改时间</th>
+                <th>知识到期时间</th>
+                <th>操作</th>
+                <th>未解决条数</th>
+                <th>已解决条数</th>
+            </tr>
+            </thead>
+            <tbody>
+                #if($!issueList && $!issueList.size() > 0)
+                    #set($count = 0)
+                    #foreach($issue in $issueList)
+                    <tr>
+                        <td>$!issue.id</td>
+                        <td><a href="$venderHelpCenterModule.getTarget(
+                            "/")$!site.enName/issue/$!{issue.cataId}-$!{issue.id}.html"
+                               target="_blank">$!issue.name</a></td>
+                        <td>#issueStatus($!issue.status)</td>
+##                        <td>
+##                            #if ($!issue.orderStatus || $!issue.getOrderPay || $!issue.getOrderShipment || $!issue.getOrderType)
+##                                <span class="label label-success">是</span>
+##                            #else
+##                                <span class="label label-default">否</span>
+##                            #end
+##                        </td>
+                        <td>#issueType($!issue.issueType)</td>
+                        <td>$!issue.creator</td>
+                        <td>$!issue.issueSolvePin</td>
+                        <td>$!dateFormatUtils.format($!issue.created)</td>
+                        <td>$!dateFormatUtils.format($!issue.modified)</td>
+                        <td><span #if($!issue.issueExpireTime.getTime() - $!currentTime > 0 &&
+                            $!issue.issueExpireTime.getTime() - $!currentTime < 2592000000 ) style="color: #FF0000"  #end>$!dateFormatUtils.format($!issue.issueExpireTime)</span></td>
+                        <td>
+                            <a href="$!helpAdminModule.getTarget(
+                                "/help/issue/issue_update.action?issueBO['issue'].siteId=$!issue.siteId&issueBO['issue'].id=$!issue.id")"
+                               class="btn btn-sm btn-default" role="button" target="_blank">修改</a>
+##                            <a href="$!helpAdminModule.getTarget(
+##                                "/help/issue/issue_orderStatus.action?issueBO['issue'].siteId=$!issue.siteId&issueBO['issue'].id=$!issue.id")"
+##                               class="btn btn-sm btn-default" role="button">修改订单状态</a>
+                            #if($!issue.status == 0) ## 已保存
+                                <a href="javascript:void(0)" class="btn btn-sm btn-danger btn-update-status"
+                                   role="button" data-status="-1"
+                                   data-id="$!issue.id">删除</a>
+                            #elseif($!issue.status == 1) ## 已发布
+                                <a href="javascript:void(0)" class="btn btn-sm btn-warning btn-update-status"
+                                   role="button" data-status="0"
+                                   data-id="$!issue.id">下线</a>
+                            #end
+                        </td>
+                        <td>$!unSolveCount.get($count)
+                            #if($!unSolveCount.get($count) >0)
+                                <a id="$!issue.id" onclick="suggestDetail($!issue.id)" style="float: right"  href="javascript:void(0)"
+                                   target="_blank"  class="btn btn-sm btn-default" role="button">明细</a>
+                            #end
+                        </td>
+                        <td>$!solveCount.get($count)</td>
+                    </tr>
+                        #set($count = $count+1)
+                    #end
+                #else
+                <tr>
+                    <td colspan="9" class="text-center">
+                        <span>没有找到相关文章, 你可以 <a href="issue_insert.action?site.id=$!site.id" role="button"
+                                               class="btn btn-success btn-sm">新增文章</a></span>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="12">
+                    #set($pageUrl = $!helpAdminModule.getTarget("/help/issue/issue_list.action").addQueryData(
+                        "site.id", $!site.id))
+                    #showPage($!pageUrl $!issueList)
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+## 提示框
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <a href="" role="button" class="btn btn-primary btn-do-update-status"></a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $(function () {
+        $(".btn-update-status").click(function () {
+            var status = $(this).data("status");
+            var id = $(this).data("id");
+            if (status == "-1") {
+                $("#modal").find(".modal-title").html("删除问题").end()
+                        .find(".modal-body").html("<p>你确定将此问题删除？</p><p>删除后将看不到此问题，不能再进行管理！</p>").end()
+                        .find(".btn-do-update-status").attr("href", "$!helpAdminModule.getTarget(
+                            "/help/issue/issue_updateStatus.action")?site.id=$!site.id&issueBO['issue'].status=" + status + "&issueBO['issue'].id=" + id).text("确定").end()
+                        .modal("show");
+            } else if (status == "0") {
+                $("#modal").find(".modal-title").html("下线问题").end()
+                        .find(".modal-body").html("<p>你确定将此问题下线？</p><p>下线后前台访问此问题将出现404！</p>").end()
+                        .find(".btn-do-update-status").attr("href", "$!helpAdminModule.getTarget(
+                            "/help/issue/issue_updateStatus.action")?site.id=$!site.id&issueBO['issue'].status=" + status + "&issueBO['issue'].id=" + id).text("确定").end()
+                        .modal("show");
+            }
+        });
+
+        $(".btn-update-status").click(function () {
+            var issueId = $(this).data("id");
+
+        });
+
+        $("#exportExcel").click(function (){
+            if($("#issueBeginTime").val()=="" || $("#issueEndTime").val() == ""){
+                alert("请选择文章创建时间区间");
+                return false;
+            } else {
+                var siteId = $("#siteId").val();
+                if(siteId == null) {
+                    siteId = 8
+                }
+                $("#issueForm").attr("action","issue_downLoad.action?siteId=" + siteId);
+                $("#issueForm").submit();
+            }
+        });
+
+        $("#exportExcel2").click(function (){
+            if($("#issueBeginTime").val()=="" || $("#issueEndTime").val() == ""){
+                alert("请选择文章创建时间区间");
+                return false;
+            } else {
+                var siteId = $("#siteId").val();
+                if(siteId == null) {
+                    siteId = 8
+                }
+                $("#issueForm").attr("action","issue_downLoad2.action?siteId=" + siteId);
+                $("#issueForm").submit();
+            }
+        });
+
+
+        $("#search").click(function () {
+            var siteId = $("#siteId").val();
+            if(siteId == null) {
+                siteId = 8
+            }
+            var checkIdDocument = $("#checkId");
+            var checkId = checkIdDocument.val();
+            if (checkId.trim() != '') {
+                var reg = /^\+?[1-9][0-9]*$/;
+                if (!reg.test(checkId.trim())){
+                    var wrongSpan = document.getElementById("wrongId");
+                    wrongSpan.style.cssText="color: #e15f63; overflow: hidden; *zoom: 1";
+                    return;
+                }
+            }
+            $("#issueForm").attr("action","issue_list.action?siteId=" + siteId);
+            $("#issueForm").submit();
+        });
+
+
+//        明细单击按钮
+        suggestDetail = function (issueId) {
+            var beginTime = $("#suggestBeginTime").val();
+            var endTime = $("#suggestEndTime").val();
+            var url = "$!helpAdminModule.getTarget("/help/issueSuggest/issueSuggest_unsolvedDetail.action?issueId=")";
+            var newUrl = url+issueId+"&beginTime="+beginTime+"&endTime="+endTime;
+            $("#"+issueId).attr("href",newUrl)
+        }
+    });
+
+</script>

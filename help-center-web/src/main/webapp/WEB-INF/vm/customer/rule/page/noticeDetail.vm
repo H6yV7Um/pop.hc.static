@@ -1,0 +1,201 @@
+#set($layout="empty.vm")
+<!DOCTYPE html>
+<html class="root61">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title></title>
+
+    <link type="text/css" rel="stylesheet"
+          href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,myjd/2.0.0/myjd.css"/>
+    <script type="text/javascript">window.pageConfig = {compatible: true}</script>
+    <script>var pageConfig = {jdfVersion: '2.0.0'};</script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/shop/pop_rulers/css/pop_rulers.css"
+          source="widget"/>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+<!--/ /widget/header/header.vm -->
+<div class="l-wrap">
+    <div class="l-main">
+
+        <!--  /widget/crumb/crumb.vm -->
+
+        <div class="breadcrumb">
+            <a href="/rule/index.action">首页</a>
+
+            &nbsp;&gt;&nbsp;
+            <span class="i-txt">最新公告</span>
+
+        </div>
+        <!--/ /widget/crumb/crumb.vm -->
+
+        <div class="l-menu-wrap">
+            <div class="l-menu-box">
+                <ul class="sub-menu-list">
+                    #foreach($notice in $!notices)
+                        #if($notice.id==${entity.id})
+                            <li class="menu-item menu-item-current"><a href="" class="link-dlk">$notice.noticeTitle<i class="menu-icon-tria"></i></a></li>
+                        #else
+                            <li class="menu-item"><a href="/rule/noticeDetail.action?entity.id=$notice.id" class="link-dlk">$notice.noticeTitle<i class="menu-icon-tria"></i></a></li>
+                        #end
+                    #end
+                </ul>
+            </div>
+        </div>
+        <div class="l-content">
+            <div class="o-mt">
+                <h2 class="h-title">$!{entity.noticeTitle}</h2>
+            </div>
+            #*<div class="re-num-box">共更新5条</div>
+            <table width="100%" class="b-table-box">
+                <thead>
+                <tr>
+                    <th width="100">序号</th>
+                    <th width="175">规则名</th>
+                    <th width="175">变更前内容</th>
+                    <th width="175">变更后内容</th>
+                    <th width="175">规则链接</th>
+                    <th>生效时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>参加618大促的申请条件</td>
+                    <td>
+                        <p class="h-words txt-gray">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <p class="h-words">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <div class="re-rules-link">
+                            <a href="">618大促参加条件</a>
+                            <br>
+                            <a href="">618大促参加条件</a>
+                        </div>
+                    </td>
+                    <td>20160602</td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>参加618大促的申请条件</td>
+                    <td>
+                        <p class="h-words txt-gray">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <p class="h-words">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <div class="re-rules-link">
+                            <a href="">618大促参加条件</a>
+                            <br>
+                            <a href="">618大促参加条件</a>
+                        </div>
+                    </td>
+                    <td>20160602</td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>参加618大促的申请条件</td>
+                    <td>
+                        <p class="h-words txt-gray">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <p class="h-words">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <div class="re-rules-link">
+                            <a href="">618大促参加条件</a>
+                            <br>
+                            <a href="">618大促参加条件</a>
+                        </div>
+                    </td>
+                    <td>20160602</td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td>参加618大促的申请条件</td>
+                    <td>
+                        <p class="h-words txt-gray">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <p class="h-words">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <div class="re-rules-link">
+                            <a href="">618大促参加条件</a>
+                            <br>
+                            <a href="">618大促参加条件</a>
+                        </div>
+                    </td>
+                    <td>20160602</td>
+                </tr>
+                <tr>
+                    <td>05</td>
+                    <td>参加618大促的申请条件</td>
+                    <td>
+                        <p class="h-words txt-gray">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <p class="h-words">
+                            佣金仍按照2015年4月1日发布的《2015京东开放平台经营类目资费一览表》中的费率标准收取
+                        </p>
+                    </td>
+                    <td>
+                        <div class="re-rules-link">
+                            <a href="">618大促参加条件</a>
+                            <br>
+                            <a href="">618大促参加条件</a>
+                        </div>
+                    </td>
+                    <td>20160602</td>
+                </tr>
+                </tbody>
+            </table>*#
+            $!{entity.noticeContent}
+        </div>
+    </div>
+
+    <!--  /widget/h-footer/h-footer.vm -->
+    <div class="l-footer">
+        <div class="l-footer-box">
+            <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+            <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+        </div>
+    </div>
+
+    <!--/ /widget/h-footer/h-footer.vm -->
+</div>
+
+<script type="text/javascript">
+    seajs.use('jdf/1.0.0/unit/globalInit/2.0.0/globalInit.js',function(globalInit){
+        globalInit();
+    });
+</script>
+<script type="text/javascript" src="//static.360buyimg.com/shop/pop_rulers/js/rules.js" source="widget"></script>
+</body>
+</html>

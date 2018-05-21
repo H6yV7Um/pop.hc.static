@@ -1,0 +1,191 @@
+#set($layout="customer/user/hasLeft.vm") #set($navId="question")
+#set($left="WEB-INF/vm/customer/user/common/issueLeft.vm")
+#set($thick="WEB-INF/vm/customer/user/issue/thick.vm")
+<style>
+    .wt-btn{
+        display:inline-block;
+        margin:0 5px;
+        width:104px;
+        height:34px;
+        line-height:34px;
+        border:1px solid #999;
+        border-radius:2px
+    }
+    .a{
+        color: red;
+    }
+</style>
+<div class="a">
+    <span id="sLevel1"></span>
+    >
+    <a href="$!venderHelpCenterModule.getTarget("/$!siteEnName/issue/list-$!{catalog.pid}.html")"><span
+            id="sLevel2"></span></a>
+
+    > <a href="$!venderHelpCenterModule.getTarget(
+    "/$!siteEnName/issue/list-$!{catalog.pid}-$!{catalog.id}.html")">$!catalog.name</a>
+
+</div>
+
+
+<div class="contxt">
+    <div class="help-tit1 flk06">$!issueBO.issue.name</div>
+    $!issueBO.issueAnswer.answer
+</div>
+<div class="wt-footer" style="margin-top: 50px; display: none;" id="wt-footer">
+    <p class="wtf-tit">这条帮助是否解决了您的问题？</p>
+    <p class="wtf-num">已有 <span id="sg_allNum">$!allNum</span> 人参与投票</p>
+    <input type="hidden" id="issue_id" value="$!issueBO.issue.id">
+    <input type="hidden" id="issue_suggest_id" value="$!issueSuggestVO.id">
+    <input type="hidden" id="userPin" value="$!userPin">
+    #*#if($!issueSuggestVO && $!{issueSuggestVO.id}>0)
+        #if($!issueSuggestVO.solveStatus == 1)
+            <div class="wt-txt"><i class="i-solved"></i>已解决<span class="thanks">谢谢您的参与！</span></div>
+        #elseif($!issueSuggestVO.solveStatus == 0 && $!issueSuggestVO.suggestStatus == 1)
+            <div class="wt-txt"><i class="i-unsolve"></i>未解决<span class="thanks">谢谢您的参与！</span></div>
+        #else
+            <div id="wt_div_unsolve" class="wt-txt"><i class="i-unsolve"></i>未解决<a href="javascript:;" class="a-blue" id="wt-unsolve">我要说说意见</a></div>
+        #end
+    #else
+        <div id="wt_suggest" class="wt-btns">
+            <a id="sg_solved" href="javascript:void(0);" class="wt-btn" data-value="1" style="border: 1px solid #AAA;"><i class="i-solved"></i>已解决</a>
+            <a id="sg_unsolve" href="javascript:;" class="wt-btn" data-value="0" style="border: 1px solid #AAA;"><i class="i-unsolve"></i>未解决</a>
+        </div>
+        <div id="wt_div_solved" class="wt-txt" style="display: none;"><i class="i-solved"></i>已解决<span class="thanks">谢谢您的参与！</span></div>
+        <div id="wt_div_unsolve" class="wt-txt" style="display: none;"><i class="i-unsolve"></i>未解决<a href="javascript:;" class="a-blue" id="wt-unsolve">我要说说意见</a></div>
+    #end*#
+</div>
+#if($!issueBO.issueRelList.size() >= 1)
+<div class="conbox">
+    <h3 class="help-tit2 flk06"><strong><a href="#">猜你感兴趣的问题</a></strong></h3>
+    <ul class="help_list">
+        #foreach($rel in $!issueBO.issueRelList)
+            <li>
+                <a target="_blank" href="$rel.relIssueLink">
+                    <b>·</b>
+                    $rel.relIssueTitle
+                </a>
+            </li>
+        #end
+    </ul>
+</div>
+#end
+
+## 广告位
+<script type="text/javascript">
+    jd_ad_client = 585;// 广告位Id
+    jd_ad_width = 990; //广告位宽度
+    jd_ad_height = 150; //广告位高度
+    jd_ad_type = 8;
+    jd_ad_spread = 1;
+    jd_ad_num = 1;
+</script>
+<script type="text/javascript" src="//static.360buyimg.com/jzt/temp/ssp.js"></script>
+
+
+<script>
+    $(function () {
+        var issue_id = jQuery("#issue_id").val();
+        var allNum = 0;
+        jQuery.ajax({
+            url:"/issue/findSuggestDetail.action",
+            data:{
+                "issue.id":issue_id
+            },
+            sync:false,
+            cache:false,
+            dataType:"json",
+            type:"post",
+            success:function(result){
+                var html = "";
+                allNum = result.allNum;
+                jQuery("#sg_allNum").text(allNum);
+                if(result.issueSuggest && result.issueSuggest.id>0){
+                    if (result.issueSuggest.solveStatus == 1) {
+                        html = '<div class="wt-txt"><i class="i-solved"></i>已解决<span class="thanks">谢谢您的参与！</span></div>';
+                    } else if (result.issueSuggest.solveStatus==0 && result.issueSuggest.suggestStatus==1) {
+                        html = '<div class="wt-txt"><i class="i-unsolve"></i>未解决<span class="thanks">谢谢您的参与！</span></div>';
+                    } else {
+                        html = '<div id="wt_div_unsolve" class="wt-txt"><i class="i-unsolve"></i>未解决<a href="javascript:;" class="a-blue" id="wt-unsolve">我要说说意见</a></div>';
+                    }
+                }else{
+                    html = '<div id="wt_suggest" class="wt-btns">'+
+                            '<a id="sg_solved" href="javascript:void(0);" class="wt-btn" data-value="1" style="border: 1px solid #AAA;"><i class="i-solved"></i>已解决</a>'+
+                            '<a id="sg_unsolve" href="javascript:;" class="wt-btn" data-value="0" style="border: 1px solid #AAA;"><i class="i-unsolve"></i>未解决</a>'+
+                            '</div>'+
+                            '<div id="wt_div_solved" class="wt-txt" style="display: none;"><i class="i-solved"></i>已解决<span class="thanks">谢谢您的参与！</span></div>'+
+                    '<div id="wt_div_unsolve" class="wt-txt" style="display: none;"><i class="i-unsolve"></i>未解决<a href="javascript:;" class="a-blue" id="wt-unsolve">我要说说意见</a></div>';
+                }
+                jQuery("#userPin").after(html);
+                if(!jQuery("#userPin").val()){
+                    jQuery("#userPin").val(result.userPin)
+                }
+                jQuery("#wt-footer").show();
+            },
+            error:function(){
+                jQuery("#wt-footer").hide();
+            }
+        });
+        var catItem = $(".list-item[data-id=$!catalog.pid]");
+        catItem.parents(".subside-mod").addClass("on");
+        catItem.addClass("current");
+        $('#sLevel2').html(catItem.attr('data-name'));
+        $('#sLevel1').html(catItem.attr('data-parent-name'));
+
+        /*投票*/
+        jQuery("#sg_solved,#sg_unsolve").live("click",function(){
+            if(!jQuery("#userPin").val()){
+                alert("请登录后再进行操作");
+                return;
+            }
+            var div_id = '';
+            var issue_suggest_id = jQuery("#issue_suggest_id").val();
+            var dataValue = $(this).attr("data-value");
+            if(dataValue == 1){
+                div_id = 'wt_div_solved';
+            }else{
+                div_id = 'wt_div_unsolve';
+            }
+            jQuery.ajax({
+                url:"/issueSuggest/doInsert.action",
+                data:{
+                    "issueSuggest.issueId":issue_id,
+                    "issueSuggest.solveStatus":dataValue
+                },
+                sync:false,
+                cache:false,
+                dataType:"json",
+                type:"post",
+                success:function(result){
+                    if(result.isSuccess){
+                        jQuery("#"+div_id).show();
+                        jQuery("#wt_suggest").remove();
+                        jQuery(".wtf-num #sg_allNum").text(allNum+1)
+                        if(dataValue != 1){
+                            jQuery("#wt-unsolve").click();
+                        }
+                    }else{
+                        alert("投票失败")
+                    }
+                },
+                error:function(){
+                    alert("网络异常，请稍后重试")
+                }
+            });
+        });
+
+        seajs.use('jdf/2.0.0/ui/dialog/1.0.0/dialog', function(dialog){
+            jQuery('#wt-unsolve').live('click',function(){
+                jQuery.ui.dialog({
+                    title:null,
+                    width:430,
+                    height: 350,
+                    type:'iframe',
+                    iframeScroll:'auto',
+                    source:'$!{issueBO.issue.cataId}-thick-$!{issueBO.issue.Id}.html',
+                    isAutoIframe: false
+                });
+            });
+        });
+
+    })
+</script>

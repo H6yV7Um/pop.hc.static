@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HotIssue">
+    <typeAlias alias="HotIssue" type="com.jd.help.domain.HotIssue"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="HotIssue">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="link" column="link"/>
+        <result property="issueId" column="issue_id"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , name , link , issue_id , sort_order , created , modified </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                name = #name#
+            </isNotNull>
+            <isNotNull property="link" prepend="AND" removeFirstPrepend="true">
+                link = #link#
+            </isNotNull>
+            <isNotNull property="issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #issueId#
+            </isNotNull>
+            <isNotNull property="sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #sortOrder#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.name" prepend="AND" removeFirstPrepend="true">
+                name = #model.name#
+            </isNotNull>
+            <isNotNull property="model.link" prepend="AND" removeFirstPrepend="true">
+                link = #model.link#
+            </isNotNull>
+            <isNotNull property="model.issueId" prepend="AND" removeFirstPrepend="true">
+                issue_id = #model.issueId#
+            </isNotNull>
+            <isNotNull property="model.sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #model.sortOrder#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="HotIssue">
+        INSERT INTO help_hot_issue (<include refid="allColumns"/>)
+        VALUES (null , #name# , #link# , #issueId# , #sortOrder# , #created# , #modified# )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="HotIssue">
+        UPDATE help_hot_issue
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="HotIssue">
+		UPDATE help_hot_issue
+		SET
+            id = #id# , 
+            name = #name# , 
+            link = #link# , 
+            issue_id = #issueId# , 
+            sort_order = #sortOrder# , 
+            created = #created# , 
+            modified = #modified# 
+        WHERE
+            id = #id#
+	</update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="HotIssue" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_hot_issue
+        WHERE
+        id = #id#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="HotIssue">
+        SELECT count(id)
+        FROM
+        help_hot_issue
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_hot_issue
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        ORDER BY id DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+</sqlMap>

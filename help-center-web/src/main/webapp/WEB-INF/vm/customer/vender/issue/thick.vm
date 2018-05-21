@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="GBK" />
+    <script>var pageConfig = {jdfVersion:'2.0.0'};</script>
+    <title>Document</title>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/??lib/jquery-1.6.4.js,1.0.0/unit/base/1.0.0/base.js"></script>
+    <link type="text/css" rel="stylesheet"  href="//static.360buyimg.com/shop/pop_help/css/help.css" source="widget"/>
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/bus/web2017/bwb3.0/web/dist/wap.min.css">
+    <style type="text/css">
+        .fe-text::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+        .fe-text{
+            border: 1px solid #ff0000;
+            border-radius: 2px;
+        }
+        .fe-text{
+        }
+        .sg-textarea{
+            border: 1px solid #ff0000;
+            height: 84px;
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 358px;
+        }
+        .error-tip{
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    #set($layout="customer/vender/empty.vm")
+<div class="thick-wrap">
+
+    <h3 class="wthick-title"><i class="wbi-shibai wbi-s wbi-red"></i>未解决，请提出您宝贵的意见</h3>
+    <div class="wthick-cont">
+        <form id="suggestForm" action="$venderHelpCenterModule.getTarget("/issueSuggest/doUpdate.action")" method="post" onsubmit="return false;">
+            <input type="hidden" name="siteEnName" value="$!siteEnName">
+            <input type="hidden" name="issue.cataId" value="$!{issue.cataId}">
+            <input type="hidden" name="issue.id" value="$!{issue.id}">
+            <p class="wthick-label">您觉得未解决的原因:</p>
+            <div class="reason-box">
+                <div id="h_reason" class="h-reason">
+                    <input id="unSolveReason" name="issueSuggest.unSolveReason" type="text" class="rb-input" placeholder="请选择原因">
+                    <button class="btn-reason"><i class="arrow-down"></i></button>
+                </div>
+                <div class="dropdown">
+                    <ul class="dropdown-list">
+                        <li class="item-drop">文章篇幅太长，找不到需要的信息</li>
+                        <li class="item-drop">文章内容写得太晦涩，看不懂</li>
+                        <li class="item-drop">文章写得太粗糙简单，还是不知道该怎么解决问题</li>
+                        <li class="item-drop">该文章标题与内容不符</li>
+                        <li class="item-drop">文章内容或图片与现行规则、系统不符</li>
+                    </ul>
+                </div>
+            </div>
+            <textarea id="suggestContent" name="issueSuggest.suggestContent" class="wt-textarea" placeholder="请填写您觉得未解决的原因，谢谢~"></textarea>
+            <font style="color:red; display: none;" id="errMsg">不能超过200字</font>
+            <div class="btn-cent">
+                <input type="submit" class="btn-submit" value="提交"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript">
+         jQuery(document).ready(function(){
+             var maxLength = 200;
+             jQuery("#unSolveReason").bind("blur",function(){
+                 if(!$(this).val()){
+                     $(this).parents("#h_reason").attr("class","fe-text");
+                      //$(this).addClass("error-tip");
+                 }else{
+                     $(this).parents("#h_reason").attr("class","h-reason");
+                   //  $(this).removeClass("error-tip");
+                 }
+             });
+
+             jQuery("#suggestContent").bind("blur",function(){
+                 if($(this).val() && $(this).val().length>maxLength){
+                     $(this).attr("class","sg-textarea");
+                    // $(this).addClass("error-tip");
+                     $("#errMsg").show();
+                 }else{
+                     $(this).attr("class","wt-textarea");
+                    // $(this).removeClass("error-tip");
+                     $("#errMsg").hide();
+                 }
+             });
+
+             jQuery(".btn-submit").click(function(){
+                 var success = true;
+                 var unSolveReason = jQuery("#unSolveReason");
+                 var suggestContent = jQuery("#suggestContent");
+                 unSolveReason.parents("#h_reason").attr("class","h-reason");
+                 suggestContent.attr("class","wt-textarea");
+                 //jQuery("#suggestForm .error-tip").removeClass("error-tip");
+                 if(!unSolveReason.val()){
+                     unSolveReason.parents("#h_reason").attr("class","fe-text");
+                     //unSolveReason.addClass("error-tip");
+                    success = false;
+                 }
+                 if(suggestContent.val() && suggestContent.val().length > maxLength){
+                     suggestContent.attr("class","sg-textarea");
+                     //suggestContent.addClass("error-tip");
+                     $("#errMsg").show();
+                     success = false;
+                 }
+                 if(!success){
+                     return;
+                 }
+
+                 jQuery.ajax({
+                     url:"$venderHelpCenterModule.getTarget("/issueSuggest/doUpdate.action")",
+                     data:jQuery("#suggestForm").serialize(),
+                     sync:false,
+                     cache:false,
+                     dataType:"json",
+                     type:"post",
+                     success:function(result){
+                         if(result.isSuccess){
+                             $('<div class="wt-txt"><i class="wbi-shibai wbi-s wbi-red"></i><span class="thanks">未解决，谢谢您的参与！</span></div>').insertBefore($("#wt_div_unsolve",parent.document));
+                             parent.$("#wt_div_unsolve").show();
+                             parent.$("#suggestDiv").hide();
+                             parent.$(".ui-dialog", parent.document).hide();
+                             alert("保存成功");
+                             parent.$(".ui-dialog-close", parent.document).click();
+                         }else{
+                             alert("网络超时，请稍后再试");
+                         }
+                     },
+                     error:function(){
+                        alert("网络超时，请稍后再试");
+                     }
+                 });
+                 //jQuery("#suggestForm").attr("onsubmit","").submit();
+
+             });
+
+             jQuery(".btn-reason").click(function () {
+                 if(jQuery(this).find('.arrow-up').attr("class")=="arrow-up"){
+                     jQuery(this).find('.arrow-up').attr("class","arrow-down");
+                     jQuery(".dropdown").hide();
+                     jQuery(".reason-box").removeClass('hover');
+                     return;
+                 }
+                 jQuery(this).find('.arrow-down').attr("class","arrow-up");
+                 jQuery(".dropdown").show();
+                 jQuery(".reason-box").addClass('hover');
+             });
+             jQuery(".item-drop").click(function() {
+                 jQuery(".btn-reason").find('.arrow-up').attr("class","arrow-down");
+                 jQuery(".dropdown").hide();
+                 jQuery(".rb-input").val($(this).html());
+                 jQuery(".reason-box").removeClass('hover');
+             });
+         });
+</script>
+</body>
+</html>

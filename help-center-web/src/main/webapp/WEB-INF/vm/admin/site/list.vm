@@ -1,0 +1,145 @@
+#set($layout="admin/default.vm")
+#set($title="站点列表")
+<div class="container-fluid">
+    <div class="row">
+        <p class="pull-right">
+            <a class="btn btn-success" href="$!helpAdminModule.getTarget("/help/site/site_insert.action")"
+               role="button">新增站点</a>
+        </p>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th>名称</th>
+                <th>英文名称</th>
+                <th>是否默认站点</th>
+                <th>状态</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+            #if(!$!sites.empty())
+                #foreach($site in $!sites)
+                    <tr>
+                        <td>
+                            #if($!site.getStatus()==1)
+                                <a target="_blank" href="$venderHelpCenterModule.getTarget(
+                                    "/")$!site.enName/index.html">$!stringEscapeUtils.escapeHtml($!site.getName())</a>
+                            #elseif($!site.getStatus()==0)
+                                $!stringEscapeUtils.escapeHtml($!site.getName())
+                            #end
+                        </td>
+                        <td>$!site.enName</td>
+                        <td>
+                            #if($!site.getDefaultSite()==1)
+                                <span class="label label-success">是</span>
+                            #elseif($!site.getDefaultSite()==0)
+                                <span class="label label-default">否</span>
+                            #end
+                        </td>
+                        <td>
+                            #if($!site.getStatus()==1)
+                                <span class="label label-success">启用</span>
+                            #elseif($!site.getStatus()==0)
+                                <span class="label label-default">停用</span>
+                            #end
+                        </td>
+                        <td>$!stringEscapeUtils.escapeHtml($!site.getNotes())</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning"
+                               href="$!helpAdminModule.getTarget("/help/site/site_update.action").addQueryData(
+                                   "site.id",$!site.getId())">修改</a>
+                            <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#alertModel"
+                               onclick="delAlert($!site.getId())">删除</a>
+                            <a class="btn btn-sm btn-default" href="$!helpAdminModule.getTarget(
+                                "/help/catalog/catalog_findAll.action").addQueryData(
+                                "catalog.siteId",$!site.getId())">管理类目</a>
+                            <a class="btn btn-sm btn-default" href="$!helpAdminModule.getTarget(
+                                "/help/issue/issue_list.action").addQueryData("site.id",$!site.getId())">管理文章</a>
+                            <a class="btn btn-sm btn-default" href="$!helpAdminModule.getTarget(
+                                "/help/htmlmodule/htmlmodule_list.action").addQueryData("site.id",$!site.getId())">管理页面模块</a>
+                            <a class="btn btn-sm btn-default" href="$!helpAdminModule.getTarget(
+                                "/help/notice/notice_list.action").addQueryData("site.id",$!site.getId())">管理公告</a>
+                            #if($!site.getId()==8)
+                                <a class="btn btn-sm btn-default" href="$!helpAdminModule.getTarget(
+                                    "/help/keyword/keyword_list.action").addQueryData("site.id",$!site.getId())">关键词数据管理</a>
+##                                <input class="btn btn-sm btn-default" type="button" value="测试按钮" onclick="ajaxJump()" />
+                            #end
+                        </td>
+                    </tr>
+                #end
+            #else
+                <tr>
+                    <td>该记录为空！</td>
+                </tr>
+            #end
+        </table>
+    </div>
+</div>
+
+
+<div id="alertModel" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>你确定要删除该站点吗？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="delSiteOK()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="delForbiddenModel" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>删除失败！请先删除该站点下所有类目。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+    var delId = -1;
+
+    var delAlert = function (siteId) {
+        delId = siteId;
+    }
+
+    var delSiteOK = function () {
+        jQuery.ajax({
+            type: 'post',
+            url: '$!helpAdminModule.getTarget("/help/site/site_doDelete.action")',
+            data: {"site.id": delId},
+            success: function (data) {
+                if (data.result.success == false) {
+                    if (data.result.resultCode == 'HAS_CATALOG') {
+                        $('#delForbiddenModel').modal();
+                        return;
+                    }
+                }
+                window.location.reload();
+            },
+            dataType: 'json'
+        });
+    }
+
+</script>

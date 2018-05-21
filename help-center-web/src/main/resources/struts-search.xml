@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="search" namespace="/search" extends="helpBase">
+        <action name="help_*" method="{1}" class="com.jd.help.center.admin.search.HelpSearchAction">
+            <param name="searchDomain">${help-center.search.domain.name}</param>
+            <result>/WEB-INF/vm/search/search.vm</result>
+            <result name="search_help">/WEB-INF/vm/search/search_help.vm</result>
+            <result name="search_Vender">/WEB-INF/vm/search/search_Vender.vm</result>
+        </action>
+    </package>
+
+</struts>

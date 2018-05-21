@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpSYS">
+
+    <typeAlias alias="HelpSYS" type="com.jd.help.center.domain.helpsys.HelpSYS"/>
+
+    <resultMap id="HelpSYSMap" class="HelpSYS">
+        <result property="id" column="id" nullValue="0"/>
+        <result property="name" column="name"/>
+        <result property="sortOrder" column="sort_order" nullValue="0"/>
+        <result property="status" column="status" nullValue="0"/>
+        <result property="notes" column="notes"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <insert timeout="5"    id="createHelpSYS" parameterClass="HelpSYS">
+        insert into help_sys  (name, sort_order,status,notes ,created, modified)
+        values  (#name#, #sortOrder#,#status#,#notes#, now(), now())
+        <selectKey resultClass="int" keyProperty="id">
+           SELECT LAST_INSERT_ID() as value
+        </selectKey>
+    </insert>
+
+    <select  timeout="5"   id="findSYSAll" resultMap="HelpSYS.HelpSYSMap">
+        select id,name,sort_order,status,notes,created, modified from help_sys order by sort_order
+    </select>
+
+    <select  timeout="5"   id="findSYSByName" parameterClass="string" resultMap="HelpSYS.HelpSYSMap">
+        select id,name,sort_order,status,notes,created, modified from help_sys where name=#value# order by sort_order
+    </select>
+
+    <select  timeout="5"   id="getSYSById" parameterClass="int" resultMap="HelpSYS.HelpSYSMap">
+        select id,name,sort_order,status,notes,created, modified from help_sys where id=#value#
+    </select>
+
+    <select  timeout="5"   id="checkSYSstatus" parameterClass="int" resultClass="int">
+        select status from help_sys where id=#value#
+    </select>
+
+    <update  timeout="5"   id="updateSYS" parameterClass="HelpSYS">
+        update help_sys set name=#name#,sort_order=#sortOrder#,status=#status#,notes=#notes#,modified=now() where id=#id#
+    </update>
+
+    <update  timeout="5"   id="updateSYSStatus" parameterClass="HelpSYS">
+        update help_sys set status=#status#,modified=now() where id=#id#
+    </update>
+
+</sqlMap>

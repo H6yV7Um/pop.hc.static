@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+
+<urlrewrite>
+
+
+
+    <!--=============== 在老规则前进行拦截的url重写规则 ===============================-->
+    <!-- 新帮助中心首页 -->
+    <rule>
+        <!-- 用于按地区上线的cookie条件 -->
+        <!--<condition type="cookie" name="ipLoc-djd" operator="equal" next="or">^23(-\d+)+$</condition>-->
+        <from>^/index.html$</from>
+        <to>/page.action?pageName=index</to>
+    </rule>
+    <rule>
+        <from>/help/question-93.html</from>
+        <to>/help/question-1006.html</to>
+    </rule>
+    <!-- 自提静态页匹配规则 -->
+    <rule>
+        <from>^/help/preQuestion-([0-9]+).html$</from>
+        <to>/help/question-64.html</to>
+    </rule>
+
+    <!-- 带四级地址的自提页匹配规则 -->
+    <rule>
+        <from>^/help/question-64-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+).html$</from>
+        <to type="redirect">/user/issue/100-1014.html</to>
+    </rule>
+	<!-- 问题详情页，topic级别 -->
+    <rule>
+        <from>^/o/help/question-([0-9]+).html$</from>
+       <to>/help/front/getQuestion.action?topicId=$1&amp;sysName=help</to>
+    </rule>
+    <!-- 老问题页面跳转 -->
+    <rule>
+        <!-- 用于按地区上线的cookie条件 -->
+        <from>^/help/question-([0-9]+).html$</from>
+        <to>/issue/oldUrlFilter.action?oldFromUrl=$0</to>
+    </rule>
+    
+
+    <!--======================原有系统的url重写规则========================================-->
+
+    <!-- 系统首页 -->
+    <rule>
+        <from>^/([A-Za-z]+)(/?)$</from>
+        <to>/front/index.action?sysName=$1</to>
+    </rule>
+    <!-- 问题详情页，topic级别 -->
+    <rule>
+        <from>^/([A-Za-z]+)/question-([0-9]+).html$</from>
+       <to>/help/front/getQuestion.action?topicId=$2&amp;sysName=$1</to>
+    </rule>
+    <!-- 带四级地址的自提页匹配规则 -->
+    <rule>
+        <from>^/([A-Za-z]+)/question-64-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+).html$</from>
+        <to>/help/front/getQuestion.action?topicId=64&amp;sysName=$1&amp;provinceId=$2&amp;cityId=$3&amp;townId=$4&amp;forthId=$5&amp;code=$6</to>
+    </rule>
+    <!-- 自提静态页匹配规则 -->
+    <rule>
+        <from>^/([A-Za-z]+)/preQuestion-([0-9]+).html$</from>
+        <to>/help/front/preGetQuestion.action?topicId=$2&amp;sysName=$1</to>
+    </rule>
+    <!-- 每个系统的主页 -->
+    <rule>
+        <from>^/([A-Za-z]+).html$</from>
+        <to>/help/front/getIndexPage.action?systemIndex=$1</to>
+    </rule>
+    <!-- 搜索 -->
+    <rule>
+        <from>^/search/help_search.php?(.*)$</from>
+        <to>/search/help_search.action?$1</to>
+    </rule>
+    <!-- 问题详情页，到question级别 -->
+    <rule>
+        <from>^/([A-Za-z]+)/viewQuestion-([0-9]+)-([0-9]+).html$</from>
+        <to type="redirect">/index.html</to>
+    </rule>
+
+    <!--订单页面跳转新增重写规则-->
+    <rule>
+        <from>^/([A-Za-z]+)/distribution-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+).html$</from>
+        <to type="redirect">https://psfw.jd.com/help/distribution-$2-$3-$4-$5-$6-$7-help.html</to>
+    </rule>
+    <rule>
+        <from>^/([A-Za-z]+)/distribution-([0-9]+).html$</from>
+        <to type="redirect">https://psfw.jd.com/help/distribution-$2-help.html</to>
+    </rule>
+    <rule>
+        <from>^/help/deliveryService.html$</from>
+        <to type="redirect">https://psfw.jd.com/help/deliveryService-help.html</to>
+    </rule>
+
+    <!--======================新版帮助中心 重写规则==================================================-->
+    <!-- 搜索 -->
+    <rule>
+        <from>^/issue/search?(.*)$</from>
+        <to>/issue/search.action?$1</to>
+    </rule>
+    <!-- 首页问jimi -->
+    <rule>
+        <from>^/issue/question?(.*)$</from>
+        <to>/issue/question.action?$1</to>
+    </rule>
+    <!--搜索提示词-->
+    <rule>
+        <from>^/issue/suggest?(.*)$</from>
+        <to>/issue/suggest.action?$1</to>
+    </rule>
+	<!-- 常见问题点击二级类目页 -->
+	<rule>
+        <from>^/([A-Za-z0-9]+)/issue/list-([0-9]+).html$</from>
+        <to>/issue/issueList.action?siteEnName=$1&amp;catalog.pid=$2</to>
+    </rule>
+    <!-- 常见问题点击三级类目页 -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/issue/list-([0-9]+)-([0-9]+).html$</from>
+        <to>/issue/issueList.action?siteEnName=$1&amp;catalog.pid=$2&amp;catalog.id=$3</to>
+    </rule>
+    <!-- 常见问题问题详情页 -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/issue/([0-9]+)-([0-9]+).html$</from>
+        <to>/issue/issueAnswer.action?siteEnName=$1&amp;issue.cataId=$2&amp;issue.id=$3</to>
+    </rule>
+    <!--商家帮助中心 问题百宝箱-->
+    <rule>
+        <from>^/vender/index.html$</from>
+        <to>/page.action?siteEnName=vender&amp;pageName=issue</to>
+    </rule>
+    <!--商家帮助中心 首页-->
+    <rule>
+        <from>^/venderportal/index.html$</from>
+        <to>/page.action?siteEnName=venderportal&amp;pageName=index</to>
+    </rule>
+    <!--  频道页 (常见问题, 自助服务， 联系客服， 新手指南等) -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/(\w+).html$</from>
+        <to>/page.action?siteEnName=$1&amp;pageName=$2</to>
+    </rule>
+    <!-- 订单列表 -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/order/list.do$</from>
+        <to>/order/list.action?siteEnName=$1</to>
+    </rule>
+    <!-- 订单详情 -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/order/detail-([0-9]+).do$</from>
+        <to>/order/detail.action?siteEnName=$1&amp;orderId=$2</to>
+    </rule>
+    <!-- 公告列表 -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/notice/list.html$</from>
+        <to>/notice/list.action?siteEnName=$1</to>
+    </rule>
+    <rule>
+        <from>^/([A-Za-z0-9]+)/notice/listTop([0-9]+).html$</from>
+        <to>/notice/listTop$2.action?siteEnName=$1</to>
+    </rule>
+    <!-- 公告详情 -->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/notice/detail-(\w+).html$</from>
+        <to>/notice/detail.action?siteEnName=$1&amp;noticeId=$2</to>
+    </rule>
+    <!--thick dialog-->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/issue/([0-9]+)-thick-([0-9]+).html$</from>
+        <to>/issue/thick.action?siteEnName=$1&amp;issue.cataId=$2&amp;issue.id=$3</to>
+    </rule>
+
+    <rule>
+        <from>^/([A-Za-z0-9]+)/html/landing-page.html$</from>
+        <to>/notice/landing.action?siteEnName=$1</to>
+    </rule>
+    <!--thick dialog-->
+    <rule>
+        <from>^/([A-Za-z0-9]+)/issue/([0-9]+)-thick-([0-9]+).html$</from>
+        <to>/issue/thick.action?siteEnName=$1&amp;issue.cataId=$2&amp;issue.id=$3</to>
+    </rule>
+
+ <!--   <rule>
+        <from>^/rule/index.html</from>
+        <to>/rule/index.action</to>
+    </rule>-->
+</urlrewrite>

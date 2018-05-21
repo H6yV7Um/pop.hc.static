@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="GBK" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="helpsys" namespace="/help/sys" extends="help">
+        <action name="sys_*" method="{1}" class="com.jd.help.center.admin.helpsys.HelpSYSAction">
+            <result name="list" type="redirect">/help/sys/sys_findAll.action</result>
+            <result name="toInsert">/WEB-INF/vm/helpsys/insert.vm</result>
+            <result name="toUpdate">/WEB-INF/vm/helpsys/update.vm</result>
+            <result name="toList">/WEB-INF/vm/helpsys/findAll.vm</result>
+            <result>/WEB-INF/vm/helpsys/{1}.vm</result>
+        </action>
+    </package>
+    <package name="category" namespace="/help/category" extends="help">
+        <action name="category_*" method="{1}" class="com.jd.help.center.admin.category.HelpCategoryAction">
+            <result name="list" type="redirect">/help/category/category_findAll.action?sysId=${sysId}</result>
+            <result name="toInsert">/WEB-INF/vm/category/insert.vm</result>
+            <result name="toUpdate">/WEB-INF/vm/category/update.vm</result>
+            <result name="toList">/WEB-INF/vm/category/findAll.vm</result>
+            <result>/WEB-INF/vm/category/{1}.vm</result>
+        </action>
+    </package>
+    <package name="topic" namespace="/help/topic" extends="help">
+        <action name="topic_*" method="{1}" class="com.jd.help.center.admin.topic.HelpTopicAction">
+            <result name="list" type="redirect">/help/topic/topic_findByCategoryId.action?categoryId=${categoryId}&amp;sysId=${sysId}</result>
+            <result name="toInsert">/WEB-INF/vm/topic/insert.vm</result>
+            <result name="toUpdate">/WEB-INF/vm/topic/update.vm</result>
+            <result name="toList">/WEB-INF/vm/topic/findByCategoryId.vm</result>
+            <result>/WEB-INF/vm/topic/{1}.vm</result>
+        </action>
+    </package>
+    <package name="question" namespace="/help/question" extends="help">
+        <action name="question_*" method="{1}" class="com.jd.help.center.admin.question.HelpQuestionAction">
+            <result name="list" type="redirect">/help/question/question_findByTopicId.action?topicId=${topicId}&amp;categoryId=${categoryId}&amp;sysId=${sysId}</result>
+            <result name="toInsert">/WEB-INF/vm/question/insert.vm</result>
+            <result name="toUpdate">/WEB-INF/vm/question/update.vm</result>
+            <result name="toList">/WEB-INF/vm/question/findByTopicId.vm</result>
+            <result>/WEB-INF/vm/question/{1}.vm</result>
+        </action>
+        <action name="uploadImage" method="uploadImage" class="com.jd.help.center.admin.question.UploadImgAction">
+            <result type="velocity">/WEB-INF/vm/question/upload.vm</result>
+        </action>
+    </package>
+    <package name="helpnavigate" namespace="/help/navigate" extends="helpBase">
+        <action name="initNavigate" method="initNavigate" class="com.jd.help.center.admin.navigate.HelpNavigateAction">
+            <result name="ajax" type="json">
+                <!--<param name="callbackParameter">jsoncallback</param>-->
+                <!--<param name="ignoreHierarchy">true</param>-->
+                <param name="includeProperties">navigate.*,head.*</param>
+                <param name="excludeNullProperties">true</param>
+            </result>
+        </action>
+    </package>
+    <package name="helpfront" namespace="/help/front" extends="helpBase">
+        <action name="getQuestion" class="com.jd.help.center.admin.question.FrontQuestionAction">
+            <result>/WEB-INF/vm/front/index.vm</result>
+        </action>
+        <!--静态自提页-->
+        <action name="preGetQuestion" class="com.jd.help.center.admin.question.FrontQuestionAction"
+                method="getStaticZiti">
+            <result>/WEB-INF/vm/front/index.vm</result>
+        </action>
+        <action name="previewQuestion" method="previewQuestion"
+                class="com.jd.help.center.admin.question.FrontQuestionAction">
+            <result>/WEB-INF/vm/front/preview.vm</result>
+        </action>
+        <action name="viewQuestion" method="viewQuestion" class="com.jd.help.center.admin.question.FrontQuestionAction">
+            <result name="search_help">/WEB-INF/vm/search/search_help.vm</result>
+            <result name="search_Vender">/WEB-INF/vm/search/search_Vender.vm</result>
+            <result>/WEB-INF/vm/front/index.vm</result>
+        </action>
+        <action name="getIndexPage" method="getIndexPage" class="com.jd.help.center.admin.question.FrontQuestionAction">
+        </action>
+    </package>
+    <package name="border" namespace="/help/border" extends="help">
+        <action name="border_*" method="{1}" class="com.jd.help.center.admin.border.HelpBorderAction">
+            <result name="toList" type="redirect">/help/border/border_getAll.action?borderInfo.type=${borderInfo.type}
+            </result>
+            <result name="insert">/WEB-INF/vm/border/insert.vm</result>
+            <result name="update">/WEB-INF/vm/border/update.vm</result>
+            <result name="toIndex">/WEB-INF/vm/border/index.vm</result>
+            <result name="list">/WEB-INF/vm/border/findAll.vm</result>
+        </action>
+    </package>
+</struts>

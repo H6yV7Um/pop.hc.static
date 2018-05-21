@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+	<!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"/>-->
+
+
+	<bean id="helpCategoryManager" class="com.jd.help.center.manager.category.impl.HelpCategoryManagerImpl"/>
+    <bean id="helpQuestionManager" class="com.jd.help.center.manager.question.impl.HelpQuestionManagerImpl"/>
+    <bean id="helpTopicManager" class="com.jd.help.center.manager.topic.impl.HelpTopicManagerImpl"/>
+    <bean id="helpSYSManager" class="com.jd.help.center.manager.helpsys.impl.HelpSYSManagerImpl"/>
+    <bean id="localHelpCategoryManager" class="com.jd.help.center.manager.category.impl.LocalHelpCategoryManagerImpl"/>
+    <bean id="iceManager" class="com.jd.common.manager.ice.impl.IceManagerImpl"/>
+    <bean id="helpBorderManager" class="com.jd.help.center.manager.border.impl.HelpBorderManagerImpl"/>
+    <!--&lt;!&ndash; 配送服务manager &ndash;&gt;-->
+    <!--<bean id="helpDispatchManager" class="com.jd.help.center.manager.dispatch.impl.HelpDispatchManagerImpl"/>-->
+    <!--<bean id="helpDictManager" class="com.jd.help.center.manager.dispatch.impl.HelpDictManagerImpl"/>-->
+</beans>

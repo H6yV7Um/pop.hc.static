@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Catalog">
+    <typeAlias alias="Catalog" type="com.jd.help.domain.Catalog"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="Catalog">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="pid" column="pid"/>
+        <result property="level" column="level"/>
+        <result property="status" column="status"/>
+        <result property="notes" column="notes"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+        <result property="siteId" column="site_id"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , name , pid , level,status , notes , sort_order , creator , modifier , created , modified ,site_id</sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                name = #name#
+            </isNotNull>
+            <isNotNull property="pid" prepend="AND" removeFirstPrepend="true">
+                pid = #pid#
+            </isNotNull>
+            <isNotNull property="level" prepend="AND" removeFirstPrepend="true">
+                level = #level#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="notes" prepend="AND" removeFirstPrepend="true">
+                notes = #notes#
+            </isNotNull>
+            <isNotNull property="sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #sortOrder#
+            </isNotNull>
+            <isNotNull property="creator" prepend="AND" removeFirstPrepend="true">
+                creator = #creator#
+            </isNotNull>
+            <isNotNull property="modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #modifier#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+            <isNotNull property="siteId" prepend="AND" removeFirstPrepend="true">
+                site_id = #siteId#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.name" prepend="AND" removeFirstPrepend="true">
+                name = #model.name#
+            </isNotNull>
+            <isNotNull property="model.pid" prepend="AND" removeFirstPrepend="true">
+                pid = #model.pid#
+            </isNotNull>
+            <isNotNull property="model.level" prepend="AND" removeFirstPrepend="true">
+                level = #model.level#
+            </isNotNull>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.notes" prepend="AND" removeFirstPrepend="true">
+                notes = #model.notes#
+            </isNotNull>
+            <isNotNull property="model.sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #model.sortOrder#
+            </isNotNull>
+            <isNotNull property="model.creator" prepend="AND" removeFirstPrepend="true">
+                creator = #model.creator#
+            </isNotNull>
+            <isNotNull property="model.modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #model.modifier#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+            <isNotNull property="model.siteId" prepend="AND" removeFirstPrepend="true">
+                site_id = #model.siteId#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="Catalog">
+        INSERT INTO help_catalog (<include refid="allColumns"/>)
+        VALUES (null , #name# , #pid# ,#level#, #status# , #notes# , #sortOrder# , #creator# , #modifier# , now() ,
+        now() , #siteId# )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="Catalog">
+        UPDATE help_catalog
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="Catalog">
+		UPDATE help_catalog
+		SET
+            id = #id# , 
+            name = #name# , 
+            pid = #pid# , 
+            level = #level# ,
+            status = #status# , 
+            notes = #notes# , 
+            sort_order = #sortOrder# , 
+            creator = #creator# , 
+            modifier = #modifier# , 
+            created = #created# , 
+            modified = #modified#,
+            site_id = #siteId#
+        WHERE
+            id = #id#
+	</update>
+
+    <update  timeout="5"   id="updateCatalog" parameterClass="Catalog">
+        update help_catalog
+        set
+        name = #name#,
+        notes = #notes#,
+        modifier = #modifier# ,
+        modified = now()
+        where id = #id#
+    </update>
+
+    <update  timeout="5"   id="updateCatalogStatus" parameterClass="Catalog">
+        update help_catalog
+        set status = #status#,
+        modifier = #modifier# ,
+        modified = now()
+        where id = #id#
+    </update>
+
+    <update  timeout="5"   id="updateCatalogSortOrder" parameterClass="Catalog">
+        update help_catalog
+        set sort_order = #sortOrder#,
+        modifier = #modifier# ,
+        modified = now()
+        where id = #id#
+    </update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="Catalog" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_catalog
+        WHERE
+        id = #id#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="Catalog">
+        SELECT count(id)
+        FROM
+        help_catalog
+        WHERE status > -1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_catalog
+        WHERE status > -1
+        <include refid="conditionForPage"/>
+        ORDER BY sort_order
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+    <select  timeout="5"   id="getCatalogList" resultMap="defaultResultMap" parameterClass="Catalog">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_catalog
+        WHERE status > -1
+        <include refid="condition"/>
+        ORDER BY sort_order
+    </select>
+
+    <select  timeout="5"   id="getMaxSortOrder" resultClass="int" parameterClass="Catalog">
+        SELECT
+          max(sort_order)
+        FROM
+        help_catalog
+        WHERE status > -1
+        <isNotNull property="siteId" prepend="AND" removeFirstPrepend="true">
+            site_id = #siteId#
+        </isNotNull>
+        <isNotNull property="pid" prepend="AND" removeFirstPrepend="true">
+            pid = #pid#
+        </isNotNull>
+    </select>
+	
+	<!-- 消费者端 -->
+	
+	<select  timeout="5"   id="getLeftMenuCatalog" resultMap="defaultResultMap" parameterClass="Catalog">
+         SELECT
+          <include refid="allColumns"/>
+        FROM
+        help_catalog
+        where status > 0
+        and site_id = #siteId#
+        <![CDATA[ 
+        and level < 3
+         ]]>
+         order by level,sort_order
+    </select>
+    
+    <select  timeout="5"   id="getCatalogLevel3List" resultMap="defaultResultMap" parameterClass="Catalog">
+         SELECT
+          <include refid="allColumns"/>
+        FROM
+        help_catalog
+        where status > 0
+        and pid = #pid#
+        and level = 3
+         order by sort_order
+    </select>
+
+    <select  timeout="5"   id="getAllLeftMenuCatalog" resultMap="defaultResultMap" parameterClass="Catalog">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_catalog
+        WHERE status > 0
+        AND site_id = #siteId#
+        <![CDATA[
+        and level <= 3
+         ]]>
+        order by level,sort_order
+    </select>
+</sqlMap>

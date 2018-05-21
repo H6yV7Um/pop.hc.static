@@ -1,0 +1,111 @@
+#set($layout="empty.vm")
+<!DOCTYPE html>
+<html lang="en">
+    #set($title="规则评审团预览")
+<head>
+    #parse("/WEB-INF/vm/customer/rule/page/head.vm")
+    <style type="text/css">
+        body{
+            font-family:Microsoft Yahei
+        }
+    </style>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+<div class="rule">
+    <div class="content">
+        <p class="mt35">您所在当前位置:首页>规则评审团>规则详情</p>
+        <div class="ruleReviewContent mt15 clearfix">
+            <div class="ruleReviewDetail">
+                <div class="detailTitle">
+                    <p class="fs22">$!review.name</p>
+                    <p class="wb-gray3 mt15 wb-fs14">评审开始时间：$!dateFormatUtils.format($!review.startTime,"yyyy-MM-dd HH:mm:ss")</p>
+                </div>
+                <div id="detailContent" class="detailContent">
+                    <div class="mt30">
+                        <p class="mb15 fs20">评审内容</p>
+                        <p style="line-height: 30px;">$!review.remark</p>
+                    </div>
+                    #if($!reviewElements && $!reviewElements.size()>0)
+                        #foreach($reviewElement in $!reviewElements)
+                            #if($reviewElement.type == 1 && $reviewElement.remark == "suggest")
+                                #set($suggestCode = ${reviewElement.code})
+                            #else
+                                <div class="mt40">
+                                    <p class="mb15 fs20">评审题目</p>
+                                    <p class="detailWords">$reviewElement.name</p>
+                                </div>
+                                <div class="mt40">
+                                    <p class="mb15 fs20">评审选项</p>
+                                    <div class="mtb15">
+                                        #set($options = $!venderStringUtils.split($reviewElement.options,'\n'))
+                                        #if($options && $options.size()>0)
+                                            #foreach($option in $options)
+                                                <input type="radio" class="mr5" #if($velocityCount==1)mark="mark" reviewCont="$reviewElement.name"#end   value="$option" name="${reviewElement.code}"><span class="detail">$option</span>
+                                            #end;
+                                        #end
+                                    </div>
+                                </div>
+                            #end
+                        #end
+                        <div class="mt40">
+                            <p class="detail">如您有建议，请您提出，以便我们更好完善</p>
+                            <textarea id="suggestText" code="$suggestCode" class="suggest mt10" placeholder="请输入您的建议（最多输入500字）"></textarea>
+                        </div>
+                    #end
+                    <div class="submitBtn">
+                        <span class="wb-btn-m wb-btn-red" id="submitInfo">提交</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ruleReviewStatus">
+                <div class="reviewImg"><img src="$!review.attachUrl" height="180" width="238"></div>
+                <!--评审中-->
+                <div class="status">
+##                    <span class="wbi-spinner wbi-s wbi-gray mr5 wb-inline"></span>
+
+                    #*<span class="wb-inline wb-fs14">*#
+                    <img class="wbi-s wbi-gray wb-inline ml15" src="/img/icon.png"> #if($!review.status == 2)评审中#elseif($!review.status == 10)待公示#end</span>
+                    <p class="small-font reviewTime">审评截止时间：$dateFormatUtils.format($review.endTime,"yyyy-MM-dd HH:mm:ss")</p>
+                </div>
+                #if($!hasReviewed == true)
+                    <div class="status">
+                        <span class="wb-inline wb-fs14">您的意见是：</span>
+                        #if($!reviewElements && $!reviewElements.size()>0)
+                            #foreach($reviewElement in $!reviewElements)
+                                #if($reviewElement.type == 1 && $reviewElement.remark == "suggest")
+                                #else
+                                    #set($result = $!{reviewElementValueNumber.get($reviewElement.code)}*1.0/$!{reviewVoteNumber}*100)
+                                    <div class="mt10 wb-inline" style="width: 216px">
+                                        <span title="$reviewElement.name">$!venderStringUtils.subStringByLength("$reviewElement.name",16,"...")</span>
+                                        <br>
+                                        <span>$!reviewContent.get(${reviewElement.code})</span>
+                                        <div class="progress">
+                                            <div class="progressing" wdVal="#if(${result}>100)100#else$!venderStringUtils.subStringStr("${result}")#end"></div>
+                                        </div>
+                                        <p class="fs8 smaller-font wb-inline">$!{reviewVoteNumber}票</p>
+                                        <p class="fs8 smaller-font wb-inline">#if(${result}>100)100#else$!venderStringUtils.subStringAppend("${result}",".")#end%</p>
+                                    </div>
+                                #end
+                            #end
+                        #end
+                    </div>
+                #end
+
+            ##                <div class="clearfix mg10">
+            ##                    <span class="fl mt5">您的累积奖励豆：10001</span>
+            ##                    <span class="wb-btn-s wb-btn-gray-bd fr">查看奖励</span>
+            ##                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  /widget/h-footer/h-footer.vm -->
+<div class="l-footer">
+    <div class="l-footer-box">
+        <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+        <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+    </div>
+</div>
+</body>
+</html>

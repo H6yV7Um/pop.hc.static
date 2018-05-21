@@ -1,0 +1,187 @@
+<ServiceNotes>
+    <Notes>
+
+        <!-- 211服务 -->
+        <Note>
+            <id>1</id>
+            <content>
+                <![CDATA[<li class="li5 clearfix">
+						<a class="icon" href="/help/question-360.html" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-360.html" target="_blank">211限时达</a></h4>
+							<div class="i-detail">当日上午11：00（拣货时间）前提交的现货订单（天津、东莞、深圳、杭州为上午10点前），当日送达；夜里11：00前提交的现货订单，次日15：00前送达。</div>
+							<a href="/help/question-360.html" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+
+        <!-- 大家电211 -->
+        <Note>
+            <id>2</id>
+            <content>
+                <![CDATA[<li class="li7 clearfix">
+						<a class="icon" href="/help/question-360.html#help1752" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-360.html#help1752" target="_blank">大家电211</a></h4>
+							<div class="i-detail">当日上午11：00（拣货时间）前提交的现货订单，当日送达；夜里11：00前提交的现货订单，次日20：00前送达。</div>
+							<a href="/help/question-360.html#help1752" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!-- 次日达 -->
+        <Note>
+            <id>3</id>
+            <content>
+                <![CDATA[<li class="li8 clearfix">
+						<a class="icon" href="/help/question-360.html#help1319" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-360.html#help1319" target="_blank">次日达</a></h4>
+							<div class="i-detail">当日$!crtime点前提交的现货订单（以订单出库后完成拣货时间点开始计算），次日送达。</div>
+							<div class="gray-tips">注：特殊情况下不支持本服务</div>
+							<a href="/help/question-360.html#help1319" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!-- 货到付款 -->
+        <Note>
+            <id>4</id>
+            <content>
+                <![CDATA[<li class="li1 clearfix">
+						<a class="icon" href="/help/question-67.html" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-67.html" target="_blank">货到付款</a></h4>
+							<div class="i-detail">您所在的区域支持大家电或中小件货到付款服务。</div>
+							<div class="gray-tips">注：特殊情况下不支持本服务</div>
+							<a href="/help/question-67.html" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!-- 预约配送 -->
+        <Note>
+            <id>5</id>
+            <content>
+                <![CDATA[<li class="li9 clearfix">
+						<a class="icon" href="/help/question-360.html#help1511" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-360.html#help1511" target="_blank">定时达</a></h4>
+							<div class="i-detail">您在提交订单时，可以在近7天范围内(大家电10天)选择送达日期，我们将按照您选择的日期为您配送。</div>
+							<div class="gray-tips">注：特殊情况下不支持本服务</div>
+							<a href="/help/question-360.html#help1511" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!-- 开箱验机 -->
+        <Note>
+            <id>6</id>
+            <content>
+                <![CDATA[<li class="li3 clearfix">
+						<a class="icon" href="/help/question-63.html" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-63.html" target="_blank">开箱验机</a></h4>
+							<div class="i-detail">冰箱、洗衣机、彩电类商品，您在收货签收前可以打开包装检验货物的完好情况。</div>
+							<div class="gray-tips">注：特殊情况下不支持本服务</div>
+							<a href="/help/question-63.html" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!-- 自提 -->
+        <Note>
+            <id>7</id>
+            <content>
+                <![CDATA[<li class="li2 clearfix">
+						<a class="icon" href="/help/question-64.html" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-64.html" target="_blank">自提</a></h4>
+							<div class="i-detail">我们提供多种自提服务，包括京东自提点、便利店自提点、校园自提点等。</div>
+							<a href="/help/question-64.html" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!-- 夜间配 -->
+        <Note>
+            <id>8</id>
+            <content>
+                <![CDATA[<li class="li6 clearfix">
+						<a class="icon" href="/help/question-360.html#help1302" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-360.html#help1302" target="_blank">夜间配</a></h4>
+							<div class="i-detail">您在15:00之前提交的订单，如果您勾选夜间配送，您的订单将在当晚19:00-22:00点之间送达。</div>
+							<a href="/help/question-360.html#help1302" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+
+        <!-- 急速达 -->
+        <Note>
+            <id>9</id>
+            <content>
+                <![CDATA[<li class="li10 clearfix">
+						<a class="icon" href="/help/question-360.html#help1750" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-360.html#help1750" target="_blank">极速达</a></h4>
+							<div class="i-detail">在08:00—20:00间下单，部分商品加收49元运费可享受3小时内送达服务，仅支持先款订单。</div>
+							<a href="/help/question-360.html#help1750" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+
+        <!-- 第三方配送 -->
+        <Note>
+            <id>10</id>
+            <content>
+                <![CDATA[<li class="li12 clearfix">
+						<a class="icon" href="/help/question-804.html" target="_blank"></a>
+						<div class="i-con">
+							<h4><a href="/help/question-804.html" target="_blank">第三方配送</a></h4>
+							<div class="i-detail">由与京东合作的快递公司为您进行配送，部分不支持货到付款。</div>
+							<a href="/help/question-804.html" target="_blank">查看详情</a>
+						</div>
+					</li>]]>
+            </content>
+        </Note>
+        <!--大家电夜间配送-->
+        <Note>
+            <id>11</id>
+            <content>
+                <![CDATA[<li class="li11 clearfix">
+							<a class="icon" href="/help/question-360.html#help1973" target="_blank"></a>
+							<div class="i-con">
+								<h4><a href="/help/question-360.html#help1973" target="_blank">大家电夜间配送</a></h4>
+								<div class="i-detail">大家电类商品，如果提交订单时勾选夜间配送，您的订单将在指定送货日期的18:00--22:00之间送达。</div>
+								<a href="/help/question-360.html#help1973" target="_blank">查看详情</a>
+							</div>
+						</li>]]>
+            </content>
+        </Note>
+
+        <!-- 大家电安装服务
+          <Note>
+              <id>5</id>
+              <content>
+                  <![CDATA[<li class="li4 clearfix">
+                          <div class="icon"></div>
+                          <div class="i-con">
+                              <h4>大家电安装</h4>
+                              <div class="i-detail">我们对某些品牌的大家电商品提供安装服务，您可以在提交订单时选择送货日期和安装日期。</div>
+                              <div class="gray-tips">注：特殊情况下不支持本服务</div>
+                              <a href="#" target="_blank">查看详情</a>
+                          </div>
+                      </li>]]>
+              </content>
+          </Note>
+          -->
+
+
+
+
+    </Notes>
+</ServiceNotes>

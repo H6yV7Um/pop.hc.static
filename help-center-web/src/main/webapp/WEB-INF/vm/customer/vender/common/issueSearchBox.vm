@@ -1,0 +1,64 @@
+## 常见问题搜索框
+<div class="">
+
+</div>
+<div class="b-search-box">
+    <div class="h-search">
+        <form id="searchForm" action="/issue/search" method="post">
+                <input id="siteId" type="hidden" name="siteId" value="$!siteId">
+                <input type="text" id="keyword" class="text-search" name="keyword" value="$!keyword" #if(!$keyword)placeholder="请输入问题关键词，如：入驻"#end>
+                <input type="submit" class="btn-search" clstag="pageclick|keycount|helpcenter_home|3" value="搜索">
+            </form>
+    </div>
+    <div id="suggest" class="search-menu">
+        <ul class="search-menu-list">
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery("#suggest").hide();
+        jQuery("#keyword").bind("input propertychange",function(){
+            jQuery.ajax({
+                url:"/issue/suggest.action",
+                data:jQuery("#searchForm").serialize(),
+                sync:false,
+                cache:false,
+                dataType:"json",
+                type:"post",
+                success:function(result){
+                    jQuery("#suggest ul li").remove();
+                    if(result.isSuccess && result.wordList != null){
+                        jQuery.each(result.wordList,function(index,issue){
+                            var sd = jQuery("#suggest ul");
+                            jQuery("#suggest ul").append("<li class='item-search'>"+issue+"</li>");
+                        });
+                        jQuery("#suggest").show();
+                    }else{
+                        jQuery("#suggest").hide();
+                    }
+                },
+                error:function(){
+                    jQuery("#suggest").hide();
+                    //alert("网络异常，请稍后重试！");
+                }
+            });
+        });
+
+        jQuery("#suggest").delegate("ul li","hover",function(){
+            $(this).addClass("hover");
+        });
+
+        jQuery("#suggest").delegate("ul li","click",function(){
+            jQuery("#keyword").val($(this).text().replace(/\?$|？$/,""));
+            jQuery("#suggest ul li").remove();
+            jQuery("#suggest").hide();
+            jQuery("#searchForm").submit();
+        });
+        jQuery(this).bind("click",function(){
+            jQuery("#suggest ul li").remove();
+            jQuery("#suggest").hide();
+        });
+    });
+
+</script>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jsf="http://jsf.jd.com/schema/jsf"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://jsf.jd.com/schema/jsf http://jsf.jd.com/schema/jsf/jsf.xsd"
+       default-autowire="byName">
+
+    <!-- 注册中心 -->
+    <jsf:registry id="jsfRegistry" protocol="jsfRegistry" index="i.jsf.jd.com"/>
+    <jsf:consumer
+            id="orderCenterJsfExport" interface="com.jd.order.sdk.jsf.export.OrderCenterJsfExport"
+            alias="${help-center.order.jsf.group}" protocol="jsf" timeout="10000" retries="0" serialization="hessian">
+    </jsf:consumer>
+    <jsf:consumer id="ssoService"
+                  interface="com.jd.ssa.service.SsoService" protocol="jsf"
+                  alias="v1" timeout="1000"/>
+
+    <!--商家权限及基本信息-->
+    <jsf:consumer id="authSafServiceOutOfUsercenter" interface="com.jd.pop.vender.center.service.auth.AuthSafService"
+                  protocol="jsf" alias="${usercenter.popvendercenter.alias}" timeout="3000">
+        <jsf:parameter key="signToken" value="${usercenter.popvendercenter.signToken}" hide="true"/>
+        <jsf:method name="sendPhoneVerifyCode" retries="1" timeout="10000"/>
+    </jsf:consumer>
+
+    <jsf:consumer id="categoryService" interface="com.jd.karma.facade.KarmaCategoryService"
+                  alias="${jsf.karma.category.alias}" timeout="5000">
+        <!--url="jsf://10.13.155.26:22000"-->
+        <jsf:parameter key="token" value="${jsf.token}" hide="true"/>
+    </jsf:consumer>
+
+    <jsf:consumer id="sceneSearchService" interface="com.jd.karma.facade.KarmaSceneSearchService" alias="${jsf.karma.scenesearch.alias}" timeout="5000">
+        <jsf:parameter key="token" value="${jsf.token}" hide="true"/>
+    </jsf:consumer>
+
+    <jsf:consumer id="sceneSearchNewService" interface="com.jd.karma.facade.KarmaSceneSearchNewService" alias="${jsf.karma.scenesearch.alias}" timeout="5000">
+
+    </jsf:consumer>
+
+    <jsf:consumer id="sceneService" interface="com.jd.karma.facade.KarmaSceneService" alias="${jsf.karma.scene.alias}" timeout="5000">
+
+    </jsf:consumer>
+    <jsf:consumer id="karmaNoticeService" interface="com.jd.karma.facade.KarmaNoticeService" alias="${jsf.karma.notice.alias}" timeout="5000">
+
+    </jsf:consumer>
+    <!--popshop-->
+    <jsf:consumer id="forumThreadService" interface="com.jd.ware.shop.api.mjbbs.service.ForumThreadService" protocol="jsf" alias="forum_thread" timeout="5000"/>
+    <jsf:consumer id="formReadService" interface="com.jd.pop.form.api.open.service.FormReadService"  protocol="jsf" alias="${form.soa.api.jsf.alias}" timeout="5000"/>
+    <jsf:consumer id="formWriteService" interface="com.jd.pop.form.api.open.service.FormWriteService"  protocol="jsf" alias="${form.soa.api.jsf.alias}" timeout="5000"/>
+    <jsf:consumer id="formReportService" interface="com.jd.pop.form.api.open.service.analysis.FormReportService"  protocol="jsf" alias="${form.soa.api.jsf.alias}" timeout="5000"/>
+
+
+    <jsf:consumer id="ondemandCourseToHcRpcService" interface="com.jd.businesscollege.shop.client.service.OndemandCourseToHcRpcService" alias="${xue.jsf.alias}" timeout="60000">
+    </jsf:consumer>
+
+    <jsf:consumer id="karmaScene2HcRpcService" interface="com.jd.karma.facade.KarmaScene2HcRpcService"
+                  alias="${karma.hc.jsf.alias}" timeout="60000000" payload="25165824" compress="snappy">
+    </jsf:consumer>
+
+    <jsf:consumer id="ondemandCourseRpcService" interface="com.jd.businesscollege.shop.client.service.OndemandCourseRpcService" alias="${xue.jsf.alias}" timeout="60000">
+    </jsf:consumer>
+
+</beans>

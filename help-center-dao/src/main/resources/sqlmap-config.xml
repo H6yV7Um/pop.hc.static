@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig  PUBLIC "-//iBATIS.com//DTD SQL Map
+Config 2.0/" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings cacheModelsEnabled="true" enhancementEnabled="true" lazyLoadingEnabled="false" errorTracingEnabled="true"
+		maxRequests="32" maxSessions="10" maxTransactions="5" useStatementNamespaces="true"  defaultStatementTimeout="20000"/>
+
+	<sqlMap resource="sqlmap/HelpCategory.xml" />
+    <sqlMap resource="sqlmap/HelpTopic.xml"/>
+    <sqlMap resource="sqlmap/HelpQuestion.xml"/>
+    <sqlMap resource="sqlmap/HelpSYS.xml"/>
+
+    <sqlMap resource="sqlmap/admin/Catalog.xml"/>
+    <sqlMap resource="sqlmap/admin/HotIssue.xml"/>
+    <sqlMap resource="sqlmap/admin/HotWord.xml"/>
+    <sqlMap resource="sqlmap/admin/Issue.xml"/>
+    <sqlMap resource="sqlmap/admin/IssueAnswer.xml"/>
+    <sqlMap resource="sqlmap/admin/IssueRel.xml"/>
+    <sqlMap resource="sqlmap/admin/IssueTemp.xml"/>
+    <sqlMap resource="sqlmap/admin/SelfMenu.xml"/>
+    <sqlMap resource="sqlmap/admin/Site.xml"/>
+    <sqlMap resource="sqlmap/admin/Templet.xml"/>
+	<sqlMap resource="sqlmap/admin/IssueOldNewMapping.xml"/>
+	<sqlMap resource="sqlmap/admin/HtmlModule.xml"/>
+	<sqlMap resource="sqlmap/admin/Notice.xml"/>
+    <sqlMap resource="sqlmap/admin/IssueSuggest.xml"/>
+    <sqlMap resource="sqlmap/admin/ScenesButtonRel.xml"/>
+    <sqlMap resource="sqlmap/admin/Keyword.xml"/>
+    <sqlMap resource="sqlmap/admin/helplable/HelpLableMapper.xml"/>
+    <sqlMap resource="sqlmap/search/Knowledge.xml"/>
+    <sqlMap resource="sqlmap/search/KnowledgeContent.xml"/>
+    <sqlMap resource="sqlmap/search/RelationKnowledge.xml"/>
+    <sqlMap resource="sqlmap/admin/publicportal/HelpMenuLabelMapper.xml"/>
+    <sqlMap resource="sqlmap/admin/publicportal/HelpMenuKnowledgeMapper.xml"/>
+</sqlMapConfig>

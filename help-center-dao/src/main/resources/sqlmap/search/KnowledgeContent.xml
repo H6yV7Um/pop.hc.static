@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="KnowledgeContent">
+
+  <typeAlias alias="KnowledgeContent" type="com.jd.help.domain.knowledge.KnowledgeContent"/>
+
+  <resultMap id="KnowledgeContentMap" class="KnowledgeContent">
+    <result column="id" property="id"/>
+    <result column="knowledge_id" property="knowledgeId"/>
+    <result column="content" property="content" />
+  </resultMap>
+
+  <sql id="allFields">
+    id, knowledge_id, content
+  </sql>
+
+  <sql id="insertFields">
+    knowledge_id, content
+  </sql>
+
+
+  <insert id="insert" parameterClass="KnowledgeContent" >
+    insert into knowledge_content (<include refid="KnowledgeContent.insertFields" />)
+    values (#knowledgeId#,
+    #content#)
+    <selectKey resultClass="long">
+      <![CDATA[SELECT LAST_INSERT_ID() ]]>
+    </selectKey>
+  </insert>
+
+  <delete id="deleteByKnowledgeId" parameterClass="java.lang.Long" >
+    delete from knowledge_content
+    where knowledge_id = #knowledgeId#
+  </delete>
+
+  <update id="updateByKnowledgeId" parameterClass="KnowledgeContent" >
+    update knowledge_content set content =#content#
+    where knowledge_id = #knowledgeId#
+  </update>
+
+  <delete id="delAllKnowledgeContent">
+    delete from knowledge_content
+  </delete>
+
+  <select id="queryContentByKnowledgeId" resultMap="KnowledgeContentMap" parameterClass="java.lang.Long">
+    SELECT
+    <include refid="allFields"/>
+    FROM
+    knowledge_content
+    WHERE knowledge_id = #knowledgeId#
+  </select>
+
+</sqlMap>

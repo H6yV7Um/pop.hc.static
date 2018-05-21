@@ -1,0 +1,55 @@
+#if($!{keyword})
+    #set($title="$!{keyword}-帮助中心-京东")
+#end
+#set($layout="customer/user/hasLeft.vm")
+#set($navId="question")
+#set($left="WEB-INF/vm/customer/user/common/issueLeft.vm")
+
+#if(!$!issueList || $!issueList.totalItem <= 0)
+<div class="feedback-box-faq">
+	<div class="icon-c-s01f">Sorry</div>
+	<div class="feedback-info">
+		<p class="feedback-info-txt">很抱歉，我们暂时无“<strong>$!keyword</strong>”的相关信息，请您重新搜索。</p>
+	</div>
+</div>
+#else
+##    概况
+<div class="breadcrumb">
+    关于“
+    <span class="flk02">$!keyword</span>
+    ”，共找到
+    <span class="flk02">$!issueList.totalItem</span>
+    相关问题
+</div>
+##      详情
+
+<div class="sch-result-box">
+    #foreach($issue in $issueList)
+        <blockquote class="mgr-b30">
+            <p class="tit-link flk05">
+                #if($!issue.type ==2)
+                    <a href="$venderHelpCenterModule.getTarget(
+                        "/")rule/list.action?id=$!{issue.id}">$!issue.name</a>
+                #else
+                    <a href="$venderHelpCenterModule.getTarget(
+                        "/")$!site.enName/issue/$!{issue.cataId}-$!{issue.id}.html">$!issue.name</a>
+                #end
+            </p>
+            <p class="help-cnt">
+                $!issue.summary
+            </p>
+        </blockquote>
+    #end
+
+    #if($!issueList.totalItem > 20)
+        <div id="bottom_pager" class="pagin m clearfix">
+            #set($pageModule = $venderHelpCenterModule.getTarget("/issue/search").addQueryData(
+                "siteId",$!siteId).addQueryData("keyword",$!stringEscapeUtils.escapeHtml($!keyword)))
+        #showPage($pageModule $!issueList)
+        </div>
+    #end
+
+</div>
+
+
+#end

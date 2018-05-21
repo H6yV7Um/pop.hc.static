@@ -1,0 +1,138 @@
+<link rel="stylesheet" type="text/css" href="/static/css/publicportal/publicportal.css">
+<script type="text/javascript" src="/static/js/publicportal/helpMenuKnowledge.js"></script>
+
+#*页面begin*#
+<div id="main">
+    <div class="lab"><p style="font-size:18px">公共窗口知识维护</p></div>
+    <div class="lab"><p class="message" style="font-size:13px">
+        公共窗口知识维护是针对在商家后台产品的推荐知识的维护，商家后台每个二级页面都会匹配推送5条相关知识，您可以对这些知识进行替换或删除的操作。</p>
+    </div>
+
+#*formBegin*#
+    <form action="/publicportal/k_select.action" id="form" onsubmit="return checkForQueryMsg()" method="post">
+        <div class="mod_form">
+            <span class="label">shop端关联页面id：</span>
+            <div class="search label_val">
+                <input type="text" class="menuId" name="helpMenuLabel.menuId" id="helpMenuLabel.menuId"
+                       value="$!helpMenuLabel.menuId"
+                       style="width: 70px">
+            </div>
+            <span class="label">shop端关联页面名称：</span>
+            <div class="search label_val">
+                <input type="text" class="menuDesc" name="helpMenuLabel.menuDesc" id="helpMenuLabel.menuDesc"
+                       value="$!helpMenuLabel.menuDesc"
+                       style="width: 70px">
+            </div>
+            <button type="submit" class="btn btn_input btn_primary " style="margin-left: 5%" id="query">查询</button>
+            <span class="frm_msg fail failMessage">请输入查询条件</span>
+        </div>
+        <div class="main_bd">
+            <table class="stable table-bordered table-striped table-hover" id="stable">
+                <thead>
+                <tr>
+                    <th style="width: 14%">shop端关联页面id</th>
+                    <th style="width: 14%">shop端关联页名称</th>
+                    <th style="width: 10%">知识ID</th>
+                    <th style="width: 14%">知识标题</th>
+                    <th style="width: 14%">知识类型</th>
+                    <th style="width: 14%">创建时间</th>
+                    <th style="width: 20%">操作</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    #if($!list && $!list.size() > 0)
+                        #foreach($item in $list)
+                        <tr>
+                            <td title="$!helpMenuLabel1.menuId">$!helpMenuLabel1.menuId</td>
+                            <td title="$!helpMenuLabel1.menuDesc">$!helpMenuLabel1.menuDesc</td>
+                            <td title="$!item.knowledgeId">$!item.knowledgeId</td>
+                            <td title="$!item.name">$!item.name</td>
+                            <td title="$!item.content">$!item.content</td>
+                            <td title="$!item.createTime">$!dateFormatUtils.format($!item.createTime,
+                                "yyyy-MM-dd HH:mm:ss")</td>
+                            <td>
+                                <button type="button" class="btn btn_input btn_primary update"
+                                        thisId="$!item.knowledgeId">替换
+                                </button>
+                                <button type="button" class="btn btn_input btn_primary delete"
+                                        thisId="$!item.knowledgeId">删除
+                                </button>
+                            </td>
+                        #end
+                    #end
+                </tbody>
+            </table>
+        </div>
+    </form>
+#*formEnd*#
+
+    <div class="outDiv modal"
+         style="width: 100%;height: 100%;position: fixed;left: 0;top: 0;background: rgba(0,0,0,0.4);display: none">
+        <div class="dialog  fade"
+             style="width: 1000px;height: 600px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background: #fff;border: 1px solid #ccc;">
+            <p style="font-size: 16px;margin-left: 25px;display:inline-block">选择替换知识</p><span id="x" aria-hidden="true"
+                                                                                              style="margin-right: 3%;cursor:pointer ;float: right;font-size: 21px;color: #3a87ad">×</span>
+            <div class="mod_form">
+                <span class="label">知识id：</span>
+                <div class="search label_val">
+                    <input type="text" class="knowledgeIdQuery" name="knowledgeIdQuery" id="knowledgeIdQuery"
+                           style="width: 70px">
+                </div>
+                <span class="label">知识标题：</span>
+                <div class="search label_val">
+                    <input type="text" class="knowledgeNameQuery" name="knowledgeNameQuery" id="knowledgeNameQuery"
+                           style="width: 70px">
+                </div>
+                <label class="nc_newLbl">知识类型</label>
+                    <span class="nc_span">
+                        <select id="issueType">
+                        </select>
+                    </span>
+                <button class="btn btn_input btn_primary " style="margin-left: 5%" id="queryNew">查询</button>
+            </div>
+            <table class="stable table-bordered table-striped table-hover" id="tableQuery">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>知识标题</th>
+                    <th style='width: 8%'>知识ID</th>
+                    <th style='width: 14%'>知识类型</th>
+                    <th>知识分类</th>
+                    <th style='width: 14%'> 创建时间</th>
+                </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+            <button id="confirmNew" class="btn btn_input btn_primary fr btns" style="margin-left: 35%" disabled="disabled">确定</button>
+            <button id="cancleNew" class="btn btn_input btn_primary fr btns" style="margin-left: 8%">取消</button>
+        </div>
+    </div>
+    <input type="hidden" id="activeId">
+    <input type="hidden" id="activeMenuId">
+    <input type="hidden" id="activeNewId">
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#*页面end*#
+

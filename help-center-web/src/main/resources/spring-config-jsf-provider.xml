@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jsf="http://jsf.jd.com/schema/jsf"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://jsf.jd.com/schema/jsf http://jsf.jd.com/schema/jsf/jsf.xsd"
+       default-autowire="byName">
+
+
+
+<!--
+    <jsf:registry id="jsfRegistry" protocol="jsfRegistry" index="i.jsf.jd.com"/>
+-->
+
+
+    <jsf:server id="jsf" protocol="jsf" threads="400"/>
+
+    <!-- 获取帮助中心的标签接口 -->
+    <jsf:provider id="helpLableServiceProvider" interface="com.jd.help.center.client.service.HelpLableService" alias="${jsf.helpcenter.helpLable.alias}"
+                  ref="helpLableService" server="jsf" timeout="5000" >
+    </jsf:provider>
+</beans>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    #if($topicId!=0)
+        #set($title =$!stringEscapeUtils.escapeHtml($helpTopic.getName()))
+    #end
+    <title>#if($title)$title&#45;帮助中心-京东网上商城#else 消费者帮助中心-京东网上商城#end</title>
+    <link type="text/css" href="/misc/skin/base.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="/misc/skin/helpcenter2013.css" />
+    <link type="image/x-icon" href="//www.jd.com/favicon.ico" rel="shortcut icon">
+</head>
+
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+    $!mongoVelocityTools.getHead("head")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!-- header end -->
+<!--main-part start-->
+#if(!$!questions.empty)
+    #foreach($question in $!questions)
+        $!question.getAnswer()
+    #end
+ #end
+<!--[if !ie]>Main 结束<![endif]-->
+<!--main-part end-->
+
+<!--[if !ie]>底部内容开始<![endif]-->
+    $!mongoVelocityTools.getBottom("bottom")
+<!--[if !ie]>底部内容结束<![endif]-->
+</body>
+</html>

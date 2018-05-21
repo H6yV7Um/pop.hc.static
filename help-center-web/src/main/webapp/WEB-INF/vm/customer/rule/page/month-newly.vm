@@ -1,0 +1,91 @@
+#set($layout="empty.vm")
+<!DOCTYPE html>
+<html class="root61">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title></title>
+
+    <link type="text/css" rel="stylesheet"
+          href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,myjd/2.0.0/myjd.css"/>
+    <script type="text/javascript">window.pageConfig = {compatible: true}</script>
+    <script>var pageConfig = {jdfVersion: '2.0.0'};</script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/shop/pop_rulers/css/pop_rulers.css"
+          source="widget"/>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+<!--/ /widget/header/header.vm -->
+<div class="l-wrap">
+    <div class="l-main">
+
+        <!--  /widget/crumb/crumb.vm -->
+
+        <div class="breadcrumb">
+            <a href="/rule/index.html">首页</a>
+
+            &nbsp;&gt;&nbsp;
+            <span class="i-txt">每月新编</span>
+
+        </div>
+        <!--/ /widget/crumb/crumb.vm -->
+
+        <div class="l-menu-wrap">
+            <div class="l-menu-box">
+                <ul class="sub-menu-list">
+                    #foreach($scene in $!listScenes)
+                        <li class="menu-item menu-item-current" name="${scene.id}"><a href="/rule/monthNewly.action?id=${scene.id}" class="link-dlk">${scene.sceneTitle}<i class="menu-icon-tria"></i></a></li>
+                    #end
+                </ul>
+            </div>
+        </div>
+##        #foreach($scene in $!listScenes)
+            <div class="l-content" >
+                <div class="o-mt">
+                    <h2 class="h-title">$!{sceneDetail.sceneTitle}</h2>
+                </div>
+                $!{sceneDetail.sceneContent}
+            </div>
+##        #end
+
+    </div>
+
+    <!--  /widget/h-footer/h-footer.vm -->
+    <div class="l-footer">
+        <div class="l-footer-box">
+            <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+            <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+        </div>
+    </div>
+
+    <!--/ /widget/h-footer/h-footer.vm -->
+</div>
+
+<script type="text/javascript">
+    seajs.use('jdf/1.0.0/unit/globalInit/2.0.0/globalInit.js',function(globalInit){
+        globalInit();
+    });
+//    function toggle(e) {
+//        if(e.className.indexOf("menu-item-current")>-1 ){
+//            return;
+//        }else{
+//            items=document.querySelectorAll('.menu-item');
+//            for(var i=0;i<items.length;i++){
+//                item= items.item(i)
+//                id= item.name;
+//                 if(document.getElementById("scene-"+id)&& document.getElementById("scene-"+id).style.display!='none'){
+//                     document.getElementById("scene-"+id).style.display=='none'
+//                 }
+//            }
+//            e.classList.add("menu-item-current");
+//            id= e.name;
+//            document.getElementById("scene-"+id).style.display='inline-block';
+//        }
+//    }
+</script>
+<script type="text/javascript" src="//static.360buyimg.com/shop/pop_rulers/js/rules.js" source="widget"></script>
+</body>
+</html>

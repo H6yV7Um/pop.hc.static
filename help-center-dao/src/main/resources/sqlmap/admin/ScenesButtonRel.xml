@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ScenesButtonRel">
+    <typeAlias alias="ScenesButtonRel" type="com.jd.help.domain.ScenesButtonRel"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="ScenesButtonRel">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="relId" column="rel_id"/>
+        <result property="buttonTitle" column="button_title"/>
+        <result property="buttonLink" column="button_link"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> `id`,<include refid="noIdColumns"/></sql>
+
+    <!-- 没有自增主键的列名-->
+    <sql id="noIdColumns">
+        `type`, `rel_id`, `button_title`, `button_link`, `created`, `modified`
+    </sql>
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="type" prepend="AND" removeFirstPrepend="true">
+                `type` = #type#
+            </isNotNull>
+            <isNotNull property="relId" prepend="AND" removeFirstPrepend="true">
+                rel_id = #relId#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="list">
+    	
+        INSERT INTO help_scenes_button_rel (<include refid="allColumns"/>)
+        VALUES 
+         <iterate  conjunction ="," >   
+         (null , #scenesButtonRelList[].type# , #scenesButtonRelList[].relId# , #scenesButtonRelList[].buttonTitle#, #scenesButtonRelList[].buttonLink#
+         , now(), now() )
+         </iterate>
+    </insert>
+
+    <!-- 删除 -->
+    <update  timeout="5"   id="delete" parameterClass="ScenesButtonRel">
+        delete from  help_scenes_button_rel
+        WHERE
+        rel_id = #relId# and `type` = #type#
+    </update>
+
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="ScenesButtonRel">
+        SELECT count(id)
+        FROM
+        help_scenes_button_rel
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="ScenesButtonRel">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_scenes_button_rel
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+	
+
+</sqlMap>

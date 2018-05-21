@@ -1,0 +1,119 @@
+#set($layout="admin/default.vm")
+#set($title="新增页面模块")
+<div class="container-fluid">
+    <div class="row">
+        <form id="htmlForm" name="htmlForm" role="form" method="post"
+              class="form-horizontal">
+            <input type="hidden" name="htmlModule.siteId" value="$!site.id"/>
+            <input type="hidden" name="site.id" value="$!site.id"/>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="htmlModule.key" class="col-sm-1 control-label">模块所属站点</label>
+
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" disabled value="$!site.getName()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="htmlModule.key" class="col-sm-1 control-label">内容所在位置</label>
+
+                        <div class="col-sm-11">
+                            <select name="htmlModule.key" class="form-control">
+                                <option value="index_hotIssue">请选择</option>
+                                <optgroup label="首页">
+                                    <option value="index_hotService">常用自助服务</option>
+                                    <option value="index_hotIssue">热点问题</option>
+                                    <option value="index_catalogList">类目列表</option>
+                                    <option value="index_banner">轮播图</option>
+                                    <option value="index_studyArea">学习专区</option>
+                                    <option value="index_venderSpecial">商家专题</option>
+                                    <option value="index_venderServerNavigation">商家服务导航</option>
+                                </optgroup>
+                                <optgroup label="常见问题首页">
+                                    <option value="issue_hotIssue">热点问题</option>
+                                    <option value="issue_quickNav">快速导航</option>
+                                </optgroup>
+                                <optgroup label="自助服务首页">
+                                    <option value="service_allService">全部自助服务</option>
+                                </optgroup>
+                                <optgroup label="联系客服">
+                                    <option value="custom_banner">Banner图</option>
+                                </optgroup>
+                                <optgroup label="新手指南">
+                                    <option value="guide_guide">新手购物教学</option>
+                                    <option value="guide_imgGuide">图文指南</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="htmlModule.name" class="col-sm-1 control-label">内容名称</label>
+
+                        <div class="col-sm-11">
+                            <input type="text" name="htmlModule.name" class="form-control" value="$!htmlModule.name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="htmlModule.notes" class="col-sm-1 control-label">备注</label>
+
+                        <div class="col-sm-11">
+                            <textarea class="form-control" rows="3"
+                                      name="htmlModule.notes">$!htmlModule.notes</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+
+                        <button type="button" class="btn btn-primary btn-lg" onclick="save()">保 存</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <!-- 配置文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.all.js"></script>
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+            var editor = UE.getEditor(
+                    'container',
+                    {
+                        toolbars: [
+                            ['fullscreen', 'source', 'undo', 'redo']
+                        ],
+
+                        autoHeightEnabled: true,
+                        initialFrameHeight: 400,
+                        allowDivTransToP: false,
+                        maximumWords:20000,
+                        wordOverFlowMsg:'<span style="color:red;">你输入的字符个数已经超出最大允许值（20000个字符），请删除部分字符！</span>'
+                    });
+        </script>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var save = function () {
+        var actionUrl = 'htmlmodule_doAdd.action';
+        jQuery('#htmlForm').attr('action', actionUrl);
+        jQuery('#htmlForm').submit();
+
+    };
+
+    var preview = function () {
+
+    };
+    $(function () {
+        $("select[name=htmlModule\\.key]").change(function () {
+            var option = $(this).find("option:selected");
+            var pageName = option.parent().attr("label");
+            var moduleName = option.text();
+            $("input[name=htmlModule\\.name]").val(pageName + "-" + moduleName);
+        })
+    })
+</script>

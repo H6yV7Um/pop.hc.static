@@ -1,0 +1,138 @@
+#set($layout="empty.vm")
+<!DOCTYPE html>
+<html lang="en">
+#set($title="规则评审团")
+<head>
+    #parse("/WEB-INF/vm/customer/rule/page/head.vm")
+    <style>
+        .tips {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            font: 18px Microsoft Yahei;
+            color: #666;
+        }
+        .b-pagin-box {
+            margin-right: 85px;
+            float: right;
+        }
+        body{
+            font-family:Microsoft Yahei
+        }
+    </style>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+<div class="rule">
+##    <div class="header">
+##        <a href="" class="ml40">首页</a>
+##        <a href="" class="ml40">规则总览</a>
+##        <a href="" class="ml40">规则评审图</a>
+##        <a href="" class="ml40">规则论坛</a>
+##    </div>
+    <div class="contentList">
+        <div class="clearfix nav-whole">
+            <ul class="nav-box">
+                <li class="item-nav #if($!formQuery.formStatus == 0 || !$!formQuery.formStatus) on #end mr40">
+                    <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewList.action").addQueryData("formQuery.formStatus",0)">全部</a>
+                </li>
+##                <li class="item-nav mr40">
+##                    <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewList.action").addQueryData("siteId",$!siteId)">即将开始</a>
+##                </li>
+                <li class="item-nav #if($!formQuery.formStatus == 2) on #end mr40">
+                    <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewList.action").addQueryData("formQuery.formStatus",2)">评审中</a>
+                </li>
+                <li class="item-nav #if($!formQuery.formStatus == 10) on #end mr40">
+                    <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewList.action").addQueryData("formQuery.formStatus",10)">评审结束待公示</a>
+                </li>
+                <li class="item-nav #if($!formQuery.formStatus == 11) on #end ">
+                    <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewList.action").addQueryData("formQuery.formStatus",11)">已公示</a>
+                </li>
+            </ul>
+            <div class="search">
+                <form id="search" action="/ruleReview/ruleReviewList.action" method="post">
+                    <input id="searchName" name="formQuery.name" type="text" placeholder="请输入标题名称" class="searchText" value="$!formQuery.name">
+                    <input type="hidden" name="formQuery.formStatus" value="$!formQuery.formStatus">
+                    <span class="wbi-sousuo wbi-s search-icon" clstag="pageclick|keycount|rule_home|6"></span>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            #if($!reviewList && $!reviewList.size()>0)
+                <ul class="mt30 clearfix">
+                    #foreach($reviewItem in $!reviewList)
+                        <li class="item-rule">
+                            <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewContent.action").addQueryData("reviewFormId",$!reviewItem.id)"><img src="$reviewItem.attachUrl" height="220" width="285" style="background-color: #bfbfbf"></a>
+                            <div class="title">
+                                <a href="$venderHelpCenterModule.getTarget("/ruleReview/ruleReviewContent.action").addQueryData("reviewFormId",$!reviewItem.id)">$reviewItem.name</a>
+                            </div>
+                            <div class="result">
+                                #if($reviewItem.status ==10)
+                                    <span class="wbi-spinner wbi-s wbi-gray wb-inline ml15"></span>
+                                    <span class="wb-inline">等待公示结果</span>
+                                #elseif($reviewItem.status ==11)
+                                    <span class="wbi-zhengque wbi-s wbi-green wb-inline ml15"></span>
+                                    <span class="wb-inline wb-green">已公示</span>
+                                #else
+##                                    <span class="wbi-spinner wbi-s wbi-gray wb-inline ml15"></span>
+                                    <img class="wbi-s wbi-gray wb-inline ml15" src="/img/icon.png">
+                                    <span class="wb-inline">评审中</span>
+                                #end
+                            </div>
+                        </li>
+                    #end
+                ##                    <li class="item">
+                ##                        <img src="" height="220" width="288" style="background-color: #bfbfbf">
+                ##                        <div class="title">
+                ##                            关于新增关于新增关于新增关于新增关于新增关于新增
+                ##                        </div>
+                ##                        <div class="result">
+                ##                            <span class="wbi-zhengque wbi-s wbi-green wb-inline ml15"></span>
+                ##                            <span class="wb-inline wb-green">已公示</span>
+                ##                        </div>
+                ##                    </li>
+                </ul>
+            #elseif($!formStatus && $!formStatus==2)
+                <div class="tips">尊敬的商家您好，目前暂无评审中的评审规则。</div>
+            #elseif($!formStatus && $!formStatus==10)
+                <div class="tips">尊敬的商家您好，目前暂无待公示的评审规则。</div>
+            #elseif($!formStatus && $!formStatus==11)
+                <div class="tips">尊敬的商家您好，目前暂无已公示的评审规则。</div>
+            #else
+                <div class="tips">尊敬的商家您好，为保持评审的公平公正，因您的主营类目不符，暂无适合您参与的评审规则。</div>
+            #end
+        </div>
+    </div>
+    #if($!reviewList.totalItem>12)
+        <div class="b-pagin-wrap">
+            <div class="b-pagin-box">
+            #set($pageModule = $venderHelpCenterModule.getTarget("/ruleReview/ruleReviewList.action").addQueryData("formQuery.formStatus",$!formQuery.formStatus))
+                        #showVenderPage($pageModule $!reviewList)
+            </div>
+        </div>
+    #end
+</div>
+<!--  /widget/h-footer/h-footer.vm -->
+<div class="l-footer">
+    <div class="l-footer-box">
+        <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+        <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+    </div>
+</div>
+<script type="text/javascript">
+    (function ($) {
+        $("#searchName").keydown(function (e) {
+            if (e.keyCode == 13) {
+                $("#search").submit();
+            }
+        });
+        $("#searchName").bind("blur",function () {
+            $("#search").submit();
+        });
+    })(jQuery)
+
+</script>
+</body>
+</html>

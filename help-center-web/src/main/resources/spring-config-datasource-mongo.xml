@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+     <bean id="searchClickStreamMongoConfig"
+           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+           <property name="location">
+               <value>classpath:mongo-config.properties</value>
+           </property>
+     </bean>
+      <bean id="helpDriver" class="com.jd.mongodbclient2.driver.MongoDBDriver" init-method="init"
+          destroy-method="close" scope="prototype">
+        <property name="config" ref="searchClickStreamMongoConfig"/>
+        <property name="hostname" value="${help-center.mongo.host}"/>
+        <property name="port" value="${help-center.mongo.port}"/>
+        <property name="dataBaseName" value="popcommon"/>
+        <property name="user" value="${help-center.mongo.username}"/>
+        <property name="password" value="${help-center.mongo.password}"/>
+        <property name="connectionsPerHost" value="50"/>
+        <property name="minPoolsSize" value="15"/>
+        <property name="threadsAllowedToBlockForConnectionMultiplier" value="50"/>
+    </bean>
+       <bean id="helpBorderMgDao"  class="com.jd.mongodbclient2.sample.SimpleMongoDBClient3" init-method="init">
+           <property name="driver" ref="helpDriver"/>
+           <!--<property name="collectionName" value="HELP_BORDER_INFO_1"/>-->
+           <property name="collectionName" value="HELP_BORDER_INFO_1"/>
+           <property name="reconstructMongoId" value="false"/>
+      </bean>
+	 <bean id="helpNoticeMongoDBClient"  class="com.jd.mongodbclient2.sample.SimpleMongoDBClient3" init-method="init">
+           <property name="driver" ref="helpDriver"/>
+            <!--<property name="collectionName" value="HELP_NOTICE_1"/>-->
+            <property name="collectionName" value="HELP_NOTICE_1"/>
+           <property name="reconstructMongoId" value="false"/>
+      </bean>
+      <bean id="helpHtmlModuleMongoDBClient"  class="com.jd.mongodbclient2.sample.SimpleMongoDBClient3" init-method="init">
+           <property name="driver" ref="helpDriver"/>
+          <!--<property name="collectionName" value="HELP_HTML_MODULE_1"/>-->
+          <property name="collectionName" value="HELP_HTML_MODULE_1"/>
+           <property name="reconstructMongoId" value="false"/>
+      </bean>
+      
+</beans>

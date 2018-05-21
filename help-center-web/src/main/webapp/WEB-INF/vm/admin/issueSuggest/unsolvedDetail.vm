@@ -1,0 +1,129 @@
+#set($layout="admin/default.vm")
+#set($title="未解决明细列表")
+<script type="text/javascript" src="/static/js/DatePicker/WdatePicker.js"></script>
+<div class="container-fluid">
+    #showError()
+
+
+##    表头
+    <div class="row well">
+        <h3>文章id:$!issueId 文章标题: $!issueName</h3>
+    </div>
+
+##    列表
+
+    <div class="row table-responsive m_t_10">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>未解决原因</th>
+                <th>建议</th>
+                <th>商家pin</th>
+                <th>创建时间</th>
+            </tr>
+            </thead>
+            <tbody>
+                #if($!issueSuggests.size()>0)
+                    #foreach($issueSuggest in $issueSuggests)
+                    <tr>
+                        <td>$!{velocityCount}</td>
+                        <td>$!issueSuggest.unSolveReason</td>
+                        <td>$!issueSuggest.suggestContent</td>
+                        <td>$!issueSuggest.creator</td>
+                        <td>$!dateUtil.format($!issueSuggest.created,"yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                    #end
+                #else
+                    <tr >
+                        <td id="noListExplain" colspan="5" align="center"><h4 style="color: red">对不起，暂时未查到相关数据，请检查您的查询条件！</h4></td>
+                    </tr>
+                #end
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    #set($pageUrl = $!helpAdminModule.getTarget("/help/issueSuggest/issueSuggest_unsolvedDetail.action").addQueryData(
+                        "issueId",$!issueId).addQueryData("beginTime",$!dateUtil.formatDate($!beginTime)).addQueryData("endTime",$!dateUtil.formatDate($!endTime)))
+                    #showPage($!pageUrl $!issueSuggests)
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+## 提示框
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <a href="" role="button" class="btn btn-primary btn-do-update-status"></a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $(function () {
+    ##        $(".btn-update-status").click(function () {
+    ##            var status = $(this).data("status");
+    ##            var id = $(this).data("id");
+    ##            if (status == "-1") {
+    ##                $("#modal").find(".modal-title").html("删除问题").end()
+    ##                        .find(".modal-body").html("<p>你确定将此问题删除？</p><p>删除后将看不到此问题，不能再进行管理！</p>").end()
+    ##                        .find(".btn-do-update-status").attr("href", "$!helpAdminModule.getTarget(
+    ##                            "/help/issue/issue_updateStatus.action")?site.id=$!site.id&issueBO['issue'].status=" + status + "&issueBO['issue'].id=" + id).text("确定").end()
+    ##                        .modal("show");
+    ##            } else if (status == "0") {
+    ##                $("#modal").find(".modal-title").html("下线问题").end()
+    ##                        .find(".modal-body").html("<p>你确定将此问题下线？</p><p>下线后前台访问此问题将出现404！</p>").end()
+    ##                        .find(".btn-do-update-status").attr("href", "$!helpAdminModule.getTarget(
+    ##                            "/help/issue/issue_updateStatus.action")?site.id=$!site.id&issueBO['issue'].status=" + status + "&issueBO['issue'].id=" + id).text("确定").end()
+    ##                        .modal("show");
+    ##            }
+    ##        });
+    ##
+    ##        $(".btn-update-status").click(function () {
+    ##            var issueId = $(this).data("id");
+    ##
+    ##        });
+
+        $("#exportExcel").click(function (){
+            if($("#beginTime").val()=="" || $("#endTime").val()==""){
+                $("#modal").find(".modal-title").html("时间错误").end()
+                        .find(".modal-body").html("<p>时间段选择错误</p><p>数据导出必须选择时间，请选择正确时间段</p>").end()
+                        .modal("show");
+                $("#modal a:last").remove();
+//                alert("数据导出必须选择时间，请选择正确时间段");
+                return;
+            }
+            $("#keywordForm").attr("action","keyword_download.action");
+            $("#keywordForm").submit();
+        });
+
+
+        $("#search").click(function (){
+            if($("#beginTime").val()=="" || $("#endTime").val()==""){
+                $("#modal").find(".modal-title").html("时间错误").end()
+                        .find(".modal-body").html("<p>时间段选择错误</p><p>请选择正确的时间段进行查询</p>").end()
+                        .modal("show");
+                $("#modal a:last").remove();
+//                alert("数据导出必须选择时间，请选择正确时间段");
+                return;
+            }
+            $("#keywordForm").attr("/help/issueSuggest/issueSuggest_unsolvedDetail.action");
+            $("#keywordForm").submit();
+        });
+
+    });
+</script>

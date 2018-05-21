@@ -1,0 +1,47 @@
+#set($layout="customer/vender/hasLeftNew.vm")
+#set($navId="question")
+#set($left="WEB-INF/vm/customer/vender/common/issueLeft.vm")
+
+
+#parse("/WEB-INF/vm/customer/vender/common/issueSearchBoxNew.vm")
+
+<div class="l-content" style="margin-bottom: 5px;">
+    <div class="o-hd">
+        <h3 id="currentCataLogName" class="title">$!currentCatalog.name</h3>
+    </div>
+    <div class="l-pack">
+
+        <!--  /widget/news/news.vm -->
+        <ul class="normal-list">
+            #foreach($issue in $!issueList)
+                <li class="li-item">
+                    <em class="icon-middot"></em>
+                    <a href="$!venderHelpCenterModule.getTarget("/$!siteEnName/issue/$!{issue.cataId}-$!{issue.id}.html")" clstag="pageclick|keycount|helpcenter_questionbox|$!{issue.cataId}-$!{issue.id}">$!issue.name</a>
+                </li>
+            #end
+        </ul>
+        <!--  /widget/pagin/pagin.vm -->
+        <!--/ /widget/pagin/pagin.vm -->
+
+        <!--/ /widget/news/news.vm -->
+    </div>
+    #if($!issueList.totalItem > 20)
+        <div class="b-pagin-wrap">
+            <div class="b-pagin-box">
+                #set($pageModule = $venderHelpCenterModule.getTarget("/$!siteEnName/issue/list-$!{currentCatalog.pid}-$!{currentCatalog.id}.html"))
+                #showVenderPage($pageModule $!issueList)
+            </div>
+        </div>
+    #end
+</div>
+<script type="text/javascript">
+$(function(){
+    var level03 = $(".li-level03-item[data-id="+$!currentCatalog.id+"]");
+    level03.addClass("level03-on");
+    var catItem = $(".li-item[data-id="+$!currentCatalog.pid+"]");
+    catItem.addClass("h-item-on");
+    var level_id = catItem.attr("data-parent-id")
+    $(".h-menu-hd[data-id="+level_id+"]").parent().addClass("h-menu-on");
+    $("#currentCataLogName").text(level03.attr("data-name"));
+});
+</script>

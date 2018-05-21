@@ -1,0 +1,61 @@
+#set($layout="admin/default.vm")
+<div class="container-fluid">
+    <div class="row-fluid">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#indexAllModal">建立全量索引</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="indexAllModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">全量索引</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                您确认对所有问题重建索引吗？这很危险！
+            </div>
+            <form id="indexAllForm" action="/help/search/indexAll.action"></form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">算了</button>
+                <button type="button" class="btn btn-danger btn-index-all">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="indexAllStarted" value="$!indexAllStarted"/>
+<div class="modal fade" id="indexAllStartedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="">全量索引</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                全量索引建立已经开始进行。预计需要10分钟。请不要频繁操作。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">知道了</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".btn-index-all").click(function () {
+        $("#indexAllForm").submit();
+    });
+
+    $(function () {
+        if ($("#indexAllStarted").val() == "true") {
+            $("#indexAllStartedModal").modal();
+        }
+    });
+</script>

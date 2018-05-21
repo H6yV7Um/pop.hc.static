@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+    <title> cn域名注册、个人域名注册、中文域名注册、域名查询 -京东商城</title>
+	<meta name="keywords" content="CN域名，国内域名，中文域名，域名注册，京东商城" />
+	<meta name="description" content="京东商城域名注册频道提供：CN域名查询、CN域名注册、姓名域名注册、个人域名注册、国际中文域名注册等服务。申请个人域名，打造属于你的专属域名！" />
+    <link type="text/css" rel="stylesheet" href="/misc/skin/base.css" />
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/domain/2012/skin/domain.css" />
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/domain/2012/skin/domain-detail.css" />
+    <script type="text/javascript" src="//misc.360buyimg.com/lib/js/e/jquery-1.2.6.pack.js"></script>
+##    <script type="text/javascript" src="//wl.360buy.com/wl.js"></script>
+</head>
+<body>
+
+<script src="/misc/js/base-v1.js" charset="gb2312" type="text/javascript"></script>
+<!--[if !ie]>顶部内容开始<![endif]-->
+$!mongoVelocityTools.getHead("head_domain")
+<!--[if !ie]>顶部内容结束<![endif]-->
+
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w domain-w">
+    #set($tailhtml=".html")
+    <!--[if !ie]>left 开始<![endif]-->
+    <div class="m left">
+##        #foreach($category in $!categorys)
+##            <dl>
+##            <dt>$!stringEscapeUtils.escapeHtml($!category.getName())</dt>
+##            #set($topics = $!category.getTopics())
+##                #foreach($topic in $topics)
+##                    <dd>
+##                        #if($!topic.getUrl())
+##                            <a href="$!topic.getUrl()" target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                        #else
+##                            <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!topic.getTopicId()$tailhtml"
+##                               target="_self" #if($!topicId ==$!topic.getTopicId()) class="this" #end >$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+##                        #end
+##                        #if($!topic.getLogoType()==1)
+##                            <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+##                        #elseif($!topic.getLogoType()==2)
+##                            <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+##                        #elseif($!topic.getLogoType()==3)
+##                            <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+##                        #end
+##                    </dd>
+##                #end
+##            </dl>
+##        #end
+
+        #foreach($category in $!leftNavigate.categoryList)
+        <dl>
+            <dt>$!stringEscapeUtils.escapeHtml($!category.getName())</dt>
+            #set($topics = $!category.getTopicList())
+            #foreach($topic in $topics)
+                <dd>
+                    <a href="$!topic.getUrl()"
+                       target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                    #if($!topic.getLogoType()==1)
+                        <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+                    #elseif($!topic.getLogoType()==2)
+                        <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+                    #elseif($!topic.getLogoType()==3)
+                        <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+                    #end
+                </dd>
+            #end
+
+        </dl>
+    #end
+    </div>
+    <!--[if !ie]>left 结束<![endif]-->
+
+    <!--[if !ie]>right 开始<![endif]-->
+    <div class="m right">
+        <div class="crumb"><a href="//domain.360buy.com" target="_self">首页</a> &gt; <a  href="$venderHelpCenterModule.getTarget("")$!stringEscapeUtils.escapeHtml($!sysName)" target="_self">帮助中心</a> #if($topicId!=0) &gt; $!stringEscapeUtils.escapeHtml($!helpTopic.getName()) #end</div>
+        #if($topicId==0)
+            #set($tailIndex="mainPage")
+            $!mongoVelocityTools.getBorder("$!sysName$!tailIndex")
+        #end
+        #if($!topicId>0&&$!anchorStatus==0)
+            <div id="h-sort">
+                #foreach($question in $!questions)
+                    <a href="#help$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>
+                #end
+            </div>
+        #end
+        #if(!$!questions.empty)
+            #foreach($question in $!questions)
+                <a class="h-1px" id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a>
+
+                <h3 class="help_tit"><a href="#">↑Top</a><span>$!stringEscapeUtils.escapeHtml($!question.getQuestion())</span></h3>
+
+                <div class="m res-detail">$!question.getAnswer()</div>
+            #end
+        #end
+    </div>
+    <!--[if !ie]>right 结束<![endif]-->
+    <div class="clr"></div>
+</div>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+$!mongoVelocityTools.getBottom("bottom_domain")
+<!--[if !ie]>底部内容结束<![endif]-->
+
+</body>
+</html>

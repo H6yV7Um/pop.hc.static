@@ -1,0 +1,2 @@
+#set($layout="admin/default.vm")
+登录失败，请使用供应商店铺账号登录。

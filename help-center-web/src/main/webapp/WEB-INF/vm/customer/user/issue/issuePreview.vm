@@ -1,0 +1,54 @@
+#set($layout="customer/user/hasLeft.vm") #set($navId="question")
+#set($left="WEB-INF/vm/customer/user/common/issueLeft.vm")
+<div class="breadcrumb">
+    <span id="sLevel1"></span>
+    >
+    <a href="$!venderHelpCenterModule.getTarget("/$!siteEnName/issue/list-$!{catalog.pid}.html")"><span
+            id="sLevel2"></span></a>
+
+    > <a href="$!venderHelpCenterModule.getTarget(
+    "/$!siteEnName/issue/list-$!{catalog.pid}-$!{catalog.id}.html")">$!catalog.name</a>
+
+</div>
+
+<div class="contxt">
+    <div class="help-tit1 flk06">$!issueBO.issue.name</div>
+    $!issueBO.issueAnswer.answer
+</div>
+#if($!issueBO.issueRelList.size() > 1)
+<div class="conbox">
+    <h3 class="help-tit2 flk06"><strong><a href="#">猜你感兴趣的问题</a></strong></h3>
+    <ul class="help_list">
+        #foreach($rel in $!issueBO.issueRelList)
+            <li>
+                <a target="_blank" href="$rel.relIssueLink">
+                    <b>·</b>
+                    $rel.relIssueTitle
+                </a>
+            </li>
+        #end
+    </ul>
+</div>
+#end
+
+## 广告位
+<script type="text/javascript">
+    jd_ad_client = 585;// 广告位Id
+    jd_ad_width = 990; //广告位宽度
+    jd_ad_height = 150; //广告位高度
+    jd_ad_type = 8;
+    jd_ad_spread = 1;
+    jd_ad_num = 1;
+</script>
+<script type="text/javascript" src="//static.360buyimg.com/jzt/temp/ssp.js"></script>
+
+
+<script>
+    $(function () {
+        var catItem = $(".list-item[data-id=$!catalog.pid]");
+        catItem.parents(".subside-mod").addClass("on");
+        catItem.addClass("current");
+        $('#sLevel2').html(catItem.attr('data-name'));
+        $('#sLevel1').html(catItem.attr('data-parent-name'));
+    })
+</script>

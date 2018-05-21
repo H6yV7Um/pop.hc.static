@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<input type="text" id="message" disabled="disabled">
+<br>
+<a href="javascript:show();"> <font>弹出框</font>
+</a>
+<div id="myDiv" onclick="cancle(this);"
+     style="position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2); z-index: 998">
+    <div id="popupDiv"
+         style="position: absolute; width: 80%; height: 80%; background-color: white; position: absolute; left: 50%; top: 50%; margin-left: -40%; margin-top: -20%;">
+        <iframe id="myFrame" frameborder="0" src="child.html"
+                style="position: absolute; width: 100%; height: 100%; border-radius: 3px;"></iframe>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var myDiv = document.getElementById("myDiv");
+    function myfun() {
+        // 隐藏myDiv
+        myDiv.style.display = "none";
+    }
+    function cancle(obj) {
+        obj.style.display = "none";
+    }
+    function show() {
+        myDiv.style.display = "block";
+    }
+    function get(data) {
+        var message = document.getElementById("message");
+        message.value = data;
+        myDiv.style.display = "none";
+    }
+    window.onload = myfun;
+</script>
+</html>

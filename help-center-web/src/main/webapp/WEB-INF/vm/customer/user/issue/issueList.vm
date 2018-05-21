@@ -1,0 +1,79 @@
+#set($layout="customer/user/hasLeft.vm") #set($navId="question")
+#set($left="WEB-INF/vm/customer/user/common/issueLeft.vm")
+<div class="breadcrumb">
+        <span id="sLevel1"></span>
+        >
+    <a href="$!venderHelpCenterModule.getTarget("/$!siteEnName/issue/list-$!{currentCatalog.pid}.html")"><span
+            id="sLevel2"></span></a>
+      </div>
+ <div class="tabs-01" id="all-ques-tab">
+        <ul class="tab">
+        <li id="ques_list_all" class="list-item">
+       	 	<strong class="dk-line">
+       	 		 <a href="$!venderHelpCenterModule.getTarget("/$!siteEnName/issue/list-$!{currentCatalog.pid}.html")">全部</a>
+       	 	</strong>
+        </li>
+        #foreach($cata in $!catalogLevel3List)
+        	#if($cata.id == $!currentCatalog.id)
+        		<li class="list-item current currentCata">
+        			<strong class="dk-line">$!cata.name</strong>
+	        	</li>
+        	#else
+        	<li class="list-item">
+				<strong class="dk-line">
+                    <a href="$!venderHelpCenterModule.getTarget(
+						"/$!siteEnName/issue/list-$!{cata.pid}-$!{cata.id}.html")">$!cata.name</a>
+				</strong>
+        	</li>
+        	#end
+        	
+        #end
+        </ul>
+        <div class="tabcons">
+          <div class="tabcon">
+            <h4 class="help-tit-l2">问题知识列表</h4>
+            <ul class="help_list">
+              #foreach($issue in $!issueList)
+	              <li>
+                      <a href="$!venderHelpCenterModule.getTarget(
+						  "/$!siteEnName/issue/$!{issue.cataId}-$!{issue.id}.html")">
+	                  <b>·</b>
+	                  $!issue.name
+	                </a>
+	              </li>
+              #end
+              
+            </ul>
+            #if($!issueList.totalItem > 20)
+	            <div id="bottom_pager" class="pagin m clearfix">
+				    #if(!$currentCatalog.id)
+						#set($pageModule = $venderHelpCenterModule.getTarget(
+							"/$!siteEnName/issue/list-$!{currentCatalog.pid}.html"))
+				    #else
+						#set($pageModule = $venderHelpCenterModule.getTarget(
+							"/$!siteEnName/issue/list-$!{currentCatalog.pid}-$!{currentCatalog.id}.html"))
+				    #end
+				   
+				     #showPage($pageModule $!issueList)
+				</div>
+            #end
+            
+          </div>
+        </div>
+      </div>
+<script type="text/javascript">
+$(function(){
+	if($("#all-ques-tab .currentCata").length < 1){
+		$("#ques_list_all").addClass("current");
+	}
+	var catItem = $(".list-item[data-id="+$!currentCatalog.pid+"]"); 
+	catItem.parents(".subside-mod").addClass("on");
+	catItem.addClass("current");
+	if($(".currentCata").html() != null){
+		$('.breadcrumb').append('>&nbsp;<span>'+$(".currentCata strong").html()+'</span>');
+	}
+	
+	$('#sLevel2').html(catItem.attr('data-name'));
+	$('#sLevel1').html(catItem.attr('data-parent-name'));
+});
+</script>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="RelationKnowledge">
+
+  <typeAlias alias="RelationKnowledge" type="com.jd.help.domain.RelationKnowledge"/>
+
+  <resultMap id="RelationKnowledgeMap" class="RelationKnowledge">
+    <result column="id" property="id"/>
+    <result column="relation_knowledge_id" property="relationKnowledgeId"/>
+    <result column="replace_knowledge_id" property="replaceKnowledgeId" />
+    <result column="created" property="created" />
+    <result column="modified" property="modified" />
+    <result column="menu_id" property="menuId" />
+    <result column="status" property="status" />
+    <result column="is_strong" property="isStrong" />
+  </resultMap>
+
+  <sql id="allFields">
+    id, relation_knowledge_id, replace_knowledge_id, created, modified,  menu_id, status, is_strong
+  </sql>
+
+  <sql id="insertFields">
+    id, relation_knowledge_id, replace_knowledge_id, created, modified,  menu_id, status, is_strong
+  </sql>
+
+  <sql id="condition">
+    <dynamic>
+      <isNotNull property="bizId" prepend="AND" removeFirstPrepend="true">
+        biz_id = #bizId#
+      </isNotNull>
+      <isNotNull property="bizTypeId" prepend="AND" removeFirstPrepend="true">
+        biz_type_id = #bizTypeId#
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <!-- 插入 -->
+  <insert id="insert" parameterClass="RelationKnowledge" >
+    insert into
+    help_relation_knowledge
+    (<include refid="insertFields" />)
+    values (
+      #id#,
+      #relationKnowledgeId#,
+      #replaceKnowledgeId#,
+      now(),
+      now(),
+      #menuId#,
+      #status#,
+      #isStrong#
+    )
+  </insert>
+
+  <!-- 删除弱关联知识 -->
+  <delete id="deleteWeakRelation" parameterClass="java.util.Map" >
+    delete from help_relation_knowledge
+    where id = #id#
+    and relation_knowledge_id = #relationKnowledgeId#
+    and is_strong = 0
+  </delete>
+
+  <!-- 删除关联知识 -->
+  <update id="deleteRelation" parameterClass="java.lang.Long" >
+    delete from help_relation_knowledge
+    where id = #id#
+</update>
+
+  <!-- 查强关联知识和删除的知识 -->
+  <select id="listRelationKnowledge" resultMap="RelationKnowledgeMap" parameterClass="java.lang.Long">
+    SELECT
+      <include refid="allFields"/>
+    FROM
+      help_relation_knowledge
+    WHERE id = #id#
+    and ( is_strong = 1 or status = 1)
+  </select>
+
+  <!-- 查关联知识，关联中的，近期的 -->
+  <select id="listDeleteRelationKnowledge" resultMap="RelationKnowledgeMap">
+    SELECT
+      <include refid="allFields"/>
+    FROM
+      help_relation_knowledge
+    WHERE status = 1
+  </select>
+
+
+</sqlMap>

@@ -1,0 +1,3 @@
+#set($layout="admin/default.vm")
+#set($title="新增问题")
+<a href="http://helpcenter.jd.com/help/issue/issue_mysql2Es.action">从mysql导出数据</a>

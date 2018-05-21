@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="helpMenuLableMapper">
+    <typeAlias alias="helpMenuLable" type="com.jd.help.domain.publicportal.HelpMenuLabel"/>
+    <resultMap id="BaseResultMap" class="helpMenuLable">
+        <result column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="menu_desc" property="menuDesc" jdbcType="VARCHAR"/>
+        <result column="label_Ids" property="labelIds" jdbcType="VARCHAR"/>
+        <result column="label_Names" property="labelNames" jdbcType="VARCHAR"/>
+        <result column="label1_Ids" property="label1Ids" jdbcType="VARCHAR"/>
+        <result column="label1_Names" property="label1Names" jdbcType="VARCHAR"/>
+        <result column="created_pin" property="createdPin" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="modified_pin" property="modifiedPin" jdbcType="VARCHAR"/>
+        <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    menu_id, menu_desc, label_Ids, label_Names,label1_Ids, label1_Names, created_pin, created_time, modified_pin,
+    modified_time
+  </sql>
+    <select id="selectByMenuId" resultMap="BaseResultMap" parameterClass="helpMenuLable" timeout="5">
+        select
+        <include refid="Base_Column_List"/>
+        from help_menu_label
+        where menu_id = #menuId#
+    </select>
+    <delete id="deleteByMenuId" parameterClass="helpMenuLable" timeout="5">
+    delete from help_menu_label
+    where menu_id = #menuId#
+  </delete>
+    <insert id="insert" parameterClass="helpMenuLable" timeout="5">
+        insert into help_menu_label (menu_id, menu_desc, label_Ids,
+        label_Names, label1_Ids, label1_Names, created_pin, created_time,
+        modified_pin, modified_time)
+        values (#menuId#, #menuDesc#, #labelIds#,
+        #labelNames#, #label1Ids#,
+        #label1Names#, #createdPin#, now(),
+        #createdPin#, now())
+        <selectKey resultClass="int">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <update id="updateByMenuId" parameterClass="helpMenuLable" timeout="5">
+    update help_menu_label
+    set menu_desc = #menuDesc#,
+      label_Ids = #labelIds#,
+      label_Names = #labelNames#,
+      label1_Ids = #label1Ids#,
+      label1_Names = #label1Names#,
+      modified_pin = #modifiedPin#,
+      modified_time = now()
+    where menu_id = #menuId#
+  </update>
+
+    <select id="getHelpMenuLableList" resultMap="BaseResultMap" parameterClass="helpMenuLable" timeout="5">
+        select
+        DISTINCT
+        <include refid="Base_Column_List"/>
+        from help_menu_label
+        WHERE 1 = 1
+        <isNotEmpty prepend="and" property="menuId">
+            menu_id like concat('%',concat(#menuId#,'%'))
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="menuDesc">
+            menu_desc like concat('%',concat(#menuDesc#,'%'))
+        </isNotEmpty>
+        <isNotEmpty prepend="" property="labelNameList">
+            <iterate property="labelNameList" prepend="and" open="(" close=")" conjunction="or">
+                label_Names like concat('%',concat(#labelNameList[]#,'%'))
+            </iterate>
+        </isNotEmpty>
+        ORDER BY modified_time desc
+    </select>
+
+    <select id="nameRepeatCheck" parameterClass="helpMenuLable" resultMap="BaseResultMap" timeout="5">
+        select
+        <include refid="Base_Column_List"/>
+        from help_menu_label
+        where menu_id = #menuId#
+    </select>
+
+    <select id="validCheck" parameterClass="helpMenuLable" resultMap="BaseResultMap" timeout="5">
+        select
+        <include refid="Base_Column_List"/>
+        from help_menu_label
+        where 1 =1
+        <isNotEmpty prepend="and" property="menuId">
+            menu_id = #menuId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="menuDesc">
+            menu_desc = #menuDesc#
+        </isNotEmpty>
+    </select>
+</sqlMap>

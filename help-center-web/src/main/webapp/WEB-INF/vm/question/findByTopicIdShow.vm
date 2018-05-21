@@ -1,0 +1,25 @@
+#set($layout="empty.vm")
+#* @vtlvariable name="questions" type="java.util.List<com.jd.help.center.domain.question.HelpQuestion>" *#
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1">
+            <table width="100%"  cellspacing="0" cellpadding="0">
+                #if(!$!questions.empty)
+                    #foreach($question in $!questions)
+                        <a href="#$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a>
+                    #end
+                #end
+                #if(!$!questions.empty)
+                    #foreach($question in $!questions)
+                        <a name="$!question.getQuestionId()"></a> </br>
+                        $!stringEscapeUtils.escapeHtml($!question.getQuestion())</br>
+                        $!question.getAnswer()</br>
+                    #end
+                #end
+            </table>
+                </div>
+        </div>
+    </div>
+</div>
+

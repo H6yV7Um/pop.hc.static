@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+
+.sort{overflow:hidden;zoom:1;border-bottom:1px dotted #3694e0;padding:10px;margin-bottom:10px}
+.sort dl{float:left;margin-left:10px;border:1px solid #d7d7d7}
+.sort dt{background:#eaf0f7;border-bottom:1px solid #d7d7d7;height:30px;line-height:30px;padding-left:10px}
+.sort-a{width:310px}
+.sort td{padding:2px;border-bottom:1px dotted #cccccc}
+#appraisal img{margin-right:5px}
+.sort-s{width:250px}
+.server li{height:25px;line-height:25px}
+.server li img{position:relative;top:-4px;left:5px}
+.goods{text-align:left}
+.goods dt{font-size:14px;font-weight:bold}

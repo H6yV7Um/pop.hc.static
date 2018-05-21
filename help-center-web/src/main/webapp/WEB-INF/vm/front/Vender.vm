@@ -1,0 +1,59 @@
+#set($layout="empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<link href="/misc/skin/faq.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+##    	<div class="faq_tips">您当前的位置：<a href=$venderHelpCenterModule.getTarget("")$!sysName target="_parent">帮助中心</a></div>
+        <h2 class="faq_lch2">商家交易流程</h2>
+      <div class="faq_lc"></div>
+        <h2 class="faq_cjh2">常见问题</h2>
+        <ul class="faq_cjul">
+        	<li>·<a href="#">账户信息维护</a></li>
+            <li>·<a href="#">账户信息维护</a></li>
+            <li>·<a href="#">账户信息维护</a></li>
+            <li>·<a href="#">账户信息维护</a></li>
+            <li>·<a href="#">账户信息维护</a></li>
+            <li>·<a href="#">账户信息维护</a></li>
+      </ul>
+        <h2 class="faq_cjh2">联系我们</h2>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f4f4f4" style=" line-height:30px; text-indent:10px">
+<tr>
+                              <th width="38%"><strong>邮箱名</strong></th>
+                        <th width="62%"><strong>服务范围</strong></th>
+          </tr>
+                                        <tr>
+                                          <td>认证：jingdong@360buy.com</td>
+                                          <td>商家招募</td>
+                                        </tr>
+                                        <tr>
+                                          <td>纠纷：jingdong@360buy.com</td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                                <td>退款：jingdong@360buy.com</td>
+                                                <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                          <td>巡检：jingdong@360buy.com</td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                          <td>其他卖家问题：jingdong@360buy.com</td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                          <td>经理邮箱：jingdong@360buy.com</td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                </table>
+    </div>
+    <div class="clr"></div>
+
+</body>
+</html>

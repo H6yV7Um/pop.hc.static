@@ -1,0 +1,19 @@
+/*businessInfo*/
+#infolist dt{padding:10px;}
+#infolist dt strong{margin-right:10px;font-size:14px;}
+#infolist dt b{float:left;width:14px;height:16px;margin-right:5px;background:url(i/bg_topframe.gif) no-repeat 0 -73px;}
+#infolist .item{padding:5px 0;}
+#infolist .label{width:150px;text-align:right;}
+/*businessRule*/
+/*accountInfo*/
+.accountinfo{padding:20px 0;}
+.accountinfo .item{padding:5px 0;}
+.accountinfo strong{color:#0047D4;}
+.accountinfo .label{width:150px;text-align:right;}
+.centdetail{padding:10px;border-top:1px solid #ccc;}
+.centdetail .searchbox{padding:8px 20px;margin-top:4px;border:1px solid #CECECE;background:#E8F3FF;overflow:hidden;line-height:24px;}
+.centdetail .searchbox .text{width:120px;padding:3px 2px;margin:0 2px;}
+.centdetail .item{padding:5px 0;}
+#centlist{padding:10px 9px;}
+.remind{border:1px solid #fdaf64;background:#fff6e7;padding:5px;float:left}
+.remind s{background:url(i/icon100511.gif);width:16px;height:14px;float:left;margin-top:2px;margin-right:5px}

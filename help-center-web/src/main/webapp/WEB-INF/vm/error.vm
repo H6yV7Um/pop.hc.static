@@ -1,0 +1,10 @@
+#* @vtlvariable name="exception" type="java.lang.Exception" *#
+#* @vtlvariable name="result" type="com.jd.common.web.result.Result" *#
+#set($layout="empty.vm")
+#if($exception)
+<head>
+    <meta http-equiv="refresh" content="0;url=http://www.jd.com/error2.aspx">
+</head>
+#else
+    #showSimpleError()&nbsp;<a href="#" onclick="window.history.go(-1)"><b>·µ»Ø</b></a>
+#end

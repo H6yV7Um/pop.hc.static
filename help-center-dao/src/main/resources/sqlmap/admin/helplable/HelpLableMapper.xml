@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpLableMapper">
+    <typeAlias alias="HelpLable" type="com.jd.help.domain.helplable.HelpLable"/>
+    <resultMap id="BaseResultMap" class="HelpLable">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="level" property="level"/>
+        <result column="classify" property="classify"/>
+        <result column="page" property="page"/>
+        <result column="content" property="content"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="status" property="status"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_pin" property="createdPin"/>
+        <result column="modified_time" property="modifiedTime"/>
+        <result column="modified_pin" property="modifiedPin"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, level,classify,page, content, parent_id, case status when 0 then '必选' when 1 then '非必选' end status,  DATE_FORMAT(created_time,"%Y-%m-%d %H:%i") created_time, created_pin, DATE_FORMAT(modified_time,"%Y-%m-%d %H:%i:%s") modified_time, modified_pin
+  </sql>
+    <select  timeout="5"   id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="HelpLable">
+        select
+        <include refid="Base_Column_List"/>
+        from help_lable
+        where id = #id#
+    </select>
+    <delete   timeout="5"   id="deleteByPrimaryKey" parameterClass="HelpLable">
+    delete from help_lable
+    where id = #id# or parent_id = #id#
+  </delete>
+    <insert timeout="5"    id="insert" parameterClass="HelpLable">
+        insert into help_lable ( name, level,classify,page,content, parent_id, status, created_time, created_pin,
+        modified_time,
+        modified_pin)
+        values (#name#, #level#, #classify#,#page#,#content#, #parentId#, #status#,NOW(), #createdPin# ,
+        NOW(),#modifiedPin#)
+        <selectKey resultClass="int">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+    <update  timeout="5"   id="updateByPrimaryKey" parameterClass="HelpLable">
+    update help_lable
+    set name = #name#,
+      level = #level#,
+      classify = #classify#,
+      page = #page#,
+      content = #content#,
+      parent_id = #parentId#,
+      status = #status#,
+      created_time = #createdTime#,
+      created_pin = #createdPin#,
+      modified_time = #modifiedTime#,
+      modified_pin = #modifiedPin#
+    where id = #id#
+  </update>
+    <select  timeout="5"   id="getHelpLableList" parameterClass="HelpLable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from help_lable
+        where 1 = 1
+        <isNotEmpty prepend="and" property="name">
+            name like concat('%',concat(#name#,'%'))
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="createdPin">
+            created_pin like concat('%',concat(#createdPin#,'%'))
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="parentId">
+            parent_id = #parentId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="level">
+            level = #level#
+        </isNotEmpty>
+        ORDER by modified_time DESC
+    </select>
+
+    <select id="getHelpLableListMust" parameterClass="HelpLable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from help_lable
+        where 1 = 1 and status = '0'
+        <isNotEmpty prepend="and" property="name">
+            name like concat('%',concat(#name#,'%'))
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="createdPin">
+            created_pin like concat('%',concat(#createdPin#,'%'))
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="parentId">
+            parent_id = #parentId#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="level">
+            level = #level#
+        </isNotEmpty>
+        ORDER by modified_time DESC
+    </select>
+
+    <select  timeout="5"   id="nameRepeatCheck" parameterClass="HelpLable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from help_lable
+        where name = #name#
+    </select>
+</sqlMap>

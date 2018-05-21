@@ -1,0 +1,79 @@
+#set($layout="customer/user/empty.vm")
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,global-header/1.0.0/global-header.css,myjd/2.0.0/myjd.css,nav/2.0.0/nav.css,shoppingcart/2.0.0/shoppingcart.css,global-footer/1.0.0/global-footer.css,service/1.0.0/service.css" media="all" />
+	<link type="text/css" rel="stylesheet"  href="//misc.360buyimg.com/help/misc/skin/2014/helpcenter.css?v=$!dateTool.get('yyyyMMdd')" />
+</head>
+<body>
+	<div class="jdh-table">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			#if($!hasError)
+				<tr><td>服务器繁忙，请稍后再试！</td></tr>
+			#else
+				<thead>
+					<tr>
+						<th width="100">订单号</th>
+						<th width="224">商品</th>
+						<th width="100">下单时间</th>
+						<th width="100">状态</th>
+						<th width="100">选择</th>
+					</tr>
+				</thead>
+				<tbody>
+					#if($!orderList && $!orderList.size() > 0)
+						#foreach($order in $!orderList)
+							#if($!order.itemPageUrl)
+								<tr>
+									<td>
+										$!order.orderId
+									</td>
+									<td>
+										<div class="img-list">
+											#foreach($wareInfo in $!order.orderWareInfos)
+												#if($velocityCount > 4)
+											        #break
+											    #end
+												<a target="_blank" clstag="click|keycount|orderinfo|order_product" class="img-box">
+												<img width="60" height="60" title="$!wareInfo.name" src="$!wareInfo.imgPath" class="err-product">
+												</a>
+											
+											#end
+										</div>
+									</td>
+									<td>
+										<span class="ftx-03">
+										$dateFormatUtils.format($!order.dateSubmit,"yyyy-MM-dd HH:mm:ss")
+										</span>
+									</td>
+									<td>
+										<span class="o-state01">$!order.orderListBussinessInfo.stateName</span>
+									</td>
+									<td>
+		                                <a href="$venderHelpCenterModule.getTarget(
+											"/$!siteEnName/order/detail-$!{order.orderId}.do")" target="_blank"
+		                                   class="btn-chko">选择订单</a>
+									</td>
+								</tr>
+							#end
+						#end
+					#else
+						<tr><td colspan="5">您最近三个月内没有订单。</td></tr>
+					#end
+				</tbody>
+			#end
+			
+		</table>
+		
+		#if($!orderList.totalItem > 5)
+           <div id="bottom_pager" class="pagin m clearfix">
+			   #set($pageModule = $venderHelpCenterModule.getTarget("/$!siteEnName/order/list.do"))
+		     #showPage($pageModule $!orderList)
+			</div>
+        #end
+	</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+#set($layout="default.vm")
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js""></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery.validator.addMethod("isInt", function(value, element) {
+            return this.optional(element) || /^-?[1-9]\d*|0$/.test(value);
+        }, "请输入有效整数");
+     jQuery("#categoryFrame").validate({
+         rules: {
+                "helpCategory.name":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "helpCategory.sortOrder":{
+                    required:true,
+                    isInt:true,
+                    min:-100000,
+                    max:100000
+                },
+                "helpCategory.notes":{
+                    maxlength:100
+                }
+         },
+          messages: {
+                "helpCategory.name":{
+                    required:"请输入类目名称",
+                    minlength:"类目名称不能少于2个字符",
+                    maxlength:"类目名称不能多于10个字符"
+                },
+                "helpCategory.sortOrder":{
+                    required:"请输入类目顺序",
+                    isInt:"请输入整数",
+                    min:"输入不能小于-100000的顺序",
+                    max:"输入不能大于100000的顺序"
+                },
+                "helpCategory.notes":{
+                    maxlength:"不能输入超过100个字符"
+                }
+          }
+     })
+    })
+</script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+                 <form id="categoryFrame" action="category_doUpdate.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="50%">
+                        <input type="hidden" name="sysId" value="$!sysId">
+                        <input type="hidden" name="helpCategory.categoryId" value="$!helpCategory.getCategoryId()">
+                        #if(!$!actionMessages.empty)
+                        <tr>
+                            <td colspan="2">#showSimpleMessage() </td>
+                        </tr>
+                        #end
+                        <tr>
+                            <td>
+                                类目名称：
+                            </td>
+                            <td>
+                                <input type="text" name="helpCategory.name" value="$!stringEscapeUtils.escapeHtml($!helpCategory.getName())">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                排列顺序：
+                            </td>
+                            <td>
+                                <input type="text" name="helpCategory.sortOrder" value="$!helpCategory.getSortOrder()">
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                状态:
+                            </td>
+                            <td>
+                                <select name="helpCategory.status">
+                                    <option value="1" #if($!helpCategory.getStatus()==1) selected="selected" #end >启用</option>
+                                    <option value="0" #if($!helpCategory.getStatus()==0) selected="selected" #end>停用</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpCategory.notes" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                                <textarea id="helpCategory.notes" name="helpCategory.notes" rows="6" cols="80" style="width:80%">$!stringEscapeUtils.escapeHtml($!helpCategory.getNotes())</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"> <input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+                     </form>
+                </div>
+            </div>
+        </div>
+</div>

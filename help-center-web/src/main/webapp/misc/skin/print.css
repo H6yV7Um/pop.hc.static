@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+#print{background:#fff;padding:52px 58px}
+.p-head td{font-size:30px;font-weight:bold}
+.p-head span{font-size:20px}
+td{font-weight:bold;font-size:14px;padding:2px}
+.tb-print{}
+.tb-print table{ border-collapse:collapse;border:2px solid #000;margin-top:-2px}
+.tb-print td,.tb-print th{ border:1px solid #000;border-top:none}
+.tb-print th{}
+.timer{font-size:14px;font-weight:normal;color:red}
+.p-foot{margin:20px auto; text-align:center}

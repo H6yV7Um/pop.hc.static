@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="IssueAnswer">
+    <typeAlias alias="IssueAnswer" type="com.jd.help.domain.IssueAnswer"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="IssueAnswer">
+        <result property="issueId" column="issue_id"/>
+        <result property="answer" column="answer"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> issue_id , answer , created , modified </sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="answer" prepend="AND" removeFirstPrepend="true">
+                answer = #answer#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.answer" prepend="AND" removeFirstPrepend="true">
+                answer = #model.answer#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="IssueAnswer">
+        INSERT INTO help_issue_answer (<include refid="allColumns"/>)
+        VALUES (#issueId# , #answer# , now() , now() )
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="IssueAnswer">
+        UPDATE help_issue_answer
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        issue_id = #issueId#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="IssueAnswer">
+		UPDATE help_issue_answer
+		SET
+		answer = #answer#,
+		modified = now()
+        WHERE
+            issue_id = #issueId#
+	</update>
+
+	<!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="IssueAnswer" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_answer
+        WHERE
+        issue_id = #issueId#
+    </select>
+
+    <!--通过issueID 查单个 -->
+    <select  timeout="5"   id="queryOneByIssueId" parameterClass="int" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_answer
+        WHERE
+        issue_id = #issueId#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="IssueAnswer">
+        SELECT count(issue_id)
+        FROM
+        help_issue_answer
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue_answer
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        ORDER BY issue_id DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+</sqlMap>

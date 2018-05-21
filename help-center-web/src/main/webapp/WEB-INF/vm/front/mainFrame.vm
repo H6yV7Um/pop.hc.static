@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>pop</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/popbase.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/misc/skin/main.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/misc/skin/faq.css" media="all" />
+<script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="/misc/js/pop.base.js"></script>
+</head>
+
+<body id="mainframe">
+	<div id="posi"><div>您当前的位置：<a href=$venderHelpCenterModule.getTarget("/front/index.action") target="_parent">帮助中心</a>&nbsp;&gt;&nbsp;<a href="//www.jd.com" target="_parent">首页</a></div></div>
+    <div id="content">
+      <div class="main_border" style="margin-top:0;">
+        	<div class="maintop2">
+                <p class="faq_s_float">请输入您关心的问题：</p><input name="" type="text" class="faqinput" /><input name="" type="button" class="btn-b-m" value="搜 索" style="float:left;" />
+                <div class="clear">213</div>
+            </div>
+            <h3 class="faq_lch3">商家交易流程</h3>
+            <div class="faq_lc"></div>
+<div class="tb-x1">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                          <th colspan="3">常见问题</th>
+                  </tr>
+                                    <tr>
+                                            <td width="33%"><a href="#">八月寻宝大抢购</a></td>
+                                            <td width="33%"><a href="#">八月寻宝大抢购</a></td>
+                                            <td width="33%"><a href="#">八月寻宝大抢购</a></td>
+                                    </tr>
+
+                                    <tr>
+                                            <td><a href="#">八月寻宝大抢购</a></td>
+                                            <td><a href="#">八月寻宝大抢购</a></td>
+                                            <td><a href="#">八月寻宝大抢购</a></td>
+                                    </tr>
+                    </table>
+        </div>
+        </div>
+        <div class="main_left" style="width:100%; clear:both;">
+            	<h3 class="main_t2h3">联系我们</h3>
+                <div class="tb-x1 test11" style=" padding-bottom:15px;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                              <th width="37%">邮箱名</th>
+                                                <th width="63%">服务范围</th>
+                      </tr>
+                                        <tr>
+                                          <td>认证：<b style="color:#000; font-weight:normal">jingdong@360buy.com</b></td>
+                                          <td>商家招募</td>
+                                        </tr>
+                                        <tr>
+                                          <td>纠纷：<b style="color:#000; font-weight:normal">jingdong@360buy.com</b></td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                                <td>退款：<b style="color:#000; font-weight:normal">jingdong@360buy.com</b></td>
+                                                <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                          <td>巡检：<b style="color:#000; font-weight:normal">jingdong@360buy.com</b></td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                          <td>其他卖家问题：<b style="color:#000; font-weight:normal">jingdong@360buy.com</b></td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                          <td>经理邮箱：<b style="color:#000; font-weight:normal">jingdong@360buy.com</b></td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                </table>
+            	</div>
+            </div>
+
+    </div>
+</body>
+</html>

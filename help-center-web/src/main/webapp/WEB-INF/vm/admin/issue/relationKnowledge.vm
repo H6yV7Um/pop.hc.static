@@ -1,0 +1,176 @@
+<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+<style type="text/css">
+    .modal-body{
+        height: 350px;
+        overflow-y: auto;
+    }
+    .modal-body-custom{
+        height: 450px;
+        overflow-y: auto;
+    }
+    .modal-content-custom{
+        height: 550px;
+        width: 1200px;
+        overflow-y: auto;
+    }
+    .label_group{
+        font-weight: bold;
+        font-family: "Microsoft YaHei", sans-serif;
+    }
+    .modal-title{
+        font-weight: bold;
+        font-family: "Microsoft YaHei", sans-serif;
+    }
+    .label_item{
+        padding-top: 10px;
+    }
+    .labels_block{
+        padding-top: 10px;
+    }
+    .labels_block li{
+        display: inline-block;
+    }
+
+    .frm_checkbox_label {
+        display: inline-block;
+        text-align: left;
+        cursor: pointer;
+        margin-right: 1em
+    }
+
+    .btn_input_lable{
+        min-width: 104px;
+        float: left;
+        margin-left: 30%;
+    }
+
+    .left93{
+        margin-left: 9.3%
+    }
+
+    .modal-dialog-custom {
+        margin-top: 0px;
+        vertical-align: middle;
+        margin: 100px 150px;
+    }
+</style>
+<!--从所有标签中挑选标签modal start-->
+<div>
+<div class="modal fade" id="knowledge1" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-custom">
+        <div class="modal-content modal-content-custom">
+            <div class="modal-header">
+                <button type="button" class="close closeKnowledge1" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+
+            </div>
+            <div class="modal-body modal-body-custom">
+                <table class="stable ftable table-bordered table-striped table-hover" id="tableQuery">
+                    <thead>
+                    <tr>
+                        <th width="10%">知识ID</th>
+                        <th width="23%">知识标题</th>
+                        <th width="10%">知识类型</th>
+                        <th width="20%">知识标签</th>
+                        <th width="15%">创建时间</th>
+##                         style="display:none;"
+                        <th width="15%">匹配原因</th>
+                        <th  style="display:none;">替换的知识</th>
+                        <th width="12%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" role="button" class="btn btn-primary btn-confirm" data-id="">确认</a>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+## 删除按钮确认弹窗
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+##                <input type="text">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <a href="#" role="button" class="btn btn-primary btn-do-update-status" data-id="">确认</a>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+## 点击替换按钮出现的知识替换页
+<div class="modal fade" id="replaceModal" style="width: 100%;height: 100%;position: fixed;left: 0;top: 0;background: rgba(0,0,0,0.4);">
+    <div class="modal-dialog  modal-dialog-custom">
+        <div class="modal-content modal-content-custom">
+            <div class="modal-header">
+                <button type="button" id="cancleNew" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">选择一个知识进行替换</h4>
+            </div>
+            <div class="modal-body">
+##                当前操作的知识
+                <input type="hidden" id="chooseKnowledge" name="chooseKnowledge" value=""/>
+##                要被替换的知识
+                <input type="hidden" id="beReplaceKnowledge" name="beReplaceKnowledge" value=""/>
+##                要被替换的下标
+                <input type="hidden" id="beReplaceKnowledgeIndex" name="beReplaceKnowledgeIndex" value=""/>
+                    <div class="mod_form">
+                        <span class="nc_newLbl">知识id：</span>
+                        <div class="search label_val">
+                            <input type="text" class="knowledgeIdQuery" name="knowledgeIdQuery" id="knowledgeIdQuery"
+                                   style="width: 120px">
+                        </div>
+                        <span class="nc_newLbl">知识标题：</span>
+                        <div class="search label_val">
+                            <input type="text" class="knowledgeNameQuery" name="knowledgeNameQuery" id="knowledgeNameQuery"
+                                   style="width: 270px">
+                        </div>
+                        <label class="nc_newLbl">知识类型</label>
+                        <span class="nc_span">
+                                    <select id="issueType">
+                                    </select>
+                                </span>
+                        <button class="btn btn_input btn_primary " style="margin-left: 5%" id="queryNew">查询</button>
+                    </div>
+                    <table class="stable table-bordered table-striped table-hover" id="tableQuery">
+                        <thead>
+                        <tr>
+                            <th width="5%"></th>
+                            <th>知识标题</th>
+                            <th style='width: 15%'>知识ID</th>
+                            <th style='width: 14%'>知识类型</th>
+                            <th>知识标签</th>
+                            <th style='width: 20%'> 创建时间</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody1"></tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <a id="confirmNew" href="#" role="button" class="btn btn-primary btn-do-update-status" data-id="">确认</a>
+                <button id="cancleNew" type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

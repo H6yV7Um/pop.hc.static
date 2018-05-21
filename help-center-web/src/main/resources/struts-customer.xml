@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="GBK" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!-- 前端用户访问的链接 继承这个包 -->
+    <package name="helpCustomer" extends="helpBase">
+        <interceptors>
+            <!-- 从cookie中解析登录的ticket -->
+            <interceptor name="parsTicketInterceptor"
+                         class="com.jd.common.struts.interceptor.DotnetTicketContextInterceptor"/>
+            <!-- 根据url拦截是否要登录 -->
+            <interceptor name="securityInterceptor"
+                         class="com.jd.common.struts.interceptor.NewDotnetSecurityInterceptor"/>
+            <!-- 将ticket转换成loginContext -->
+            <!--             <service name="ticketToLoginContextInterceptor" -->
+            <!--                          class="com.jd.common.struts.service.DotnetTicketLoginContextInterceptor"/> -->
+            <interceptor name="ticketToLoginContextInterceptor"
+                         class="com.jd.help.customer.web.DotnetTicketLoginContextInterceptor2"/>
+            <!-- 更新loginContext -->
+            <!--<service name="loginContextInterceptor"-->
+            <!--class="com.jd.common.struts.service.NewLoginContextInterceptor"/>-->
+            <!-- 设置 联系我们 的cookie -->
+            <interceptor name="contactUsInterceptor" class="com.jd.help.customer.web.ContactUsInterceptor"/>
+            <interceptor name="venderSecurityInterceptor" class="com.jd.help.customer.web.VenderSecurityInterceptor"/>
+            <interceptor-stack name="helpCustomerInterceptor">
+                <interceptor-ref name="helpInterceptor"/>
+                <!--<service-ref name="parsTicketInterceptor"/>
+                <service-ref name="securityInterceptor"/>-->
+                <interceptor-ref name="ticketToLoginContextInterceptor"/>
+                <!--<service-ref name="loginContextInterceptor"/>-->
+                <interceptor-ref name="contactUsInterceptor"/>
+                <interceptor-ref name="venderSecurityInterceptor"/>
+
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="helpCustomerInterceptor"/>
+    </package>
+
+    <package name="helpCustomerLogin" extends="helpCustomer">
+        <global-results>
+            <result name="login" type="redirect">${help.customer.login.url}?ReturnUrl=${returnUrl}</result>
+        </global-results>
+    </package>
+
+    <!-- 页面 -->
+    <package name="page" namespace="/" extends="helpCustomer">
+        <!-- 前端问题Action -->
+        <action name="*" method="{1}" class="com.jd.help.customer.web.PageAction">
+            <result>/WEB-INF/vm/customer/${siteEnName}/page/${pageName}.vm</result>
+            <result type="json" name="json">
+                <param name="root">jsonRoot</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- 问题 -->
+    <package name="issue" namespace="/issue" extends="helpCustomer">
+        <!-- 前端问题Action -->
+        <action name="*" method="{1}" class="com.jd.help.customer.web.IssueAction">
+            <result type="json" name="json">
+                <param name="root">jsonRoot</param>
+            </result>
+            <result>/WEB-INF/vm/customer/${siteEnName}/issue/{1}.vm</result>
+            <result name="toNew" type="redirect">${redirectUrl}</result>
+            <result name="thick">/WEB-INF/vm/customer/${siteEnName}/issue/thick.vm</result>
+        </action>
+    </package>
+
+    <!-- 订单 -->
+    <package name="order" namespace="/order" extends="helpCustomer">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.OrderAction">
+            <result>/WEB-INF/vm/customer/${siteEnName}/order/{1}.vm</result>
+        </action>
+    </package>
+
+    <!--公告 -->
+    <package name="notice" namespace="/notice" extends="helpCustomer">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.NoticeAction">
+            <result>/WEB-INF/vm/customer/${siteEnName}/notice/{1}.vm</result>
+            <result type="json" name="json">
+                <param name="root">jsonRoot</param>
+            </result>
+            <result name="landing">/WEB-INF/vm/customer/${siteEnName}/page/landing.vm</result>
+        </action>
+    </package>
+    <package name="login" namespace="/login" extends="helpCustomerLogin">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.LoginAction">
+            <result name="landing">/WEB-INF/vm/customer/${siteEnName}/page/landing.vm</result>
+        </action>
+
+    </package>
+    <package name="logout" namespace="/logout" extends="helpBase">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.LoginAction">
+            <result name="logout" type="redirect">${help.vender.logout.url}&amp;ReturnUrl=${toDirectUrl}</result>
+        </action>
+    </package>
+<!--jsf公告-->
+    <package name="importNotice" namespace="/import/notice" extends="helpCustomer">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.NoticeAction">
+            <result type="json" name="json">
+                <param name="root">jsonRoot</param>
+            </result>
+        </action>
+    </package>
+
+    <package name="issueSuggest" namespace="/issueSuggest" extends="helpCustomerLogin">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.IssueSuggestAction">
+            <result name="json" type="json">
+                <param name="root">jsonRoot</param>
+            </result>
+        </action>
+    </package>
+
+    <!--规则-->
+    <package name="rule" namespace="/rule" extends="helpCustomer">
+        <!-- pop商家规则首页 -->
+        <action name="index" class="com.jd.help.customer.web.RuleContentAction" method="index">
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="toLogin" type="redirect">${redirectUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>
+            <result name="success">/WEB-INF/vm/customer/rule/page/home.vm</result>
+        </action>
+        <!-- 自营商家规则首页 -->
+        <!-- 五一节后打开 -->
+        <!--<action name="indexNew" class="com.jd.help.customer.web.RuleContentAction" method="indexNew">-->
+            <!--<param name="domainName">${rule.vender.domain.name}</param>-->
+            <!--<result name="toLogin" type="redirect">${redirectUrl}</result>-->
+            <!--<result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>-->
+            <!--&lt;!&ndash;<result name="success">/WEB-INF/vm/customer/rule/page/home_self_employed.vm</result>&ndash;&gt;-->
+            <!--<result name="success">/WEB-INF/vm/customer/rule/page/list_self_employed.vm</result>-->
+        <!--</action>-->
+        <!-- pop商家规则列表页 -->
+        <action name="list" class="com.jd.help.customer.web.RuleContentAction" method="list">
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="toLogin" type="redirect">${redirectUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>
+            <result name="success">/WEB-INF/vm/customer/rule/page/list.vm</result>
+        </action>
+        <!--&lt;!&ndash; 自营商家规则列表页 &ndash;&gt;-->
+        <!--<action name="listNew" class="com.jd.help.customer.web.RuleContentAction" method="listNew">-->
+            <!--<param name="domainName">${rule.vender.domain.name}</param>-->
+            <!--<result name="toLogin" type="redirect">${redirectUrl}</result>-->
+            <!--<result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>-->
+            <!--<result name="success">/WEB-INF/vm/customer/rule/page/list_self_employed.vm</result>-->
+        <!--</action>-->
+        <!-- pop商家规则详情页 -->
+        <action name="ruleDetail" class="com.jd.help.customer.web.RuleContentAction" method="ruleDetail">
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="toLogin" type="redirect">${redirectUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>
+            <result name="success">/WEB-INF/vm/customer/rule/page/rules-detail.vm</result>
+        </action>
+        <!--&lt;!&ndash; 自营商家规则列表页 &ndash;&gt;-->
+        <!-- 五一节后打开 -->
+        <!--<action name="ruleDetailNew" class="com.jd.help.customer.web.RuleContentAction" method="ruleDetailNew">-->
+            <!--<param name="domainName">${rule.vender.domain.name}</param>-->
+            <!--<result name="toLogin" type="redirect">${redirectUrl}</result>-->
+            <!--<result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>-->
+            <!--<result name="success">/WEB-INF/vm/customer/rule/page/rules_detail_self_employed.vm</result>-->
+        <!--</action>-->
+
+        <action name="monthNewly" class="com.jd.help.customer.web.RuleContentAction" method="monthNewly">
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="toLogin" type="redirect">${redirectUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>
+            <result name="success">/WEB-INF/vm/customer/rule/page/month-newly.vm</result>
+        </action>
+        <action name="ruleJury" class="com.jd.help.customer.web.RuleContentAction" method="ruleJury">
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="toLogin" type="redirect">${redirectUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>
+            <result name="success">/WEB-INF/vm/customer/rule/page/rule-jury.vm</result>
+        </action>
+        <action name="*" method="{1}" class="com.jd.help.customer.web.RuleContentAction">
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="success">/WEB-INF/vm/customer/rule/page/{1}.vm</result>
+            <result name="toLogin" type="redirect">${redirectUrl}</result>
+            <result name="illegal">/WEB-INF/vm/admin/common/noPrivilege_self_employed.vm</result>
+            <result name="json" type="json">
+                <param name="root">jsonRoot</param>
+            </result>
+        </action>
+    </package>
+
+    <package name="ruleReview" namespace="/ruleReview" extends="helpCustomer">
+        <action name="*" method="{1}" class="com.jd.help.customer.web.RuleReviewAction">
+            <!--<service-ref name="ruleReviewInterceptor">-->
+                <!--<param name="domainName">${help-center.vender.domain.name}</param>-->
+            <!--</service-ref>-->
+            <param name="domainName">${rule.vender.domain.name}</param>
+            <result name="login" type="redirect">${redirectUrl}</result>
+            <result name="success">/WEB-INF/vm/customer/rule/page/{1}.vm</result>
+            <result type="json" name="json">
+                <param name="root">jsonRoot</param>
+            </result>
+        </action>
+    </package>
+</struts>

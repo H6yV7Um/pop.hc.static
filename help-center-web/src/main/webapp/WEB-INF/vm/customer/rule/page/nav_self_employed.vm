@@ -1,0 +1,114 @@
+<!-- [vm] /widget/shortcut/shortcut.vm -->
+##<script type="text/javascript" src="//wl.360buy.com/wl.js"></script>
+<style>
+    #shengtaiquan-top:hover,#shengtaiquan-bottom:hover{
+        position: absolute;
+        height: 130px;
+        width: 130px;
+        margin-left: -130px;
+    }
+</style>
+<div id="shortcut-2014">
+    <div class="w">
+        <ul class="fl">
+            <li class="dorpdown" id="ttbar-mycity"></li>
+        </ul>
+        <ul class="fr">
+            <li class="fore1" id="ttbar-login">
+                <a target="_blank" href="javascript:login();" class="link-login">你好，请登录</a>&nbsp;&nbsp;<a
+                    href="javascript:regist();" class="link-regist style-red">免费注册</a>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore2">
+                <div class="dt">
+                    <a target="_blank" href="//order.jd.com/center/list.action">我的订单</a>
+                </div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore3 dorpdown" id="ttbar-myjd">
+                <div class="dt cw-icon">
+                    <i class="ci-right"><s>◇</s></i>
+                    <a target="_blank" href="//home.jd.com/">我的京东</a>
+                </div>
+                <div class="dd dorpdown-layer"></div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore4">
+                <div class="dt">
+                    <a target="_blank" href="//vip.jd.com/">京东会员</a>
+                </div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore5">
+                <div class="dt">
+                    <a target="_blank" href="//b.jd.com/">企业采购</a>
+                </div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore6 dorpdown" id="ttbar-apps">
+                <div class="dt cw-icon">
+                    <i class="ci-left"></i>
+                    <i class="ci-right"><s>◇</s></i>
+                    <a target="_blank" href="//app.jd.com/">手机京东</a>
+                </div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore7 dorpdown" id="ttbar-atte">
+                <div class="dt cw-icon">
+                    <i class="ci-right"><s>◇</s></i>关注京东
+                </div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore8 dorpdown" id="ttbar-serv">
+                <div class="dt cw-icon">
+                    <i class="ci-right"><s>◇</s></i>客户服务
+                </div>
+                <div class="dd dorpdown-layer"></div>
+            </li>
+            <li class="spacer"></li>
+            <li class="fore9 dorpdown" id="ttbar-navs">
+                <div class="dt cw-icon">
+                    <i class="ci-right"><s>◇</s></i>网站导航
+                </div>
+                <div class="dd dorpdown-layer"></div>
+            </li>
+        </ul>
+        <span class="clr"></span>
+    </div>
+</div>
+<!--/ /widget/shortcut/shortcut.vm -->
+
+<!--  /widget/header/header.vm -->
+<div class="l-header">
+    <div class="b-logo">
+        <a href="/rule/indexNew.action" class="h-logo">
+            <img src="//misc.360buyimg.com/lib/img/e/logo-201305.png" clstag="pageclick|keycount|rule_home|1" class="i-logo">
+            <span class="i-text">供应商经营平台规则</span>
+        </a>
+    </div>
+
+</div>
+<div class="l-nav">
+    <div class="w">
+        <ul class="b-nav-list">
+            <li class="li-item">
+                <a href="/rule/indexNew.action" clstag="pageclick|keycount|rule_home|2" class="link-dlk">首页</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var jaq = jaq || [];
+    jaq.push(['account', 'JA2017_113661']); //站点编号
+    jaq.push(['domain', 'jd.com']);  //站点域名
+
+    (function () {
+        var ja = document.createElement('script');
+        ja.type = 'text/javascript';
+        ja.async = true;
+        ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ja, s);
+    })();
+</script>

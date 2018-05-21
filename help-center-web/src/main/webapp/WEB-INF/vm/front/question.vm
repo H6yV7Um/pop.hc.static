@@ -1,0 +1,61 @@
+#* @vtlvariable name="questions" type="java.util.List<com.jd.help.center.domain.question.HelpQuestion>" *#
+#*@vtlvariable name="helpTopic" type="com.jd.help.center.domain.topic.HelpTopic" *#
+#set($layout="empty.vm")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<title>help</title>
+<link rel="stylesheet" type="text/css" href="/misc/skin/faq.css" media="all" />
+<script type="text/javascript" src="/misc/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+##      $(document).ready(function(){
+##          var qid=$!questionId;
+##          if(qid>0){
+##              window.location.hash=qid;
+##          }
+##          $('a[href*=#]').click(function() {
+##            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+##            && location.hostname == this.hostname) {
+##              var $target = $(this.hash);
+##              $target = $target.length && $target
+##              || $('[name=' + this.hash.slice(1) +']');
+##              if ($target.length) {
+##                var targetOffset = $target.offset().top;
+##                  alert(targetOffset);
+##                $('html,body')
+##                .animate({scrollTop: targetOffset}, 1000);
+##               return false;
+##              }
+##            }
+##          });
+//        });
+          $(document).ready(function(){
+            $(".faqash5 a").attr("target","_blank");
+          });
+</script>
+     #set($tailhtml=".html")
+##	<div class="faq_tips">您当前的位置：<a href=$venderHelpCenterModule.getTarget("")$!sysName target="_parent">帮助中心</a> &gt; <a href=$venderHelpCenterModule.getTarget("")$!sysName/question-$!helpTopic.getTopicId()$tailhtml  target="_self">$!helpTopic.getName()</a> </div>
+        <div class="faqas_tips">
+             #if(!$!questions.empty)
+                 <ul>
+                 #foreach($question in $!questions)
+                        <li><a href="#help$!question.getQuestionId()">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</a></li>
+                    #end
+                 </ul>
+             #end
+        </div>
+
+        #if(!$!questions.empty)
+            <div class="faqas">
+            #foreach($question in $!questions)
+                <a id="help$!question.getQuestionId()" name="help$!question.getQuestionId()"></a> <br/>
+                <h2 class="faqash2">$!stringEscapeUtils.escapeHtml($!question.getQuestion())</h2>
+                <h5 class="faqash5">$!question.getAnswer()</h5>
+            #end
+
+            </div>
+        #end
+
+
+
+
+

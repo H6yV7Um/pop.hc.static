@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Knowledge">
+
+  <typeAlias alias="Knowledge" type="com.jd.help.domain.knowledge.Knowledge"/>
+
+  <resultMap id="KnowledgeMap" class="Knowledge">
+    <result column="id" property="id"/>
+    <result column="biz_id" property="bizId"/>
+    <result column="biz_type_id" property="bizTypeId" />
+    <result column="biz_type_name" property="bizTypeName" />
+    <result column="name" property="name" />
+    <result column="summary" property="summary" />
+    <result column="keyword" property="keyword"/>
+    <result column="label1_ids" property="label1Ids" />
+    <result column="label1_names" property="label1Names" />
+    <result column="label2_ids" property="label2Ids" />
+    <result column="label2_names" property="label2Names" />
+    <result column="url" property="url" />
+    <result column="pic_url" property="picUrl" />
+    <result column="create_time" property="createTime" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="valid_time" property="validTime" />
+    <result column="exp_time" property="expTime" />
+    <result column="content_type" property="contentType" />
+    <result column="uv" property="uv" />
+    <result column="pv" property="pv" />
+    <result column="solve_count" property="solveCount" />
+    <result column="unsolve_count" property="unsolveCount" />
+    <result column="status" property="status" />
+    <result column="created" property="created" />
+    <result column="modified" property="modified" />
+  </resultMap>
+
+  <sql id="allFields">
+    id, biz_id, biz_type_id,
+    biz_type_name, name, summary,
+    keyword,label1_ids, label1_names,
+    label2_ids, label2_names, url,
+    pic_url, create_time, modify_time,
+    valid_time, exp_time, content_type,
+    uv, pv, solve_count,
+    unsolve_count, status, created,
+    modified
+  </sql>
+
+  <sql id="insertFields">
+    biz_id, biz_type_id,
+    biz_type_name, name, summary,
+    keyword,label1_ids, label1_names,
+    label2_ids, label2_names, url,
+    pic_url, create_time, modify_time,
+    valid_time, exp_time, content_type,
+    uv, pv, solve_count,
+    unsolve_count, status, created,
+    modified
+  </sql>
+
+  <!-- 查询条件 -->
+
+  <sql id="condition">
+    <dynamic>
+      <isNotNull property="bizId" prepend="AND" removeFirstPrepend="true">
+        biz_id = #bizId#
+      </isNotNull>
+      <isNotNull property="bizTypeId" prepend="AND" removeFirstPrepend="true">
+        biz_type_id = #bizTypeId#
+      </isNotNull>
+    </dynamic>
+  </sql>
+
+  <!--查列表-->
+  <select id="queryByMap" resultMap="KnowledgeMap" parameterClass="Map">
+    SELECT
+    <include refid="allFields"/>
+    FROM
+    knowledge
+    WHERE 1=1
+    <include refid="condition"/>
+  </select>
+
+  <insert id="insert" parameterClass="Knowledge" >
+    insert into knowledge (<include refid="insertFields" />)
+    values (#bizId#, #bizTypeId#,
+    #bizTypeName#, #name#, #summary#,
+    #keyword#,#label1Ids#, #label1Names#,
+    #label2Ids#, #label2Names#, #url#,
+    #picUrl#, #createTime#, #modifyTime#,
+    #validTime#, #expTime#, #contentType#,
+    #uv#, #pv#, #solveCount#,
+    #unsolveCount#, #status#, #created#,
+    #modified#)
+    <selectKey resultClass="long">
+      <![CDATA[SELECT LAST_INSERT_ID() ]]>
+    </selectKey>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterClass="java.lang.Long" >
+    delete from knowledge
+    where id = #id#
+  </delete>
+
+  <update id="updateByPrimaryKeySelective" parameterClass="Knowledge" >
+  update knowledge set modified = now()
+    <isNotNull property="name">
+      ,name = #name#
+    </isNotNull>
+    <isNotNull property="summary" >
+      ,summary = #summary#
+    </isNotNull>
+    <isNotNull property="keyword" >
+      ,keyword = #keyword#
+    </isNotNull>
+    <isNotNull property="label1Ids" >
+      ,label1_ids = #label1Ids#
+    </isNotNull>
+    <isNotNull property="label1Names" >
+      ,label1_names = #label1Names#
+    </isNotNull>
+    <isNotNull property="label2Ids" >
+      ,label2_ids = #label2Ids#
+    </isNotNull>
+    <isNotNull property="label2Names" >
+      ,label2_names = #label2Names#
+    </isNotNull>
+    <isNotNull property="url" >
+      ,url = #url#
+    </isNotNull>
+    <isNotNull property="picUrl" >
+      ,pic_url = #picUrl#
+    </isNotNull>
+    <isNotNull property="createTime" >
+      ,create_time = #createTime#
+    </isNotNull>
+    <isNotNull property="modifyTime" >
+      ,modify_time = #modifyTime#
+    </isNotNull>
+    <isNotNull property="validTime" >
+      ,valid_time = #validTime#
+    </isNotNull>
+    <isNotNull property="expTime" >
+      ,exp_time = #expTime#
+    </isNotNull>
+    <isNotNull property="contentType" >
+      ,content_type = #contentType#
+    </isNotNull>
+    <isNotNull property="uv" >
+      ,uv = #uv#
+    </isNotNull>
+    <isNotNull property="pv" >
+      ,pv = #pv#
+    </isNotNull>
+    <isNotNull property="solveCount" >
+      ,solve_count = #solveCount#
+    </isNotNull>
+    <isNotNull property="unsolveCount" >
+      ,unsolve_count = #unsolveCount#
+    </isNotNull>
+    <isNotNull property="status" >
+      ,status = #status#
+    </isNotNull>
+    <isNotNull property="created" >
+      ,created = #created#
+    </isNotNull>
+  where id = #id#
+</update>
+
+  <delete id="deleteAllKnowledge">
+    delete from knowledge
+  </delete>
+
+</sqlMap>

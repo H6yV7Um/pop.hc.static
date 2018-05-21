@@ -1,0 +1,70 @@
+
+<style type="text/css">
+    .modal-body{
+        height: 350px;
+        overflow-y: auto;
+    }
+    .label_group{
+        font-weight: bold;
+        font-family: "Microsoft YaHei", sans-serif;
+    }
+    .modal-title{
+        font-weight: bold;
+        font-family: "Microsoft YaHei", sans-serif;
+    }
+    .label_item{
+        padding-top: 10px;
+    }
+    .labels_block{
+        padding-top: 10px;
+    }
+    .labels_block li{
+        display: inline-block;
+    }
+
+    .frm_checkbox_label {
+        display: inline-block;
+        text-align: left;
+        cursor: pointer;
+        margin-right: 1em
+    }
+
+    .btn_input_lable{
+        min-width: 104px;
+        float: left;
+        margin-left: 30%;
+    }
+
+    .left93{
+        margin-left: 9.3%
+    }
+</style>
+<!--从所有标签中挑选标签modal start-->
+<div class="modal fade" id="labelModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closeLabelModel" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">请选择需要添加的标签</h4>
+            </div>
+            <div class="modal-body">
+                <div class="group label_list"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn_disabled btn_input_lable" id="labelConfirm">确定</button>
+                <button class="btn btn_default btn_input_lable closeLabelModel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--从图片库中选择图片modal end-->
+<!--单个图片格式-->
+<script type="text/html" id="label_item">
+    <div class="label_item js_label_item clearfix">
+        <label class="label_group"></label>
+        <ul class="labels_block">
+        </ul>
+    </div>
+</script>

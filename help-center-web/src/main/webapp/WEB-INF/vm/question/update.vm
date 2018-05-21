@@ -1,0 +1,163 @@
+#set($layout="default.vm")
+#* @vtlvariable name="helpQuestion" type="com.jd.help.center.domain.question.HelpQuestion" *#
+#* @vtlvariable name="helpQuestionQuery" type="com.jd.help.center.domain.question.query.HelpQuestionQuery" *#
+<link rel="stylesheet" type="text/css" href="$staticAssetModule.getTarget("/shop/skin/ui.datepicker.css")" media="all"/>
+<script type="text/javascript" src="/editer/jquery/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/editer/xheditor-zh-cn.min.js"></script>
+<script type="text/javascript" src="$staticAssetModule.getTarget("/shop/js/ui.datepicker.js")"></script>
+
+<script type="text/javascript">
+//    var editor = new UE.ui.Editor();
+//    editor.render("myEditor");
+    jQuery(document).ready(function() {
+        //是有效地整数
+        jQuery.validator.addMethod("isInt", function(value, element) {
+            return this.optional(element) || /^-?[1-9]\d*|0$/.test(value);
+        }, "请输入有效整数");
+
+    ##日历
+    jQuery("#postTime").datepicker();
+
+
+     jQuery("#questionFrame").validate({
+         rules: {
+                "helpQuestionQuery.helpQuestion.question":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "helpQuestionQuery.helpQuestion.sortOrder":{
+                    required:true,
+                    isInt:true,
+                    min:-2147483648,
+                    max:2147483648
+                },
+                "helpQuestionQuery.helpQuestion.answer":{
+                    required:true,
+                    maxlength:50000
+                },
+                "helpQuestionQuery.helpQuestion.notes":{
+                    maxlength:100
+                }
+         },
+          messages: {
+                "helpQuestionQuery.helpQuestion.question":{
+                    required:"请输入问题名称",
+                    minlength:"输入问题不能少于2个字符",
+                    maxlength:"输入问题不能超过20个字符"
+                },
+                "helpQuestionQuery.helpQuestion.sortOrder":{
+                    required:"请输入问题顺序",
+                    isInt:"请输入整数",
+                    min:"请输入大于-2147483648的顺序",
+                    max:"请输入小于2147483648的顺序"
+                },
+                "helpQuestionQuery.helpQuestion.answer":{
+                    required:"请输入问题回答",
+                    maxlength:"请输入小于50000字符的回答"
+                },
+                "helpQuestionQuery.helpQuestion.notes":{
+                    maxlength:"请输入小于100字符的备注"
+                }
+          }
+     })
+    })
+</script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+                <form  id="questionFrame" action="question_doUpdate.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="80%">
+                        <input type="hidden" name="helpQuestionQuery.helpQuestion.questionId" value="$!helpQuestionQuery.getHelpQuestion().getQuestionId()">
+                        <input type="hidden" name="categoryId" value="$!categoryId">
+                        <input type="hidden" name="sysId" value="$!sysId">
+                        <input type="hidden" name="topicId" value="$!helpQuestionQuery.getHelpQuestion().getTopicId()">
+                         #if(!$!actionMessages.empty)
+                        <tr>
+                            <td colspan="2">#showSimpleMessage() </td>
+                        </tr>
+                        #end
+                        <tr>
+                            <td colspan="2">
+                                最近修改人：$!helpQuestionQuery.getHelpQuestion().getModifier() &nbsp;&nbsp 最近修改时间：$!dateFormatUtils.format($!helpQuestionQuery.getHelpQuestion().getModified())
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                问题名称：
+                            </td>
+                            <td>
+                                <input type="text" name="helpQuestionQuery.helpQuestion.question" value="$!helpQuestionQuery.getHelpQuestion().getQuestion()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                排列顺序：
+                            </td>
+                            <td>
+                                <input type="text" name="helpQuestionQuery.helpQuestion.sortOrder" value="$!helpQuestionQuery.getHelpQuestion().getSortOrder()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                发布时间：
+                            </td>
+                            <td>
+                                <input type="text" name="helpQuestionQuery.helpQuestion.postTime" value="$!dateFormatUtils.format($!helpQuestionQuery.getHelpQuestion().postTime,"yyyy-MM-dd")"  id="postTime" readonly="readonly">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                标签状态：
+                            </td>
+                            <td>
+                                <select name="helpQuestionQuery.logoType">
+                                    #showTagOption($!helpQuestionQuery.getLogoType())
+                                </select>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                状态:
+                            </td>
+                            <td>
+                                <select name="helpQuestionQuery.helpQuestion.status">
+                                    <option value="1" #if($!helpQuestionQuery.getHelpQuestion().getStatus()==1) selected="selected" #end >启用</option>
+                                    <option value="0" #if($!helpQuestionQuery.getHelpQuestion().getStatus()==0) selected="selected" #end >停用</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpQuestionQuery.answer" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                问题答案:
+                            </td>
+                            <td>
+                                <textarea id="helpQuestionQuery.answer" name="helpQuestionQuery.helpQuestion.answer" class="xheditor {tools:'full',internalScript:true,inlineScript:true,linkTag:true,upBtnText:'选择图片',html5Upload:false,upLinkUrl:'uploadImage.action?_charset_=utf-8',upLinkExt:'jpg,jpeg,gif,png',upImgUrl:'uploadImage.action?_charset_=utf-8',upImgExt:'jpg,jpeg,gif,png'}"  rows="12" cols="100"  style="width:80%">$!helpQuestionQuery.getHelpQuestion().getAnswer()</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpQuestionQuery.notes" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                                <textarea id="helpQuestionQuery.notes" name="helpQuestionQuery.helpQuestion.notes" value="" rows="6" cols="100" style="width:80%">$!helpQuestionQuery.getHelpQuestion().getNotes()</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+

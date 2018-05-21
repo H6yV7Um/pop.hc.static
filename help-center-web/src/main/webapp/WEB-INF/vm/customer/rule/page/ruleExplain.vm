@@ -1,0 +1,30 @@
+<div id="ruleExplain" style="display: none">
+    <div class="mt20">
+        <p class="mb15 fs20">1.评审规则</p>
+        <p class="detailWords">如果60%及以上参评商家同意，则该评审项目通过 ；如果60%商家不同意，则该评审项目不通过；如果不同意和同意的商家人数差值介于20%以内，则由京东规则制定团队综合商家意见进行规则内容修改，之后发布规则。</p>
+        <div class="clearfix mt25">
+            <p class="refuseNum">0%商家同意</p>
+            <p class="decideNum">40%商家同意</p>
+            <p class="passHalfNum">60%商家同意</p>
+            <p class="passNum">100%商家同意</p>
+            <p class="refuseDiv agree">规则不通过</p>
+            <p class="decideDiv agree">内部评议决定</p>
+            <p class="passDiv agree">内部评议决定</p>
+        </div>
+        <p class="detail mt25">当参与评审商家不足500时，无法代表平台商家意见时，参与评审的意见将作为参考依据，不能视为最后结果。</p>
+    </div>
+##    <div class="mt20">
+##        <p class="mb15 fs20">2.评审奖励</p>
+##        <p class="detail">每次参与评审奖励1积分</p>
+##        <p class="detail">每次参与规则评审，若投票结果与最终结果相一致即可获得1积分</p>
+##    </div>
+    <div class="mt20">
+        <p class="mb15 fs20">2.违规处理</p>
+        <p class="detail">若商家存在恶意进行投票、作弊等行为，一经发现投票无效且永久关闭投票资格。</p>
+    </div>
+    <p class="wb-gray3 mt20">注释：最终解释权归京东所有</p>
+    <div class="know wb-tc mt20">
+        <span class="wb-btn-m wb-btn-red mr50" id="iKnow">我知道了</span>
+        <input id="neverRemind" type="checkbox" class="mr5">不再提醒
+    </div>
+</div>

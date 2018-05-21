@@ -1,0 +1,8 @@
+<!--  /widget/h-footer/h-footer.vm -->
+<div class="l-footer">
+    <div class="l-footer-box">
+        <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+        <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+    </div>
+</div>
+<script type="text/javascript" src="//static.360buyimg.com/shop/pop_help/js/helpcenter.js" source="widget"></script>

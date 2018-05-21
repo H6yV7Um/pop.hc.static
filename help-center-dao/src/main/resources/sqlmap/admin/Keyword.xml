@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Keyword">
+    <typeAlias alias="Keyword" type="com.jd.help.domain.Keyword"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+    <typeAlias alias="KeywordBO" type="com.jd.help.domain.KeywordBO"/>
+    <typeAlias alias="KeywordQuery" type="com.jd.help.domain.KeywordQuery"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="Keyword">
+        <result property="id" column="id"/>
+        <result property="keyword" column="keyword"/>
+        <result property="createPin" column="create_pin"/>
+        <result property="createTime" column="create_time"/>
+        <result property="venderId" column="venderId"/>
+    </resultMap>
+
+    <!--BO对象的parameterMap-->
+    <parameterMap id="BOparameterMap" class="KeywordBO">
+        <parameter property="beginTime" javaType="String" />
+    </parameterMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , keyword , create_pin , create_time , venderId</sql>
+    <!-- 除主键外字段 -->
+    <sql id="noIDColumns"> keyword , create_pin , create_time , venderId</sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="Keyword">
+        INSERT INTO help_keywords_record (<include refid="noIDColumns"/>)
+        VALUES (#keyword# , #createPin# , #createTime# , #venderId# )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultClass="Keyword" parameterClass="KeywordBO">
+        SELECT
+            keyword,
+            COUNT(keyword) total
+        FROM
+            `help_keywords_record`
+        WHERE
+            keyword IS NOT NULL
+        <isNotNull property="keywordQuery.queryBeginTime">
+            <isNotNull property="keywordQuery.queryEndTime">
+                AND create_time BETWEEN #keywordQuery.queryBeginTime# and #keywordQuery.queryEndTime#
+            </isNotNull>
+        </isNotNull>
+        GROUP BY
+            keyword
+        ORDER BY total
+        <isNull property="orderBy">
+            DESC
+        </isNull>
+        LIMIT 0,#topNum#
+    </select>
+
+    <!--查询今日总关键词数量-->
+    <select  timeout="5"   id="countTodayKeyword" resultClass="long" parameterClass="KeywordBO">
+        SELECT
+        COUNT(keyword)
+        FROM
+          `help_keywords_record`
+        WHERE 1=1
+        <isNotNull property="keywordQuery.queryBeginTime">
+            <isNotNull property="keywordQuery.queryEndTime">
+                and create_time BETWEEN #keywordQuery.queryBeginTime# and #keywordQuery.queryEndTime#
+            </isNotNull>
+        </isNotNull>
+    </select>
+
+</sqlMap>

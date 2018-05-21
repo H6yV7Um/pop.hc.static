@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HelpDispatch">
+
+    <!-- 配送服务实体别名定义 -->
+    <typeAlias alias="HelpDispatch" type="com.jd.help.center.domain.dispatch.HelpDispatch"/>
+
+    <!-- 配送服务结果集定义 -->
+    <resultMap id="HelpDispatchMap" class="HelpDispatch">
+        <result property="id" column="Id" nullValue="0"/>
+        <result property="typeId" column="TypeId" nullValue="0"/>
+        <result property="typeName" column="TypeName"/>
+        <result property="xmlContent" column="SerializeInfo"/>
+    </resultMap>
+
+    <!-- 取得所有配送服务的XML文档信息 -->
+    <select  timeout="5"   id="findAllDispatch" resultMap="HelpDispatchMap">
+        SELECT 
+           c.Id,
+           c.TypeId,
+           c.TypeName,
+           c.SerializeInfo
+        FROM 
+           Configs(nolock)  c 
+        WHERE 
+           c.Yn=1 
+        AND 
+           c.TypeId 
+        IN 
+           (11,22,25,58,73,75)
+    </select>
+
+</sqlMap>

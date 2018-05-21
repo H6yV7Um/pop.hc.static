@@ -1,0 +1,173 @@
+#set($layout="")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/base.css"/>
+    <link type="text/css" rel="stylesheet" href="/misc/skin/helpcenter2012.css" />
+    <script type="text/javascript" src="/misc/js/jquery-1.2.6.pack.js"></script>
+    #if($topicId!=0)
+        #set($title =$!stringEscapeUtils.escapeHtml($helpTopic.getName()))
+    #end
+    <title>#if($title)$title&#45;消费者帮助中心-京东网上商城#else 消费者帮助中心-京东网上商城#end</title>
+    <script type="text/javascript">
+        window.pageConfig = {
+            compatible: false
+        };
+    </script>
+</head>
+<body>
+<!--[if !ie]>顶部内容开始<![endif]-->
+    $!mongoVelocityTools.getHead("head")
+<!--[if !ie]>顶部内容结束<![endif]-->
+<!--[if !ie]>Main 开始<![endif]-->
+<div class="w main">
+    #set($tailhtml=".html")
+    <!--[if !ie]>Position 开始<![endif]-->
+    <div class="m breadcrumb"><strong><a href="$venderHelpCenterModule.getTarget("")" target="_self">消费者帮助中心</a>
+    </strong>
+        #if($topicId!=0) &gt;
+            <a href="/$!stringEscapeUtils.escapeHtml($!sysName)/question-$!helpTopic.getTopicId()$tailhtml"
+               target="_self">$!stringEscapeUtils.escapeHtml($!helpTopic.getName())</a>
+        #end
+        #if($!viewQuestion) &gt; $!stringEscapeUtils.escapeHtml($!viewQuestion.getQuestion())  #end
+    </div>
+    <!--[if !ie]>Position 结束<![endif]-->
+    <!--[if !ie]>left 开始<![endif]-->
+    <div class="left">
+        <div class="help_side" id="sortlist">
+            #foreach($category in $!leftNavigate.categoryList)
+                <div class="current">
+                    <h4><b></b>$!stringEscapeUtils.escapeHtml($!category.getName())</h4>
+                    #set($topics = $!category.getTopicList())
+                    <ul>
+                        #foreach($topic in $topics)
+                            <li #if($velocityCount ==1 && $!topicId != $!topic.getTopicId()) class="li1"
+                            #elseif($velocityCount ==1 && $!topicId == $!topic.getTopicId())
+                                                                                             class="li1 helpcurr"
+                            #elseif($velocityCount !=1 && $!topicId == $!topic.getTopicId())
+                                                                                             class="helpcurr"
+                            #end    >
+                                <a href="$!topic.getUrl()"
+                                   target="_self">$!stringEscapeUtils.escapeHtml($!topic.getName())</a>
+                                #if($!topic.getLogoType()==1)
+                                    <div class="newhelp"><img alt="up" src="/misc/skin/images/jd_up.gif"></div>
+                                #elseif($!topic.getLogoType()==2)
+                                    <div class="newhelp"><img alt="new" src="/misc/skin/images/new.gif"></div>
+                                #elseif($!topic.getLogoType()==3)
+                                    <div class="newhelp"><img alt="hot" src="/misc/skin/images/jd_hot.gif"></div>
+                                #end
+                            </li>
+                        #end
+                    </ul>
+                </div>
+            #end
+        </div>
+        <iframe scrolling="no" frameborder="0" style="width:165px;height:165px;" marginheight="0" marginwidth="0" src="//x.jd.com/ad?ad_id=50"></iframe>
+    </div>
+    <!--[if !ie]>left 结束<![endif]-->
+    <!--[if !ie]>right 开始<![endif]-->
+    <div class="right" id="top">
+        <div id="h-sort">
+            <a href="#z-help1">自提点分布与查询</a>|
+            <a href="#z-help2">自提流程</a>|
+            <a href="#z-help3">什么是自提</a>|
+            <a href="#z-help4">自提说明</a>|
+            <a href="#z-help5">常见问题</a>
+        </div>
+        <a name="z-help1" id="z-help1" class="h-1px"></a>
+        <h3 class="help_tit"><strong>自提点分布与查询</strong></h3>
+        <div class="help_box">
+            <iframe id="GIS" frameborder="0" width="792" height="726" src="">
+            </iframe>
+        </div>
+        <a name="z-help2" id="z-help2" class="h-1px"></a>
+        <h3 class="help_tit"><strong>自提流程</strong></h3>
+        <div class="help_box">
+            <img src="//img30.360buyimg.com/pophelp/g14/M02/14/04/rBEhV1JTtN0IAAAAAABIvNnAgFIAAD7mAFB97YAAEjU074.jpg" width="768" height="239" />
+        </div>
+        <a name="z-help3" id="z-help3" class="h-1px"></a>
+        <h3 class="help_tit"><strong>什么是自提</strong></h3>
+        <div class="help_box">
+            上门自提服务是指无需通过快递送货上门，而是下单后将商品送至京东自提点，您可以随时到自提点提取商品。京东已在全国大部分城市设立自提点，上门自提无需支付费用。 <a href="#z-help1">查看您附近的自提点</a>
+        </div>
+        <a name="z-help4" id="z-help4" class="h-1px"></a>
+        <h3 class="help_tit"><strong>自提说明</strong></h3>
+        <div class="help_box">
+            <ul class="help_boxlist">
+                <li><strong>1.</strong>自提无需支付运费；</li>
+                <li><strong>2.</strong>各自提点均不接收由于各种原因被客户邮寄退回的商品或客户返修送货，否则出现的一切后果京东概不负责。</li>
+                <li><strong>3.</strong>注有“支持DIY装机服务”字样的自提点提供DIY装机服务。<a href="/help/question-86.html" target="_blank">详细介绍&gt;&gt;</a></li>
+                <li><strong>4.</strong>校园营业厅不能现场开具发票，发票事先由库房统一开具。</li>
+                <li><strong>5.</strong>好邻居自提点时间：全天24小时，自提点服务热线：400-650-3603（9:00-18:00）</li>
+            </ul>
+        </div>
+        <a name="z-help5" id="z-help5" class="h-1px"></a>
+        <h3 class="help_tit"><strong>常见问题</strong></h3>
+        <div class="help_box">
+            <ul class="help_boxlist">
+                <li><strong>1.下单之后可以更换自提点或更换配送方式吗？</strong></li>
+                <li>可以更换自提点但无法更换配送方式。</li>
+                <li>方法：我的京东-订单中心-点“查看”-进入订单详细页面-订单操作-修改订单</li>
+                <li>一般来说，在您选购的商品没有打印完毕之前，都是可以修改订单的。</li>
+                <li><strong>2.自提时验货发现问题，可以当场换货吗？如何处理？</strong></li>
+                <li>不可以。自提时图改发现货品有问题请当场反映给京东工作人员，由工作人员帮您处理。</li>
+                <li><strong>3.自提价格和其他配送方式价格是否一样？</strong></li>
+                <li>不管您选用哪种配送方式，商品的价格是一样的。</li>
+                <li><strong>4.可以自到自提点付款，贵公司工作人员送货到家吗？</strong></li>
+                <li>不可以，自提点采用的是上门付款提货方式。</li>
+                <li><strong>5.为何结算时找不到某某自提点？</strong></li>
+                <li>（1）可能是您所下单的收货地址与该自提点不在一个省市；</li>
+                <li>（2）或者该自提点已更换名称、地址；</li>
+                <li>（3）或者是您所购买的商品是大家电，该分类下部分商品只支持部分地区物流总部自提。详情以下单时所支持配送方式为准。</li>
+                <li><strong>6.自提点可以先验货后付款吗？</strong></li>
+                <li>不可以，我司不管哪种配送方式都是才去先付款后验货的方式。</li>
+                <li><strong>7.任何商品都可以自提吗？</strong></li>
+                <li>除了虚拟商品和服务类商品（如网络版杀毒软件）及部分大家电无法自提外，其他都可以自提。</li>
+                <li><strong>8.上门自提能用支付宝支付吗？</strong></li>
+                <li>不可以。对于上门自提的客户，京东可以接受现金、支票和POS机刷卡三种付款方式。选择支票支付方式，需要客户自行将支票内容填写完整（货款在5000元或5000元以上，需要款到账后方可提货）；POS机刷卡只支持带有银联标识的银行卡。</li>
+                <li><strong>9.自提点装机需要自带什么，比如：系统盘等等？</strong></li>
+                <li>自提点装机服务负责仅配置单里的散件组装，如您希望安装系统请自带系统盘，我们会指导您安装。</li>
+                <li><strong>10.购买配件，上门自提时可以提供安装服务吗？（比如内存条 ）</strong></li>
+                <li>购买配件，自提时不提供安装服务，希望您能理解。</li>
+            </ul>
+        </div>
+    </div>
+    <!--[if !ie]>right 结束<![endif]-->
+    <iframe scrolling="no" frameborder="0" style="width:830px;height:150px;" marginheight="0" marginwidth="0" src="//x.jd.com/ad?ad_id=51"></iframe>
+    <div class="clr"></div>
+</div>
+<script type="text/javascript">
+    jQuery("#sortlist h4").bind("click", function () {
+        var element = $(this).parent();
+        if (element.hasClass("current")) {
+            element.removeClass("current");
+        } else {
+            element.addClass("current");
+        }
+    })
+    jQuery(function(){
+        #if($!topicId==64)
+            //为GIS的iframe src属性赋值
+            if(jQuery("#GIS").length){
+                jQuery("#GIS").removeAttr("src").attr("src","$!GISUrl");
+            }
+            //为问题“什么是自提”中查看附近自提点的超级链接赋值
+##            #foreach($question in $!questions)
+##                #if($!stringEscapeUtils.escapeHtml($!question.getQuestion())=="自提点分布与查询")
+##                    if(jQuery("#sel_ziti").length){
+##                        jQuery("#sel_ziti").removeAttr("href").attr("href","#help$!question.getQuestionId()");
+##                    }
+##                #end
+##            #end
+        #end
+    });
+</script>
+<!--[if !ie]>Main 结束<![endif]-->
+<!--[if !ie]>底部内容开始<![endif]-->
+    $!mongoVelocityTools.getBottom("bottom")
+<!--[if !ie]>底部内容结束<![endif]-->
+</body>
+
+</html>

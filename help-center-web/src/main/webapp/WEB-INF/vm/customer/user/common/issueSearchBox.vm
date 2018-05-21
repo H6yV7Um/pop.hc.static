@@ -1,0 +1,13 @@
+## 常见问题搜索框
+<div class="search-wrap">
+    <div class="w">
+        <form action="/issue/search">
+            <div class="sch-box">
+                <input type="hidden" name="siteId" value="$!siteId">
+                <input type="text" class="f-text" name="keyword" value="$!keyword"
+                       #if(!$!keyword)placeholder="输入问题关键词，订单"#end ><input
+                    type="submit" class="btn-search" value="搜索" clstag="pageclick|keycount|issue_201502104|1000"></div>
+
+            <form>
+    </div>
+</div>

@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Issue">
+    <typeAlias alias="Issue" type="com.jd.help.domain.Issue"/>
+    <typeAlias alias="Page" type="com.jd.help.dao.util.Page"/>
+    <typeAlias alias="IssueQuery" type="com.jd.help.domain.IssueQuery"/>
+
+    <!-- 所有字段的result map -->
+    <resultMap id="defaultResultMap" class="Issue">
+        <result property="id" column="id"/>
+        <result property="cataId" column="cata_id"/>
+        <result property="siteId" column="site_id"/>
+        <result property="name" column="name"/>
+        <result property="summary" column="summary"/>
+        <result property="status" column="status"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderShipment" column="order_shipment"/>
+        <result property="orderType" column="order_type"/>
+        <result property="orderPay" column="order_pay"/>
+        <result property="issueType" column="issue_type"/>
+        <result property="issueLabelId" column="issue_label_id"/>
+        <result property="issueLabelContent" column="issue_label_content"/>
+        <result property="issueKeyWord" column="issue_key_word"/>
+        <result property="issueSolveDept" column="issue_solve_dept"/>
+        <result property="issueSolvePin" column="issue_solve_pin"/>
+        <result property="issueExpireTime" column="issue_expire_time"/>
+        <result property="label1Ids" column="label1_ids"/>
+        <result property="label1Names" column="label1_names"/>
+    </resultMap>
+
+    <!-- 所有字段 -->
+    <sql id="allColumns"> id , cata_id,site_id , name ,summary, status  , sort_order , creator , modifier , created ,modified , order_status , order_shipment , order_type , order_pay, issue_type, issue_label_id,issue_label_content, issue_key_word, issue_solve_dept, issue_solve_pin, issue_expire_time,label1_ids,label1_names</sql>
+
+    <!-- 查询条件 -->
+    <sql id="condition">
+        <dynamic>
+            <isNotNull property="siteId" prepend="AND" removeFirstPrepend="true">
+                site_id = #siteId#
+            </isNotNull>
+            <isNotNull property="cataId" prepend="AND" removeFirstPrepend="true">
+                cata_id = #cataId#
+            </isNotNull>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                name = #name#
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #sortOrder#
+            </isNotNull>
+            <isNotNull property="creator" prepend="AND" removeFirstPrepend="true">
+                creator = #creator#
+            </isNotNull>
+            <isNotNull property="modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #modifier#
+            </isNotNull>
+            <isNotNull property="created" prepend="AND" removeFirstPrepend="true">
+                created = #created#
+            </isNotNull>
+            <isNotNull property="modified" prepend="AND" removeFirstPrepend="true">
+                modified = #modified#
+            </isNotNull>
+            <isNotNull property="orderStatus" prepend="AND" removeFirstPrepend="true">
+                order_status = #orderStatus#
+            </isNotNull>
+            <isNotNull property="orderShipment" prepend="AND" removeFirstPrepend="true">
+                order_shipment = #orderShipment#
+            </isNotNull>
+            <isNotNull property="orderType" prepend="AND" removeFirstPrepend="true">
+                order_type = #orderType#
+            </isNotNull>
+            <isNotNull property="orderPay" prepend="AND" removeFirstPrepend="true">
+                order_pay = #orderPay#
+            </isNotNull>
+            <isNotNull property="issueType" prepend="AND" removeFirstPrepend="true">
+                issue_type = #issueType#
+            </isNotNull>
+            <isNotNull property="issueLabelId" prepend="AND" removeFirstPrepend="true">
+                issue_label_id = #issueLabelId#
+            </isNotNull>
+            <isNotNull property="issueLabelContent" prepend="AND" removeFirstPrepend="true">
+                issue_label_content = #issueLabelContent#
+            </isNotNull>
+            <isNotNull property="issueKeyWord" prepend="AND" removeFirstPrepend="true">
+                issue_key_word = #issueKeyWord#
+            </isNotNull>
+            <isNotNull property="issueSolveDept" prepend="AND" removeFirstPrepend="true">
+                issue_solve_dept = #issueSolveDept#
+            </isNotNull>
+            <isNotNull property="issueSolvePin" prepend="AND" removeFirstPrepend="true">
+                issue_solve_pin = #issueSolvePin#
+            </isNotNull>
+            <isNotNull property="issueExpireTime" prepend="AND" removeFirstPrepend="true">
+                issue_expire_time = #issueExpireTime#
+            </isNotNull>
+            <isNotNull property="label1Ids" prepend="AND" removeFirstPrepend="true">
+                label1_ids = #label1Ids#
+            </isNotNull>
+            <isNotNull property="label1Names" prepend="AND" removeFirstPrepend="true">
+                label1_names = #label1Names#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForPage">
+        <dynamic>
+            <isNotNull property="model.siteId" prepend="AND" removeFirstPrepend="true">
+                site_id = #model.siteId#
+            </isNotNull>
+            <isNotNull property="model.cataId" prepend="AND" removeFirstPrepend="true">
+                cata_id = #model.cataId#
+            </isNotNull>
+            <isNotNull property="model.name" prepend="AND" removeFirstPrepend="true">
+                name = #model.name#
+            </isNotNull>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.sortOrder" prepend="AND" removeFirstPrepend="true">
+                sort_order = #model.sortOrder#
+            </isNotNull>
+            <isNotNull property="model.creator" prepend="AND" removeFirstPrepend="true">
+                creator = #model.creator#
+            </isNotNull>
+            <isNotNull property="model.modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #model.modifier#
+            </isNotNull>
+            <isNotNull property="model.created" prepend="AND" removeFirstPrepend="true">
+                created = #model.created#
+            </isNotNull>
+            <isNotNull property="model.modified" prepend="AND" removeFirstPrepend="true">
+                modified = #model.modified#
+            </isNotNull>
+            <isNotNull property="model.orderStatus" prepend="AND" removeFirstPrepend="true">
+                order_status = #model.orderStatus#
+            </isNotNull>
+            <isNotNull property="model.orderShipment" prepend="AND" removeFirstPrepend="true">
+                order_shipment = #model.orderShipment#
+            </isNotNull>
+            <isNotNull property="model.orderType" prepend="AND" removeFirstPrepend="true">
+                order_type = #model.orderType#
+            </isNotNull>
+            <isNotNull property="model.orderPay" prepend="AND" removeFirstPrepend="true">
+                order_pay = #model.orderPay#
+            </isNotNull>
+            <isNotNull property="model.issueType" prepend="AND" removeFirstPrepend="true">
+                issue_type = #model.issueType#
+            </isNotNull>
+            <isNotNull property="model.issueLabelId" prepend="AND" removeFirstPrepend="true">
+                issue_label_id = #model.issueLabelId#
+            </isNotNull>
+            <isNotNull property="model.issueLabelContent" prepend="AND" removeFirstPrepend="true">
+                issue_label_content = #model.issueLabelContent#
+            </isNotNull>
+            <isNotNull property="model.issueKeyWord" prepend="AND" removeFirstPrepend="true">
+                issue_key_word = #model.issueKeyWord#
+            </isNotNull>
+            <isNotNull property="model.issueSolveDept" prepend="AND" removeFirstPrepend="true">
+                issue_solve_dept = #model.issueSolveDept#
+            </isNotNull>
+            <isNotNull property="model.issueSolvePin" prepend="AND" removeFirstPrepend="true">
+                issue_solve_pin = #model.issueSolvePin#
+            </isNotNull>
+            <isNotNull property="model.issueExpireTime" prepend="AND" removeFirstPrepend="true">
+                issue_expire_time = #model.issueExpireTime#
+            </isNotNull>
+            <isNotNull property="model.label1Ids" prepend="AND" removeFirstPrepend="true">
+                label1_ids = #model.label1Ids#
+            </isNotNull>
+            <isNotNull property="model.label1Names" prepend="AND" removeFirstPrepend="true">
+                label1_Names = #model.label1Names#
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+
+    <!-- 插入 -->
+    <insert timeout="5"    id="insert" parameterClass="Issue">
+        INSERT INTO help_issue (<include refid="allColumns"/>)
+        VALUES (null , #cataId# ,#siteId#, #name# , #summary#, #status# , #sortOrder# , #creator# , #modifier# ,now() ,
+        now() ,  #orderStatus# , #orderShipment# , #orderType# , #orderPay#, #issueType#, #issueLabelId#,
+        #issueLabelContent#, #issueKeyWord#, #issueSolveDept#, #issueSolvePin#, #issueExpireTime#, #label1Ids#, #label1Names# )
+        <selectKey resultClass="long">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+    </insert>
+
+    <!--删除（软删除）-->
+    <update  timeout="5"   id="delete" parameterClass="Issue">
+        UPDATE help_issue
+        SET
+        status = -1
+        <!-- -1 为已删除 -->
+        WHERE
+        id = #id#
+    </update>
+
+    <!-- 更新 -->
+    <update  timeout="5"   id="update" parameterClass="Issue">
+		UPDATE help_issue
+		set 
+		cata_id = #cataId#,
+		name = #name#,
+		summary = #summary#,
+		status = #status#,
+		modifier = #modifier#,
+		modified = now(),
+        issue_type = #issueType#,
+        issue_label_id = #issueLabelId#,
+        issue_label_content = #issueLabelContent#,
+        issue_key_word = #issueKeyWord#,
+        issue_solve_dept = #issueSolveDept#,
+        issue_solve_pin = #issueSolvePin#,
+        issue_expire_time = #issueExpireTime#,
+        label1_ids = #label1Ids#,
+        label1_names = #label1Names#
+        WHERE id = #id#
+	</update>
+
+    <!-- 查单个 -->
+    <select  timeout="5"   id="queryForObject" parameterClass="Issue" resultMap="defaultResultMap">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue
+        WHERE
+        id = #id#
+    </select>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryForCount" resultClass="int" parameterClass="Issue">
+        SELECT count(id)
+        FROM
+        help_issue
+        WHERE 1=1
+        <include refid="condition"/>
+    </select>
+
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue
+        WHERE 1=1
+        <include refid="conditionForPage"/>
+        LIMIT #startRow# , #pageSize#
+    </select>
+
+
+    <update  timeout="5"   id="updateStatus" parameterClass="Issue">
+        UPDATE help_issue
+        SET
+        status = #status# ,
+        modified = now() ,
+        modifier = #modifier#
+        WHERE
+        id = #id#
+    </update>
+	
+	<update  timeout="5"   id="updateOrderStatus" parameterClass="Issue">
+        UPDATE help_issue
+        SET
+           order_status = #orderStatus#,
+           order_shipment = #orderShipment#,
+           order_type = #orderType#,
+           order_pay = #orderPay#,
+	        modified = now() ,
+	        modifier = #modifier#
+        WHERE
+        id = #id#
+    </update>
+	
+	<!-- 查列表 -->
+    <select  timeout="5"   id="queryOnlineList" resultMap="defaultResultMap" parameterClass="Issue">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue
+        WHERE status = 1
+        and cata_id = #cataId#
+        ORDER BY id DESC
+    </select>
+    
+   	<update  timeout="5"   id="deleteOrderStatus" parameterClass="Issue">
+        UPDATE help_issue
+        SET
+           order_status = null,
+           order_shipment = null,
+           order_type = null,
+           order_pay = null
+       
+    </update>
+
+    <!-- 查询条件 -->
+    <sql id="conditionForQuery">
+        <dynamic>
+            <isNotNull property="siteId" prepend="AND" removeFirstPrepend="true">
+                site_id = #siteId#
+            </isNotNull>
+            <isNotNull property="cataId" prepend="AND" removeFirstPrepend="true">
+                cata_id = #cataId#
+            </isNotNull>
+            <isNotNull property="name" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ name like CONCAT('%',#name#,'%') ]]>
+            </isNotNull>
+            <isNotNull property="status" prepend="AND" removeFirstPrepend="true">
+                status = #status#
+            </isNotNull>
+            <isNotNull property="orderStatus" prepend="AND" removeFirstPrepend="true">
+                order_status = #orderStatus#
+            </isNotNull>
+            <isNotNull property="orderShipment" prepend="AND" removeFirstPrepend="true">
+                order_shipment = #orderShipment#
+            </isNotNull>
+            <isNotNull property="orderType" prepend="AND" removeFirstPrepend="true">
+                order_type = #orderType#
+            </isNotNull>
+            <isNotNull property="orderPay" prepend="AND" removeFirstPrepend="true">
+                order_pay = #orderPay#
+            </isNotNull>
+            <isNotNull property="modifiedBeginTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ modified >= #modifiedBeginTime# ]]>
+            </isNotNull>
+            <isNotNull property="modifiedEndTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ modified <= #modifiedEndTime# ]]>
+            </isNotNull>
+            <isNotNull property="createdBeginTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created >= #createdBeginTime# ]]>
+            </isNotNull>
+            <isNotNull property="createEndTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created <= #createEndTime# ]]>
+            </isNotNull>
+        </dynamic>
+    </sql>
+
+    <!--查数量-->
+    <select  timeout="5"   id="queryTotalCount" resultClass="int" parameterClass="IssueQuery">
+        SELECT count(id)
+        FROM
+        help_issue
+        WHERE 1=1
+        <include refid="conditionForQuery"/>
+    </select>
+    <!-- 用于分页的查询条件 -->
+    <sql id="conditionForQueryPage">
+        <dynamic>
+            <isNotNull property="model.id" prepend="AND" removeFirstPrepend="true">
+                id = #model.id#
+            </isNotNull>
+            <isNotNull property="model.siteId" prepend="AND" removeFirstPrepend="true">
+                site_id = #model.siteId#
+            </isNotNull>
+            <isNotNull property="model.cataId" prepend="AND" removeFirstPrepend="true">
+                cata_id = #model.cataId#
+            </isNotNull>
+            <isNotEmpty property="model.name" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ name like CONCAT('%',#model.name#,'%') ]]>
+            </isNotEmpty>
+            <isNotNull property="model.status" prepend="AND" removeFirstPrepend="true">
+                status = #model.status#
+            </isNotNull>
+            <isNotNull property="model.creator" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ creator like CONCAT('%',#model.creator#,'%') ]]>
+            </isNotNull>
+            <isNotNull property="model.createdBeginTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created >= #model.createdBeginTime# ]]>
+            </isNotNull>
+            <isNotNull property="model.createEndTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ created <= #model.createEndTime# ]]>
+            </isNotNull>
+            <isNotNull property="model.modifier" prepend="AND" removeFirstPrepend="true">
+                modifier = #model.modifier#
+            </isNotNull>
+            <isNotNull property="model.modifiedBeginTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ modified >= #model.modifiedBeginTime# ]]>
+            </isNotNull>
+            <isNotNull property="model.modifiedEndTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ modified <= #model.modifiedEndTime# ]]>
+            </isNotNull>
+            <isNotNull property="model.orderStatus" prepend="AND" removeFirstPrepend="true">
+                order_status = #model.orderStatus#
+            </isNotNull>
+            <isNotNull property="model.orderShipment" prepend="AND" removeFirstPrepend="true">
+                order_shipment = #model.orderShipment#
+            </isNotNull>
+            <isNotNull property="model.orderType" prepend="AND" removeFirstPrepend="true">
+                order_type = #model.orderType#
+            </isNotNull>
+            <isNotNull property="model.orderPay" prepend="AND" removeFirstPrepend="true">
+                order_pay = #model.orderPay#
+            </isNotNull>
+
+            <isNotNull property="model.issueType" prepend="AND" removeFirstPrepend="true">
+                issue_type = #model.issueType#
+            </isNotNull>
+            <isNotNull property="model.issueLabelId" prepend="AND" removeFirstPrepend="true">
+                issue_label_id = #model.issueLabelId#
+            </isNotNull>
+            <isNotNull property="model.issueLabelContent" prepend="AND" removeFirstPrepend="true">
+                issue_label_content = #model.issueLabelContent#
+            </isNotNull>
+            <isNotNull property="model.issueKeyWord" prepend="AND" removeFirstPrepend="true">
+                issue_key_word = #model.issueKeyWord#
+            </isNotNull>
+            <isNotNull property="model.issueSolveDept" prepend="AND" removeFirstPrepend="true">
+                issue_solve_dept = #model.issueSolveDept#
+            </isNotNull>
+            <isNotNull property="model.issueSolvePin" prepend="AND" removeFirstPrepend="true">
+                issue_solve_pin = #model.issueSolvePin#
+            </isNotNull>
+            <isNotNull property="model.issueExpireTime" prepend="AND" removeFirstPrepend="true">
+                <![CDATA[ issue_expire_time <= #model.issueExpireTime# ]]>
+            </isNotNull>
+            <isNotNull property="model.label1Ids" prepend="AND" removeFirstPrepend="true">
+                label1_ids = #model.label1Ids#
+            </isNotNull>
+            <isNotNull property="model.label1Names" prepend="AND" removeFirstPrepend="true">
+                label1_names = #model.label1Names#
+            </isNotNull>
+        </dynamic>
+    </sql>
+    <!-- 查列表 -->
+    <select  timeout="5"   id="queryForIssueList" resultMap="defaultResultMap" parameterClass="Page">
+        SELECT
+        <include refid="allColumns"/>
+        FROM
+        help_issue
+        WHERE 1=1
+        <include refid="conditionForQueryPage"/>
+        ORDER BY modified DESC
+        LIMIT #startRow# , #pageSize#
+    </select>
+    <!--后门用，查询-->
+    <select  timeout="5"   id="query4Issue2Es" resultClass="int" parameterClass="IssueQuery">
+        SELECT
+        id
+        FROM
+        `help_issue`
+        WHERE `status` != -1
+        AND site_id = #siteId#
+    </select>
+
+
+</sqlMap>

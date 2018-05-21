@@ -1,0 +1,285 @@
+#set($layout="admin/default.vm")
+#set($title="问题订单状态设置")
+<script type="text/javascript" src="/static/icheck/icheck.min.js"></script>
+<link href="/static/icheck/skins/all.css" rel="stylesheet">
+<div class="container-fluid">
+	<div class="row" >
+		<form id="issueForm" name="issueForm" role="form" method="post"
+			class="form-inline">
+			
+			<div class="panel panel-default">
+		  		<div class="panel-heading">
+	  				<div class="row">
+	  					<div class="col-md-1"><h3 class="panel-title">订单类型</h3></div>
+	  					<div class="col-md-1 col-md-offset-10">
+	  						<label class="checkbox-inline"><input id="orderTypeCheckAll" type="checkbox" class="checkAll">全选</label>
+	  					</div>
+	  				</div>
+		  		</div>
+				<div class="panel-body">
+					<ul class="list-inline" id="orderTypeGroup">
+					  #foreach($ot in $!orderTypes)
+							<li><label class="checkbox-inline"><input type="checkbox" value="$ot.getCode()">$ot.getName()</label></li>
+						#end
+					</ul>
+			  	</div>
+			</div>
+			
+			<div class="panel panel-default">
+		  		<div class="panel-heading">
+	  				<div class="row">
+	  					<div class="col-md-1"><h3 class="panel-title">订单状态</h3></div>
+	  					<div class="col-md-1 col-md-offset-10">
+	  						<label class="checkbox-inline"><input id="orderStatusCheckAll" type="checkbox" class="checkAll">全选</label>
+	  					</div>
+	  				</div>
+		  		</div>
+				<div class="panel-body">
+					<ul class="list-inline" id="orderStatusGroup">
+					  #foreach($ors in $!orderStatuses)
+							<li><label class="checkbox-inline"><input type="checkbox" value="$ors.getCode()">$ors.getName()</label></li>
+						#end
+					</ul>
+			  	</div>
+			</div>
+			
+			<div class="panel panel-default">
+		  		<div class="panel-heading">
+		  			<div class="row">
+	  					<div class="col-md-1"><h3 class="panel-title">配送方式</h3></div>
+	  					<div class="col-md-1 col-md-offset-10">
+	  						<label class="checkbox-inline"><input id="orderShipmentCheckAll" type="checkbox" class="checkAll">全选</label>
+	  					</div>
+	  				</div>
+		  		</div>
+				<div class="panel-body">
+			    	<ul class="list-inline" id="orderShipmentGroup">
+					  	#foreach($os in $!orderShipments)
+							<li><label class="checkbox-inline"><input type="checkbox" value="$os.getCode()">$os.getName()</label></li>
+						#end
+					</ul>
+			  	</div>
+			</div>
+			
+			<div class="panel panel-default">
+		  		<div class="panel-heading">
+	  				<div class="row">
+	  					<div class="col-md-1"><h3 class="panel-title">支付方式</h3></div>
+	  					<div class="col-md-1 col-md-offset-10">
+	  						<label class="checkbox-inline"><input id="orderPayCheckAll" type="checkbox" class="checkAll">全选</label>
+	  					</div>
+	  				</div>
+		  		</div>
+				<div class="panel-body">
+					<ul class="list-inline" id="orderPayGroup">
+					  	#foreach($op in $!orderPays)
+							<li><label class="checkbox-inline"><input type="checkbox" value="$op.getCode()">$op.getName()</label></li>
+						#end
+					</ul>
+			  	</div>
+			</div>
+			
+			<button type="button" class="btn btn-primary" onclick="getChecked()">保存</button>
+		</form>
+		<form id="orderStatusForm" name="orderStatusForm" role="form" method="post"
+			class="form-horizontal" action="issue_doOrderStatus.action">
+			<input type="hidden" name="site.id" value="$!issue.getSiteId()"/>
+			<input type="hidden" name="issueBO['issue'].id" value="$!issue.getId()"/>
+			<input type="hidden" id="ipt_orderStatus" name="issueBO['issue'].orderStatus" />
+			<input type="hidden" id="ipt_orderShipment" name="issueBO['issue'].orderShipment" />
+			<input type="hidden" id="ipt_orderType" name="issueBO['issue'].orderType" />
+			<input type="hidden" id="ipt_orderPay" name="issueBO['issue'].orderPay" />
+		</form>	
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(function(){
+	setChecked();
+	initICheck();
+	bindCheckAll();
+});
+
+var bindCheckAll = function(){
+	$('#orderTypeCheckAll').on('ifChecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderTypeGroup :checkbox').iCheck('check');
+	}).on('ifUnchecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderTypeGroup :checkbox').iCheck('uncheck');
+	});
+	
+	$('#orderStatusCheckAll').on('ifChecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderStatusGroup :checkbox').iCheck('check');
+	}).on('ifUnchecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderStatusGroup :checkbox').iCheck('uncheck');
+	});
+	
+	$('#orderShipmentCheckAll').on('ifChecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderShipmentGroup :checkbox').iCheck('check');
+	}).on('ifUnchecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderShipmentGroup :checkbox').iCheck('uncheck');
+	});
+	
+	$('#orderPayCheckAll').on('ifChecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderPayGroup :checkbox').iCheck('check');
+	}).on('ifUnchecked',function(e){
+		resetCheckBoxClass(this);
+		$('#orderPayGroup :checkbox').iCheck('uncheck');
+	});
+	
+};
+//更改半选中状态为正常
+var resetCheckBoxClass = function(obj){
+	$(obj).parent().attr('class','icheckbox_minimal')
+};
+var setChecked = function(){
+	var orderStatusArr = "$!issue.orderStatus" == "" ? null : "$!issue.orderStatus".split(" ");
+	var orderShipmentArr = "$!issue.orderShipment"  == "" ? null : "$!issue.orderShipment".split(" ");
+	var orderTypeArr  = "$!issue.orderType"  == "" ? null : "$!issue.orderType".split(" ");
+	var orderPayArr = "$!issue.orderPay"  == "" ? null : "$!issue.orderPay".split(" ");
+	
+	//订单状态
+	if(orderStatusArr != null){
+		jQuery('#orderStatusGroup :checkbox').each(function(key,val){
+			if(jQuery.inArray(this.value, orderStatusArr) > -1){
+				jQuery(this).attr("checked",true);
+			}
+		});
+	}
+	//发货方式
+	if(orderShipmentArr != null){
+		jQuery('#orderShipmentGroup :checkbox').each(function(key,val){
+			if(jQuery.inArray(this.value, orderShipmentArr) > -1){
+				jQuery(this).attr("checked",true);
+			}
+		});
+	}
+	
+	//订单类型
+	if(orderTypeArr != null){
+		jQuery('#orderTypeGroup :checkbox').each(function(key,val){
+			if(jQuery.inArray(this.value, orderTypeArr) > -1){
+				jQuery(this).attr("checked",true);
+			}
+		});
+	}
+	//支付方式
+	if(orderPayArr != null){
+		jQuery('#orderPayGroup :checkbox').each(function(key,val){
+			if(jQuery.inArray(this.value, orderPayArr) > -1){
+				jQuery(this).attr("checked",true);
+			}
+		});
+	}
+	
+};
+
+var initICheck = function(){
+	$('input').iCheck({
+       checkboxClass: 'icheckbox_minimal',
+       checkedClass: 'checked',
+       increaseArea: '20%'
+    });
+	//判断显示半选中状态
+	var statusBoxSize = $('#orderStatusGroup :checkbox').size();
+	var statusBoxCheckedSize = $('#orderStatusGroup input:checked').size();
+	if(statusBoxCheckedSize < statusBoxSize &&  statusBoxCheckedSize > 0){
+		$('#orderStatusCheckAll').iCheck({
+	       checkboxClass: 'icheckbox_minimal-aero',
+	       checkedClass: 'checked',
+	       increaseArea: '20%'
+	    }).iCheck('check');
+	}else if(statusBoxCheckedSize == statusBoxSize){
+		$('#orderStatusCheckAll').iCheck('check');
+	}
+	
+	var orderPayBoxSize = $('#orderPayGroup :checkbox').size();
+	var orderPayBoxCheckedSize = $('#orderPayGroup input:checked').size();
+	if(orderPayBoxCheckedSize < orderPayBoxSize &&  orderPayBoxCheckedSize > 0){
+		$('#orderPayCheckAll').iCheck({
+	       checkboxClass: 'icheckbox_minimal-aero',
+	       checkedClass: 'checked',
+	       increaseArea: '20%'
+	    }).iCheck('check');
+	}else if(orderPayBoxCheckedSize == orderPayBoxSize){
+		$('#orderPayCheckAll').iCheck('check');
+	}
+	
+	var orderTypeBoxSize = $('#orderTypeGroup :checkbox').size();
+	var orderTypeBoxCheckedSize = $('#orderTypeGroup input:checked').size();
+	if(orderTypeBoxCheckedSize < orderTypeBoxSize &&  orderTypeBoxCheckedSize > 0){
+		$('#orderTypeCheckAll').iCheck({
+	       checkboxClass: 'icheckbox_minimal-aero',
+	       checkedClass: 'checked',
+	       increaseArea: '20%'
+	    }).iCheck('check');
+	}else if(orderTypeBoxCheckedSize == orderTypeBoxSize){
+		$('#orderTypeCheckAll').iCheck('check');
+	}
+	
+	var orderShipmentBoxSize = $('#orderShipmentGroup :checkbox').size();
+	var orderShipmentBoxCheckedSize = $('#orderShipmentGroup input:checked').size();
+	if(orderShipmentBoxCheckedSize < orderShipmentBoxSize &&  orderShipmentBoxCheckedSize > 0){
+		$('#orderShipmentCheckAll').iCheck({
+	       checkboxClass: 'icheckbox_minimal-aero',
+	       checkedClass: 'checked',
+	       increaseArea: '20%'
+	    }).iCheck('check');
+	}else if(orderShipmentBoxCheckedSize == orderShipmentBoxSize){
+		$('#orderShipmentCheckAll').iCheck('check');
+	}
+};
+
+var getChecked = function(){
+	var orderStatus = "";
+	var orderShipment = "";
+	var orderType = "";
+	var orderPay = "";
+	
+	jQuery('#orderStatusGroup input:checked').each(function(key,val){
+		if(orderStatus == ""){
+			orderStatus+=this.value;
+		}else{
+			orderStatus+=(" " + this.value);
+		}
+	});
+	
+	jQuery('#orderShipmentGroup input:checked').each(function(key,val){
+		if(orderShipment == ""){
+			orderShipment+=this.value;
+		}else{
+			orderShipment+=(" " + this.value);
+		}
+	});
+	
+	jQuery('#orderTypeGroup input:checked').each(function(key,val){
+		if(orderType == ""){
+			orderType+=this.value;
+		}else{
+			orderType+=(" " + this.value);
+		}
+	});
+	
+	jQuery('#orderPayGroup input:checked').each(function(key,val){
+		if(orderPay == ""){
+			orderPay+=this.value;
+		}else{
+			orderPay+=(" " + this.value);
+		}
+	});
+	
+	jQuery('#ipt_orderStatus').val(orderStatus);
+	jQuery('#ipt_orderShipment').val(orderShipment);
+	jQuery('#ipt_orderType').val(orderType);
+	jQuery('#ipt_orderPay').val(orderPay);
+	
+	jQuery('#orderStatusForm').submit();
+	
+};
+
+</script>

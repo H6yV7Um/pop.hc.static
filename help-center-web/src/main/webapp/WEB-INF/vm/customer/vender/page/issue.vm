@@ -1,0 +1,10 @@
+#set($title="问题百宝箱-商家帮助中心-京东")
+#set($layout="customer/vender/hasLeftNew.vm")
+#set($navId="question")
+#set($contactUs="WEB-INF/vm/customer/vender/common/contactUs.vm")
+#set($left="WEB-INF/vm/customer/vender/common/issueLeft.vm")
+
+##页面内容
+#parse("/WEB-INF/vm/customer/vender/common/issueSearchBoxNew.vm")
+$!issue_quickNav.content
+

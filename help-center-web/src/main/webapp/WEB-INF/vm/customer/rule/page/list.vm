@@ -1,0 +1,145 @@
+#set($layout="empty.vm")
+<!DOCTYPE html>
+<html class="root61">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title></title>
+
+    <link type="text/css" rel="stylesheet"
+          href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,myjd/2.0.0/myjd.css"/>
+    <script type="text/javascript">window.pageConfig = {compatible: true}</script>
+    <script>var pageConfig = {jdfVersion: '2.0.0'};</script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/shop/pop_rulers/css/pop_rulers.css"
+          source="widget"/>
+    <style>
+        .b-list-wrap .li-item{
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 0;
+        }
+        .result-cont{
+            width: 870px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: inline-block;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+<!--/ /widget/header/header.vm -->
+<div class="l-wrap">
+    <div class="l-main">
+
+        <!--  /widget/crumb/crumb.vm -->
+
+        <div class="breadcrumb">
+            <a href="/rule/index.html">首页</a>
+
+            &nbsp;&gt;&nbsp;
+            <span class="i-txt">规则总览</span>
+
+        </div>
+        <!--/ /widget/crumb/crumb.vm -->
+
+        <!--  /widget/menu/menu.vm -->
+
+            <div class="l-menu-wrap">
+                <div class="l-menu-box">
+                    #foreach($spcategory in $!jsonRoot.data)
+                        <dl class="b-menu-box #if($!outerCategory==${spcategory.id}) h-menu-current #end">
+                            <dt clstag="pageclick|keycount|rule_list_detail|${spcategory.id}" class="menu-hd"><i class="menu-icon-sh"></i>
+                                ${spcategory.name}
+                            </dt>
+                            <dd class="menu-bd">
+                                <ul class="menu-lev01">
+                                    #foreach($sbcategory in ${spcategory.categories})
+                                        <li class="menu-item #if(${sbcategory.name}== $!currentCategory)  menu-item-current  #end">
+                                            <a href="/rule/list.action?id=${sbcategory.id}" class="link-dlk" clstag="pageclick|keycount|rule_list_detail|${sbcategory.id}">
+                                                ${sbcategory.name} <i class="menu-icon-tria"></i>
+                                            </a>
+                                        </li>
+                                        #if(${sbcategory.name}== $!currentCategory)
+
+                                        #end
+                                    #end
+                                </ul>
+                            </dd>
+                        </dl>
+                    #end
+                </div>
+            </div>
+            <script>
+                $(function () {
+                    $(".b-menu-box .menu-hd").click(function () {
+                        var o_parent = $(this).parent();
+                        if (o_parent.hasClass("h-menu-current")) {
+                            o_parent.removeClass("h-menu-current")
+                        } else {
+                            o_parent.addClass("h-menu-current").siblings("").removeClass("h-menu-current")
+                        }
+                    })
+                })
+
+            </script>
+
+        <!--/ /widget/menu/menu.vm -->
+        <div class="l-content">
+            <div class="b-subsearch-wrap">
+                <p class="h-words">#if($currentCategory)
+                    在<span class="txt-black">$currentCategory</span>中精细搜索：
+                #end</p>
+                <div class="b-subsearch-box">
+                    <form action="/rule/list.action" method="post">
+                    <input type="text" class="text-search" name="title" value="$!{title}">
+                    <button class="btn-search" type="submit" clstag="pageclick|keycount|rule_home|6">搜索</button>
+                    </form>
+                </div>
+            </div>
+            <!-- b-subsearch-wrap -->
+            <div class="re-count-box">
+                共搜索到<span class="txt-red">$!{listScenes.size()}</span>条规则：
+            </div>
+
+            <div class="b-list-wrap">
+                <ul class="normal-list">
+                    #foreach($scene in $!listScenes)
+                        <li class="li-item">
+                            <h3 class="h-title"><a href="/rule/ruleDetail.action?ruleId=${scene.id}"
+                                                   class="link-dlk" clstag="pageclick|keycount|rule_detail|${scene.id}">${scene.sceneTitle}</a></h3>
+                            #if($title)
+                                <span class="result-cont" style="padding-top: 8px;">$!scene.sceneContent</span>
+                            #end
+                        </li>
+                    #end
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!--  /widget/h-footer/h-footer.vm -->
+    <div class="l-footer">
+        <div class="l-footer-box">
+            <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+            <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+        </div>
+    </div>
+
+    <!--/ /widget/h-footer/h-footer.vm -->
+</div>
+<script type="text/javascript">
+    seajs.use('jdf/1.0.0/unit/globalInit/2.0.0/globalInit.js', function (globalInit) {
+        globalInit();
+    });
+</script>
+<script type="text/javascript" src="//static.360buyimg.com/shop/pop_rulers/js/rules.js" source="widget"></script>
+</body>
+</html>

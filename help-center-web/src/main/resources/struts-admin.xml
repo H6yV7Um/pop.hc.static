@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="gbk" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="helpsite" namespace="/help/site" extends="help">
+        <action name="site_*" method="{1}" class="com.jd.help.admin.web.site.HelpSiteAction">
+            <result name="list" type="redirect">/help/site/site_list.action</result>
+            <result name="goUpdate">/WEB-INF/vm/admin/site/update.vm</result>
+            <result name="jsonResult" type="json"></result>
+            <result>/WEB-INF/vm/admin/site/{1}.vm</result>
+        </action>
+    </package>
+    <package name="helpcatalog" namespace="/help/catalog" extends="help">
+        <action name="catalog_*" method="{1}" class="com.jd.help.admin.web.catalog.HelpCatalogAction">
+            <result name="result" type="json"></result>
+            <result name="toInsert">/WEB-INF/vm/helpsys/insert.vm</result>
+            <result name="toUpdate">/WEB-INF/vm/admin/catalog/update.vm</result>
+            <result name="toList">/WEB-INF/vm/admin/catalog/findAll.vm</result>
+            <result>/WEB-INF/vm/admin/catalog/{1}.vm</result>
+            <result name="json" type="json">
+                <param name="root">jsonRoot</param>
+            </result>
+        </action>
+    </package>
+    <package name="helpissue" namespace="/help/issue" extends="help">
+        <action name="issue_*" method="{1}" class="com.jd.help.admin.web.issue.HelpIssueAction">
+            <result name="jsonResult" type="json">
+                <param name="root">jsonRoot</param>
+                <param name="excludeNullProperties">true</param>
+            </result>
+            <result name="toList" type="redirect">/help/issue/issue_list.action?site.id=${site.id}</result>
+            <result name="updateResult">/WEB-INF/vm/admin/issue/updateResult.vm</result>
+            <result>/WEB-INF/vm/admin/issue/{1}.vm</result>
+            <result name="statusUpdated" type="redirect">${referer}</result>
+            <result name="toOrderStatus">/WEB-INF/vm/admin/issue/toOrderStatus.vm</result>
+            <result name="backdoor">/WEB-INF/vm/admin/issue/backdoor.vm</result>
+        </action>
+        <action name="uploadimg" method="upload" class="com.jd.help.admin.web.issue.UploadImageAction">
+            <result name="jsonResult" type="json">
+                <param name="root">jsonRoot</param>
+                <param name="contentType">text/html</param>
+            </result>
+            <result>/WEB-INF/vm/admin/issue/{1}.vm</result>
+        </action>
+    </package>
+
+    <package name="help_search" namespace="/help/search" extends="help">
+        <action name="*" method="{1}" class="com.jd.help.admin.web.search.SearchAction">
+            <result>/WEB-INF/vm/admin/issue/searchDashboard.vm</result>
+        </action>
+    </package>
+
+    <package name="help_htmlmodule" namespace="/help/htmlmodule" extends="help">
+        <action name="htmlmodule_*" method="{1}" class="com.jd.help.admin.web.htmlmodule.HelpHtmlModuleAction">
+            <result>/WEB-INF/vm/admin/htmlmodule/{1}.vm</result>
+            <result name="list" type="redirect">/help/htmlmodule/htmlmodule_list.action?site.id=${site.id}</result>
+        </action>
+    </package>
+
+    <package name="help_notice" namespace="/help/notice" extends="help">
+        <action name="notice_*" method="{1}" class="com.jd.help.admin.web.notice.HelpNoticeAction">
+            <result>/WEB-INF/vm/admin/notice/{1}.vm</result>
+            <result name="list" type="redirect">/help/notice/notice_list.action?site.id=${site.id}</result>
+            <result name="listPage" type="redirect">
+                /help/notice/notice_list.action?site.id=${site.id}&amp;page=${page}
+            </result>
+        </action>
+    </package>
+
+    <package name="help_button" namespace="/help/button" extends="help">
+        <action name="*" method="{1}" class="com.jd.help.admin.web.button.ScenesButtonAction">
+            <result>/WEB-INF/vm/admin/button/{1}.vm</result>
+            <result name="updateResult">/WEB-INF/vm/admin/button/updateResult.vm</result>
+        </action>
+    </package>
+
+    <!--关键词 -->
+    <package name="helpKeyword" namespace="/help/keyword" extends="help">
+        <action name="keyword_*" method="{1}" class="com.jd.help.admin.web.keyword.KeywordAction">
+            <result>/WEB-INF/vm/admin/keyword/{1}.vm</result>
+        </action>
+    </package>
+
+    <package name="help_issue" namespace="/help/issueSuggest" extends="help">
+        <action name="issueSuggest_*" method="{1}" class="com.jd.help.admin.web.issue.HelpIssueSuggestAction">
+            <result>/WEB-INF/vm/admin/issueSuggest/{1}.vm</result>
+        </action>
+    </package>
+    <package name="help_lable" namespace="/lable" extends="help">
+        <action name="*" method="{1}" class="com.jd.help.admin.web.lable.LableAction">
+            <result name="json" type="json">
+                <param name="root">jsonData</param>
+            </result>
+            <result name="success">/WEB-INF/vm/admin/helplable/{1}.vm</result>
+        </action>
+    </package>
+
+    <package name="knowledge" namespace="/help/k" extends="help">
+        <action name="k_*" method="{1}" class="com.jd.help.admin.web.KnowledgeTransferDataAction">
+            <result name="result" type="json"></result>
+        </action>
+    </package>
+
+    <package name="public_portal" namespace="/publicportal" extends="help">
+        <action name="l_*" method="{1}" class="com.jd.help.admin.web.publicportal.HelpMenuLableAction">
+            <result name="json" type="json">
+                <param name="root">jsonData</param>
+            </result>
+            <result name="success">/WEB-INF/vm/admin/publicportal/helpMenuLable.vm</result>
+        </action>
+
+        <action name="k_*" method="{1}" class="com.jd.help.admin.web.publicportal.HelpMenuKnowlegdeAction">
+            <result name="json" type="json">
+                <param name="root">jsonData</param>
+            </result>
+            <result name="success">/WEB-INF/vm/admin/publicportal/helpMenuKnowledge.vm</result>
+            <result name="form">/WEB-INF/vm/admin/publicportal/recommendKnowledge.vm</result>
+        </action>
+    </package>
+    <package name="help_welcome" namespace="/welcome" extends="help">
+        <action name="*" method="{1}" class="com.jd.help.admin.web.welcome.WelcomeAction">
+            <result name="json" type="json">
+                <param name="root">jsonData</param>
+            </result>
+            <result name="success">/WEB-INF/vm/layout/admin/index/{1}.vm</result>
+        </action>
+    </package>
+    <package name="test" namespace="/help/test" extends="help">
+        <action name="t_*" method="{1}" class="com.jd.help.admin.web.test.TestAction">
+            <result name="result" type="json"></result>
+        </action>
+    </package>
+</struts>

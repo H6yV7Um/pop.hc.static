@@ -1,0 +1,109 @@
+$response.sendRedirect("/rule/index.action")
+###set($layout="empty.vm")
+##<!DOCTYPE html>
+##<html>
+##<head lang="en">
+##    <meta charset="UTF-8">
+##    <title>京东-规则平台</title>
+##
+##    <link href="../static/css/p-style.css" rel="stylesheet">
+##    <link type="text/css" rel="stylesheet"  href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,myjd/2.0.0/myjd.css"/>
+##    <script type="text/javascript">window.pageConfig = {compatible: true}</script>
+##    <script>var pageConfig = {jdfVersion:'2.0.0'};</script>
+##    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+##    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+##
+##    <link type="text/css" rel="stylesheet"  href="//static.360buyimg.com/shop/pop_rulers/css/pop_rulers.css" source="widget"/>
+##    <style>
+##        .w {
+##            width: 1210px;
+##            margin: auto;
+##        }
+##    </style>
+##</head>
+##
+##<body>
+##    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+##<div class="p-warp">
+##    <div class="p-crumbs">
+##        <a href="/rule/index.html">首页</a><span>&gt;</span>规则评审团
+##    </div>
+##
+##    <div class="p-column" id="p-box1">
+##        <div class="ewm"><img src="../img/pewm.png"></div>
+##        <span>规则评审团即将开启啦！</span>
+##    </div>
+##    <div class="p-column" id="p-box2">
+##        <div class="item">
+##            <h1><span class="tit1"></span></h1>
+##            <h2>什么是评审团？</h2>
+##            <div class="p-btn"><span>卖家也是规则制定者</span></div>
+##            <p class="p-txt">为了加强与卖家的直接交流，让广大卖家参与到规则搭建、生态体系完善，<br/>
+##                拟搭建半官方性质的卖家委员团队，将成为卖家生态侧的智库团队。</p>
+##        </div>
+##        <div class="item">
+##            <h1><span class="tit2"></span></h1>
+##            <h2>有什么亮点？</h2>
+##            <ul class="p-ul1">
+##                <li>集思广益</li>
+##                <li>卖家参与度</li>
+##                <li>客观公正</li>
+##            </ul>
+##            <p class="p-txt">鼓励卖家积极参与规则制定和建言建议，使得规则真正能够集思广益，旨在提升规则的公正客观和参与度<br/>
+##                更好的提升平台服务和用户体验，践行客户为先的“京东价值观”</p>
+##        </div>
+##        <div class="item">
+##            <h1><span class="tit3"></span></h1>
+##            <h2>评审团的任务是什么？</h2>
+##            <div class="p-btn"><span>评审卖家规则</span></div>
+##            <div class="p-btn"><span>树立卖家榜样，成为卖家讲师</span></div>
+##            <p class="p-txt">是卖家交流的绿色通道，可提高信息反馈准确性。<br/>
+##                激励卖家主动参与平台生态建设，激励卖家自主学习，宣导规则，发掘卖家讲师。</p>
+##        </div>
+##        <div class="item">
+##            <h1><span class="tit4"></span></h1>
+##            <h2>评审员如何晋级？</h2>
+##            <ul class="p-ul2">
+##                <li>
+##                    <em></em>
+##                    <p>Step1</p>
+##                    <p>入选评审团</p>
+##                    <p>优选活跃卖家<span>120</span>名</p>
+##                </li>
+##                <li>
+##                    <em></em>
+##                    <p>Step2</p>
+##                    <p>维持身份</p>
+##                    <p>每月完成<span>1个</span>任务</p>
+##                </li>
+##                <li>
+##                    <p>Step3</p>
+##                    <p>升级身份</p>
+##                    <p>每月完成<span>2个</span>以上任务</p>
+##                </li>
+##            </ul>
+##        </div>
+##        <div class="item">
+##            <h1><span class="tit5"></span></h1>
+##            <h2>如何加入？</h2>
+##            <div class="p-btn"><span>紧张准备中，即将开放！</span></div>
+##            <ul class="p-ul3">
+##                <li>
+##                    <em></em>申请
+##                </li>
+##                <li>
+##                    <em></em>提交资料审核
+##                </li>
+##                <li>
+##                    <em></em>签订保密协议
+##                </li>
+##                <li>
+##                    成为评审员
+##                </li>
+##            </ul>
+##        </div>
+##    </div>
+##
+##</div>
+##</body>
+##</html>

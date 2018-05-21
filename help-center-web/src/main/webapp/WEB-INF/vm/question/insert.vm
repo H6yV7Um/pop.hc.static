@@ -1,0 +1,146 @@
+#set($layout="default.vm")
+<link rel="stylesheet" type="text/css" href="$staticAssetModule.getTarget("/shop/skin/ui.datepicker.css")" media="all"/>
+<script type="text/javascript" src="$staticAssetModule.getTarget("/shop/js/ui.datepicker.js")"></script>
+<script type="text/javascript" src="/misc/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery.validator.addMethod("isInt", function(value, element) {
+            return this.optional(element) || /^-?[1-9]\d*|0$/.test(value);
+        }, "请输入有效整数");
+
+        jQuery("#postTime").datepicker();
+
+        jQuery('#questionFrame').submit(function()
+            {
+                var ans= jQuery("#answer").val();
+                if(jQuery.trim(ans)==""){
+                    alert("请输入问题答案");
+                    return false;
+                }
+                return true;
+            });
+    jQuery("#questionFrame").validate({
+         rules: {
+                "helpQuestion.question":{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                "helpQuestion.sortOrder":{
+                    required:true,
+                    isInt:true,
+                    min:-2147483648,
+                    max:2147483648
+                },
+                "helpQuestion.answer":{
+                    maxlength:50000
+                },
+                "helpQuestion.notes":{
+                    maxlength:100
+                }
+         },
+          messages: {
+                "helpQuestion.question":{
+                    required:"请输入问题名称",
+                    minlength:"输入问题不能少于2个字符",
+                    maxlength:"输入问题不能超过20个字符"
+                },
+                "helpQuestion.sortOrder":{
+                    required:"请输入问题顺序",
+                    isInt:"请输入整数",
+                    min:"请输入大于-2147483648的顺序",
+                    max:"请输入小于2147483648的顺序"
+                },
+                "helpQuestion.answer":{
+                    maxlength:"请输入小于50000字符的回答"
+                },
+                "helpQuestion.notes":{
+                    maxlength:"请输入小于100字符的备注"
+                }
+          }
+     })
+    })
+</script>
+<script type="text/javascript" src="/editer/xheditor-zh-cn.min.js"></script>
+<div id="content">
+    <div>
+		<div class="i-con1">
+            <div class="tb-x1" align="center">
+              <form  id="questionFrame" action="question_doInsert.action" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" width="80%">
+                        <input type="hidden" name="topicId" value="$!topicId">
+                        <input type="hidden" name="categoryId" value="$!categoryId">
+                        <input type="hidden" name="sysId" value="$!sysId">
+                        <input type="hidden" name="helpQuestion.topicId" value="$!topicId">
+                        <input type="hidden" name="helpQuestion.status" value="1">
+                        #if(!$!actionMessages.empty)
+                        <tr>
+                            <td colspan="2">#showSimpleMessage() </td>
+                        </tr>
+                        #end
+                        <tr>
+                            <td>
+                                问题名称：
+                            </td>
+                            <td>
+                                <input id="question" type="text" name="helpQuestion.question">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                排列顺序：
+                            </td>
+                            <td>
+                                <input type="text" name="helpQuestion.sortOrder">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                发布时间：
+                            </td>
+                            <td>
+                                <input type="text" name="helpQuestion.postTime" value="$!dateFormatUtils.format($!helpQuestion.postTime,"yyyy-MM-dd")"  id="postTime" readonly="readonly">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                标签状态：
+                            </td>
+                            <td>
+                                <select name="helpQuestionQuery.logoType">
+                                    #showTagOption($!helpQuestionQuery.getLogoType())
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="answer" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                问题答案:
+                            </td>
+                            <td>
+                                <textarea id="answer" name="helpQuestion.answer" class="xheditor {tools:'full',internalScript:true,inlineScript:true,linkTag:true,upBtnText:'选择图片',html5Upload:false,upLinkUrl:'uploadImage.action?_charset_=utf-8',upLinkExt:'jpg,jpeg,gif,png',upImgUrl:'uploadImage.action?_charset_=utf-8',upImgExt:'jpg,jpeg,gif,png'}"  rows="12" cols="100"  style="width:80%"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><label for="helpQuestion.notes" generated="true" class="error" style="color:red"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                备注:
+                            </td>
+                            <td>
+                                <textarea id="helpQuestion.notes" name="helpQuestion.notes" value="" rows="6" cols="80" style="width:80%"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="submit" value="提交"/><input type="button" value="取消" onClick="window.history.back()"/></td>
+                        </tr>
+                    </table>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+

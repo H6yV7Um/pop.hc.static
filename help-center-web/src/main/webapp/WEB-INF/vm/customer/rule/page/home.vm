@@ -1,0 +1,279 @@
+#set($layout="empty.vm")
+<!DOCTYPE html>
+<html class="root61">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title></title>
+
+    <script>var pageConfig = {jdfVersion: '2.0.0'};</script>
+    <link type="text/css" rel="stylesheet"
+          href="//misc.360buyimg.com/jdf/1.0.0/unit/??ui-base/1.0.0/ui-base.css,shortcut/2.0.0/shortcut.css,myjd/2.0.0/myjd.css"/>
+    <script type="text/javascript">window.pageConfig = {compatible: true}</script>
+    <script>var pageConfig = {jdfVersion: '2.0.0'};</script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/lib/jquery-1.6.4.js"></script>
+    <script type="text/javascript" src="//misc.360buyimg.com/jdf/1.0.0/unit/base/1.0.0/base.js"></script>
+    <link type="text/css" rel="stylesheet" href="//static.360buyimg.com/shop/pop_rulers/css/pop_rulers.css"
+          source="widget"/>
+    <style>
+        #id-newrule {
+            font-size: 40px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #id-newrule a {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            padding-top: 130px;
+            color: white;
+        }
+
+        .module,.cl,.xl,.xl1 li{
+            line-height: 1.5;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+            vertical-align: baseline;
+        }
+
+        #shengtaiquan-top:hover,#shengtaiquan-bottom:hover{
+            position: absolute;
+            height: 130px;
+            width: 130px;
+            margin-left: -130px;
+        }
+    </style>
+</head>
+<body>
+    #parse("/WEB-INF/vm/customer/rule/page/nav.vm")
+<!--/ /widget/header/header.vm -->
+<div class="l-wrap">
+    <div class="l-part">
+        <div class="w">
+            <div class="b-search-wrap">
+                <form action="/rule/list.action" id="search-form">
+                    <div class="b-search-box">
+                        <input type="text" style="outline: none;" class="text-search" name="title" placeholder="请输入规则关键词，如“违规”">
+                        <button class="btn-search" type="submit" clstag="pageclick|keycount|rule_home|6">搜索</button>
+                    </div>
+                    <div class="b-hotwords">
+                        热门搜索：<a href="/rule/list.action?title=%ce%a5%b9%e6"  class="link-ib" clstag="pageclick|keycount|rule_home|7">违规</a>
+                        <a href="/rule/list.action?title=%cb%d1%cb%f7" class="link-ib" clstag="pageclick|keycount|rule_home|8">搜索</a>
+                        <a href="/rule/list.action?title=%d0%f8%c7%a9" class="link-ib" clstag="pageclick|keycount|rule_home|9">续签</a>
+                        <a href="/rule/list.action?title=%d0%d0%d2%b5%b1%ea%d7%bc" class="link-ib" clstag="pageclick|keycount|rule_home|10">行业标准</a>
+                    </div>
+                </form>
+            </div>
+            <!-- search -->
+            <div class="mod-s01" id="id-gongao">
+                <div class="mod-hd">
+                    <h3 class="h-title" >最新公告</h3>
+                    <div class="h-more">
+                        #foreach($spcategory in $!jsonRoot.data)
+                            #foreach($sbcategory in ${spcategory.categories})
+                                #if(${sbcategory.name} == "公示通知")
+                                    <a href="/rule/list.action?id=${sbcategory.id}" clstag="pageclick|keycount|rule_home|11" target="_blank">更多公告 &gt;</a>
+                                #end
+                            #end
+                        #end
+                    </div>
+                </div>
+                <div class="mod-bd">
+##                    <script type="text/javascript" src="http://mjbbs.jd.com/api.php?mod=js&bid=743"></script>
+
+                    <ul class="normal-list" style="font-size: 14px">
+                    #*公告*#
+                        #foreach($notice in $!notices)
+                            <li class="li-item"><a target="_blank"
+                                                   href="/rule/noticeDetail.action?entity.id=$notice.id" clstag="pageclick|keycount|rule_home|$notice.id">&middot;$notice.noticeTitle</a>
+                            </li>
+                        #end
+                    #*      <li class="li-item"><a href="">&middot; 新增《京东定制服务规范》生效通知<i class="tips-new"></i></a></li>
+                          <li class="li-item"><a href="">&middot; 新增《京东定制服务规范》生效通知<i class="tips-hot"></i></a></li>
+                          <li class="li-item"><a href="">&middot; 新增《京东定制服务规范》生效通知</a></li>
+                          <li class="li-item"><a href="">&middot; 新增《京东定制服务规范》生效通知</a></li>
+                          <li class="li-item"><a href="">&middot; 新增《京东定制服务规范》生效通知</a></li>*#
+                    </ul>
+                </div>
+            </div>
+            <!-- gongao -->
+        </div>
+    </div>
+    <!-- l-part -->
+    <div class="l-main">
+        <div class="mod-s01 fl mod-wide" id="id-hotrule">
+
+            <div class="mod-hd">
+                <h3 class="h-title"><i class="icon-hot"></i>热门规则</h3>
+                <div class="h-extra">
+                    <ul class="normal-list-x">
+                        #foreach($scene in $!hotScenes)
+                            #if($velocityCount <4)
+                                <li class="li-item"><a
+                                        href="/rule/ruleDetail.action?ruleId=${scene.id}" clstag="pageclick|keycount|rule_home|${scene.id}">${scene.sceneTitle}</a>
+                                </li>
+                            #end
+                        #end
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mod-bd">
+                #foreach($spcategory in $!jsonRoot.data)
+                    <dl class="dl-list" style="margin-bottom: 15px">
+                        <dt class="dl-hd"><a href="/rule/list.action?#if(($!{spcategory.categories.size()})>0)id=$!{spcategory.categories.get(0).id} #end">${spcategory.name}</a></dt>
+                        <dd class="dl-bd">
+                            <ul class="normal-list">
+                                #foreach($sbcategory in ${spcategory.categories})
+                                    #if($velocityCount <=4)
+                                        <li class="li-item"><a
+                                                href="/rule/list.action?id=${sbcategory.id}" clstag="pageclick|keycount|rule_home|${sbcategory.id}">${sbcategory.name}</a></li>
+                                    #end
+                                #end
+##                                #if($!spcategory.categories.size()>4)
+##                                    <div class="dl-more">
+##                                        <a href="/rule/list.action?#if(($!{spcategory.categories.size()})>0)id=$!{spcategory.categories.get(0).id} #end" class="c-link">更多 &gt;</a>
+##                                    </div>
+##                                #end
+                            </ul>
+
+                        </dd>
+                    </dl>
+                #end
+
+
+            </div>
+        </div>
+        <!-- id-hotrule -->
+        <div class="mod-small" id="id-newrule"
+             style="display: inline-block;height: 278px;width: 278px;background-image: url('../img/month-newly.jpg')">
+            <a href="/rule/monthNewly.action" clstag="pageclick|keycount|rule_home|44">
+
+            </a>
+        </div>
+        <!-- id-newrule -->
+        <div class="clr mb20"></div>
+        <!-- clr -->
+        <div class="mod-s01 fl mod-wide" id="id-rulesub">
+            <div class="mod-hd">
+                <h3 class="h-title">规则专题</h3>
+                #foreach($spcategory in $!jsonRoot.data)
+                    #if(${spcategory.name}=="规则专题")
+                        #foreach($sbcategory in ${spcategory.categories})
+                            #if(${sbcategory.name} == "公示通知")
+                                <div class="h-more">#*<a href="/rule/list.action?id=${sbcategory.id}">*#更多 &gt;#*</a>*#</div>
+                            #end
+                        #end
+                    #end
+                #end
+            </div>
+            <div class="mod-bd">
+                #if($specialScenes)
+                    #if($specialScenes.size()>0)
+                        <dl class="dl-box">
+                            <dt class="dl-hd"><a href="" class="link-dlk"><img
+                                    src="//img11.360buyimg.com/uba/jfs/t3583/31/1057896116/4450/7c09d25e/581aeefaN11dde42d.jpg" clstag="pageclick|keycount|rule_home|45"
+                                    alt=""></a></dt>
+                            <dd class="dl-bd">
+                                <h3 class="title"><a
+                                        href="/rule/ruleDetail.action?ruleId=${specialScenes.get(0).id}" clstag="pageclick|keycount|rule_home|46">$!{specialScenes.get(0).sceneTitle}</a>
+                                </h3>
+                                <div class="h-words" style="max-height: 80px;height:80px;text-overflow:ellipsis;overflow: hidden;display: inline-block"><a
+                                        href="/rule/ruleDetail.action?ruleId=${specialScenes.get(0).id}" clstag="pageclick|keycount|rule_home|47">$!{specialScenes.get(0).sceneContent} </a>
+                                </div>
+                            </dd>
+                        </dl>
+                    #end
+                    #if($specialScenes.size()>1)
+                        <dl class="dl-box">
+                            <dt class="dl-hd"><a href="" class="link-dlk"><img
+                                    src="//img11.360buyimg.com/uba/jfs/t3352/139/1025799028/5155/db6c147b/581aefdeNb4ce1234.jpg" clstag="pageclick|keycount|rule_home|47"
+                                    alt=""></a></dt>
+                            <dd class="dl-bd">
+                                <h3 class="title"><a
+                                        href="/rule/ruleDetail.action?ruleId=${specialScenes.get(1).id}" clstag="pageclick|keycount|rule_home|49">$!{specialScenes.get(1).sceneTitle}</a>
+                                </h3>
+                                <div class="h-words" style="max-height: 80px; height:80px;text-overflow:ellipsis;overflow: hidden;display: inline-block"><a
+                                        href="/rule/ruleDetail.action?ruleId=${specialScenes.get(1).id}" clstag="pageclick|keycount|rule_home|50">$!{specialScenes.get(1).sceneContent} </a>
+                                </div>
+                            </dd>
+                        </dl>
+                    #end
+                    #if($specialScenes.size()>2)
+                        <dl class="dl-box">
+                            <dt class="dl-hd"><a href="" class="link-dlk"><img
+                                    src="//img14.360buyimg.com/uba/jfs/t3463/166/1024077901/5781/67f6023c/581aefdfNecd87099.jpg" clstag="pageclick|keycount|rule_home|51"
+                                    alt=""></a></dt>
+                            <dd class="dl-bd">
+                                <h3 class="title"><a
+                                        href="/rule/ruleDetail.action?ruleId=${specialScenes.get(2).id}" clstag="pageclick|keycount|rule_home|52">$!{specialScenes.get(2).sceneTitle}</a>
+                                </h3>
+                                <div class="h-words" style="max-height: 80px;height:80px;text-overflow:ellipsis;overflow: hidden"><a
+                                        href="/rule/ruleDetail.action?ruleId=${specialScenes.get(2).id}" clstag="pageclick|keycount|rule_home|53">$!{specialScenes.get(2).sceneContent} </a>
+                                </div>
+                            </dd>
+                        </dl>
+                    #end
+                #end
+
+            </div>
+        </div>
+        <!-- id-rulesub -->
+        <div class="mod-s01 mod-small mb10" id="id-s1">
+            <a href="//helpcenter.jd.com/rule/ruleDetail.action?ruleId=2651" class="link-dlk"><img
+                    src="/img/image007(03-01-18-37-26).jpg" clstag="pageclick|keycount|rule_home|54" alt=""></a>
+            <p class="h-words p20">汇集规则中的术语名词释义，帮助商家更好地学习规则</p>
+        </div>
+        <div class="mod-s01 mod-small mb10" id="id-s2">
+            <a href="/ruleReview/ruleReviewList.action" class="link-dlk"><img
+                    src="//storage.jd.com/karmavender/image/20171010/pingshentuan.jpg" clstag="pageclick|keycount|rule_home|55" alt=""></a>
+            <p class="h-words p20">京东规则发布前对外公开征集意见的场所，可对规则要点进行投票并发布意见</p>
+        </div>
+    </div>
+
+    <!--  /widget/h-footer/h-footer.vm -->
+    <div class="l-footer">
+        <div class="l-footer-box">
+            <p class="e-footer-cr">Copyright@2004-2018&nbsp;JD.com&nbsp;京东版权所有</p>
+            <p class="e-footer-v">京ICP证070359&nbsp;北京市公安局朝阳分局备案编号110105014669</p>
+        </div>
+    </div>
+
+    <!--/ /widget/h-footer/h-footer.vm -->
+</div>
+<script type="text/javascript">
+    seajs.use('jdf/1.0.0/unit/globalInit/2.0.0/globalInit.js', function (globalInit) {
+        globalInit();
+    });
+    (function () {
+
+        document.querySelector('#search-form').onsubmit = function () {
+            return document.querySelector('#search-form input[name=title]').value && document.querySelector('#search-form input[name=title]').value != ""
+        }
+    })();
+</script>
+<script type="text/javascript" src="//static.360buyimg.com/shop/pop_rulers/js/rules.js" source="widget"></script>
+
+<script>
+    document.querySelector("#id-newrule>a").innerHTML = new Date().getMonth() + 1 + "月新规";
+    var jaq = jaq || [];
+    jaq.push(['account', 'JA2017_113661']); //站点编号
+    jaq.push(['domain', 'jd.com']);  //站点域名
+
+    (function () {
+        var ja = document.createElement('script');
+        ja.type = 'text/javascript';
+        ja.async = true;
+        ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ja, s);
+    })();
+</script>
+<script src="//static.360buyimg.com/shop/pop_help/js/helpcenter.js"></script>
+</body>
+</html>

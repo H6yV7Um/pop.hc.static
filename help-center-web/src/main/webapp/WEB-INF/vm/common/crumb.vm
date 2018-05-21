@@ -1,0 +1,13 @@
+#* @vtlvariable name="thirdNavigate" type="java.util.List<java.lang.String>" *#
+#* @vtlvariable name="title" type="java.lang.String" *#
+#* @vtlvariable name="tableIndex" type="java.lang.Integer" *#
+<div id="posi">
+    <div>您当前的位置：<a target="leftFrame" href="$popAdminModule.getTarget("/leftFrame.action").addQueryData("module",1)">POP-MAN管理后台</a>&nbsp;&gt;&nbsp;<a target="leftFrame"
+            href="$popAdminModule.getTarget("/leftFrame.action").addQueryData("module",$!tableIndex)">#if($!tableIndex==1)商家管理#elseif($!tableIndex==2)商品管理#elseif($!tableIndex
+    == 3)交易管理#elseif($!tableIndex==4)促销管理#elseif($!tableIndex==5)仓储管理#elseif($!tableIndex==6)配送管理#elseif($!tableIndex==7)售后#elseif($!tableIndex
+    ==8)客服#elseif($!tableIndex==9)结算管理#elseif($!tableIndex==10)联盟管理#elseif($!tableIndex==11)报表#elseif($!tableIndex==12)岗位权限#{else}其它#end</a>
+           #if($thirdNavigate && $thirdNavigate.size() ==2)
+                &nbsp;&gt;&nbsp; <a href="${thirdNavigate.get(0)}">${thirdNavigate.get(1)}</a>
+            #end
+        &nbsp;&gt;&nbsp;$!{title}</div>
+</div>

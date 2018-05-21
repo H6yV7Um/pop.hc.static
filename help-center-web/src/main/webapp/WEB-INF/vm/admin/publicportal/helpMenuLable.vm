@@ -1,0 +1,146 @@
+<link rel="stylesheet" type="text/css" href="/static/css/publicportal/publicportal.css">
+<script type="text/javascript" src="/static/js/publicportal/helpMenuLable.js"></script>
+#*页面begin*#
+<div id="main">
+    <div class="lab"><p style="font-size:18px">公共窗口知识维护</p></div>
+    <div class="lab"><p class="message" style="font-size:13px">
+        公共窗口知识维护是针对在商家后台产品的推荐知识的维护，商家后台每个二级页面都会匹配推送5条相关知识，您可以对这些知识进行替换或删除的操作。</p>
+        <button type="button" class="btn btn_input btn_primary fr " id="insert">新建</button>
+
+
+    </div>
+#*formBegin*#
+    <form action="/publicportal/l_getHelpMenuLableList.action" id="form">
+        <div class="mod_form">
+            <span class="label">shop端页面id：</span>
+            <div class="search label_val">
+                <input type="text" name="helpMenuLabel.menuId" value="$!helpMenuLabel.menuId" id="name"
+                       style="width: 70px">
+            </div>
+            <span class="label">shop页面端名称：</span>
+            <div class="search label_val">
+                <input type="text" name="helpMenuLabel.menuDesc" value="$!helpMenuLabel.menuDesc"
+                       style="width: 70px">
+            </div>
+            <span class="label">知识标签：</span>
+            <div class="search label_val">
+                <input type="button" class="btn btn_input btn_primary " value="选择标签" id="getAllLabelBack"></input>
+                <input type="text" class="nc_input lableNamesBack " name="helpMenuLabel.labelNames"
+                       value="$!helpMenuLabel.labelNames" id="helpMenuLabel.labelNames"
+                       style="width: 70px;" readonly="readonly">
+                <input type="hidden" class="nc_input nc_info lableIdsBack">
+            </div>
+            <button type="submit" class="btn btn_input btn_primary " style="margin-left: 10%" id="query">查询</button>
+        </div>
+        <div class="main_bd">
+            <table class="stable table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th style="width: 25%">shop端关联页面id</th>
+                    <th style="width: 25%">shop端关联页名称</th>
+                    <th style="width: 25%">知识标签</th>
+                    <th style="width: 25%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    #if($!pageList && $!pageList.size() > 0)
+                        #foreach($item in $pageList)
+                        <tr>
+                            <td title="$!item.menuId">$!item.menuId</td>
+                            <td title="$!item.menuDesc">$!item.menuDesc</td>
+                            <td title="$!item.label1Names">$!item.label1Names</td>
+                            <td>
+                                <button type="button" class="btn btn_input btn_primary update" thisId="$!item.menuId">修改
+                                </button>
+                                <button type="button" class="btn btn_input btn_primary delete" thisId="$!item.menuId">删除
+                                </button>
+                            </td>
+                        #end
+                    #end
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="12" style="text-align: center">
+                        #set($pageUrl = $!helpAdminModule.getTarget("publicportal/l_getHelpMenuLableList.action").addQueryData(
+                            "helpMenuLabel.menuId", $!helpMenuLabel.menuId).addQueryData(
+                            "helpMenuLabel.menuDesc", $!helpMenuLabel.menuDesc).addQueryData(
+                            "helpMenuLabel.menuDesc", $!helpMenuLabel.menuDesc))
+                    #showPage($!pageUrl $!pageList)
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+#*formEnd*#
+    <div class="outDiv modal"
+         style="width: 100%;height: 100%;position: fixed;left: 0;top: 0;background: rgba(0,0,0,0.4);display: none">
+        <div class="dialog  fade"
+             style="width: 500px;height: 600px;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background: #fff;border: 1px solid #ccc;">
+            <p style="font-size: 16px;margin-left: 25px;display:inline-block" id="maxTitle">新建关系</p><span id="x"
+                                                                                                          aria-hidden="true"
+                                                                                                          style="margin-right: 3%;cursor:pointer ;float: right;font-size: 21px;color: #3a87ad">×</span>
+            <div class="hbox" style="padding-top:15px;padding-left: 15px">
+                <font color="red">*</font>
+                <label class="nc_newLbl">shop端页面ID</label>
+                    <span class="nc_span">
+                        <input type="text" class="nc_input nc_info" id="menuId"/>
+                    </span>
+                <span class="frm_msg fail menuId">页面ID不能为空</span>
+            </div>
+            <div class="hbox" style="padding-top:15px;padding-left: 15px">
+                <font color="red">*</font>
+                <label class="nc_newLbl">shop端页面描述</label>
+                    <span class="nc_span">
+                        <input type="text" class="nc_input nc_info" id="menuDesc"/>
+                    </span>
+                <span class="frm_msg fail menuDesc">页面描述不能为空</span>
+            </div>
+        #*lableBegin*#
+            <div class="hbox" style="padding-top:15px;padding-left: 15px">
+                <font color="red">*</font>
+                <label class="nc_newLbl">知识标签</label>
+                <input id="getAllLabel" class="btn btn_primary btn-success" style="margin-left: 1%" value="添加标签"
+                       type="button">
+                <input type="hidden" class="nc_input label1Names" readonly="readonly">
+                <input type="text" class="nc_input lableNames" readonly="readonly">
+                <span class="frm_msg fail lableNames_fail">请选择知识标签</span>
+                <input type="hidden" class="nc_input nc_info label1Ids">
+                <input type="hidden" class="nc_input nc_info lableIds">
+
+            </div>
+        #*lableEnd*#
+            <button id="confirm" class="btn btn_input btn_primary fr btns">确定</button>
+            <button id="cancle" class="btn btn_input btn_primary fr btns">取消</button>
+        </div>
+    </div>
+#*helpLable Begin*#
+    #parse("/WEB-INF/vm/admin/issue/getAllLable.vm")
+#*helpLable End*#
+#*helpLable back Begin*#
+    #parse("/WEB-INF/vm/admin/issue/getAllLableback.vm")
+#*helpLable back End*#
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#*页面end*#
+

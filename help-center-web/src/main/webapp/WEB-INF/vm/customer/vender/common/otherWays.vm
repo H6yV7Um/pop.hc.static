@@ -1,0 +1,36 @@
+<div class="otherways-box">
+    <p class="p-title">您还可以选择其他咨询方式</p>
+    <div class="mod-s01" id="contactid">
+        <ul class="otherways-list">
+            <li class="li-item">
+                <a href="//openjimi.jd.com/index.action?source=zyMrYb" style="text-decoration:none;" target="_blank" clstag="pageclick|keycount|helpcenter_questionbox_list|2">
+                    <div class="cact-bd item-cont">
+                        <img src="/img/intelligent.png" style="height: 44px; position: absolute; top: 10px; left: 40px;">
+                        <h3 class="title">智能客服</h3>
+                        <p class="describe-text">及时响应，7*24小时服务</p>
+                        <p class="describe-text">随时为您解答疑问</p>
+                    </div>
+                </a>
+            </li>
+            <li class="li-item">
+                <a href="//arbit.shop.jd.com/consult/consult_consultList.action" style="text-decoration:none;" target="_blank" clstag="pageclick|keycount|helpcenter_questionbox_list|3">
+                    <div class="cact-bd item-cont">
+                        <img src="/img/workorder.png" style="height: 44px; position: absolute; top: 10px; left: 40px;">
+                        <h3 class="title">咨询单填报</h3>
+                        <p class="describe-text">疑难杂症，咨询单提报</p>
+                        <p class="describe-text">京东内部部门联动解决</p>
+                    </div>
+                </a>
+            </li>
+            <li class="li-item">
+                <a href="//dd1-web.jd.com/jd/chat?entry=jd_srv_vd" style="text-decoration:none;" target="_blank" clstag="pageclick|keycount|helpcenter_questionbox_list|4">
+                    <div class="cact-bd item-cont">
+                        <img src="/img/kefu.png" style="height: 44px; position: absolute; top: 10px; left: 40px;">
+                        <h3 class="title">人工客服</h3>
+                        <p class="describe-text">人工客服</p>
+                        <p class="describe-text">为您提供专业帮助</p>
+                    </div>
+                </a>
+            </li>
+    </div>
+</div>

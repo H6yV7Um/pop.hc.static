@@ -1,0 +1,33 @@
+#set($layout="admin/default.vm")
+#set($title="场景化按钮修改完毕")
+
+#if($!result.success)
+<div class="jumbotron">
+    <div class="container">
+        <h3>
+             	修改已完成！
+        </h3>
+
+        <p><b id="t"></b>秒后自动返回或<a href="$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData("catalog.pid",$!{cataId})">点这里</a>立即返回。</p>
+    </div>
+</div>
+
+#end
+<script>
+    var t = 3;
+    var href = '$!helpAdminModule.getTarget("/help/catalog/catalog_findAll.action").addQueryData("catalog.pid",$!{cataId})';
+    $(function () {
+        $("#t").text(t);
+        var interval = setInterval("countDown()", 1000);
+    });
+
+    function countDown() {
+        t--;
+        if (t == 0) {
+            window.location.href = href;
+        } else {
+            $("#t").text(t);
+        }
+
+    }
+</script>

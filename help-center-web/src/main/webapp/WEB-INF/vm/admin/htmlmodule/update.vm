@@ -1,0 +1,103 @@
+#set($layout="admin/default.vm")
+#set($title="内容维护")
+<div class="container-fluid">
+    <div class="row">
+        <iframe width="100%" height="300px"
+                src="/help/htmlmodule/htmlmodule_preview.action?htmlModule.id=$!htmlModule.id&site.id=$!site.id"></iframe>
+    </div>
+    <div class="row">
+        <form id="htmlForm" name="htmlForm" role="form" method="post"
+              class="form-horizontal m_b_100">
+            <input type="hidden" name="site.id" value="$!site.id"/>
+            <input type="hidden" name="htmlModule.id" value="$!htmlModule.id"/>
+            <input type="hidden" name="htmlModule.refUrl" value="$!htmlModule.refUrl"/>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="htmlModule.key" class="col-sm-1 control-label">内容引用标识</label>
+
+                        <div class="col-sm-11">
+                            <input type="text" name="htmlModule.key" class="form-control" readonly
+                                   value="$!htmlModule.key">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="htmlModule.name" class="col-sm-1 control-label">内容名称</label>
+
+                        <div class="col-sm-11">
+                            <input type="text" name="htmlModule.name" class="form-control" value="$!htmlModule.name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="htmlModule.notes" class="col-sm-1 control-label">备注</label>
+
+                        <div class="col-sm-11">
+                            <textarea class="form-control" rows="3"
+                                      name="htmlModule.notes">$!htmlModule.notes</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-11 col-sm-offset-1">
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" name="htmlModule.content"
+                                    type="text/plain">$!htmlModule.content</script>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <div class="well text-center affix">
+            <button type="button" class="btn btn-primary btn-lg" onclick="preview()">预 览</button>
+            <button type="button" class="btn btn-primary btn-lg" onclick="save()">保 存</button>
+        </div>
+        <!-- 配置文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript"
+                src="/static/ueditor1_4_3-gbk/ueditor.all.js"></script>
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+            var editor = UE.getEditor(
+                    'container',
+                    {
+                        toolbars: [
+                            ['fullscreen', 'source', 'undo', 'redo']
+                        ],
+
+                        autoHeightEnabled: false,
+                        initialFrameHeight: 400,
+                        allowDivTransToP: false,
+                        sourceEditorFirst: true,
+                        maximumWords:20000,
+                        wordOverFlowMsg:'<span style="color:red;">你输入的字符个数已经超出最大允许值（20000个字符），请删除部分字符！</span>'
+                    });
+        </script>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var save = function () {
+        if (editor.queryCommandState('source') == 1) {
+            editor.execCommand('source');
+        }
+        var actionUrl = 'htmlmodule_doUpdate.action';
+        jQuery('#htmlForm').attr('action', actionUrl).attr('target', '_self');
+        jQuery('#htmlForm').submit();
+
+    };
+
+    var preview = function () {
+        if (editor.queryCommandState('source') == 1) {
+            editor.execCommand('source');
+        }
+        var actionUrl = '$venderHelpCenterModule.getTarget("/pagePreview.action")';
+        jQuery('#htmlForm').attr('action', actionUrl).attr("target", "_blank");
+        jQuery('#htmlForm').submit();
+    };
+
+</script>

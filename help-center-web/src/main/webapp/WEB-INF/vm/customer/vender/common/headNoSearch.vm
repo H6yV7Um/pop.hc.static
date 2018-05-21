@@ -1,0 +1,81 @@
+##<script type="text/javascript" src="//wl.360buy.com/wl.js"></script>
+<div class="l-header-wrap">
+    <div class="b-bifrost"></div>
+    <div class="l-header-box">
+        <div class="b-logo-box">
+            <a href="/venderportal/index.html" clstag="pageclick|keycount|helpcenter_home|6" class="h-logo-link">
+                <img src="//static.360buyimg.com/shop/pop_help/widget/h-header/images/help-logo.png" alt=""></a>
+        </div>
+        <!-- b-logo-box -->
+        <ul class="b-nav-box">
+            <li id="nav-home" class="item-nav">
+                <a href="$venderHelpCenterModule.getTarget("/venderportal/index.html")" clstag="pageclick|keycount|helpcenter_home|6" class="link-dlk">Ê×Ò³</a>
+            </li>
+        </ul>
+        <!-- b-nav -->
+
+        <div class="b-usercenter-box">
+            #if($!sysLoginContext.getUserPin())
+                <div class="h-usercenter-box">
+                    <div class="b-hd"> <i class="hd-icon-usercenter"></i>
+                        <span class="header-seller-name">
+                            #if($!sysLoginContext.getShopName())
+                                $!sysLoginContext.getShopName()
+                            #else
+                                $!sysLoginContext.getUserPin()
+                            #end
+                        </span> <i class="hd-icon-drop"></i>
+                    </div>
+                    <div class="b-bd">
+                        <div class="usercenter-item">
+                            <i class="hd-icon-exit"></i>
+                            <a id="help_logout" href="/logout/logout.action">ÍË³ö</a>
+                        </div>
+
+                    </div>
+                </div>
+            #else
+                <div class="h-login-box">
+                    <i class="hd-icon-usercenter"></i>
+                    <a id="help_login" href="$venderHelpCenterModule.getTarget("/login/login.action")" clstag="pageclick|keycount|helpcenter_home|2" class="link-login">µÇÂ¼</a>
+                    <span class="txt-grey">|</span>
+                    <a href="javascript:regist();" class="link-regist">×¢²á</a>
+                </div>
+            #end
+        <!-- usercenter -->
+    </div>
+    <!-- l-header-box -->
+<!--/ /widget/h-header/h-header.vm -->
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            if(pageConfig.navId){
+                var object = jQuery("#nav-"+pageConfig.navId);
+                if(object){
+                    object.addClass("on");
+                }
+            }
+            var loginActionUrl = jQuery("#help_login").attr("href");
+            var logoutActionUrl = jQuery("#help_logout").attr("href");
+            jQuery("#help_login").attr("href",loginActionUrl+"?toDirectUrl="+window.location.href);
+            jQuery("#help_logout").attr("href",logoutActionUrl+"?toDirectUrl="+window.location.href);
+        });
+
+    </script>
+
+</div>
+
+<script type="text/javascript">
+    var jaq = jaq || [];
+    jaq.push(['account', 'JA2017_113662']); //Õ¾µã±àºÅ
+    jaq.push(['domain', 'jd.com']);  //Õ¾µãÓòÃû
+
+    (function () {
+        var ja = document.createElement('script');
+        ja.type = 'text/javascript';
+        ja.async = true;
+        ja.src = ('https:' == document.location.protocol ? 'https://cscssl' : 'http://csc') + '.jd.com/joya.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ja, s);
+    })();
+</script>
